@@ -1,0 +1,82 @@
+[
+  {
+    "id": 0,
+    "date": "Fri, 13 Jan 2023 00:00:00 -0000",
+    "from": "Antoine Richard <a.richard@musee-calvet.org>",
+    "to": "Thomas Berger <thomas.berger@archives-vaucluse.fr>",
+    "subject": "Demande d'information - Archives communales",
+    "direction": "received"
+  },
+  {
+    "id": 1,
+    "date": "Fri, 14 Jul 2023 00:00:00 -0000",
+    "from": "Thomas Berger <thomas.berger@archives-vaucluse.fr>",
+    "to": "Pierre Dupont <pierre.dupont@mairie-avignon.fr>",
+    "subject": "Demande d'information - Archives communales",
+    "direction": "sent"
+  },
+  {
+    "id": 2,
+    "date": "Sun, 18 Jun 2023 00:00:00 -0000",
+    "from": "Sylvie Petit <s.petit@region-sud.fr>",
+    "to": "Thomas Berger <thomas.berger@archives-vaucluse.fr>",
+    "subject": "Rapport d'activité 2022 - Demande de contribution",
+    "direction": "received"
+  },
+  {
+    "id": 3,
+    "date": "Thu, 02 Feb 2023 00:00:00 -0000",
+    "from": "Christine Fabre <c.fabre@bibliotheque.avignon.fr>",
+    "to": "Thomas Berger <thomas.berger@archives-vaucluse.fr>",
+    "subject": "Réunion de service - 02/02/2023",
+    "direction": "received"
+  },
+  {
+    "id": 4,
+    "date": "Thu, 12 Oct 2023 00:00:00 -0000",
+    "from": "Thomas Berger <thomas.berger@archives-vaucluse.fr>",
+    "to": "Marc Lambert <m.lambert@education.gouv.fr>",
+    "subject": "Partenariat avec Mairie d'Avignon - Proposition",
+    "direction": "sent"
+  },
+  {
+    "id": 5,
+    "date": "Thu, 16 Nov 2023 00:00:00 -0000",
+    "from": "Pierre Dupont <pierre.dupont@mairie-avignon.fr>",
+    "to": "Thomas Berger <thomas.berger@archives-vaucluse.fr>",
+    "subject": "Modification des horaires d'ouverture",
+    "direction": "received"
+  },
+  {
+    "id": 6,
+    "date": "Tue, 10 Oct 2023 00:00:00 -0000",
+    "from": "Thomas Berger <thomas.berger@archives-vaucluse.fr>",
+    "to": "Sylvie Petit <s.petit@region-sud.fr>",
+    "subject": "Sauvegardes - Incident système",
+    "direction": "sent"
+  },
+  {
+    "id": 7,
+    "date": "Tue, 19 Sep 2023 00:00:00 -0000",
+    "from": "Paul Mercier <p.mercier@siaf.culture.gouv.fr>",
+    "to": "Thomas Berger <thomas.berger@archives-vaucluse.fr>",
+    "subject": "Demande de devis - Prestation de numérisation",
+    "direction": "received"
+  },
+  {
+    "id": 8,
+    "date": "Wed, 03 May 2023 00:00:00 -0000",
+    "from": "Thomas Berger <thomas.berger@archives-vaucluse.fr>",
+    "to": "Sylvie Petit <s.petit@region-sud.fr>",
+    "subject": "Note de service: Procédures d'archivage électronique",
+    "direction": "sent"
+  },
+  {
+    "id": 9,
+    "date": "Wed, 14 Jun 2023 00:00:00 -0000",
+    "from": "Thomas Berger <thomas.berger@archives-vaucluse.fr>",
+    "to": "Christine Fabre <c.fabre@bibliotheque.avignon.fr>",
+    "subject": "Réunion de service - 14/06/2023",
+    "direction": "sent"
+  }
+]

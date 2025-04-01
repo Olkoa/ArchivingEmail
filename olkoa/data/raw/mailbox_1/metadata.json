@@ -1,0 +1,82 @@
+[
+  {
+    "id": 0,
+    "date": "Fri, 31 Mar 2023 00:00:00 -0000",
+    "from": "Marc Lambert <m.lambert@education.gouv.fr>",
+    "to": "Marie Durand <marie.durand@archives-vaucluse.fr>",
+    "subject": "Modification des horaires d'ouverture",
+    "direction": "received"
+  },
+  {
+    "id": 1,
+    "date": "Mon, 08 May 2023 00:00:00 -0000",
+    "from": "Christine Fabre <c.fabre@bibliotheque.avignon.fr>",
+    "to": "Marie Durand <marie.durand@archives-vaucluse.fr>",
+    "subject": "Médiation numérique - Nouveau projet",
+    "direction": "received"
+  },
+  {
+    "id": 2,
+    "date": "Sat, 04 Mar 2023 00:00:00 -0000",
+    "from": "Lucie Bernard <l.bernard@culture.gouv.fr>",
+    "to": "Marie Durand <marie.durand@archives-vaucluse.fr>",
+    "subject": "Projet de numérisation - Fonds Fonds photographique Duval",
+    "direction": "received"
+  },
+  {
+    "id": 3,
+    "date": "Sat, 09 Dec 2023 00:00:00 -0000",
+    "from": "Marie Durand <marie.durand@archives-vaucluse.fr>",
+    "to": "Paul Mercier <p.mercier@siaf.culture.gouv.fr>",
+    "subject": "Ordre du jour - Comité technique du 09/12/2023",
+    "direction": "sent"
+  },
+  {
+    "id": 4,
+    "date": "Sat, 23 Sep 2023 00:00:00 -0000",
+    "from": "Jeanne Moreau <j.moreau@departement84.fr>",
+    "to": "Marie Durand <marie.durand@archives-vaucluse.fr>",
+    "subject": "Note de service: Procédures d'archivage électronique",
+    "direction": "received"
+  },
+  {
+    "id": 5,
+    "date": "Sun, 24 Sep 2023 00:00:00 -0000",
+    "from": "Marie Durand <marie.durand@archives-vaucluse.fr>",
+    "to": "Antoine Richard <a.richard@musee-calvet.org>",
+    "subject": "Recherche généalogique - Famille Richard",
+    "direction": "sent"
+  },
+  {
+    "id": 6,
+    "date": "Thu, 18 May 2023 00:00:00 -0000",
+    "from": "Marie Durand <marie.durand@archives-vaucluse.fr>",
+    "to": "Christine Fabre <c.fabre@bibliotheque.avignon.fr>",
+    "subject": "Budget prévisionnel 2024 - Préparation",
+    "direction": "sent"
+  },
+  {
+    "id": 7,
+    "date": "Thu, 28 Sep 2023 00:00:00 -0000",
+    "from": "Marie Durand <marie.durand@archives-vaucluse.fr>",
+    "to": "Marc Lambert <m.lambert@education.gouv.fr>",
+    "subject": "Maintenance réseau - Interruption de service",
+    "direction": "sent"
+  },
+  {
+    "id": 8,
+    "date": "Tue, 24 Oct 2023 00:00:00 -0000",
+    "from": "Marc Lambert <m.lambert@education.gouv.fr>",
+    "to": "Marie Durand <marie.durand@archives-vaucluse.fr>",
+    "subject": "Planification des congés d'été 2023",
+    "direction": "received"
+  },
+  {
+    "id": 9,
+    "date": "Wed, 15 Feb 2023 00:00:00 -0000",
+    "from": "Marie Durand <marie.durand@archives-vaucluse.fr>",
+    "to": "Christine Fabre <c.fabre@bibliotheque.avignon.fr>",
+    "subject": "Sauvegardes - Incident système",
+    "direction": "sent"
+  }
+]
