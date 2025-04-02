@@ -1,5 +1,0 @@
-[server]
-fileWatcherType = "none"
-
-[global]
-disableWatchdogWarning = true
