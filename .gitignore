@@ -1,0 +1,5 @@
+*.eml
+.DS_Store
+*.pst
+*.docx
+*.zip
