@@ -44,8 +44,8 @@ def extract_from_mbox(boxname):
     with open(f"{directory}/{box}.json", "w", encoding="utf-8") as f:
         json.dump(emails_data, f, indent=2, ensure_ascii=False)
     
-    print(f"{len(emails_data)} emails saved to emails_output.json")
     
+
     
 def getcharsets(msg):
     charsets = set({})
