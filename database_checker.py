@@ -207,6 +207,8 @@ def get_schema():
         ORDER BY table_name, ordinal_position
     """).fetchall()
 
+    print(schema_data)
+
     # Structure the data for the frontend
     tables_map = {}
 
