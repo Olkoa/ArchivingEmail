@@ -1,5 +1,6 @@
 import re
 from collections import defaultdict
+import duckdb
 
 def parse_schema(schema_str):
     """Parse the SQL schema string into a structured format."""
@@ -107,7 +108,28 @@ def sql_schema_to_mermaid(schema_str):
 # Example usage
 if __name__ == "__main__":
     # Sample schema string from the example
-    schema_str = """[('main', 'attachments', 'id', 'VARCHAR'), ('main', 'attachments', 'email_id', 'VARCHAR'), ('main', 'attachments', 'filename', 'VARCHAR'), ('main', 'attachments', 'content', 'BLOB'), ('main', 'attachments', 'content_type', 'VARCHAR'), ('main', 'attachments', 'size', 'INTEGER'), ('main', 'email_children', 'parent_id', 'VARCHAR'), ('main', 'email_children', 'child_id', 'VARCHAR'), ('main', 'email_recipients_bcc', 'email_id', 'VARCHAR'), ('main', 'email_recipients_bcc', 'entity_id', 'VARCHAR'), ('main', 'email_recipients_cc', 'email_id', 'VARCHAR'), ('main', 'email_recipients_cc', 'entity_id', 'VARCHAR'), ('main', 'email_recipients_to', 'email_id', 'VARCHAR'), ('main', 'email_recipients_to', 'entity_id', 'VARCHAR'), ('main', 'entities', 'id', 'VARCHAR'), ('main', 'entities', 'name', 'VARCHAR'), ('main', 'entities', 'email', 'VARCHAR'), ('main', 'entities', 'alias_names', 'JSON'), ('main', 'entities', 'is_physical_person', 'BOOLEAN'), ('main', 'entity_alias_emails', 'id', 'VARCHAR'), ('main', 'entity_alias_emails', 'entity_id', 'VARCHAR'), ('main', 'entity_alias_emails', 'email', 'VARCHAR'), ('main', 'entity_positions', 'entity_id', 'VARCHAR'), ('main', 'entity_positions', 'position_id', 'VARCHAR'), ('main', 'mailing_lists', 'id', 'VARCHAR'), ('main', 'mailing_lists', 'name', 'VARCHAR'), ('main', 'mailing_lists', 'description', 'VARCHAR'), ('main', 'mailing_lists', 'email_address', 'VARCHAR'), ('main', 'organizations', 'id', 'VARCHAR'), ('main', 'organizations', 'name', 'VARCHAR'), ('main', 'organizations', 'description', 'VARCHAR'), ('main', 'organizations', 'email_address', 'VARCHAR'), ('main', 'positions', 'id', 'VARCHAR'), ('main', 'positions', 'name', 'VARCHAR'), ('main', 'positions', 'start_date', 'TIMESTAMP'), ('main', 'positions', 'end_date', 'TIMESTAMP'), ('main', 'positions', 'description', 'VARCHAR'), ('main', 'positions', 'organization_id', 'VARCHAR'), ('main', 'receiver_emails', 'id', 'VARCHAR'), ('main', 'receiver_emails', 'sender_email_id', 'VARCHAR'), ('main', 'receiver_emails', 'sender_id', 'VARCHAR'), ('main', 'receiver_emails', 'reply_to_id', 'VARCHAR'), ('main', 'receiver_emails', 'timestamp', 'TIMESTAMP'), ('main', 'receiver_emails', 'subject', 'VARCHAR'), ('main', 'receiver_emails', 'body', 'VARCHAR'), ('main', 'receiver_emails', 'body_html', 'VARCHAR'), ('main', 'receiver_emails', 'has_html', 'BOOLEAN'), ('main', 'receiver_emails', 'is_deleted', 'BOOLEAN'), ('main', 'receiver_emails', 'folder', 'VARCHAR'), ('main', 'receiver_emails', 'is_spam', 'BOOLEAN'), ('main', 'receiver_emails', 'mailing_list_id', 'VARCHAR'), ('main', 'receiver_emails', 'importance_score', 'INTEGER'), ('main', 'receiver_emails', 'mother_email_id', 'VARCHAR'), ('main', 'receiver_emails', 'message_id', 'VARCHAR'), ('main', 'receiver_emails', 'references', 'VARCHAR'), ('main', 'receiver_emails', 'in_reply_to', 'VARCHAR'), ('main', 'sender_emails', 'id', 'VARCHAR'), ('main', 'sender_emails', 'sender_id', 'VARCHAR'), ('main', 'sender_emails', 'body', 'VARCHAR'), ('main', 'sender_emails', 'timestamp', 'TIMESTAMP')]"""
+
+    """API endpoint to get the database schema as JSON"""
+    # Connect to your DuckDB database
+    conn = duckdb.connect('data/database/database.duckdb')  # Change to your database path
+
+    # Get all tables and columns
+    schema_data = conn.execute("""
+        SELECT
+            table_schema,
+            table_name,
+            column_name,
+            data_type
+        FROM information_schema.columns
+        WHERE table_schema = 'main'
+        ORDER BY table_name, ordinal_position
+    """).fetchall()
+
+    print(schema_data)
+    schema_str = str(schema_data)
 
     mermaid_diagram = sql_schema_to_mermaid(schema_str)
     print(mermaid_diagram)
+    # Write the Mermaid diagram to a file
+    with open('mermaid.md', 'w') as f:
+        f.write(mermaid_diagram)
