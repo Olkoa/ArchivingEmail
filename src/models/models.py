@@ -59,7 +59,7 @@ class Attachment(BaseModel):
 class ReceiverEmail(BaseModel):
     id: str
     sender_email: SenderEmail
-    sender: Entity
+    sender: Optional[Entity] = None
     to: Optional[List[Entity]] = None
     reply_to: Optional[Entity] = None
     cc: Optional[List[Entity]] = None
