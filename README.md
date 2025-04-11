@@ -127,3 +127,42 @@ Coordination entre équipes: définition claire des rôles et canaux de communic
 Confidentialité: mise en place de procédures strictes de gestion des accès
 Données personnelles: mécanismes de pseudonymisation dès le début du projet
 Qualité variable des corpus: stratégies de prétraitement adaptatives
+
+
+
+------------------------------------------------------------
+
+Notes devs
+
+**Installation de l'outil de transformation des fichiers pst en fichier eml.**
+
+Il nous restera à gérer le scénario mbox to eml. mais on peut gérer les pst et les eml en entrée pour le moment.
+
+
+Installation des libs sous linux Ubuntu:
+
+```cli                                                                                                                 
+sudo apt update
+sudo apt install pst-utils
+```
+
+Commande pour transformer le fichier PST en architecture de dossiers contenant des fichiers .eml
+                                                                       
+```cli
+readpst -j 0 -e -o output_path path_to_pst_file        
+```
+
+Et pour compter le nombre de mails présents dans les boîtes:
+
+```cli
+find output_path -type f -iname "*.eml" | wc -l       
+```
+
+
+Version du système:
+```cli
+Distributor ID: Ubuntu
+Description:    Ubuntu 20.04.3 LTS
+Release:        20.04
+Codename:       focal
+```

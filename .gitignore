@@ -1,5 +1,27 @@
-*.eml
-.DS_Store
+# All
+
+### Le dossier contenant toute la data nettoyé en général
+processed
+
 *.pst
+*.mbox
+*.eml
+*.contacts
+*.calendar
+
+.DS_Store
+
 *.docx
 *.zip
+
+*.db
+*.duckdb*
+
+
+
+# Julien
+*pycache*
+.python-version
+elasticsearch-8.12.1-linux-x86_64.tar.gz
+elasticsearch-8.12.1
+dump
