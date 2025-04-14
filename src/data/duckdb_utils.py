@@ -1,6 +1,8 @@
 from typing import Union
 import duckdb
 from pathlib import Path
+import logging
+
 
 def setup_database(db_path: Union[str, Path]) -> duckdb.DuckDBPyConnection:
     """Set up the DuckDB database schema with proper types and indexes
@@ -102,8 +104,6 @@ def setup_database(db_path: Union[str, Path]) -> duckdb.DuckDBPyConnection:
         timestamp TIMESTAMP,
         subject VARCHAR,
         body TEXT,
-        body_html TEXT,
-        has_html BOOLEAN,
         is_deleted BOOLEAN DEFAULT FALSE,
         folder VARCHAR DEFAULT 'inbox',
         is_spam BOOLEAN DEFAULT FALSE,
@@ -185,3 +185,111 @@ def setup_database(db_path: Union[str, Path]) -> duckdb.DuckDBPyConnection:
     conn.execute('CREATE INDEX IF NOT EXISTS idx_attachments_email_id ON attachments(email_id)')
 
     return conn
+
+
+
+def find_email_references(db_path: Union[str, Path], email_id: str) -> dict:
+    """
+    Find all references to a specific email ID across all tables in the database.
+
+    Args:
+        db_path: Path to the DuckDB database file
+        email_id: The email ID to search for
+
+    Returns:
+        dict: A dictionary with table names as keys and lists of matching column names as values
+    """
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    logger = logging.getLogger(__name__)
+
+    logger.info(f"Connecting to database at {db_path}")
+    conn = duckdb.connect(db_path)
+
+    try:
+        # Get a list of all tables
+        tables_result = conn.execute("""
+            SELECT table_name
+            FROM information_schema.tables
+            WHERE table_schema = 'main'
+        """).fetchall()
+        tables = [row[0] for row in tables_result]
+
+        logger.info(f"Found {len(tables)} tables to check")
+
+        # Get a list of all columns in each table
+        all_tables_columns = {}
+        for table in tables:
+            cols_result = conn.execute(f"""
+                SELECT column_name, data_type
+                FROM information_schema.columns
+                WHERE table_schema = 'main' AND table_name = '{table}'
+            """).fetchall()
+            all_tables_columns[table] = [(row[0], row[1]) for row in cols_result]
+
+        # Check each table for references to the email ID
+        references = {}
+
+        for table, columns in all_tables_columns.items():
+            logger.info(f"Checking table: {table}")
+
+            table_references = []
+
+            for column_name, data_type in columns:
+                # Only check string-like columns that could hold IDs
+                if 'char' in data_type.lower() or 'varchar' in data_type.lower():
+                    try:
+                        result = conn.execute(f"""
+                            SELECT COUNT(*)
+                            FROM {table}
+                            WHERE {column_name} = ?
+                        """, [email_id]).fetchone()
+
+                        count = result[0] if result else 0
+
+                        if count > 0:
+                            logger.info(f"Found {count} references in {table}.{column_name}")
+                            table_references.append(column_name)
+
+                            # Get some sample rows to better understand the reference
+                            sample_rows = conn.execute(f"""
+                                SELECT *
+                                FROM {table}
+                                WHERE {column_name} = ?
+                                LIMIT 3
+                            """, [email_id]).fetchall()
+
+                            # Get column names for this table
+                            col_names = [col[0] for col in all_tables_columns[table]]
+
+                            # Log sample rows
+                            for row in sample_rows:
+                                row_dict = {col_names[i]: row[i] for i in range(len(col_names))}
+                                logger.info(f"Sample row: {row_dict}")
+
+                    except Exception as e:
+                        logger.error(f"Error checking {table}.{column_name}: {e}")
+
+            if table_references:
+                references[table] = table_references
+
+        if not references:
+            logger.info(f"No references found for email ID: {email_id}")
+        else:
+            logger.info(f"Found references in {len(references)} tables: {list(references.keys())}")
+
+        return references
+
+    except Exception as e:
+        logger.error(f"Error in find_email_references: {e}")
+        raise
+
+    finally:
+        conn.close()
+        logger.info("Database connection closed.")
+
+if __name__ == "__main__":
+    db_path="data/Projects/database.duckdb"
+
+    # Example usage
+    # email_id = "509779ea-9914-4b3b-8a9a-edfc32498383"  # The problematic ID from the error message
+    # references = find_email_references(db_path, email_id)

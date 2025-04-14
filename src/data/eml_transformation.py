@@ -204,7 +204,6 @@ def extract_clean_text_from_html(html_content):
 def get_email_body(message):
     """Extract body text from email message, handling HTML correctly"""
     body_text = ""
-    body_html = ""
 
     if message.is_multipart():
         for part in message.walk():
@@ -223,41 +222,26 @@ def get_email_body(message):
                 charset = part.get_content_charset() or 'utf-8'
                 decoded_payload = payload.decode(charset, errors='replace')
 
-                if content_type == "text/plain":
-                    body_text += decoded_payload
-                elif content_type == "text/html":
-                    body_html += decoded_payload
+                body_text += decoded_payload
             except:
                 continue
     else:
         # Not multipart - get payload directly
         try:
-            content_type = message.get_content_type()
             payload = message.get_payload(decode=True)
             if payload:
                 charset = message.get_content_charset() or 'utf-8'
                 decoded_payload = payload.decode(charset, errors='replace')
 
-                if content_type == "text/plain":
-                    body_text = decoded_payload
-                elif content_type == "text/html":
-                    body_html = decoded_payload
+                body_text = decoded_payload
         except:
             pass
 
     # Prefer HTML content but fall back to plain text
-    if body_html:
-        return {
-            "html": body_html,
-            "text": extract_clean_text_from_html(body_html),
-            "has_html": True
-        }
-    else:
-        return {
-            "html": "",
-            "text": body_text,
-            "has_html": False
-        }
+
+    return {
+        "text": body_text,
+    }
 
 def extract_attachments_info(message):
     """Extract information about attachments with better error handling"""
@@ -412,11 +396,8 @@ def extract_message_data(message, folder_name):
         body_content = get_email_body(message)
     except Exception as e:
         print(f"Error extracting body: {e}")
-        body_content = {
-            "text": "",
-            "html": "",
-            "has_html": False
-        }
+        body_content = {"text": ""},
+
 
     # Get attachment info with careful error handling
     attachments = []
@@ -520,8 +501,6 @@ def extract_message_data(message, folder_name):
         'timestamp': timestamp,
         'subject': subject,
         'body': body_content["text"],
-        'body_html': body_content["html"] if body_content["has_html"] else None,
-        'has_html': body_content["has_html"],
         'is_deleted': False,
         'folder': folder_name,
         'is_spam': False,
@@ -539,7 +518,6 @@ def extract_message_data(message, folder_name):
 
 
 def collect_email_data(directory: Union[str, Path],
-                       include_html: bool = True,
                        include_attachments: bool = True) -> List[Dict[str, Any]]:
     """
     Recursively process all .eml files in the directory and its subdirectories
@@ -580,10 +558,6 @@ def collect_email_data(directory: Union[str, Path],
 
             # Add the file path for reference
             email_data['file_path'] = str(eml_path)
-
-            # Optionally exclude HTML content to reduce data size
-            if not include_html:
-                email_data.pop('body_html', None)
 
             # Optionally simplify attachment info to reduce data size
             if not include_attachments:

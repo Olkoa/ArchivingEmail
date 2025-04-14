@@ -2,7 +2,6 @@ import duckdb
 import pandas as pd
 import re
 
-
 class EmailAnalyzer:
     """Class for analyzing the email database using DuckDB"""
 
@@ -106,14 +105,14 @@ class EmailAnalyzer:
                 sender.name AS sender_name,
                 sender.email AS sender_email,
                 (SELECT string_agg(e.name, ', ')
-                 FROM email_recipients_to ert
-                 JOIN entities e ON ert.entity_id = e.id
-                 WHERE ert.email_id = re.id) AS to_recipients,
+                FROM email_recipients_to ert
+                JOIN entities e ON ert.entity_id = e.id
+                WHERE ert.email_id = re.id) AS to_recipients,
                 (SELECT string_agg(e.name, ', ')
-                 FROM email_recipients_cc ercc
-                 JOIN entities e ON ercc.entity_id = e.id
-                 WHERE ercc.email_id = re.id) AS cc_recipients,
-                CASE WHEN has_html = TRUE THEN body_html ELSE body END AS content
+                FROM email_recipients_cc ercc
+                JOIN entities e ON ercc.entity_id = e.id
+                WHERE ercc.email_id = re.id) AS cc_recipients,
+                body AS content
             FROM receiver_emails re
             JOIN entities sender ON re.sender_id = sender.id
             WHERE re.message_id = ?
@@ -248,3 +247,120 @@ class EmailAnalyzer:
     def _row_to_dict(self, row, column_names):
         """Helper method to convert a row tuple to a dictionary"""
         return {column_names[i]: row[i] for i in range(len(column_names)) if i < len(row)}
+
+
+    def get_comprehensive_email_dataset(self, limit=None):
+        """
+        Get a comprehensive dataset combining relevant information from all tables.
+        This creates a single dataframe with emails and all their associated metadata.
+
+        Args:
+            limit: Optional limit on the number of rows returned
+
+        Returns:
+            pandas DataFrame with comprehensive email data
+        """
+        conn = self.connect()
+
+        query = """
+        SELECT
+            -- Email core data
+            re.id AS email_id,
+            re.message_id,
+            re.timestamp,
+            re.subject,
+            re.body,
+            re.folder,
+            re.is_deleted,
+            re.is_spam,
+            re.importance_score,
+            re.in_reply_to,
+            re."references",
+
+            -- Sender information
+            sender.id AS sender_id,
+            sender.name AS sender_name,
+            sender.email AS sender_email,
+            sender.is_physical_person AS sender_is_person,
+
+            -- Reply-to information
+            reply_to.id AS reply_to_id,
+            reply_to.name AS reply_to_name,
+            reply_to.email AS reply_to_email,
+
+            -- Recipients (aggregated)
+            (SELECT string_agg(e.name, ', ')
+            FROM email_recipients_to ert
+            JOIN entities e ON ert.entity_id = e.id
+            WHERE ert.email_id = re.id) AS to_recipients,
+
+            (SELECT string_agg(e.email, ', ')
+            FROM email_recipients_to ert
+            JOIN entities e ON ert.entity_id = e.id
+            WHERE ert.email_id = re.id) AS to_emails,
+
+            (SELECT string_agg(e.name, ', ')
+            FROM email_recipients_cc ercc
+            JOIN entities e ON ercc.entity_id = e.id
+            WHERE ercc.email_id = re.id) AS cc_recipients,
+
+            (SELECT string_agg(e.email, ', ')
+            FROM email_recipients_cc ercc
+            JOIN entities e ON ercc.entity_id = e.id
+            WHERE ercc.email_id = re.id) AS cc_emails,
+
+            (SELECT string_agg(e.name, ', ')
+            FROM email_recipients_bcc erbcc
+            JOIN entities e ON erbcc.entity_id = e.id
+            WHERE erbcc.email_id = re.id) AS bcc_recipients,
+
+            (SELECT string_agg(e.email, ', ')
+            FROM email_recipients_bcc erbcc
+            JOIN entities e ON erbcc.entity_id = e.id
+            WHERE erbcc.email_id = re.id) AS bcc_emails,
+
+            -- Mailing list information
+            ml.id AS mailing_list_id,
+            ml.name AS mailing_list_name,
+            ml.email_address AS mailing_list_email,
+
+            -- Attachment information (counts and aggregate info)
+            (SELECT COUNT(*) FROM attachments a WHERE a.email_id = re.id) AS attachment_count,
+            (SELECT string_agg(a.filename, ', ') FROM attachments a WHERE a.email_id = re.id) AS attachment_filenames,
+            (SELECT SUM(a.size) FROM attachments a WHERE a.email_id = re.id) AS total_attachment_size,
+
+            -- Thread information
+            (SELECT COUNT(*) FROM email_children ec WHERE ec.parent_id = re.id) AS child_email_count,
+            re.mother_email_id
+        FROM
+            receiver_emails re
+        LEFT JOIN
+            entities sender ON re.sender_id = sender.id
+        LEFT JOIN
+            entities reply_to ON re.reply_to_id = reply_to.id
+        LEFT JOIN
+            mailing_lists ml ON re.mailing_list_id = ml.id
+        """
+
+        if limit:
+            query += f" LIMIT {limit}"
+
+        # Execute the query and convert to DataFrame
+        df = conn.execute(query).df()
+
+        # Convert timestamps to proper datetime format
+        if 'timestamp' in df.columns and not pd.api.types.is_datetime64_any_dtype(df['timestamp']):
+            df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
+
+        return df
+
+
+if __name__ == "__main__":
+
+    email_analyzer = EmailAnalyzer(db_path="data/Projects/database.duckdb")
+
+    # Get first 1000 emails with comprehensive data
+    df = email_analyzer.get_comprehensive_email_dataset(limit=10)
+    print(df.shape[0], "emails retrieved")
+    print(df.columns)
+    print(df.head(1))
