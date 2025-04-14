@@ -19,7 +19,9 @@ processed
 *.db
 *.duckdb*
 
-
+.env
+*.log
+*.json
 
 # Julien
 *pycache*
