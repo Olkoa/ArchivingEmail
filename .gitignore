@@ -3,11 +3,14 @@
 
 
 ### Le dossier contenant toute la data nettoyé en général
-processed
+# processed
 
 *.pst
 *.mbox
 *.eml
+
+*.ics
+*.vcf
 *.contacts
 *.calendar
 
