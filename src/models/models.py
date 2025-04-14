@@ -4,6 +4,10 @@ from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional
 from datetime import datetime
 
+import asyncio
+import nest_asyncio
+from email_normalize import Normalizer
+
 class EmailAddress(BaseModel):
     email: str
 
@@ -20,6 +24,21 @@ class EmailAddress(BaseModel):
         # Validate it has basic email format
         if '@' not in cleaned or '.' not in cleaned.split('@')[1]:
             raise ValueError(f"Invalid email format: {cleaned}")
+
+        # Apply nest_asyncio to allow nested event loops
+        nest_asyncio.apply()
+
+        # Define the async function
+        async def normalize_email(mail_adress: str) -> str:
+            normalizer = Normalizer()
+            result = await normalizer.normalize(mail_adress)
+            # print(result)
+            return result.normalized_address
+
+        # Use the current event loop instead of asyncio.run()
+        loop = asyncio.get_event_loop()
+        cleaned = loop.run_until_complete(normalize_email(cleaned))
+
         return cleaned
 
 class MailingList(BaseModel):
@@ -28,13 +47,13 @@ class MailingList(BaseModel):
     description: Optional[str] = None
     email_address: EmailAddress
 
-class Organisation(BaseModel):
+class Organisation(BaseModel): #
     id: str
     name: str
     description: Optional[str] = None
     email_address: EmailAddress
 
-class Position(BaseModel):
+class Position(BaseModel): #
     id: str
     name: str
     start_date: Optional[datetime] = None
@@ -47,8 +66,8 @@ class Entity(BaseModel):
     alias_names: Optional[List[str]] = None
     is_physical_person: bool = True
     email: EmailAddress
-    alias_emails: Optional[List[EmailAddress]] = None
-    positions: Optional[List[Position]] = None
+    alias_emails: Optional[List[EmailAddress]] = None #
+    positions: Optional[List[Position]] = None #
 
 class Attachment(BaseModel):
     filename: str
