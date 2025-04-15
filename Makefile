@@ -69,3 +69,8 @@ all: setup data run
 
 # Default target
 .DEFAULT_GOAL := help
+
+# Transform .pst files in raw in eml in processed
+.PHONY: pst_transform
+pst_transform:
+	readpst -j 0 -e -o data/processed/celine_readpst_with_S data/raw/celine.guyon.pst
