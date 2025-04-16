@@ -12,6 +12,37 @@ import os
 from pathlib import Path
 from tqdm import tqdm
 from email import policy
+from bs4 import BeautifulSoup
+
+def clean_html(html_string):
+    """
+    Clean HTML content from a string and return plain text.
+
+    Args:
+        html_string (str): HTML content as string
+
+    Returns:
+        str: Plain text with HTML removed
+    """
+    if not html_string or not isinstance(html_string, str):
+        return ""
+
+    # Parse HTML
+    soup = BeautifulSoup(html_string, "html.parser")
+
+    # Remove script and style elements
+    for script_or_style in soup(["script", "style"]):
+        script_or_style.extract()
+
+    # Get text
+    text = soup.get_text()
+
+    # Remove extra whitespace
+    lines = (line.strip() for line in text.splitlines())
+    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+    text = '\n'.join(chunk for chunk in chunks if chunk)
+
+    return text
 
 def parse_email_address(address_str: Optional[str]) -> List['Entity']:
     """
@@ -239,8 +270,10 @@ def get_email_body(message):
 
     # Prefer HTML content but fall back to plain text
 
+    #####body
+
     return {
-        "text": body_text,
+        "text": clean_html(body_text),
     }
 
 def extract_attachments_info(message):

@@ -14,7 +14,9 @@ def setup_database(db_path: Union[str, Path]) -> duckdb.DuckDBPyConnection:
         A connection to the configured DuckDB database
     """
     # Connect to DuckDB database
+    print("attempting connection")
     conn = duckdb.connect(db_path)
+    print("Connection Done")
 
     # Create tables for each Pydantic model
 
