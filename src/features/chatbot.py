@@ -2,18 +2,17 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 def setup_mistral_7b():
-    """Initialize the Mistral 7B model."""
-    # Choose the Mistral 7B Instruct model
-    model_name = "mistralai/Mistral-7B-Instruct-v0.2"
+    """Initialize the Mistral 7B model from local files."""
+    local_model_path = "./models/Mistral-7B-Instruct-v0.3"
 
-    # Load tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    # Load tokenizer from local path
+    tokenizer = AutoTokenizer.from_pretrained(local_model_path, trust_remote_code=True)
 
-    # Load model with quantization to reduce memory usage
+    # Load model with quantization for memory efficiency
     model = AutoModelForCausalLM.from_pretrained(
-        model_name,
-        device_map="auto",  # Uses GPU if available
-        load_in_4bit=True,  # 4-bit quantization for memory efficiency
+        local_model_path,
+        device_map="auto",          # Automatically use GPU if available
+        load_in_4bit=True,          # Requires bitsandbytes installed
         trust_remote_code=True
     )
 
@@ -24,7 +23,7 @@ def answer_with_mistral(question, rag_answer):
     """Generate an answer using Mistral 7B based on RAG results."""
     model, tokenizer = setup_mistral_7b()
 
-    # Format prompt for Mistral instruction model
+    # Format prompt for Mistral Instruct
     prompt = f"""<s>[INST] Based on the following information, please answer the question directly and concisely.
 
 Question: {question}
@@ -32,13 +31,15 @@ Question: {question}
 Retrieved Information:
 {rag_answer} [/INST]"""
 
-    # Generate response
+    # Tokenize and move to correct device
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+
+    # Generate response
     with torch.no_grad():
         outputs = model.generate(
             inputs.input_ids,
             max_new_tokens=200,
-            temperature=0.1,  # Low temperature for more focused answers
+            temperature=0.1,
             do_sample=True,
             top_p=0.95
         )

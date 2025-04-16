@@ -11,7 +11,10 @@ APP_DIR = app
 DATA_DIR = data
 
 # MCP command (Model Context Protocol server)
+# to edit ideally /mnt/c/Users/julie/Lab_IA_Project/
 MCP_PATH = /mnt/c/Users/julie/Projects
+
+
 MCP_COMMAND = npx -y @modelcontextprotocol/server-filesystem
 
 # Help command - displays available commands
@@ -81,3 +84,4 @@ pst_transform:
 .PHONY: ask_chatbot
 ask_chatbot:
 	python ${MCP_PATH}/olkoa/src/features/chatbot.py
+	python /mnt/c/Users/julie/Lab_IA_Project/olkoa/src/features/chatbot.py
