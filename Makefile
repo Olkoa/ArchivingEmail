@@ -81,7 +81,7 @@ pst_transform:
 
 
 # Transform .pst files in raw in eml in processed
+# python ${MCP_PATH}/olkoa/src/features/chatbot.py
 .PHONY: ask_chatbot
 ask_chatbot:
-	python ${MCP_PATH}/olkoa/src/features/chatbot.py
 	python /mnt/c/Users/julie/Lab_IA_Project/olkoa/src/features/chatbot.py

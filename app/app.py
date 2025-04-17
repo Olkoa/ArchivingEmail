@@ -31,6 +31,7 @@ sys.path.append(os.path.dirname(__file__))
 from components.email_viewer import create_email_table_with_viewer
 
 from src.data.loading import load_mailboxes
+from src.data.email_analyzer import EmailAnalyzer
 from src.features.embeddings import generate_embeddings
 from src.visualization.email_network import create_network_graph
 from src.visualization.timeline import create_timeline
@@ -60,6 +61,8 @@ st.sidebar.title("Data")
 mailbox_options = ["All Mailboxes", "Mailbox 1", "Mailbox 2", "Mailbox 3"]
 selected_mailbox = st.sidebar.selectbox("Select Mailbox:", mailbox_options)
 
+
+
 # Store selected mailbox in session state for other pages to access
 st.session_state.selected_mailbox = selected_mailbox
 
@@ -70,10 +73,10 @@ date_range = st.sidebar.date_input(
     value=(pd.to_datetime("2023-01-01"), pd.to_datetime("2023-12-31")),
 )
 
-# Load data based on selection
+# Load data from mbox files based on selection
 @st.cache_data
-def load_data(mailbox_selection):
-    """Load and cache the selected mailbox data"""
+def load_data_from_mbox(mailbox_selection):
+    """Load and cache the selected mailbox data from mbox files"""
     # Get the project root directory
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     base_dir = os.path.join(project_root, 'data', 'raw')
@@ -99,6 +102,41 @@ def load_data(mailbox_selection):
         return df
     except Exception as e:
         st.sidebar.error(f"Error loading mailboxes: {e}")
+        # Return empty DataFrame with expected columns
+        return pd.DataFrame(columns=[
+            "message_id", "date", "from", "to", "cc", "subject",
+            "body", "attachments", "has_attachments", "direction", "mailbox"
+        ])
+
+# Load data based on selection from DuckDB
+@st.cache_data
+def load_data(mailbox_selection):
+    """Load and cache the selected mailbox data from DuckDB"""
+    try:
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        db_path = os.path.join(project_root, 'data', 'Projects', 'celine.duckdb')
+
+        # Get data from DuckDB using EmailAnalyzer
+        analyzer = EmailAnalyzer(db_path=db_path)
+        df = analyzer.get_app_DataFrame()
+
+        # Filter based on mailbox selection
+        if mailbox_selection != "All Mailboxes":
+            # Extract the number from the selection
+            mailbox_num = mailbox_selection.split()[-1]
+            df = df[df['mailbox'] == f"mailbox_{mailbox_num}"]
+
+        if len(df) == 0:
+            st.sidebar.warning("No emails found in the selected mailbox(es).")
+            # Return empty DataFrame with expected columns
+            return pd.DataFrame(columns=[
+                "message_id", "date", "from", "to", "cc", "subject",
+                "body", "attachments", "has_attachments", "direction", "mailbox"
+            ])
+
+        return df
+    except Exception as e:
+        st.sidebar.error(f"Error loading data from DuckDB: {e}")
         # Return empty DataFrame with expected columns
         return pd.DataFrame(columns=[
             "message_id", "date", "from", "to", "cc", "subject",
@@ -696,10 +734,10 @@ elif page == "Chat":
 
 elif page == "Colbert RAG":
     st.title("Colbert RAG - Recherche sémantique avancée")
-    
+
     # Import the Colbert RAG component
     from components.colbert_rag_component import render_colbert_rag_component
-    
+
     # Render the component with the loaded email data
     emails_df = load_data(selected_mailbox)
     render_colbert_rag_component(emails_df)

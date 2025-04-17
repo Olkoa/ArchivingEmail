@@ -372,7 +372,7 @@ def extract_recipients(message):
         "reply_to": reply_to_entity
     }
 
-def extract_message_data(message, folder_name):
+def extract_message_data(message, folder_name, mailbox_name="Mailbox"):
     """Extract comprehensive email data to match Pydantic models"""
     # Generate a unique ID
     email_id = str(uuid.uuid4())
