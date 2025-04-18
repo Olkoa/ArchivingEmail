@@ -24,7 +24,7 @@
 
 .env
 *.log
-*.json
+# *.json
 
 # Julien
 *pycache*

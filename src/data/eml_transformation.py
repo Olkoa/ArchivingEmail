@@ -125,7 +125,8 @@ def parse_email_address(address_str: Optional[str]) -> List['Entity']:
                             entity = Entity(
                                 name=name,
                                 email=email_obj,
-                                is_physical_person=True  # Assuming default
+                                is_physical_person=True,  # Assuming default
+                                mailbox = "inbox"  # Default mailbox
                             )
                             entities.append(entity)
                         except Exception as e:

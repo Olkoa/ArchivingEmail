@@ -50,7 +50,8 @@ def setup_database(db_path: Union[str, Path]) -> duckdb.DuckDBPyConnection:
         name VARCHAR,
         email VARCHAR,
         alias_names JSON,
-        is_physical_person BOOLEAN
+        is_physical_person BOOLEAN,
+        mailbox VARCHAR
     )
     """)
 
