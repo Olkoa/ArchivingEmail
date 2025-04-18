@@ -1,5 +1,9 @@
-from ..models.models import EmailAddress, MailingList, Organisation, Position, Entity, Attachment, ReceiverEmail, SenderEmail
 
+from src.models.models import EmailAddress, MailingList, Organisation, Position, Entity, Attachment, ReceiverEmail, SenderEmail
+from src.data.duckdb_utils import setup_database
+
+import argparse
+import os
 from typing import List, Optional, Union, Dict, Any
 import re
 import html
@@ -8,11 +12,12 @@ from email.header import decode_header
 import uuid
 import datetime
 import email.utils
-import os
 from pathlib import Path
 from tqdm import tqdm
 from email import policy
 from bs4 import BeautifulSoup
+
+import pandas as pd
 
 def clean_html(html_string):
     """
@@ -42,7 +47,6 @@ def clean_html(html_string):
     chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
     text = '\n'.join(chunk for chunk in chunks if chunk)
 
-    print(text)
     return text
 
 def parse_email_address(address_str: Optional[str]) -> List['Entity']:
@@ -605,3 +609,446 @@ def collect_email_data(directory: Union[str, Path],
             print(f"Error processing {eml_path}: {e}")
 
     return all_emails
+
+
+
+
+#### Main process
+
+
+def process_eml_to_duckdb(directory: Union[str, Path],
+                          conn: 'duckdb.DuckDBPyConnection',
+                          batch_size: int = 100,
+                          entity_cache: Optional[Dict[str, str]] = None) -> Dict[str, str]:
+    """
+    Recursively process all .eml files in a directory and its subdirectories directly to DuckDB in batches
+
+    Args:
+        directory: Root directory to search for .eml files
+        conn: DuckDB connection
+        batch_size: Number of records to process before committing to the database
+        entity_cache: Cache to store entities we've already seen
+
+    Returns:
+        Updated entity cache after processing
+    """
+    if entity_cache is None:
+        entity_cache = {}  # Cache to store entities we've already seen
+
+    directory = Path(directory)  # Convert to Path object if it's a string
+
+    # Find all .eml files recursively
+    eml_files = []
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.eml'):
+                eml_files.append(Path(root) / file)
+
+    print(f"Found {len(eml_files)} .eml files to process")
+
+    # Process in batches for each table
+    entity_batch = []
+    entity_alias_emails_batch = []
+    mailing_list_batch = []
+    sender_email_batch = []
+    receiver_email_batch = []
+    to_recipients_batch = []
+    cc_recipients_batch = []
+    bcc_recipients_batch = []
+    attachments_batch = []
+
+    # Process each .eml file
+    for i, eml_path in enumerate(tqdm(eml_files, desc="Processing emails")):
+        # Determine folder structure relative to the root directory
+        rel_path = eml_path.relative_to(directory)
+        folder_name = str(rel_path.parent) if rel_path.parent != Path('.') else 'root'
+
+        try:
+            # Parse the email file
+            with open(eml_path, 'rb') as f:
+                message = email.message_from_binary_file(f, policy=policy.default)
+
+            email_data, receiver_email = extract_message_data(message, folder_name)
+
+            # Process sender entity
+            sender = receiver_email.sender
+            if sender.email.email not in entity_cache:
+                entity_id = str(uuid.uuid4())
+                entity_cache[sender.email.email] = entity_id
+
+                # Add to entities batch
+                entity_batch.append({
+                    'id': entity_id,
+                    'name': sender.name,
+                    'email': sender.email.email,
+                    'alias_names': json.dumps(sender.alias_names) if sender.alias_names else None,
+                    'is_physical_person': sender.is_physical_person
+                })
+
+                # Process alias emails if any
+                if sender.alias_emails:
+                    for alias_email in sender.alias_emails:
+                        entity_alias_emails_batch.append({
+                            'id': str(uuid.uuid4()),
+                            'entity_id': entity_id,
+                            'email': alias_email.email
+                        })
+            else:
+                # Get cached entity ID
+                entity_id = entity_cache[sender.email.email]
+
+            # Process sender email
+            sender_email = receiver_email.sender_email
+            sender_email_batch.append({
+                'id': sender_email.id,
+                'sender_id': entity_id,  # Use cached or new entity ID
+                'body': sender_email.body,
+                'timestamp': sender_email.timestamp
+            })
+
+            # Process receiver email
+            reply_to_id = None
+            if receiver_email.reply_to:
+                reply_to_email = receiver_email.reply_to.email.email
+                if reply_to_email not in entity_cache:
+                    reply_to_id = str(uuid.uuid4())
+                    entity_cache[reply_to_email] = reply_to_id
+
+                    entity_batch.append({
+                        'id': reply_to_id,
+                        'name': receiver_email.reply_to.name,
+                        'email': reply_to_email,
+                        'alias_names': None,
+                        'is_physical_person': True
+                    })
+                else:
+                    reply_to_id = entity_cache[reply_to_email]
+
+            # Add mailing list if present
+            mailing_list_id = None
+            if receiver_email.mailing_list:
+                mailing_list_id = receiver_email.mailing_list.id
+                mailing_list_batch.append({
+                    'id': mailing_list_id,
+                    'name': receiver_email.mailing_list.name,
+                    'description': receiver_email.mailing_list.description,
+                    'email_address': receiver_email.mailing_list.email_address.email
+                })
+
+            # Add receiver email
+            receiver_email_batch.append({
+                'id': receiver_email.id,
+                'sender_email_id': sender_email.id,
+                'sender_id': entity_id,
+                'reply_to_id': reply_to_id,
+                'timestamp': receiver_email.timestamp,
+                'subject': receiver_email.subject,
+                'body': receiver_email.body,
+                'is_deleted': receiver_email.is_deleted,
+                'folder': folder_name,  # Using the relative folder path as folder name
+                'is_spam': receiver_email.is_spam,
+                'mailing_list_id': mailing_list_id,
+                'importance_score': receiver_email.importance_score,
+                'mother_email_id': None,  # Will be updated later
+                'message_id': email_data.get('message_id'),
+                'references': email_data.get('references'),
+                'in_reply_to': email_data.get('in_reply_to')
+            })
+
+            # Process recipients (to, cc, bcc)
+            if receiver_email.to:
+                for entity in receiver_email.to:
+                    if entity.email.email not in entity_cache:
+                        to_entity_id = str(uuid.uuid4())
+                        entity_cache[entity.email.email] = to_entity_id
+
+                        entity_batch.append({
+                            'id': to_entity_id,
+                            'name': entity.name,
+                            'email': entity.email.email,
+                            'alias_names': json.dumps(entity.alias_names) if entity.alias_names else None,
+                            'is_physical_person': entity.is_physical_person
+                        })
+
+                        # Process alias emails
+                        if entity.alias_emails:
+                            for alias_email in entity.alias_emails:
+                                entity_alias_emails_batch.append({
+                                    'id': str(uuid.uuid4()),
+                                    'entity_id': to_entity_id,
+                                    'email': alias_email.email
+                                })
+                    else:
+                        to_entity_id = entity_cache[entity.email.email]
+
+                    # Add to recipients relationship
+                    to_recipients_batch.append({
+                        'email_id': receiver_email.id,
+                        'entity_id': to_entity_id
+                    })
+
+            # Process CC recipients
+            if receiver_email.cc:
+                for entity in receiver_email.cc:
+                    if entity.email.email not in entity_cache:
+                        cc_entity_id = str(uuid.uuid4())
+                        entity_cache[entity.email.email] = cc_entity_id
+
+                        entity_batch.append({
+                            'id': cc_entity_id,
+                            'name': entity.name,
+                            'email': entity.email.email,
+                            'alias_names': json.dumps(entity.alias_names) if entity.alias_names else None,
+                            'is_physical_person': entity.is_physical_person
+                        })
+                    else:
+                        cc_entity_id = entity_cache[entity.email.email]
+
+                    # Add cc recipients relationship
+                    cc_recipients_batch.append({
+                        'email_id': receiver_email.id,
+                        'entity_id': cc_entity_id
+                    })
+
+            # Process BCC recipients
+            if receiver_email.bcc:
+                for entity in receiver_email.bcc:
+                    if entity.email.email not in entity_cache:
+                        bcc_entity_id = str(uuid.uuid4())
+                        entity_cache[entity.email.email] = bcc_entity_id
+
+                        entity_batch.append({
+                            'id': bcc_entity_id,
+                            'name': entity.name,
+                            'email': entity.email.email,
+                            'alias_names': json.dumps(entity.alias_names) if entity.alias_names else None,
+                            'is_physical_person': entity.is_physical_person
+                        })
+                    else:
+                        bcc_entity_id = entity_cache[entity.email.email]
+
+                    # Add bcc recipients relationship
+                    bcc_recipients_batch.append({
+                        'email_id': receiver_email.id,
+                        'entity_id': bcc_entity_id
+                    })
+
+            # Process attachments
+            if receiver_email.attachments:
+                for attachment in receiver_email.attachments:
+                    content_type = getattr(attachment, 'content_type', 'application/octet-stream')
+                    size = getattr(attachment, 'size', len(attachment.content) if attachment.content else 0)
+
+                    attachments_batch.append({
+                        'id': str(uuid.uuid4()),
+                        'email_id': receiver_email.id,
+                        'filename': attachment.filename,
+                        'content': attachment.content,
+                        'content_type': content_type,
+                        'size': size
+                    })
+        except Exception as e:
+            print(f"Error processing email {eml_path}: {e}")
+            continue
+
+        # Process batch when it reaches the batch size or on the last file
+        if len(receiver_email_batch) >= batch_size or i == len(eml_files) - 1:
+            try:
+                # Insert entities
+                if entity_batch:
+                    entities_df = pd.DataFrame(entity_batch)
+                    conn.execute("""
+                    INSERT OR IGNORE INTO entities
+                    SELECT * FROM entities_df
+                    """)
+                    entity_batch = []
+
+                # Insert entity alias emails
+                if entity_alias_emails_batch:
+                    alias_emails_df = pd.DataFrame(entity_alias_emails_batch)
+                    conn.execute("""
+                    INSERT OR IGNORE INTO entity_alias_emails
+                    SELECT * FROM alias_emails_df
+                    """)
+                    entity_alias_emails_batch = []
+
+                # Insert mailing lists
+                if mailing_list_batch:
+                    mailing_lists_df = pd.DataFrame(mailing_list_batch)
+                    conn.execute("""
+                    INSERT OR IGNORE INTO mailing_lists
+                    SELECT * FROM mailing_lists_df
+                    """)
+                    mailing_list_batch = []
+
+                # Insert sender emails
+                if sender_email_batch:
+                    sender_emails_df = pd.DataFrame(sender_email_batch)
+                    conn.execute("""
+                    INSERT OR IGNORE INTO sender_emails
+                    SELECT * FROM sender_emails_df
+                    """)
+                    sender_email_batch = []
+
+                # Insert receiver emails
+                if receiver_email_batch:
+                    receiver_emails_df = pd.DataFrame(receiver_email_batch)
+                    conn.execute("""
+                    INSERT OR IGNORE INTO receiver_emails
+                    SELECT * FROM receiver_emails_df
+                    """)
+                    receiver_email_batch = []
+
+                # Insert recipient relationships
+                if to_recipients_batch:
+                    to_recipients_df = pd.DataFrame(to_recipients_batch)
+                    conn.execute("""
+                    INSERT OR IGNORE INTO email_recipients_to
+                    SELECT * FROM to_recipients_df
+                    """)
+                    to_recipients_batch = []
+
+                if cc_recipients_batch:
+                    cc_recipients_df = pd.DataFrame(cc_recipients_batch)
+                    conn.execute("""
+                    INSERT OR IGNORE INTO email_recipients_cc
+                    SELECT * FROM cc_recipients_df
+                    """)
+                    cc_recipients_batch = []
+
+                if bcc_recipients_batch:
+                    bcc_recipients_df = pd.DataFrame(bcc_recipients_batch)
+                    conn.execute("""
+                    INSERT OR IGNORE INTO email_recipients_bcc
+                    SELECT * FROM bcc_recipients_df
+                    """)
+                    bcc_recipients_batch = []
+
+                # Insert attachments
+                if attachments_batch:
+                    attachments_df = pd.DataFrame(attachments_batch)
+                    conn.execute("""
+                    INSERT OR IGNORE INTO attachments
+                    SELECT * FROM attachments_df
+                    """)
+                    attachments_batch = []
+
+                # Commit to save progress
+                conn.commit()
+            except Exception as e:
+                print(f"Error inserting batch into database: {e}")
+                # Continue processing even if one batch fails
+                entity_batch = []
+                entity_alias_emails_batch = []
+                mailing_list_batch = []
+                sender_email_batch = []
+                receiver_email_batch = []
+                to_recipients_batch = []
+                cc_recipients_batch = []
+                bcc_recipients_batch = []
+                attachments_batch = []
+
+    print(f"Completed processing {len(eml_files)} .eml files")
+
+    return entity_cache
+
+
+
+
+def process_eml_files(directory: Union[str, Path],
+                     output_path: Optional[str] = None) -> None:
+    """
+    Recursively process .eml files from a directory and its subdirectories and save to DuckDB format
+    with normalized tables
+
+    Args:
+        directory: Directory containing .eml files (may be nested in subdirectories)
+        output_path: Output file path (default: emails.duckdb)
+    """
+    # Set default output path if not provided
+    if output_path is None:
+        output_path = 'emails.duckdb'
+    elif not output_path.endswith('.duckdb'):
+        output_path = f"{output_path}.duckdb"
+
+    # Setup database
+    conn = setup_database(output_path)
+
+    # Convert directory to Path if it's a string
+    directory = Path(directory)
+
+    # Entity cache to avoid duplicates across files
+    entity_cache = {}
+
+    try:
+        # Process all .eml files in the directory and subdirectories
+        print(f"Processing .eml files in {directory} and subdirectories...")
+        entity_cache = process_eml_to_duckdb(directory, conn, entity_cache=entity_cache)
+    except Exception as e:
+        print(f"Error processing directory {directory}: {e}")
+
+    try:
+        # Create relationships between emails (mother/child relationships)
+        print("Creating email thread relationships...")
+        conn.execute("""
+        UPDATE receiver_emails
+        SET mother_email_id = (
+            SELECT r2.id
+            FROM receiver_emails r2
+            WHERE r2.message_id = receiver_emails.in_reply_to
+            LIMIT 1
+        )
+        WHERE in_reply_to IS NOT NULL
+        """)
+
+        # Populate the children relationships table
+        print("Populating child email relationships...")
+        conn.execute("""
+        INSERT INTO email_children (parent_id, child_id)
+        SELECT mother_email_id, id
+        FROM receiver_emails
+        WHERE mother_email_id IS NOT NULL
+        AND mother_email_id IN (SELECT id FROM receiver_emails)
+        AND id != mother_email_id  -- Prevent self-references
+        """)
+    except Exception as e:
+        print(f"Warning: Error in relationship creation: {e}")
+        print("Continuing with database optimization...")
+
+    # Final optimization and cleanup
+    print("Optimizing database...")
+
+
+    conn.execute("PRAGMA enable_optimizer") # conn.execute("PRAGMA optimize_database")
+    conn.close()
+
+    print(f"DuckDB database saved to {output_path}")
+    print("""
+Database structure:
+- entities: Stores all senders and recipients
+- entity_alias_emails: Stores alias emails for entities
+- sender_emails: Stores email data from senders
+- receiver_emails: Stores received email data
+- email_recipients_to/cc/bcc: Links emails to recipient entities
+- attachments: Stores email attachments
+- email_children: Stores parent-child relationships between emails
+- mailing_lists: Stores mailing list information
+- organizations: Stores organization information
+- positions: Stores position information
+- entity_positions: Links entities to positions
+""")
+
+
+if __name__ == "__main__":
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description='Process EML files into a DuckDB database')
+    parser.add_argument('path_to_eml', nargs='?', default="data/processed/celine_readpst_with_S",
+                        help='Path to the directory containing EML files')
+    parser.add_argument('path_for_db', nargs='?', default="data/Projects/Boîte mail de Céline/celine.duckdb",
+                        help='Path where the DuckDB file should be created')
+
+    # Parse arguments
+    args = parser.parse_args()
+
+    # Process the files using the provided arguments
+    process_eml_files(args.path_to_eml, args.path_for_db)

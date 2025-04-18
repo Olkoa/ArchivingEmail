@@ -189,8 +189,6 @@ def setup_database(db_path: Union[str, Path]) -> duckdb.DuckDBPyConnection:
 
     return conn
 
-
-
 def find_email_references(db_path: Union[str, Path], email_id: str) -> dict:
     """
     Find all references to a specific email ID across all tables in the database.
