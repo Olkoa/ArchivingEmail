@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .node {
+            cursor: pointer;
+            fill: lightsteelblue;
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+        .link {
+            fill: none;
+            stroke-opacity: 0.6;
+            stroke-width: 2px;
+        }
+        .node:hover {
+            fill: orange;
+        }
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            padding: 6px;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border-radius: 4px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <h2>Graph Visualization</h2>
+    <div id="graph-container"></div>
+    <div id="tooltip" class="tooltip"></div>
+
+    <script>
+        // The JSON data will be injected here by Streamlit
+        const graphData = __GRAPH_DATA__;  // This will be replaced by the actual data
+
+        const links = graphData.edges.map(edge => ({
+            source: graphData.nodes.find(node => node.id === edge.source),
+            target: graphData.nodes.find(node => node.id === edge.target)
+        }));
+
+        const width = 1200;
+        const height = 800;
+
+        const svg = d3.select("#graph-container").append("svg")
+                      .attr("width", width)
+                      .attr("height", height);
+
+        const nodes = graphData.nodes;
+
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+            .force("charge", d3.forceManyBody().strength(-200))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        // Create a color scale for interaction count
+        const colorScale = d3.scaleLinear()
+            .domain([1, d3.max(links, d => countEdges(d.source, d.target, graphData.edges))])
+            .range(["#ffcccc", "#ff0000"]);
+
+        const link = svg.selectAll(".link")
+            .data(links)
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("stroke-width", d => Math.min(5, countEdges(d.source, d.target, graphData.edges))) // Thicker edges
+            .attr("stroke", d => colorScale(countEdges(d.source, d.target, graphData.edges))) // Color based on interaction count
+            .on("mouseover", function(event, d) {
+                const edgeCount = countEdges(d.source, d.target, graphData.edges);
+                tooltip
+                    .style("opacity", 1)
+                    .html(`<strong>Source:</strong> ${d.source.name} <br><strong>Target:</strong> ${d.target.name} <br><strong>Edges:</strong> ${edgeCount}`)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 20) + "px");
+            })
+            .on("mousemove", function(event) {
+                tooltip
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 20) + "px");
+            })
+            .on("mouseout", function() {
+                tooltip.style("opacity", 0);
+            })
+            .on("click", function(event, d) {
+                alert(`Edge clicked: ${d.source.name} -> ${d.target.name}`);
+            });
+
+        const tooltip = d3.select("#tooltip");
+
+        const node = svg.selectAll(".node")
+            .data(nodes)
+            .enter().append("circle")
+            .attr("class", "node")
+            .attr("r", 10)
+            .on("mouseover", function(event, d) {
+                tooltip
+                    .style("opacity", 1)
+                    .html(`<strong>${d.name}</strong>`)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 20) + "px");
+            })
+            .on("mousemove", function(event) {
+                tooltip
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 20) + "px");
+            })
+            .on("mouseout", function() {
+                tooltip.style("opacity", 0);
+            })
+            .on("click", function(event, d) {
+                alert(`Node clicked: ${d.name}`);
+            })
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        node.append("title")
+            .text(d => d.name);
+
+            simulation.on("tick", function () {
+    node
+        .attr("cx", d => d.x = Math.max(10, Math.min(width - 10, d.x)))
+        .attr("cy", d => d.y = Math.max(10, Math.min(height - 10, d.y)));
+
+    link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+});
+
+        // Drag functions
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        // Function to count the number of edges between two nodes
+        function countEdges(source, target, edges) {
+            return edges.filter(edge => 
+                (edge.source === source.id && edge.target === target.id) ||
+                (edge.source === target.id && edge.target === source.id)
+            ).length;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interactive Graph</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #graph-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .node circle {
+      fill: rgb(176, 215, 222);
+      stroke: #fff;
+      stroke-width: 1.5px;
+      cursor: pointer;
+    }
+
+    .node text {
+      pointer-events: none;
+      font-size: 10px;
+      fill: #333;
+    }
+
+    .node:hover circle {
+      fill: orange;
+    }
+
+    .link {
+      stroke: #f5231b;
+      stroke-opacity: 0.6;
+    }
+
+    .tooltip {
+      position: absolute;
+      text-align: center;
+      padding: 6px;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      border-radius: 4px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    #minimap {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      width: 160px; /* Smaller minimap */
+      height: 120px;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+
+    #search-box {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+    }
+
+    #search-input {
+      padding: 5px;
+      font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .highlighted {
+      fill: orange !important;
+      stroke: red !important;
+      stroke-width: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div id="graph-container">
+    <div id="search-box">
+      <input type="text" id="search-input" placeholder="Search node..." />
+    </div>
+    <svg id="main-graph" width="100%" height="100%"></svg>
+    <div id="tooltip" class="tooltip"></div>
+    <svg id="minimap"></svg>
+  </div>
+
+  <script>
+    // Your actual graph data should be injected here
+    const graphData = __GRAPH_DATA__;
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const svg = d3.select("#main-graph");
+    const tooltip = d3.select("#tooltip");
+    const minimap = d3.select("#minimap").attr("width", 160).attr("height", 120);  // Smaller minimap
+    const searchInput = document.getElementById("search-input");
+
+    const container = svg.append("g");
+    const miniContainer = minimap.append("g");
+
+    const nodes = graphData.nodes;
+    const links = graphData.edges.map(edge => ({
+      source: nodes.find(n => n.id === edge.source),
+      target: nodes.find(n => n.id === edge.target)
+    }));
+
+    const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+      .force("charge", d3.forceManyBody().strength(-200))
+      .force("center", d3.forceCenter(width / 2, height / 2));
+
+    // Color scale for edges (color gradient)
+    const colorScale = d3.scaleLinear()
+      .domain([1, d3.max(links, d => countEdges(d.source, d.target))])
+      .range(["#ffcccc", "#ff0000"]);
+
+    const link = container.selectAll(".link")
+      .data(links)
+      .enter().append("line")
+      .attr("class", "link")
+      .attr("stroke-width", d => Math.min(5, countEdges(d.source, d.target)))  // Edge width based on interaction count
+      .attr("stroke", d => colorScale(countEdges(d.source, d.target)))  // Apply the gradient color to edges
+      .on("mouseover", function (event, d) {
+        tooltip.style("opacity", 1)
+          .html(`<strong>${d.source.name}</strong> → <strong>${d.target.name}</strong><br/>Interaction Count: ${countEdges(d.source, d.target)}`)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 20) + "px");
+      })
+      .on("mousemove", event => {
+        tooltip.style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 20) + "px");
+      })
+      .on("mouseout", () => tooltip.style("opacity", 0))
+      .on("click", (e, d) => alert(`Edge clicked: ${d.source.name} → ${d.target.name}`));
+
+    const node = container.selectAll(".node")
+      .data(nodes)
+      .enter().append("g")
+      .attr("class", "node")
+      .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
+
+    node.append("circle")
+      .attr("r", 10)
+      .on("mouseover", (event, d) => {
+        tooltip.style("opacity", 1)
+          .html(`<strong>${d.name}</strong>`)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 20) + "px");
+      })
+      .on("mousemove", event => {
+        tooltip.style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 20) + "px");
+      })
+      .on("mouseout", () => tooltip.style("opacity", 0))
+      .on("click", (e, d) => alert(`Node clicked: ${d.name}`));
+
+    node.append("text")
+      .attr("dy", -15)
+      .attr("text-anchor", "middle")
+      .text(d => d.name);
+
+    simulation.on("tick", () => {
+      nodes.forEach(d => {
+        d.x = Math.max(10, Math.min(width - 10, d.x));
+        d.y = Math.max(10, Math.min(height - 10, d.y));
+      });
+
+      link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+
+      node.attr("transform", d => `translate(${d.x},${d.y})`);
+
+      // Update minimap
+      miniContainer.selectAll("*").remove();
+      miniContainer.selectAll("line")
+        .data(links)
+        .enter().append("line")
+        .attr("x1", d => d.source.x / 6)
+        .attr("y1", d => d.source.y / 6)
+        .attr("x2", d => d.target.x / 6)
+        .attr("y2", d => d.target.y / 6)
+        .attr("stroke", "#aaa");
+
+      miniContainer.selectAll("circle")
+        .data(nodes)
+        .enter().append("circle")
+        .attr("r", 2.5)
+        .attr("cx", d => d.x / 6)
+        .attr("cy", d => d.y / 6)
+        .attr("fill", "steelblue");
+    });
+
+    // Zoom functionality
+    const zoom = d3.zoom()
+      .scaleExtent([0.1, 8])  // Set the zoom scale extent
+      .on("zoom", (event) => {
+        container.attr("transform", event.transform);
+      });
+
+    svg.call(zoom);  // Apply the zoom behavior to the SVG element
+
+    function dragstarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+
+    function dragended(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+
+    function countEdges(source, target) {
+      return links.filter(edge => 
+        (edge.source === source && edge.target === target) ||
+        (edge.source === target && edge.target === source)
+      ).length;
+    }
+
+    // Search functionality - highlight the node
+    searchInput.addEventListener("input", function () {
+      const value = this.value.toLowerCase();
+
+      // Reset all highlighted nodes when search is empty
+      node.select("circle")
+        .classed("highlighted", false); // Remove the highlighted class from all nodes
+
+      // If search input is not empty, highlight matching nodes
+      if (value) {
+        node.filter(d => d.name.toLowerCase().includes(value))
+          .select("circle")
+          .classed("highlighted", true);
+      }
+    });
+  </script>
+</body>
+</html>
