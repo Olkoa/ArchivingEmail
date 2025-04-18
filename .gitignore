@@ -26,6 +26,9 @@
 *.log
 # *.json
 
+scaleway_p_key
+scaleway_p_key.pub
+
 # Julien
 *pycache*
 .python-version
