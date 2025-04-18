@@ -632,5 +632,196 @@ def main():
             st.experimental_set_query_params()
             st.experimental_rerun()
 
+
+
+####################################
+####################################
+####################################
+####################################
+####################################
+
+
+def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None):
+    """
+    Generate a Mermaid graph diagram from folder structure data.
+
+    Parameters:
+    -----------
+    df : pandas.DataFrame
+        DataFrame containing the folder paths
+    folder_column : str, default='folders'
+        Name of the column containing folder paths
+    count_column : str or None, default=None
+        Name of the column containing counts. If None, will use value_counts
+
+    Returns:
+    --------
+    str
+        Mermaid diagram code
+    """
+    # Get folder counts
+    if count_column is None:
+        folder_counts = df[folder_column].value_counts()
+    else:
+        folder_counts = df.groupby(folder_column)[count_column].sum()
+
+    # Start building the Mermaid diagram
+    mermaid_code = [
+        "graph TD",
+        "    classDef inbox fill:#4285F4,color:white,stroke:#fff,stroke-width:1px",
+        "    classDef sent fill:#34A853,color:white,stroke:#fff,stroke-width:1px",
+        "    classDef trash fill:#EA4335,color:white,stroke:#fff,stroke-width:1px",
+        "    classDef spam fill:#8E24AA,color:white,stroke:#fff,stroke-width:1px",
+        "    classDef drafts fill:#FBBC05,color:black,stroke:#fff,stroke-width:1px",
+        "    classDef archive fill:#0097A7,color:white,stroke:#fff,stroke-width:1px",
+        "    classDef root fill:#757575,color:white,stroke:#fff,stroke-width:1px",
+        "    classDef subFolder fill:#78909C,color:white,stroke:#fff,stroke-width:1px",
+        ""
+    ]
+
+    # Process folder paths to create nodes and relationships
+    nodes = {}
+    node_classes = {}
+    relationships = []
+
+    # Helper function to create safe node IDs
+    def create_node_id(path):
+        # Replace characters that might cause issues in Mermaid
+        safe_id = path.replace('/', '_').replace(' ', '_').replace('-', '_')
+        return safe_id
+
+    # Helper function to determine node class
+    def determine_node_class(folder_name):
+        folder_name_lower = folder_name.lower()
+        if 'boîte de réception' in folder_name_lower or 'inbox' in folder_name_lower:
+            return 'inbox'
+        elif 'éléments envoyés' in folder_name_lower or 'sent' in folder_name_lower:
+            return 'sent'
+        elif 'éléments supprimés' in folder_name_lower or 'trash' in folder_name_lower:
+            return 'trash'
+        elif 'courrier indésirable' in folder_name_lower or 'spam' in folder_name_lower:
+            return 'spam'
+        elif 'brouillons' in folder_name_lower or 'drafts' in folder_name_lower:
+            return 'drafts'
+        elif 'archive' in folder_name_lower:
+            return 'archive'
+        elif folder_name_lower == 'root' or 'celine.guyon' in folder_name_lower:
+            return 'root'
+        else:
+            return 'subFolder'
+
+    # Process each path
+    for path, count in folder_counts.items():
+        parts = path.split('/')
+
+        # Process each part of the path
+        for i in range(len(parts)):
+            # Current node info
+            current_path = '/'.join(parts[:i+1])
+            current_name = parts[i]
+            current_id = create_node_id(current_path)
+
+            # Parent node info
+            if i > 0:
+                parent_path = '/'.join(parts[:i])
+                parent_id = create_node_id(parent_path)
+                relationships.append(f"    {parent_id} --> {current_id}")
+
+            # Only add node if not already added
+            if current_id not in nodes:
+                # Get count for this exact path
+                node_count = count if current_path == path else ""
+
+                # Format count if present
+                count_str = f" ({node_count})" if node_count else ""
+
+                # Create node
+                nodes[current_id] = f'    {current_id}["{current_name}{count_str}"]'
+
+                # Determine node class
+                node_class = determine_node_class(current_name)
+                node_classes[current_id] = node_class
+
+    # Add nodes to diagram
+    mermaid_code.extend(nodes.values())
+    mermaid_code.append("")
+
+    # Add relationships
+    mermaid_code.extend(relationships)
+    mermaid_code.append("")
+
+    # Add styling
+    for node_id, node_class in node_classes.items():
+        mermaid_code.append(f"    {node_id}:::{node_class}")
+
+    return "\n".join(mermaid_code)
+
+# Usage in Streamlit
+def display_folder_mermaid():
+    st.title("Email Folder Structure")
+
+    # Sample data
+    data = {
+        "celine.guyon/Boîte de réception": 12499,
+        "celine.guyon/Éléments envoyés": 5559,
+        "celine.guyon/Boîte de réception/Archives calssifiees": 423,
+        "celine.guyon/Éléments supprimés": 277,
+        "celine.guyon/Boîte de réception/gestioncrise": 75,
+        "celine.guyon/Boîte de réception/Instances": 60,
+        "celine.guyon/Courrier indésirable": 45,
+        "celine.guyon/Brouillons": 41,
+        "celine.guyon/Boîte de réception/RH": 40,
+        "celine.guyon/Boîte de réception/Plaidoyer": 38,
+        "celine.guyon/Boîte de réception/gestioncrise/Ateliers": 28,
+        "root": 20,
+        "celine.guyon/Boîte de réception/Idees": 18,
+        "celine.guyon/Archive": 10,
+        "celine.guyon/Boîte de réception/Gazette": 10,
+        "celine.guyon/Boîte de réception/AG": 6,
+        "celine.guyon/Boîte de réception/Conflit": 6,
+        "celine.guyon/Boîte de réception/Formation à distance": 2
+    }
+
+    # Create DataFrame
+    df = pd.DataFrame({'folders': list(data.keys()), 'count': list(data.values())})
+
+    # Generate Mermaid diagram
+    mermaid_code = generate_mermaid_folder_graph(df)
+
+    # Display the diagram
+    st.mermaid(mermaid_code)
+
+    # Add folder selection
+    st.sidebar.header("Folder Selection")
+    selected_folder = st.sidebar.selectbox(
+        "Select a folder to view",
+        options=sorted(data.keys())
+    )
+
+    if selected_folder:
+        st.sidebar.write(f"Selected: {selected_folder}")
+        st.sidebar.write(f"Email count: {data.get(selected_folder, 0)}")
+
+        # Button to navigate to folder view
+        if st.sidebar.button(f"View emails in {selected_folder.split('/')[-1]}"):
+            # Set query params for navigation
+            st.experimental_set_query_params(folder=selected_folder)
+            st.experimental_rerun()
+
+
+####################################
+####################################
+####################################
+####################################
+####################################
+
+
+
+####################################
+####################################
+####################################
+####################################
+####################################
+
 if __name__ == "__main__":
     main()

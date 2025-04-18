@@ -202,11 +202,47 @@ elif page == "Network Analysis":
     # Display network graph
     st.plotly_chart(create_network_graph(emails_df), use_container_width=True)
 
+# elif page == "Timeline":
+#     emails_df = load_data(selected_mailbox)
+#     st.subheader("Email Timeline")
+
+#     # Timeline visualization
+#     st.plotly_chart(create_timeline(emails_df), use_container_width=True)
+
+# Debugging timeline temporary page
 elif page == "Timeline":
     emails_df = load_data(selected_mailbox)
     st.subheader("Email Timeline")
 
-    # Timeline visualization
+    # Print debug information
+    st.write(f"Total emails loaded: {len(emails_df)}")
+
+    # Check and fix the date column if needed
+    if 'date' in emails_df.columns:
+        # If dates are stored as string representations of Timestamp objects
+        if emails_df['date'].dtype == 'object' and emails_df['date'].astype(str).str.contains('Timestamp').any():
+            # Extract the actual date from the Timestamp string
+            emails_df['date'] = emails_df['date'].astype(str).str.extract(r"Timestamp\('([^']+)'\)")[0]
+
+        # Convert to datetime
+        emails_df['date'] = pd.to_datetime(emails_df['date'], errors='coerce')
+
+        # Show the date range for debugging
+        if not emails_df['date'].isna().all():
+            st.write(f"Date range: {emails_df['date'].min()} to {emails_df['date'].max()}")
+
+    # Check the direction column
+    if 'direction' in emails_df.columns:
+        # Show unique values in the direction column
+        directions = emails_df['direction'].unique()
+        st.write(f"Direction values found: {directions}")
+
+        # If needed, normalize direction values (case insensitive match)
+        emails_df['direction'] = emails_df['direction'].str.lower()
+        emails_df.loc[emails_df['direction'].str.contains('sent|outgoing|out'), 'direction'] = 'sent'
+        emails_df.loc[emails_df['direction'].str.contains('received|incoming|in'), 'direction'] = 'received'
+
+    # Now create the timeline with the fixed dataframe
     st.plotly_chart(create_timeline(emails_df), use_container_width=True)
 
 elif page == "Recherche":

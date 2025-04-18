@@ -354,74 +354,74 @@ class EmailAnalyzer:
 
         return df
 
-def get_app_DataFrame(self, mailbox=None, limit=None):
-    """
-    Get a dataframe with specific columns needed for the application.
+    def get_app_DataFrame(self, mailbox=None, limit=None):
+        """
+        Get a dataframe with specific columns needed for the application.
 
-    Args:
-        mailbox: Optional filter for specific mailbox
-        limit: Optional limit on the number of rows returned
+        Args:
+            mailbox: Optional filter for specific mailbox
+            limit: Optional limit on the number of rows returned
 
-    Returns:
-        pandas DataFrame with columns: message_id, date, from, to, cc, subject,
-        body, attachments, has_attachments, direction, mailbox
-    """
-    conn = self.connect()
+        Returns:
+            pandas DataFrame with columns: message_id, date, from, to, cc, subject,
+            body, attachments, has_attachments, direction, mailbox
+        """
+        conn = self.connect()
 
-    query = """
-    SELECT
-        re.message_id,
-        re.timestamp AS date,
-        sender.email AS "from",
-        (SELECT string_agg(e.email, ', ')
-         FROM email_recipients_to ert
-         JOIN entities e ON ert.entity_id = e.id
-         WHERE ert.email_id = re.id) AS "to",
-        (SELECT string_agg(e.email, ', ')
-         FROM email_recipients_cc ercc
-         JOIN entities e ON ercc.entity_id = e.id
-         WHERE ercc.email_id = re.id) AS cc,
-        re.subject,
-        re.body,
-        (SELECT string_agg(a.filename, '|')
-         FROM attachments a
-         WHERE a.email_id = re.id) AS attachments,
-        (SELECT COUNT(*) > 0
-         FROM attachments a
-         WHERE a.email_id = re.id) AS has_attachments,
-        CASE
-            WHEN re.folder LIKE '%sent%' THEN 'outgoing'
-            ELSE 'incoming'
-        END AS direction,
-        re.folder AS mailbox
-    FROM
-        receiver_emails re
-    LEFT JOIN
-        entities sender ON re.sender_id = sender.id
-    """
+        query = """
+        SELECT
+            re.message_id,
+            re.timestamp AS date,
+            sender.email AS "from",
+            (SELECT string_agg(e.email, ', ')
+            FROM email_recipients_to ert
+            JOIN entities e ON ert.entity_id = e.id
+            WHERE ert.email_id = re.id) AS "to",
+            (SELECT string_agg(e.email, ', ')
+            FROM email_recipients_cc ercc
+            JOIN entities e ON ercc.entity_id = e.id
+            WHERE ercc.email_id = re.id) AS cc,
+            re.subject,
+            re.body,
+            (SELECT string_agg(a.filename, '|')
+            FROM attachments a
+            WHERE a.email_id = re.id) AS attachments,
+            (SELECT COUNT(*) > 0
+            FROM attachments a
+            WHERE a.email_id = re.id) AS has_attachments,
+            CASE
+                WHEN re.folder LIKE '%sent%' THEN 'outgoing'
+                ELSE 'incoming'
+            END AS direction,
+            re.folder AS mailbox
+        FROM
+            receiver_emails re
+        LEFT JOIN
+            entities sender ON re.sender_id = sender.id
+        """
 
-    # Add mailbox filter if specified
-    if mailbox:
-        query += f" WHERE re.folder = '{mailbox}'"
+        # Add mailbox filter if specified
+        if mailbox:
+            query += f" WHERE re.folder = '{mailbox}'"
 
-    # Add limit if specified
-    if limit:
-        query += f" LIMIT {limit}"
+        # Add limit if specified
+        if limit:
+            query += f" LIMIT {limit}"
 
-    # Execute the query and convert to DataFrame
-    df = conn.execute(query).df()
+        # Execute the query and convert to DataFrame
+        df = conn.execute(query).df()
 
-    # Convert timestamps to proper datetime format
-    if 'date' in df.columns and not pd.api.types.is_datetime64_any_dtype(df['date']):
-        df['date'] = pd.to_datetime(df['date'], errors='coerce')
+        # Convert timestamps to proper datetime format
+        if 'date' in df.columns and not pd.api.types.is_datetime64_any_dtype(df['date']):
+            df['date'] = pd.to_datetime(df['date'], errors='coerce')
 
-    # Convert attachments to a list format if needed
-    if 'attachments' in df.columns:
-        df['attachments'] = df['attachments'].apply(
-            lambda x: x.split('|') if isinstance(x, str) and x else []
-        )
+        # Convert attachments to a list format if needed
+        if 'attachments' in df.columns:
+            df['attachments'] = df['attachments'].apply(
+                lambda x: x.split('|') if isinstance(x, str) and x else []
+            )
 
-    return df
+        return df
 
 
 if __name__ == "__main__":
