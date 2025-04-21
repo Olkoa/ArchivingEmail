@@ -5,7 +5,7 @@ import argparse
 def main() -> bool:
     pass
 
-    for folder in
+    # for folder in
 
 
 if __name__ == "__main__":

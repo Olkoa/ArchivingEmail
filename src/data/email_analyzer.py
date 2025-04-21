@@ -25,50 +25,78 @@ class EmailAnalyzer:
         """Get a summary of emails in the database"""
         conn = self.connect()
 
-        # Get basic statistics
+        # Debug: Check total entries in receiver_emails right away
+        try:
+            total = conn.execute("SELECT COUNT(*) FROM receiver_emails").fetchone()[0]
+            print(f"[DEBUG] Total entries in receiver_emails: {total}")
+        except Exception as e:
+            print(f"[ERROR] Failed to fetch count from receiver_emails: {e}")
+            return {}
+
         stats = {}
 
         # Total emails
-        result = conn.execute("SELECT COUNT(*) FROM receiver_emails").fetchone()
-        stats['total_emails'] = result[0]
+        try:
+            result = conn.execute("SELECT COUNT(*) FROM receiver_emails").fetchone()
+            stats['total_emails'] = result[0]
+            print(f"[DEBUG] Total emails: {stats['total_emails']}")
+        except Exception as e:
+            print(f"[ERROR] Total emails query failed: {e}")
 
         # Emails by folder
-        result = conn.execute("""
-            SELECT folder, COUNT(*) as count
-            FROM receiver_emails
-            GROUP BY folder
-            ORDER BY count DESC
-        """).fetchall()
-        stats['emails_by_folder'] = [{"folder": row[0], "count": row[1]} for row in result]
+        try:
+            result = conn.execute("""
+                SELECT folder, COUNT(*) as count
+                FROM receiver_emails
+                GROUP BY folder
+                ORDER BY count DESC
+            """).fetchall()
+            stats['emails_by_folder'] = [{"folder": row[0], "count": row[1]} for row in result]
+            print(f"[DEBUG] Emails by folder: {stats['emails_by_folder']}")
+        except Exception as e:
+            print(f"[ERROR] Emails by folder query failed: {e}")
 
         # Emails by year
-        result = conn.execute("""
-            SELECT strftime('%Y', timestamp) AS year, COUNT(*) AS count
-            FROM receiver_emails
-            GROUP BY year
-            ORDER BY year
-        """).fetchall()
-        stats['emails_by_year'] = [{"year": row[0], "count": row[1]} for row in result]
+        try:
+            result = conn.execute("""
+                SELECT strftime('%Y', timestamp) AS year, COUNT(*) AS count
+                FROM receiver_emails
+                GROUP BY year
+                ORDER BY year
+            """).fetchall()
+            stats['emails_by_year'] = [{"year": row[0], "count": row[1]} for row in result]
+            print(f"[DEBUG] Emails by year: {stats['emails_by_year']}")
+        except Exception as e:
+            print(f"[ERROR] Emails by year query failed: {e}")
 
         # Top senders
-        result = conn.execute("""
-            SELECT e.name AS "from", COUNT(*) AS count
-            FROM receiver_emails re
-            JOIN entities e ON re.sender_id = e.id
-            GROUP BY e.name
-            ORDER BY count DESC
-            LIMIT 10
-        """).fetchall()
-        stats['top_senders'] = [{"from": row[0], "count": row[1]} for row in result]
+        try:
+            result = conn.execute("""
+                SELECT e.name AS "from", COUNT(*) AS count
+                FROM receiver_emails re
+                JOIN entities e ON re.sender_id = e.id
+                GROUP BY e.name
+                ORDER BY count DESC
+                LIMIT 10
+            """).fetchall()
+            stats['top_senders'] = [{"from": row[0], "count": row[1]} for row in result]
+            print(f"[DEBUG] Top senders: {stats['top_senders']}")
+        except Exception as e:
+            print(f"[ERROR] Top senders query failed: {e}")
 
         # Emails with attachments
-        result = conn.execute("""
-            SELECT COUNT(DISTINCT email_id)
-            FROM attachments
-        """).fetchone()
-        stats['emails_with_attachments'] = result[0]
+        try:
+            result = conn.execute("""
+                SELECT COUNT(DISTINCT email_id)
+                FROM attachments
+            """).fetchone()
+            stats['emails_with_attachments'] = result[0]
+            print(f"[DEBUG] Emails with attachments: {stats['emails_with_attachments']}")
+        except Exception as e:
+            print(f"[ERROR] Attachments query failed: {e}")
 
         return stats
+
 
     def search_emails(self, query, limit=100):
         """Search emails by text content"""

@@ -43,15 +43,14 @@ def setup_database(db_path: Union[str, Path]) -> duckdb.DuckDBPyConnection:
     )
     """)
 
-    # Entities table (for senders and recipients)
+    # Entities table (for senders and recipients) il faudra add ensuite mailbox_name VARCHAR
     conn.execute("""
     CREATE TABLE IF NOT EXISTS entities (
         id VARCHAR PRIMARY KEY,
         name VARCHAR,
         email VARCHAR,
         alias_names JSON,
-        is_physical_person BOOLEAN,
-        mailbox VARCHAR
+        is_physical_person BOOLEAN
     )
     """)
 

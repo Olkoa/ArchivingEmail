@@ -11,9 +11,8 @@ APP_DIR = app
 DATA_DIR = data
 
 # MCP command (Model Context Protocol server)
-# to edit ideally /mnt/c/Users/julie/Lab_IA_Project/
-MCP_PATH = /mnt/c/Users/julie/Projects
-
+# MCP_PATH = /mnt/c/Users/julie/Projects
+MCP_PATH = /mnt/c/Users/julie/Lab_IA_Project/olkoa
 
 MCP_COMMAND = npx -y @modelcontextprotocol/server-filesystem
 
