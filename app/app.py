@@ -114,11 +114,12 @@ def load_data(mailbox_selection):
     """Load and cache the selected mailbox data from DuckDB"""
     try:
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        db_path = os.path.join(project_root, 'data', 'Projects', 'celine.duckdb')
+        db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'céline.duckdb')
 
         # Get data from DuckDB using EmailAnalyzer
         analyzer = EmailAnalyzer(db_path=db_path)
         df = analyzer.get_app_DataFrame()
+        print(df.columns)
 
         # Filter based on mailbox selection
         if mailbox_selection != "All Mailboxes":

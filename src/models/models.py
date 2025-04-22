@@ -83,6 +83,7 @@ class ReceiverEmail(BaseModel):
     reply_to: Optional[Entity] = None
     cc: Optional[List[Entity]] = None
     bcc: Optional[List[Entity]] = None
+    mailbox_name: str
     timestamp: datetime
     subject: str
     body: str

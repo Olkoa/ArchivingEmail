@@ -17,6 +17,8 @@
 
 - restructured db
 
+- désactiver la transformation des adresses mails qui retire les points ou laisser la gestion du + uniquement.
+
 --------------------------------------------------------------------------------------
 ### Pistes d'améliorations post restitution
 

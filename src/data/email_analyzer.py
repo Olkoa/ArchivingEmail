@@ -248,7 +248,7 @@ class EmailAnalyzer:
         else:
             # Default query to get important fields
             sql = """
-                SELECT re.message_id, re.subject,
+                SELECT re.message_id, re.subject, re.mailbox_name,
                        sender.name AS "from",
                        (SELECT string_agg(e.name, ', ')
                         FROM email_recipients_to ert
@@ -296,6 +296,7 @@ class EmailAnalyzer:
             re.id AS email_id,
             re.message_id,
             re.timestamp,
+            re.mailbox_name,
             re.subject,
             re.body,
             re.folder,
@@ -400,6 +401,7 @@ class EmailAnalyzer:
         SELECT
             re.message_id,
             re.timestamp AS date,
+            re.mailbox_name,
             sender.email AS "from",
             (SELECT string_agg(e.email, ', ')
             FROM email_recipients_to ert

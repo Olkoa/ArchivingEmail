@@ -107,12 +107,14 @@ def parse_email_address(address_str: Optional[str]) -> List['Entity']:
         if not addresses:
             addresses = [address_str]
 
+
         for addr in addresses:
             addr = addr.strip()
             if not addr:
                 continue
 
             try:
+
                 match = email_pattern.search(addr)
                 if match:
                     if match.group(2):  # Format: "Name <email@example.com>"
@@ -129,10 +131,10 @@ def parse_email_address(address_str: Optional[str]) -> List['Entity']:
                             email_obj = EmailAddress(email=email_addr)
                             entity = Entity(
                                 name=name,
-                                email=email_obj,
-                                is_physical_person=True,  # Assuming default
-                                mailbox = "inbox"  # Default mailbox
+                                #is_physical_person=True,  # Assuming default
+                                email=email_obj.model_dump() # email=email_obj,
                             )
+
                             entities.append(entity)
                         except Exception as e:
                             logging.error(f"Error creating Entity for email {email_addr}: {e}")
@@ -379,10 +381,15 @@ def extract_recipients(message):
         "reply_to": reply_to_entity
     }
 
-def extract_message_data(message, folder_name, mailbox_name="Mailbox"):
+def extract_message_data(message, folder_name, mailbox_name="Boîte mail de Céline", project_name="Projet Demo"):
     """Extract comprehensive email data to match Pydantic models"""
     # Generate a unique ID
     email_id = str(uuid.uuid4())
+
+
+    ## Load JSON config file
+    # with open(f"data/Projects/{project_name}/project_config_file.json", "r", encoding="utf-8") as f:
+    #     config_file = json.load(f)
 
     # Extract basic headers
     subject = decode_str(message.get('subject') or "")
@@ -391,6 +398,7 @@ def extract_message_data(message, folder_name, mailbox_name="Mailbox"):
     message_id = decode_str(message.get('message-id') or "")
     in_reply_to = decode_str(message.get('in-reply-to') or "")
     references = decode_str(message.get('references') or "")
+    mailbox_name = mailbox_name # config_file[project_name]["mailbox"][mailbox_name]["mailbox_name"]
 
     # Parse date
     try:
@@ -401,6 +409,7 @@ def extract_message_data(message, folder_name, mailbox_name="Mailbox"):
     # Get sender entity
     try:
         sender_entities = parse_email_address(from_str)
+
         if sender_entities and len(sender_entities) > 0:
             sender_entity = sender_entities[0]
         else:
@@ -519,6 +528,7 @@ def extract_message_data(message, folder_name, mailbox_name="Mailbox"):
         reply_to=recipients.get("reply_to"),
         cc=recipients.get("cc") if recipients.get("cc") else None,
         bcc=recipients.get("bcc") if recipients.get("bcc") else None,
+        mailbox_name=mailbox_name,
         timestamp=timestamp,
         subject=subject,
         body=body_content["text"],
@@ -558,6 +568,8 @@ def extract_message_data(message, folder_name, mailbox_name="Mailbox"):
 
 
 def collect_email_data(directory: Union[str, Path],
+                       mailbox_name:str ="Boîte mail de Céline",
+                       project_name:str ="Projet Demo",
                        include_attachments: bool = True) -> List[Dict[str, Any]]:
     """
     Recursively process all .eml files in the directory and its subdirectories
@@ -571,6 +583,7 @@ def collect_email_data(directory: Union[str, Path],
     Returns:
         List of dictionaries containing extracted email data
     """
+
     all_emails = []
     directory = Path(directory)  # Convert to Path object if it's a string
 
@@ -594,7 +607,7 @@ def collect_email_data(directory: Union[str, Path],
             with open(eml_path, 'rb') as f:
                 message = email.message_from_binary_file(f, policy=policy.default)
 
-            email_data = extract_message_data(message, folder_name)
+            email_data = extract_message_data(message, folder_name, mailbox_name, project_name)
 
             # Add the file path for reference
             email_data['file_path'] = str(eml_path)
@@ -620,6 +633,8 @@ def collect_email_data(directory: Union[str, Path],
 def process_eml_to_duckdb(directory: Union[str, Path],
                           conn: 'duckdb.DuckDBPyConnection',
                           batch_size: int = 100,
+                          mailbox_name: str = "Boîte mail de Céline",
+                          project_name: str = "Projet Demo",
                           entity_cache: Optional[Dict[str, str]] = None) -> Dict[str, str]:
     """
     Recursively process all .eml files in a directory and its subdirectories directly to DuckDB in batches
@@ -668,11 +683,11 @@ def process_eml_to_duckdb(directory: Union[str, Path],
             # Parse the email file
             with open(eml_path, 'rb') as f:
                 message = email.message_from_binary_file(f, policy=policy.default)
-
-            email_data, receiver_email = extract_message_data(message, folder_name)
+            email_data, receiver_email = extract_message_data(message, folder_name, mailbox_name, project_name)
 
             # Process sender entity
             sender = receiver_email.sender
+
             if sender.email.email not in entity_cache:
                 entity_id = str(uuid.uuid4())
                 entity_cache[sender.email.email] = entity_id
@@ -683,6 +698,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                     'name': sender.name,
                     'email': sender.email.email,
                     'alias_names': json.dumps(sender.alias_names) if sender.alias_names else None,
+                    'alias_emails': json.dumps(sender.alias_emails) if sender.alias_names else None,
                     'is_physical_person': sender.is_physical_person
                 })
 
@@ -736,6 +752,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                     'email_address': receiver_email.mailing_list.email_address.email
                 })
 
+            print(receiver_email.timestamp)
             # Add receiver email
             receiver_email_batch.append({
                 'id': receiver_email.id,
@@ -743,6 +760,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                 'sender_id': entity_id,
                 'reply_to_id': reply_to_id,
                 'timestamp': receiver_email.timestamp,
+                'mailbox_name': mailbox_name,
                 'subject': receiver_email.subject,
                 'body': receiver_email.body,
                 'is_deleted': receiver_email.is_deleted,
@@ -1024,21 +1042,6 @@ def process_eml_files(directory: Union[str, Path],
     conn.close()
 
     print(f"DuckDB database saved to {output_path}")
-    print("""
-Database structure:
-- entities: Stores all senders and recipients
-- entity_alias_emails: Stores alias emails for entities
-- sender_emails: Stores email data from senders
-- receiver_emails: Stores received email data
-- email_recipients_to/cc/bcc: Links emails to recipient entities
-- attachments: Stores email attachments
-- email_children: Stores parent-child relationships between emails
-- mailing_lists: Stores mailing list information
-- organizations: Stores organization information
-- positions: Stores position information
-- entity_positions: Links entities to positions
-""")
-
 
 if __name__ == "__main__":
     # Set up argument parser
