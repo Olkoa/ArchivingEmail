@@ -4,6 +4,7 @@ On local for host dev **without any REAL data** from mails
 
 run MCP server with npm: npx -y @modelcontextprotocol/server-filesystem /mnt/c/Users/julie/Projects
 file at C:\Users\julie\AppData\Roaming\Claude\claude_desktop_config.json
+now changed path but command still look close to this
 
 ## Overview
 

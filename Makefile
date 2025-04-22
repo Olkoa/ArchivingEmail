@@ -15,7 +15,7 @@ DATA_DIR = data
 MCP_PATH = /mnt/c/Users/julie/Lab_IA_Project/olkoa
 
 MCP_COMMAND = npx -y @modelcontextprotocol/server-filesystem
-
+npx -y @modelcontextprotocol/server-filesystem /mnt/c/Users/julie/Lab_IA_Project/olkoa
 # Help command - displays available commands
 .PHONY: help
 help:

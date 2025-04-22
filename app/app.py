@@ -14,7 +14,6 @@ import json
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-print(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -137,9 +136,7 @@ def load_data(mailbox_selection):
 
         # Filter based on mailbox selection
         if mailbox_selection != "All Mailboxes":
-            # Extract the number from the selection
-            mailbox_num = mailbox_selection.split()[-1]
-            df = df[df['mailbox'] == f"mailbox_{mailbox_num}"]
+            df = df[df['mailbox_name'] == mailbox_selection]
 
         if len(df) == 0:
             st.sidebar.warning("No emails found in the selected mailbox(es).")
@@ -162,7 +159,7 @@ def load_data(mailbox_selection):
 if page == "Dashboard":
     emails_df = load_data(selected_mailbox)
 
-    # Display key metrics
+    # Display key metr ics
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
