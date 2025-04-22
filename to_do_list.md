@@ -38,6 +38,14 @@ Continuing with database optimization...
 
 - enlever le côté cliquable des mails affichés qui s'ouvrent directement sur outlook sur le pc
 
+- mettre en place des tests à lister ici sur la partie gestion de projets
+  - mail adresse invalide
+  - rahouter input date plus accessible que celui en place
+  - test de création de projet sans données
+  - test de pas remplir Position orga ou Entity
+
+- Mettre l'app en français
+
 --------------------------------------------------------------------------------------
 ### Pistes d'améliorations post restitution
 

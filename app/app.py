@@ -55,9 +55,23 @@ st.markdown("""
 
 # Sidebar for navigation and controls
 st.sidebar.title("Navigation")
+
+# Organize pages into categories for better navigation
+navigation_categories = {
+    "Project Management": ["Manage Projects"],
+    "Overview": ["Dashboard"],
+    "Exploration": ["Email Explorer", "Network Analysis", "Timeline"],
+    "Search": ["Recherche", "Recherche ElasticSearch"],
+    "AI Assistants": ["Chat", "Colbert RAG"]
+}
+
+# Display navigation categories
+selected_category = st.sidebar.radio("Category", list(navigation_categories.keys()))
+
+# Display pages within the selected category
 page = st.sidebar.radio(
     "Select a page:",
-    ["Dashboard", "Email Explorer", "Network Analysis", "Timeline", "Recherche", "Recherche ElasticSearch", "Chat", "Colbert RAG"]
+    navigation_categories[selected_category]
 )
 
 # Data loading section (in the sidebar)
@@ -789,6 +803,10 @@ elif page == "Colbert RAG":
     # Render the component with the loaded email data
     emails_df = load_data(selected_mailbox)
     render_colbert_rag_component(emails_df)
+    
+elif page == "Manage Projects":
+    # Import and run the manage_projects page
+    import app.pages.manage_projects
 
 # Footer
 st.sidebar.markdown("---")
