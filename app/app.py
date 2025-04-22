@@ -13,7 +13,11 @@ import time
 import json
 
 # Add the necessary paths
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')));
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+print(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
 
 # Import project constants and elasticsearch enhanced search functionality
 from constants import EMAIL_DISPLAY_TYPE, SIDEBAR_STATE
@@ -64,7 +68,8 @@ st.sidebar.title("Data")
 project_name = "Projet Demo"
 
 # get the mailboxes names from the project config file to allow separating mailboxs in the same project.
-with open(f"data/Projects/{project_name}/project_config_file.json", 'r', encoding='utf-8') as file:
+# with open(f"data/Projects/{project_name}/project_config_file.json", 'r', encoding='utf-8') as file:
+with open(os.path.join(project_root, 'data', 'Projects', project_name, 'project_config_file.json'), 'r', encoding='utf-8') as file:
     json_data = json.load(file)
 
 mailboxs_names = list(json_data["Projet Demo"]["mailboxs"].keys())
@@ -122,8 +127,8 @@ def load_data_from_mbox(mailbox_selection):
 def load_data(mailbox_selection):
     """Load and cache the selected mailbox data from DuckDB"""
     try:
-        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'Etoiledemer.duckdb')
+
+        db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'célineETjoel.duckdb')
 
         # Get data from DuckDB using EmailAnalyzer
         analyzer = EmailAnalyzer(db_path=db_path)
