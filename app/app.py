@@ -10,6 +10,7 @@ import pandas as pd
 import os
 import sys
 import time
+import json
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')));
@@ -58,10 +59,18 @@ page = st.sidebar.radio(
 
 # Data loading section (in the sidebar)
 st.sidebar.title("Data")
-mailbox_options = ["All Mailboxes", "Mailbox 1", "Mailbox 2", "Mailbox 3"]
+
+# This will have to be an accessible var from the project selection and forward
+project_name = "Projet Demo"
+
+# get the mailboxes names from the project config file to allow separating mailboxs in the same project.
+with open(f"data/Projects/{project_name}/project_config_file.json", 'r', encoding='utf-8') as file:
+    json_data = json.load(file)
+
+mailboxs_names = list(json_data["Projet Demo"]["mailboxs"].keys())
+
+mailbox_options = ["All Mailboxes"] + mailboxs_names
 selected_mailbox = st.sidebar.selectbox("Select Mailbox:", mailbox_options)
-
-
 
 # Store selected mailbox in session state for other pages to access
 st.session_state.selected_mailbox = selected_mailbox
@@ -114,7 +123,7 @@ def load_data(mailbox_selection):
     """Load and cache the selected mailbox data from DuckDB"""
     try:
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'céline.duckdb')
+        db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'Etoiledemer.duckdb')
 
         # Get data from DuckDB using EmailAnalyzer
         analyzer = EmailAnalyzer(db_path=db_path)

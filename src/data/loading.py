@@ -9,6 +9,7 @@ import os
 import mailbox
 import email
 import pandas as pd
+import json
 from email.utils import parsedate_to_datetime
 import re
 from typing import List, Dict, Any
@@ -200,18 +201,6 @@ def load_mailboxes(mailbox_names: List[str], base_dir: str = None) -> pd.DataFra
             "message_id", "date", "from", "to", "cc", "subject",
             "body", "attachments", "has_attachments", "direction", "mailbox"
         ])
-
-
-def generate_test_mailboxes(output_dir: str = "../data/raw") -> None:
-    """
-    Generate test mailbox data for development purposes.
-    This is a placeholder implementation that would create sample data.
-
-    Args:
-        output_dir: Directory where the test mailboxes should be created
-    """
-    # Implementation would be added here
-    pass
 
 
 if __name__ == "__main__":

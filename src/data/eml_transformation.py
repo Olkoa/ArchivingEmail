@@ -77,10 +77,10 @@ def parse_email_address(address_str: Optional[str]) -> List['Entity']:
         'john@example.com'
     """
     if not address_str:
-        print("NO ADRESSSSS")
+        # print("NO ADRESSSSS")
         return []
 
-    print("address_str", address_str)
+    # print("address_str", address_str)
 
     entities = []
     # Simple regex to extract name and email from patterns like "Name <email@example.com>"
@@ -110,11 +110,12 @@ def parse_email_address(address_str: Optional[str]) -> List['Entity']:
         if not addresses:
             addresses = [address_str]
 
-        print(addresses)
+        # print(addresses)
 
 
         for addr in addresses:
             addr = addr.strip()
+            addr = re.sub(r'[();"\']+', '', addr).strip()
             if not addr:
                 continue
 
