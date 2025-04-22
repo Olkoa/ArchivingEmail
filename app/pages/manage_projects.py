@@ -3,7 +3,10 @@ Olkoa - Project Management Interface
 
 This page allows users to create, edit, and manage their projects within the Olkoa system.
 Each project contains one or more mailboxes with associated metadata.
+
+Check modifs saved !
 """
+
 
 import streamlit as st
 import os
@@ -26,6 +29,7 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 #     page_icon="📁",
 #     layout="wide",
 # )
+
 
 # Custom CSS
 try:
