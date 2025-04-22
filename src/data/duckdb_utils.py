@@ -105,6 +105,7 @@ def setup_database(db_path: Union[str, Path]) -> duckdb.DuckDBPyConnection:
         sender_id VARCHAR,
         reply_to_id VARCHAR,
         mailbox_name VARCHAR,
+        direction VARCHAR,
         timestamp TIMESTAMP,
         subject VARCHAR,
         body TEXT,

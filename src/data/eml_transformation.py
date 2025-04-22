@@ -381,15 +381,10 @@ def extract_recipients(message):
         "reply_to": reply_to_entity
     }
 
-def extract_message_data(message, folder_name, mailbox_name="Boîte mail de Céline", project_name="Projet Demo"):
+def extract_message_data(message, folder_name, config_file, mailbox_name="Boîte mail de Céline", project_name="Projet Demo"):
     """Extract comprehensive email data to match Pydantic models"""
     # Generate a unique ID
     email_id = str(uuid.uuid4())
-
-
-    # Load JSON config file
-    with open(f"data/Projects/{project_name}/project_config_file.json", "r", encoding="utf-8") as f:
-        config_file = json.load(f)
 
     # Extract basic headers
     subject = decode_str(message.get('subject') or "")
@@ -586,6 +581,9 @@ def collect_email_data(directory: Union[str, Path],
         List of dictionaries containing extracted email data
     """
 
+    with open(f"data/Projects/{project_name}/project_config_file.json", "r", encoding="utf-8") as f:
+        config_file = json.load(f)
+
     all_emails = []
     directory = Path(directory)  # Convert to Path object if it's a string
 
@@ -609,7 +607,7 @@ def collect_email_data(directory: Union[str, Path],
             with open(eml_path, 'rb') as f:
                 message = email.message_from_binary_file(f, policy=policy.default)
 
-            email_data = extract_message_data(message, folder_name, mailbox_name, project_name)
+            email_data = extract_message_data(message, folder_name, config_file, mailbox_name, project_name)
 
             # Add the file path for reference
             email_data['file_path'] = str(eml_path)
@@ -747,6 +745,10 @@ def process_eml_to_duckdb(directory: Union[str, Path],
     Returns:
         Updated entity cache after processing
     """
+
+    with open(f"data/Projects/{project_name}/project_config_file.json", "r", encoding="utf-8") as f:
+        config_file = json.load(f)
+
     if entity_cache is None:
         entity_cache = {}  # Cache to store entities we've already seen
 
@@ -782,7 +784,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
             # Parse the email file
             with open(eml_path, 'rb') as f:
                 message = email.message_from_binary_file(f, policy=policy.default)
-            email_data, receiver_email = extract_message_data(message, folder_name, mailbox_name, project_name)
+            email_data, receiver_email = extract_message_data(message, folder_name, config_file, mailbox_name, project_name)
 
             # Process sender entity
             sender = receiver_email.sender
@@ -835,6 +837,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                         'name': receiver_email.reply_to.name,
                         'email': reply_to_email,
                         'alias_names': None,
+                        'alias_emails': None,
                         'is_physical_person': True
                     })
                 else:
@@ -850,9 +853,6 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                     'description': receiver_email.mailing_list.description,
                     'email_address': receiver_email.mailing_list.email_address.email
                 })
-
-            print(f"Timestamp type: {type(receiver_email.timestamp)}")
-            print(f"Timestamp value: {receiver_email.timestamp}")
 
             # Add receiver email
             receiver_email_batch.append({
@@ -888,6 +888,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                             'name': entity.name,
                             'email': entity.email.email,
                             'alias_names': json.dumps(entity.alias_names) if entity.alias_names else None,
+                            'alias_emails': json.dumps(sender.alias_emails) if sender.alias_names else None,
                             'is_physical_person': entity.is_physical_person
                         })
 
@@ -920,6 +921,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                             'name': entity.name,
                             'email': entity.email.email,
                             'alias_names': json.dumps(entity.alias_names) if entity.alias_names else None,
+                            'alias_emails': json.dumps(sender.alias_emails) if sender.alias_names else None,
                             'is_physical_person': entity.is_physical_person
                         })
                     else:
@@ -943,6 +945,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                             'name': entity.name,
                             'email': entity.email.email,
                             'alias_names': json.dumps(entity.alias_names) if entity.alias_names else None,
+                            'alias_emails': json.dumps(sender.alias_emails) if sender.alias_names else None,
                             'is_physical_person': entity.is_physical_person
                         })
                     else:
