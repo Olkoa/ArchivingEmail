@@ -84,6 +84,7 @@ class ReceiverEmail(BaseModel):
     cc: Optional[List[Entity]] = None
     bcc: Optional[List[Entity]] = None
     mailbox_name: str
+    direction: str
     timestamp: datetime
     subject: str
     body: str

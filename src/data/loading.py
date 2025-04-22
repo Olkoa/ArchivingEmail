@@ -105,7 +105,7 @@ def parse_email_message(message: email.message.Message) -> Dict[str, Any]:
     # Determine if this is a sent or received email
     # This logic would need to be customized based on the mailbox structure
     # For now, we'll use a placeholder approach
-    direction = "sent" if from_addr.endswith("@archives-vaucluse.fr") else "received"
+    # direction = "sent" if from_addr.endswith("@archives-vaucluse.fr") else "received"
 
     return {
         "message_id": msg_id,
@@ -117,7 +117,7 @@ def parse_email_message(message: email.message.Message) -> Dict[str, Any]:
         "body": body,
         "attachments": "; ".join(attachments),
         "has_attachments": len(attachments) > 0,
-        "direction": direction
+        # "direction": direction
     }
 
 

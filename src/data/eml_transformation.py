@@ -387,9 +387,9 @@ def extract_message_data(message, folder_name, mailbox_name="Boîte mail de Cél
     email_id = str(uuid.uuid4())
 
 
-    ## Load JSON config file
-    # with open(f"data/Projects/{project_name}/project_config_file.json", "r", encoding="utf-8") as f:
-    #     config_file = json.load(f)
+    # Load JSON config file
+    with open(f"data/Projects/{project_name}/project_config_file.json", "r", encoding="utf-8") as f:
+        config_file = json.load(f)
 
     # Extract basic headers
     subject = decode_str(message.get('subject') or "")
@@ -529,6 +529,7 @@ def extract_message_data(message, folder_name, mailbox_name="Boîte mail de Cél
         cc=recipients.get("cc") if recipients.get("cc") else None,
         bcc=recipients.get("bcc") if recipients.get("bcc") else None,
         mailbox_name=mailbox_name,
+        direction = determine_email_direction(message, config_file, project_name, mailbox_name),
         timestamp=timestamp,
         subject=subject,
         body=body_content["text"],
@@ -541,6 +542,7 @@ def extract_message_data(message, folder_name, mailbox_name="Boîte mail de Cél
         mother_email=None,  # Will be linked later based on in_reply_to
         children_emails=None
     )
+
 
     # Create a data dictionary for our normalized database tables
     email_data = {
@@ -623,6 +625,103 @@ def collect_email_data(directory: Union[str, Path],
             print(f"Error processing {eml_path}: {e}")
 
     return all_emails
+
+
+def determine_email_direction(message, config_file, project_name: str, mailbox_name: str) -> str:
+    """
+    Determine if an email was sent from or received in the mailbox.
+
+    Args:
+        message: The email message object (from email.message module)
+        config_file: The configuration file containing mailbox information
+        project_name: The name of the project in the config file
+        mailbox_name: The name of the mailbox in the config file
+
+    Returns:
+        str: "sent" or "received"
+    """
+    # Extract the owner's main email and aliases from the config file
+    try:
+        mailbox_config = config_file[project_name]["mailboxs"][mailbox_name]
+        main_email = mailbox_config["Entity"]["email_adress"].lower()
+        email_aliases = [alias.lower() for alias in mailbox_config["Entity"]["email_adress_aliases"]]
+
+        # Combine main email and aliases into a single list
+        mailbox_owner_emails = [main_email] + email_aliases
+    except (KeyError, TypeError) as e:
+        # Fallback if the config structure doesn't match what we expect
+        print(f"Warning: Could not extract emails from config file: {e}")
+        mailbox_owner_emails = []
+
+    # Get key headers
+    from_header = message.get('from', '')
+    folder = message.get('X-Folder', '')
+    forensic_sender = message.get('X-libpst-forensic-sender', '')
+    received_headers = message.get_all('Received', [])
+
+    # Normalize the from_header for comparison (extract just the email address)
+    from_email = None
+    if '<' in from_header and '>' in from_header:
+        from_email = from_header.split('<')[1].split('>')[0].lower()
+    else:
+        # For simpler formats, try to extract email using regex
+        import re
+        email_pattern = re.compile(r'([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)')
+        match = email_pattern.search(from_header)
+        if match:
+            from_email = match.group(1).lower()
+
+    # Check if from_email matches any of the mailbox owner emails
+    from_is_owner = any(owner_email in from_email for owner_email in mailbox_owner_emails) if from_email and mailbox_owner_emails else False
+
+    # Check indicators for "sent" emails
+    sent_indicators = [
+        # Check if the sender is one of the mailbox owners
+        from_is_owner,
+
+        # Check if it's in a sent folder
+        folder and any(sent_term in folder.lower() for sent_term in ['sent', 'envoy', 'outbox']),
+
+        # Check for forensic sender header (often present in sent emails)
+        bool(forensic_sender),
+
+        # Check for few received headers (sent emails typically have fewer)
+        len(received_headers) <= 2
+    ]
+
+    # Check indicators for "received" emails
+    received_indicators = [
+        # Check if the sender is not one of the mailbox owners
+        not from_is_owner and from_email,
+
+        # Check if in inbox or other non-sent folder
+        folder and not any(sent_term in folder.lower() for sent_term in ['sent', 'envoy', 'outbox']),
+
+        # Check for multiple received headers (typical of incoming mail)
+        len(received_headers) > 2,
+
+        # Check for spam headers (only present in received emails)
+        any(header in message for header in ['X-Spam-Status', 'X-Ovh-Spam-Status', 'X-VR-SPAMSTATE']),
+
+        # Check for SPF headers (only present in received emails)
+        bool(message.get('Received-SPF'))
+    ]
+
+    # Count the positive indicators for each direction
+    sent_score = sum(1 for indicator in sent_indicators if indicator)
+    received_score = sum(1 for indicator in received_indicators if indicator)
+
+    # Determine direction based on relative strength of indicators
+    if sent_score > received_score:
+        return "sent"
+    elif received_score > sent_score:
+        return "received"
+    else:
+        # If tied, look at the From header as the tie-breaker
+        if from_is_owner:
+            return "sent"
+        else:
+            return "received"
 
 
 
@@ -752,15 +851,18 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                     'email_address': receiver_email.mailing_list.email_address.email
                 })
 
-            print(receiver_email.timestamp)
+            print(f"Timestamp type: {type(receiver_email.timestamp)}")
+            print(f"Timestamp value: {receiver_email.timestamp}")
+
             # Add receiver email
             receiver_email_batch.append({
                 'id': receiver_email.id,
                 'sender_email_id': sender_email.id,
                 'sender_id': entity_id,
                 'reply_to_id': reply_to_id,
-                'timestamp': receiver_email.timestamp,
                 'mailbox_name': mailbox_name,
+                'direction': receiver_email.direction,
+                'timestamp':receiver_email.timestamp.strftime('%Y-%m-%d %H:%M:%S'), # 'timestamp': receiver_email.timestamp,
                 'subject': receiver_email.subject,
                 'body': receiver_email.body,
                 'is_deleted': receiver_email.is_deleted,
