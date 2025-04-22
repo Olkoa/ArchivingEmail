@@ -77,7 +77,10 @@ def parse_email_address(address_str: Optional[str]) -> List['Entity']:
         'john@example.com'
     """
     if not address_str:
+        print("NO ADRESSSSS")
         return []
+
+    print("address_str", address_str)
 
     entities = []
     # Simple regex to extract name and email from patterns like "Name <email@example.com>"
@@ -107,6 +110,8 @@ def parse_email_address(address_str: Optional[str]) -> List['Entity']:
         if not addresses:
             addresses = [address_str]
 
+        print(addresses)
+
 
         for addr in addresses:
             addr = addr.strip()
@@ -114,7 +119,6 @@ def parse_email_address(address_str: Optional[str]) -> List['Entity']:
                 continue
 
             try:
-
                 match = email_pattern.search(addr)
                 if match:
                     if match.group(2):  # Format: "Name <email@example.com>"
@@ -152,8 +156,26 @@ def parse_email_address(address_str: Optional[str]) -> List['Entity']:
                                 is_physical_person=True
                             )
                             entities.append(entity)
+
                         except Exception as e:
                             logging.error(f"Error creating Entity for fallback email {email_addr}: {e}")
+
+                    # We consider it's not a mail address but an indicator of the receiver name for now.
+                    # This is a fallback for email sent from our adress that lost it's mail address
+                    name = addr.strip()
+                    try:
+                        email_obj = EmailAddress(email="unknown@example.com")
+                        entity = Entity(
+                            name=name,  # Use email as name
+                            email=email_obj,
+                            is_physical_person=True
+                        )
+
+                        entities.append(entity)
+                    except Exception as e:
+                        logging.error(f"Error creating Entity with name only and no mail adress; {email_addr}: {e}")
+
+
             except Exception as e:
                 logging.error(f"Error parsing address '{addr}': {e}")
     except Exception as e:

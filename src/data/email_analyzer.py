@@ -421,10 +421,6 @@ class EmailAnalyzer:
             (SELECT COUNT(*) > 0
             FROM attachments a
             WHERE a.email_id = re.id) AS has_attachments,
-            CASE
-                WHEN re.folder LIKE '%sent%' THEN 'outgoing'
-                ELSE 'incoming'
-            END AS direction,
             re.folder AS mailbox
         FROM
             receiver_emails re
