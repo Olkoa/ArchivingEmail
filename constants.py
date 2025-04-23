@@ -13,6 +13,5 @@ SIDEBAR_STATE = "expanded"  # Options: "expanded", "collapsed"
 ENABLE_ELASTICSEARCH = False  # Set to True to use real Elasticsearch instead of mock mode
 ENABLE_RAG = True  # Set to False to disable RAG features
 
-
-
 ###
+ACTIVE_PROJECT = "Projet Demo"

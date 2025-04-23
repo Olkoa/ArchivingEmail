@@ -30,7 +30,6 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 #     layout="wide",
 # )
 
-
 # Custom CSS
 try:
     css_path = os.path.join(os.path.dirname(__file__), '../static/project_manager.css')

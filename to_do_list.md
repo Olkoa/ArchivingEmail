@@ -46,6 +46,12 @@ Continuing with database optimization...
 
 - Mettre l'app en français
 
+- demander quelles normes suivre pour l'affichage des dates pour des archivistes ?
+
+- check 200m limit
+
+- set un projet comme actif depuis le fichier constants.py ?
+
 --------------------------------------------------------------------------------------
 ### Pistes d'améliorations post restitution
 
@@ -63,3 +69,4 @@ Continuing with database optimization...
 
 
 ----------------------------------------------------------------------------------------
+jina colbert v2
