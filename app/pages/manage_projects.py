@@ -16,6 +16,7 @@ import shutil
 import uuid
 from datetime import datetime
 import tempfile
+import re
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -72,6 +73,33 @@ def find_projects():
                     })
             except Exception as e:
                 st.error(f"Error loading project {project_folder}: {str(e)}")
+    
+    # Sort projects based on PROJECT_ORDER in constants.py
+    try:
+        constants_path = os.path.join(project_root, 'constants.py')
+        with open(constants_path, 'r', encoding='utf-8') as file:
+            constants_content = file.read()
+        
+        # Extract project order
+        match = re.search(r'PROJECT_ORDER = \[(.*?)\]', constants_content, re.DOTALL)
+        if match:
+            order_str = match.group(1)
+            # Parse the order into a list
+            project_order = [p.strip().strip('"').strip("'") for p in order_str.split(',') if p.strip()]
+            
+            # Sort projects based on the order
+            def get_project_order(project):
+                project_name = project['name']
+                if project_name in project_order:
+                    return project_order.index(project_name)
+                else:
+                    # If project is not in the order list, place it at the end
+                    return len(project_order)
+            
+            projects.sort(key=get_project_order)
+    except Exception as e:
+        # If there's an error reading the order, just keep the original order
+        pass
 
     return projects
 
@@ -176,6 +204,9 @@ def reset_form():
 
 # Function to load project data into form
 def load_project_for_edit(project):
+    # Update the project order when a project is edited
+    update_project_order(project['name'])
+    
     form_data = {
         'mode': 'edit',
         'current_project': project['name'],
@@ -279,6 +310,70 @@ def generate_config_json():
 
     return config
 
+# Function to update project order in constants.py
+def update_project_order(project_name):
+    constants_path = os.path.join(project_root, 'constants.py')
+    try:
+        with open(constants_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+        
+        # Extract current project order
+        match = re.search(r'PROJECT_ORDER = \[(.*?)\]', content, re.DOTALL)
+        if match:
+            current_order_str = match.group(1)
+            # Parse the current order into a list
+            current_order = [p.strip().strip('"').strip("'") for p in current_order_str.split(',') if p.strip()]
+            
+            # Remove the project if it's already in the list
+            if project_name in current_order:
+                current_order.remove(project_name)
+            
+            # Add the project to the beginning of the list
+            current_order.insert(0, project_name)
+            
+            # Create the new project order string
+            new_order_str = '[' + ', '.join([f'"{p}"' for p in current_order]) + ']'
+            
+            # Replace in the content
+            new_content = re.sub(r'PROJECT_ORDER = \[.*?\]', f'PROJECT_ORDER = {new_order_str}', content, flags=re.DOTALL)
+            
+            with open(constants_path, 'w', encoding='utf-8') as file:
+                file.write(new_content)
+            
+            return True
+        else:
+            # If PROJECT_ORDER doesn't exist yet, create it
+            new_content = re.sub(r'ACTIVE_PROJECT = ".*?"', f'ACTIVE_PROJECT = "{project_name}"\n\n# Project order - Most recently accessed projects will appear first\n# Format: List of project names in display order\nPROJECT_ORDER = ["{project_name}"]', content)
+            
+            with open(constants_path, 'w', encoding='utf-8') as file:
+                file.write(new_content)
+            
+            return True
+    except Exception as e:
+        st.error(f"Error updating project order: {str(e)}")
+        return False
+
+# Function to set active project
+def set_active_project(project_name):
+    constants_path = os.path.join(project_root, 'constants.py')
+    try:
+        with open(constants_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+        
+        # Use regex to replace the ACTIVE_PROJECT value
+        new_content = re.sub(r'ACTIVE_PROJECT = ".*?"', f'ACTIVE_PROJECT = "{project_name}"', content)
+        
+        with open(constants_path, 'w', encoding='utf-8') as file:
+            file.write(new_content)
+        
+        # Update project order
+        update_project_order(project_name)
+        
+        return True
+    except Exception as e:
+        st.error(f"Error setting active project: {str(e)}")
+        return False
+
 # Function to validate form data
 def validate_form():
     form = st.session_state.project_form
@@ -333,6 +428,9 @@ def save_project():
     for mailbox in form['mailboxes']:
         if mailbox['files']:
             save_uploaded_files(mailbox['name'], mailbox['files'], project_path)
+    
+    # Update the project order when a project is saved
+    update_project_order(project_name)
 
     return True
 
@@ -392,76 +490,71 @@ if st.session_state.project_form['mode'] is None:
     # We're in project list view - show all projects
     projects = find_projects()
 
-    # Create a flexible grid layout for project cards
-    col1, col2 = st.columns([1, 3])
+    # Create a centered button for new project
+    st.markdown("""
+    <style>
+    .centered-button-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    st.markdown('<div class="centered-button-container">', unsafe_allow_html=True)
+    if st.button("Créer un Projet", key="new-project-btn", help="Create a new project", type="primary", use_container_width=True):
+        start_new_project()
+        st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
+    
+    if not projects:
+        st.info("No projects found. Create your first project by clicking the 'Créer un Projet' button.")
+    else:
+        st.subheader("Existing Projects")
 
-    with col1:
-        # "New Project" button styled as a card
-        st.markdown("""
-        <style>
-        .new-project-card {
-            background-color: #f0f2f6;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .new-project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        </style>
-        <div class="new-project-card" onclick="document.getElementById('new-project-btn').click()">
-            <h1 style="font-size: 50px; margin: 0;">+</h1>
-            <p style="font-size: 20px; margin: 10px 0 0 0;">New Project</p>
-        </div>
-        """, unsafe_allow_html=True)
+        # Create a 2-column layout for project cards
+        cols = st.columns(2)
 
-        # Hidden button that will be clicked by the card
-        if st.button("New Project", key="new-project-btn", help="Create a new project", type="primary"):
-            start_new_project()
-            st.rerun()
+        for i, project in enumerate(projects):
+            col_idx = i % 2
+            with cols[col_idx]:
+                # Project card with summary information
+                with st.container(border=True):
+                    st.subheader(project["name"])
 
-    with col2:
-        if not projects:
-            st.info("No projects found. Create your first project by clicking the '+' button.")
-        else:
-            st.subheader("Existing Projects")
+                    # Count mailboxes
+                    mailbox_count = len(project["config"][project["name"]].get("mailboxs", {}))
+                    st.write(f"📧 {mailbox_count} mailbox{'es' if mailbox_count != 1 else ''}")
 
-            # Create a 2-column layout for project cards
-            cols = st.columns(2)
+                    # List the first few mailboxes
+                    mailboxes = list(project["config"][project["name"]].get("mailboxs", {}).keys())
+                    for j, mailbox in enumerate(mailboxes):
+                        if j < 3:  # Show only first 3 mailboxes
+                            st.write(f"- {mailbox}")
+                        elif j == 3:
+                            st.write(f"- ... {len(mailboxes) - 3} more")
+                            break
 
-            for i, project in enumerate(projects):
-                col_idx = i % 2
-                with cols[col_idx]:
-                    # Project card with summary information
-                    with st.container(border=True):
-                        st.subheader(project["name"])
-
-                        # Count mailboxes
-                        mailbox_count = len(project["config"][project["name"]].get("mailboxs", {}))
-                        st.write(f"📧 {mailbox_count} mailbox{'es' if mailbox_count != 1 else ''}")
-
-                        # List the first few mailboxes
-                        mailboxes = list(project["config"][project["name"]].get("mailboxs", {}).keys())
-                        for j, mailbox in enumerate(mailboxes):
-                            if j < 3:  # Show only first 3 mailboxes
-                                st.write(f"- {mailbox}")
-                            elif j == 3:
-                                st.write(f"- ... {len(mailboxes) - 3} more")
-                                break
-
-                        # Edit button
-                        if st.button("Edit", key=f"edit_{i}"):
-                            load_project_for_edit(project)
-                            st.rerun()
+                    # Get current active project from constants.py
+                    constants_path = os.path.join(project_root, 'constants.py')
+                    with open(constants_path, 'r', encoding='utf-8') as file:
+                        constants_content = file.read()
+                    match = re.search(r'ACTIVE_PROJECT = "(.*?)"', constants_content)
+                    active_project = match.group(1) if match else ""
+                    
+                    # Edit button
+                    if st.button("Edit", key=f"edit_{i}"):
+                        load_project_for_edit(project)
+                        st.rerun()
+                    
+                    # Selection button with colored active project
+                    if project["name"] == active_project:
+                        st.markdown("""<div style='display: inline-block; background-color: #4CAF50; color: white; padding: 8px 16px; border-radius: 5px; text-align: center;'>Projet Activé</div>""", unsafe_allow_html=True)
+                    else:
+                        if st.button("Sélectionner", key=f"select_{i}"):
+                            if set_active_project(project["name"]):
+                                st.success(f"'{project['name']}' est maintenant le projet actif")
+                                st.rerun()
 else:
     # We're in form view - show project form
     form = st.session_state.project_form

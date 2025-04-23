@@ -451,6 +451,42 @@ class EmailAnalyzer:
 
         return df
 
+    def get_mail_bodies_for_embedding_DataFrame(self, max_body_chars: int = 8000, limit: int = None):
+        """
+        Get a DataFrame with specific columns needed for the application,
+        with optional truncation of email body length, and removal of empty bodies.
+
+        Args:
+            max_body_chars: Maximum number of characters to keep in the 'body' field.
+            limit: Optional limit on the number of rows returned.
+
+        Returns:
+            pandas DataFrame with columns: message_id, body (truncated), ...
+        """
+        conn = self.connect()
+        print(conn.execute("SELECT table_name FROM information_schema.tables").fetchdf())
+
+
+        query = """
+        SELECT
+            re.message_id,
+            re.body
+        FROM
+            receiver_emails re
+        """
+
+        if limit:
+            query += f" LIMIT {limit}"
+
+        df = conn.execute(query).df()
+
+        # Drop empty or null bodies
+        df = df[df["body"].notna() & (df["body"].str.strip() != "")]
+
+        # Truncate body content
+        df["body"] = df["body"].apply(lambda x: x[:max_body_chars])
+
+        return df
 
 if __name__ == "__main__":
 

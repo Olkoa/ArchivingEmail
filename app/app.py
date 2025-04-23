@@ -58,7 +58,7 @@ st.sidebar.title("Navigation")
 
 # Organize pages into categories for better navigation
 navigation_categories = {
-    "Project Management": ["Manage Projects"],
+    # "Project Management": ["Manage Projects"],
     "Overview": ["Dashboard"],
     "Exploration": ["Email Explorer", "Network Analysis", "Timeline"],
     "Search": ["Recherche", "Recherche ElasticSearch"],
@@ -804,9 +804,9 @@ elif page == "Colbert RAG":
     emails_df = load_data(selected_mailbox)
     render_colbert_rag_component(emails_df)
 
-elif page == "Manage Projects":
-    # Import and run the manage_projects page
-    import app.pages.manage_projects
+# elif page == "Manage Projects":
+#     # Import and run the manage_projects page
+#     import app.pages.manage_projects
 
 # Footer
 st.sidebar.markdown("---")

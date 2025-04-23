@@ -15,3 +15,7 @@ ENABLE_RAG = True  # Set to False to disable RAG features
 
 ###
 ACTIVE_PROJECT = "Projet Demo"
+
+# Project order - Most recently accessed projects will appear first
+# Format: List of project names in display order
+PROJECT_ORDER = ["Projet Demo"]
