@@ -804,9 +804,10 @@ elif page == "Colbert RAG":
     emails_df = load_data(selected_mailbox)
     render_colbert_rag_component(emails_df)
 
-elif page == "Manage Projects":
-    # Import and run the manage_projects page
-    import app.pages.manage_projects
+# elif page == "Manage Projects":
+#     # Import and run the manage_projects page
+#     from app.pages.manage_projects import main
+#     main()
 
 # Footer
 st.sidebar.markdown("---")
