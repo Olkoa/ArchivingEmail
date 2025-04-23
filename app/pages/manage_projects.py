@@ -1,10 +1,8 @@
 """
-Olkoa - Project Management Interface
+Olkoa - Interface de Gestion de Projets
 
-This page allows users to create, edit, and manage their projects within the Olkoa system.
-Each project contains one or more mailboxes with associated metadata.
-
-Check modifs saved !
+Créez, modifiez et gérez vos projets d’archivage d’e-mails.
+Chaque projet peut contenir plusieurs boîtes mail avec des métadonnées sur les personnes et les organisations impliquées.
 """
 
 
@@ -73,20 +71,20 @@ def find_projects():
                     })
             except Exception as e:
                 st.error(f"Error loading project {project_folder}: {str(e)}")
-    
+
     # Sort projects based on PROJECT_ORDER in constants.py
     try:
         constants_path = os.path.join(project_root, 'constants.py')
         with open(constants_path, 'r', encoding='utf-8') as file:
             constants_content = file.read()
-        
+
         # Extract project order
         match = re.search(r'PROJECT_ORDER = \[(.*?)\]', constants_content, re.DOTALL)
         if match:
             order_str = match.group(1)
             # Parse the order into a list
             project_order = [p.strip().strip('"').strip("'") for p in order_str.split(',') if p.strip()]
-            
+
             # Sort projects based on the order
             def get_project_order(project):
                 project_name = project['name']
@@ -95,7 +93,7 @@ def find_projects():
                 else:
                     # If project is not in the order list, place it at the end
                     return len(project_order)
-            
+
             projects.sort(key=get_project_order)
     except Exception as e:
         # If there's an error reading the order, just keep the original order
@@ -206,7 +204,7 @@ def reset_form():
 def load_project_for_edit(project):
     # Update the project order when a project is edited
     update_project_order(project['name'])
-    
+
     form_data = {
         'mode': 'edit',
         'current_project': project['name'],
@@ -316,38 +314,38 @@ def update_project_order(project_name):
     try:
         with open(constants_path, 'r', encoding='utf-8') as file:
             content = file.read()
-        
+
         # Extract current project order
         match = re.search(r'PROJECT_ORDER = \[(.*?)\]', content, re.DOTALL)
         if match:
             current_order_str = match.group(1)
             # Parse the current order into a list
             current_order = [p.strip().strip('"').strip("'") for p in current_order_str.split(',') if p.strip()]
-            
+
             # Remove the project if it's already in the list
             if project_name in current_order:
                 current_order.remove(project_name)
-            
+
             # Add the project to the beginning of the list
             current_order.insert(0, project_name)
-            
+
             # Create the new project order string
             new_order_str = '[' + ', '.join([f'"{p}"' for p in current_order]) + ']'
-            
+
             # Replace in the content
             new_content = re.sub(r'PROJECT_ORDER = \[.*?\]', f'PROJECT_ORDER = {new_order_str}', content, flags=re.DOTALL)
-            
+
             with open(constants_path, 'w', encoding='utf-8') as file:
                 file.write(new_content)
-            
+
             return True
         else:
             # If PROJECT_ORDER doesn't exist yet, create it
             new_content = re.sub(r'ACTIVE_PROJECT = ".*?"', f'ACTIVE_PROJECT = "{project_name}"\n\n# Project order - Most recently accessed projects will appear first\n# Format: List of project names in display order\nPROJECT_ORDER = ["{project_name}"]', content)
-            
+
             with open(constants_path, 'w', encoding='utf-8') as file:
                 file.write(new_content)
-            
+
             return True
     except Exception as e:
         st.error(f"Error updating project order: {str(e)}")
@@ -359,16 +357,16 @@ def set_active_project(project_name):
     try:
         with open(constants_path, 'r', encoding='utf-8') as file:
             content = file.read()
-        
+
         # Use regex to replace the ACTIVE_PROJECT value
         new_content = re.sub(r'ACTIVE_PROJECT = ".*?"', f'ACTIVE_PROJECT = "{project_name}"', content)
-        
+
         with open(constants_path, 'w', encoding='utf-8') as file:
             file.write(new_content)
-        
+
         # Update project order
         update_project_order(project_name)
-        
+
         return True
     except Exception as e:
         st.error(f"Error setting active project: {str(e)}")
@@ -428,7 +426,7 @@ def save_project():
     for mailbox in form['mailboxes']:
         if mailbox['files']:
             save_uploaded_files(mailbox['name'], mailbox['files'], project_path)
-    
+
     # Update the project order when a project is saved
     update_project_order(project_name)
 
@@ -500,13 +498,13 @@ if st.session_state.project_form['mode'] is None:
     }
     </style>
     """, unsafe_allow_html=True)
-    
+
     st.markdown('<div class="centered-button-container">', unsafe_allow_html=True)
     if st.button("Créer un Projet", key="new-project-btn", help="Create a new project", type="primary", use_container_width=True):
         start_new_project()
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
-    
+
     if not projects:
         st.info("No projects found. Create your first project by clicking the 'Créer un Projet' button.")
     else:
@@ -541,15 +539,18 @@ if st.session_state.project_form['mode'] is None:
                         constants_content = file.read()
                     match = re.search(r'ACTIVE_PROJECT = "(.*?)"', constants_content)
                     active_project = match.group(1) if match else ""
-                    
+
+                    # Add some extra spacing before the buttons
+                    st.write(" ")
+
                     # Edit button
                     if st.button("Edit", key=f"edit_{i}"):
                         load_project_for_edit(project)
                         st.rerun()
-                    
+
                     # Selection button with colored active project
                     if project["name"] == active_project:
-                        st.markdown("""<div style='display: inline-block; background-color: #4CAF50; color: white; padding: 8px 16px; border-radius: 5px; text-align: center;'>Projet Activé</div>""", unsafe_allow_html=True)
+                        st.markdown("""<div style='display: block; background-color: #4CAF50; color: white; padding: 8px 16px; border-radius: 5px; text-align: center; margin-top: 10px; margin-bottom: 5px; width: fit-content;'>Projet Activé</div>""", unsafe_allow_html=True)
                     else:
                         if st.button("Sélectionner", key=f"select_{i}"):
                             if set_active_project(project["name"]):

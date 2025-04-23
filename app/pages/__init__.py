@@ -1,3 +1,0 @@
-"""
-Olkoa application pages package
-"""
