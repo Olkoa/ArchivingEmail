@@ -5,7 +5,6 @@ Créez, modifiez et gérez vos projets d’archivage d’e-mails.
 Chaque projet peut contenir plusieurs boîtes mail avec des métadonnées sur les personnes et les organisations impliquées.
 """
 
-
 import streamlit as st
 import os
 import sys
