@@ -42,17 +42,17 @@ data:
 # Run the app in stable mode (no file watcher)
 .PHONY: run
 run:
-	cd $(APP_DIR) && $(STREAMLIT) run app.py --server.fileWatcherType none
+	cd $(APP_DIR) && streamlit run app.py --server.maxUploadSize 50000 --server.fileWatcherType none
 
 # Run the app with debug flag
 .PHONY: run-debug
 run-debug:
-	cd $(APP_DIR) && $(STREAMLIT) run app.py --debug
+	cd $(APP_DIR) && streamlit run app.py --debug
 
 # Run the app with normal file watcher
 .PHONY: run-normal
 run-normal:
-	cd $(APP_DIR) && $(STREAMLIT) run app.py
+	cd $(APP_DIR) && streamlit run app.py
 
 # Start the MCP server
 .PHONY: start_mcp
