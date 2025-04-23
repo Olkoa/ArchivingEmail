@@ -1,0 +1,202 @@
+{
+    "nodes": [
+        {
+            "id": "delegation_generale@archivistes.org",
+            "name": "delegation_generale@archivistes.org"
+        },
+        {
+            "id": "myriam.favreau@nouvelle-aquitaine.fr",
+            "name": "myriam.favreau@nouvelle-aquitaine.fr"
+        },
+        {
+            "id": "a.vatican@free.fr",
+            "name": "a.vatican@free.fr"
+        },
+        {
+            "id": "celine.guyon@archivistes.org",
+            "name": "celine.guyon@archivistes.org"
+        },
+        {
+            "id": "vincent.taillandier@coomic.coop",
+            "name": "vincent.taillandier@coomic.coop"
+        },
+        {
+            "id": "louis.germain@archivistes.qc.ca",
+            "name": "louis.germain@archivistes.qc.ca"
+        },
+        {
+            "id": "mldubois@valorescence.be",
+            "name": "mldubois@valorescence.be"
+        },
+        {
+            "id": "coordination@archivistes.be",
+            "name": "coordination@archivistes.be"
+        },
+        {
+            "id": "taik.bourhis@umontreal.ca",
+            "name": "taik.bourhis@umontreal.ca"
+        },
+        {
+            "id": "yves.lapointe@mcgill.ca",
+            "name": "yves.lapointe@mcgill.ca"
+        },
+        {
+            "id": "Alain.DUBOIS@admin.vs.ch",
+            "name": "Alain.DUBOIS@admin.vs.ch"
+        },
+        {
+            "id": "foisykarine@gmail.com",
+            "name": "foisykarine@gmail.com"
+        },
+        {
+            "id": "tizian.zumthurm@uni.lu",
+            "name": "tizian.zumthurm@uni.lu"
+        }
+    ],
+    "edges": [
+        {
+            "id": "e0",
+            "source": "delegation_generale@archivistes.org",
+            "target": "myriam.favreau@nouvelle-aquitaine.fr",
+            "label": "delegation_generale@archivistes.org \u2192 myriam.favreau@nouvelle-aquitaine.fr"
+        },
+        {
+            "id": "e1",
+            "source": "a.vatican@free.fr",
+            "target": "celine.guyon@archivistes.org",
+            "label": "a.vatican@free.fr \u2192 celine.guyon@archivistes.org"
+        },
+        {
+            "id": "e2",
+            "source": "delegation_generale@archivistes.org",
+            "target": "vincent.taillandier@coomic.coop",
+            "label": "delegation_generale@archivistes.org \u2192 vincent.taillandier@coomic.coop"
+        },
+        {
+            "id": "e3",
+            "source": "delegation_generale@archivistes.org",
+            "target": "myriam.favreau@nouvelle-aquitaine.fr",
+            "label": "delegation_generale@archivistes.org \u2192 myriam.favreau@nouvelle-aquitaine.fr"
+        },
+        {
+            "id": "e4",
+            "source": "delegation_generale@archivistes.org",
+            "target": "celine.guyon@archivistes.org",
+            "label": "delegation_generale@archivistes.org \u2192 celine.guyon@archivistes.org"
+        },
+        {
+            "id": "e5",
+            "source": "myriam.favreau@nouvelle-aquitaine.fr",
+            "target": "delegation_generale@archivistes.org",
+            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2192 delegation_generale@archivistes.org"
+        },
+        {
+            "id": "e6",
+            "source": "louis.germain@archivistes.qc.ca",
+            "target": "mldubois@valorescence.be",
+            "label": "louis.germain@archivistes.qc.ca \u2192 mldubois@valorescence.be"
+        },
+        {
+            "id": "e7",
+            "source": "louis.germain@archivistes.qc.ca",
+            "target": "coordination@archivistes.be",
+            "label": "louis.germain@archivistes.qc.ca \u2192 coordination@archivistes.be"
+        },
+        {
+            "id": "e8",
+            "source": "louis.germain@archivistes.qc.ca",
+            "target": "taik.bourhis@umontreal.ca",
+            "label": "louis.germain@archivistes.qc.ca \u2192 taik.bourhis@umontreal.ca"
+        },
+        {
+            "id": "e9",
+            "source": "louis.germain@archivistes.qc.ca",
+            "target": "yves.lapointe@mcgill.ca",
+            "label": "louis.germain@archivistes.qc.ca \u2192 yves.lapointe@mcgill.ca"
+        },
+        {
+            "id": "e10",
+            "source": "louis.germain@archivistes.qc.ca",
+            "target": "Alain.DUBOIS@admin.vs.ch",
+            "label": "louis.germain@archivistes.qc.ca \u2192 Alain.DUBOIS@admin.vs.ch"
+        },
+        {
+            "id": "e11",
+            "source": "louis.germain@archivistes.qc.ca",
+            "target": "foisykarine@gmail.com",
+            "label": "louis.germain@archivistes.qc.ca \u2192 foisykarine@gmail.com"
+        },
+        {
+            "id": "e12",
+            "source": "louis.germain@archivistes.qc.ca",
+            "target": "celine.guyon@archivistes.org",
+            "label": "louis.germain@archivistes.qc.ca \u2192 celine.guyon@archivistes.org"
+        },
+        {
+            "id": "e13",
+            "source": "louis.germain@archivistes.qc.ca",
+            "target": "tizian.zumthurm@uni.lu",
+            "label": "louis.germain@archivistes.qc.ca \u2192 tizian.zumthurm@uni.lu"
+        },
+        {
+            "id": "e14",
+            "source": "vincent.taillandier@coomic.coop",
+            "target": "delegation_generale@archivistes.org",
+            "label": "vincent.taillandier@coomic.coop \u2192 delegation_generale@archivistes.org"
+        },
+        {
+            "id": "e15",
+            "source": "vincent.taillandier@coomic.coop",
+            "target": "myriam.favreau@nouvelle-aquitaine.fr",
+            "label": "vincent.taillandier@coomic.coop \u2192 myriam.favreau@nouvelle-aquitaine.fr"
+        },
+        {
+            "id": "e16",
+            "source": "vincent.taillandier@coomic.coop",
+            "target": "celine.guyon@archivistes.org",
+            "label": "vincent.taillandier@coomic.coop \u2192 celine.guyon@archivistes.org"
+        },
+        {
+            "id": "e17",
+            "source": "louis.germain@archivistes.qc.ca",
+            "target": "celine.guyon@archivistes.org",
+            "label": "louis.germain@archivistes.qc.ca \u2192 celine.guyon@archivistes.org"
+        },
+        {
+            "id": "e18",
+            "source": "coordination@archivistes.be",
+            "target": "louis.germain@archivistes.qc.ca",
+            "label": "coordination@archivistes.be \u2192 louis.germain@archivistes.qc.ca"
+        },
+        {
+            "id": "e19",
+            "source": "delegation_generale@archivistes.org",
+            "target": "vincent.taillandier@coomic.coop",
+            "label": "delegation_generale@archivistes.org \u2192 vincent.taillandier@coomic.coop"
+        },
+        {
+            "id": "e20",
+            "source": "delegation_generale@archivistes.org",
+            "target": "myriam.favreau@nouvelle-aquitaine.fr",
+            "label": "delegation_generale@archivistes.org \u2192 myriam.favreau@nouvelle-aquitaine.fr"
+        },
+        {
+            "id": "e21",
+            "source": "vincent.taillandier@coomic.coop",
+            "target": "delegation_generale@archivistes.org",
+            "label": "vincent.taillandier@coomic.coop \u2192 delegation_generale@archivistes.org"
+        },
+        {
+            "id": "e22",
+            "source": "vincent.taillandier@coomic.coop",
+            "target": "myriam.favreau@nouvelle-aquitaine.fr",
+            "label": "vincent.taillandier@coomic.coop \u2192 myriam.favreau@nouvelle-aquitaine.fr"
+        },
+        {
+            "id": "e23",
+            "source": "vincent.taillandier@coomic.coop",
+            "target": "celine.guyon@archivistes.org",
+            "label": "vincent.taillandier@coomic.coop \u2192 celine.guyon@archivistes.org"
+        }
+    ]
+}
