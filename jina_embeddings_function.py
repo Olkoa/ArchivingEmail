@@ -303,14 +303,13 @@ def process_embeddings(batch_size=60, batch_delay=61, sample_mode=False):
 
     return df, output_path
 
-
 if __name__ == "__main__":
     # You can call the function with different parameters
     import argparse
 
     parser = argparse.ArgumentParser(description='Process emails and generate embeddings.')
-    parser.add_argument('--batch-size', type=int, default=60, help='Number of emails per batch')
-    parser.add_argument('--batch-delay', type=int, default=61, help='Seconds to wait between batches')
+    parser.add_argument('--batch-size', type=int, default=70, help='Number of emails per batch')
+    parser.add_argument('--batch-delay', type=int, default=30, help='Seconds to wait between batches')
     parser.add_argument('--sample', action='store_true', help='Process only 10 batches for testing')
 
     args = parser.parse_args()

@@ -18,6 +18,9 @@
 
 *.docx
 *.zip
+*.pkl
+emails_with_embeddings_improved.pkl
+emails_with_embeddings_sample.pkl
 
 *.db
 *.duckdb*
