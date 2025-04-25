@@ -384,7 +384,7 @@ class EmailAnalyzer:
 
         return df
 
-    def get_app_DataFrame(self, mailbox=None, limit=None):
+    def get_app_DataFrame(self, mailbox=None, folder=None, limit=None):
         """
         Get a dataframe with specific columns needed for the application.
 
@@ -430,7 +430,14 @@ class EmailAnalyzer:
 
         # Add mailbox filter if specified
         if mailbox:
-            query += f" WHERE re.folder = '{mailbox}'"
+            query += f" WHERE re.mailbox_name = '{mailbox}'"
+
+        # Add folder filter if specified
+        if folder:
+            if 'WHERE re.mailbox_name' in query:
+                query += f" AND re.folder = '{folder}'"
+            else:
+                query += f" WHERE re.folder = '{folder}'"
 
         # Add limit if specified
         if limit:
@@ -488,12 +495,34 @@ class EmailAnalyzer:
 
         return df
 
+
+    def get_all_folders_names(self):
+        """
+        Get all folder names from the database.
+
+        Returns:
+            list: List of folder names.
+        """
+        conn = self.connect()
+
+        query = """
+        SELECT DISTINCT folder
+        FROM receiver_emails
+        """
+
+        result = conn.execute(query).fetchall()
+        return [row[0] for row in result]
+
 if __name__ == "__main__":
 
-    email_analyzer = EmailAnalyzer(db_path="data/Projects/database.duckdb")
+    email_analyzer = EmailAnalyzer(db_path="data/Projects/Projet Demo/célineETjoel.duckdb")
+
+    df = email_analyzer.get_app_DataFrame(folder="processed/celine.guyon/Boîte de réception/AG")
+
+    # print(email_analyzer.get_all_folders_names())
 
     # Get first 1000 emails with comprehensive data
-    df = email_analyzer.get_comprehensive_email_dataset(limit=10)
+    # df = email_analyzer.get_comprehensive_email_dataset(limit=10)
     print(df.shape[0], "emails retrieved")
     print(df.columns)
-    print(df.head(1))
+    # print(df.head)
