@@ -12,6 +12,8 @@ import sys
 import time
 import json
 
+
+
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -21,6 +23,8 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 # Import project constants and elasticsearch enhanced search functionality
 from constants import EMAIL_DISPLAY_TYPE, SIDEBAR_STATE
 from src.features.elasticsearch_enhanced import enhanced_search_emails
+from src.features.decodeml import decode_unicode_escape , getBody
+
 
 # Set page configuration - MUST BE FIRST STREAMLIT COMMAND
 st.set_page_config(
@@ -229,19 +233,34 @@ elif page == "Graph":
                         msg = email.message_from_file(f, policy=default)
                         sender = msg["From"]
                         receivers = msg.get_all("To", [])
+                        subject = msg.get("Subject", "unknown")
+                        date = msg.get("Date", "unknown")
 
                         # Clean sender
                         sender = email.utils.parseaddr(sender)[1] if sender else "unknown"
 
                         # Parse and flatten all receiver addresses
                         receiver_list = email.utils.getaddresses(receivers)
+                        # Extract body
+                        try:
+                            html_body = getBody(msg)
+                            soup = BeautifulSoup(html_body, 'html.parser')
+                            body = soup.get_text()
+                            body = decode_unicode_escape(body)
+                        except Exception as e:
+                            body = "[Error reading body]"
+                        
+
 
                         for name, addr in receiver_list:
                             addr = addr.strip()
                             if addr:  # Only keep non-empty addresses
                                 emails_data.append({
                                     "sender": sender,
-                                    "receiver": addr
+                                    "receiver": addr,
+                                    "subject": subject,
+                                    "date": date,
+                                    "body": body
                                 })
 
                     except Exception as e:
@@ -257,7 +276,8 @@ elif page == "Graph":
         # Step 4: Use DuckDB to store DataFrame
         # Step 4: Use DuckDB to store DataFrame
         con = duckdb.connect(database=':memory:', read_only=False)
-
+        for col in ["sender", "receiver", "subject", "date", "body"]:
+            df[col] = df[col].astype(str).apply(lambda x: x.encode('utf-8', errors='ignore').decode('utf-8', errors='ignore'))
         # Register DataFrame as a DuckDB view
         con.register("emails_df", df)
 
@@ -281,7 +301,7 @@ elif page == "Graph":
         
         with st.spinner("Running script..."):
             try:
-                result = subprocess.run(["python", "components/js.py", f"{eml_folder}/temp_data.csv"],
+                result = subprocess.run(["python", "components/js2.py", f"{eml_folder}/temp_data.csv"],
                                         capture_output=True, text=True, check=True)
                 st.success("✅ Script executed successfully!")
                 
@@ -386,7 +406,7 @@ elif page == "Graph":
             data_json = json.load(f)
 
     # Read HTML and inject the JSON directly
-        html_path = os.path.join(folder_path, "components/viz.html")
+        html_path = os.path.join(folder_path, "components/viz copy 28.html")
         with open(html_path, "r", encoding="utf-8") as f:
             html_content = f.read()
     
@@ -497,7 +517,7 @@ elif page == "Graph":
         data_json = json.load(f)
 
     # Read HTML and inject the JSON directly
-    html_path = os.path.join(folder_path, "components/viz.html")
+    html_path = os.path.join(folder_path, "components/viz copy 28.html")
     with open(html_path, "r", encoding="utf-8") as f:
         html_content = f.read()
     

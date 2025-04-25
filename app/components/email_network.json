@@ -58,145 +58,217 @@
             "id": "e0",
             "source": "delegation_generale@archivistes.org",
             "target": "myriam.favreau@nouvelle-aquitaine.fr",
-            "label": "delegation_generale@archivistes.org \u2192 myriam.favreau@nouvelle-aquitaine.fr"
+            "label": "delegation_generale@archivistes.org \u2192 myriam.favreau@nouvelle-aquitaine.fr",
+            "date": "Tue, 01 Dec 2020 11:46:05 +0100",
+            "body": "[Error reading body]",
+            "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e1",
             "source": "a.vatican@free.fr",
             "target": "celine.guyon@archivistes.org",
-            "label": "a.vatican@free.fr \u2192 celine.guyon@archivistes.org"
+            "label": "a.vatican@free.fr \u2192 celine.guyon@archivistes.org",
+            "date": "Sun, 18 Oct 2020 12:18:49 +0200",
+            "body": "[Error reading body]",
+            "subject": "Communiqu\u00e9"
         },
         {
             "id": "e2",
             "source": "delegation_generale@archivistes.org",
             "target": "vincent.taillandier@coomic.coop",
-            "label": "delegation_generale@archivistes.org \u2192 vincent.taillandier@coomic.coop"
+            "label": "delegation_generale@archivistes.org \u2192 vincent.taillandier@coomic.coop",
+            "date": "Tue, 01 Dec 2020 08:51:55 +0100",
+            "body": "[Error reading body]",
+            "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e3",
             "source": "delegation_generale@archivistes.org",
             "target": "myriam.favreau@nouvelle-aquitaine.fr",
-            "label": "delegation_generale@archivistes.org \u2192 myriam.favreau@nouvelle-aquitaine.fr"
+            "label": "delegation_generale@archivistes.org \u2192 myriam.favreau@nouvelle-aquitaine.fr",
+            "date": "Tue, 01 Dec 2020 08:51:55 +0100",
+            "body": "[Error reading body]",
+            "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e4",
             "source": "delegation_generale@archivistes.org",
             "target": "celine.guyon@archivistes.org",
-            "label": "delegation_generale@archivistes.org \u2192 celine.guyon@archivistes.org"
+            "label": "delegation_generale@archivistes.org \u2192 celine.guyon@archivistes.org",
+            "date": "Tue, 01 Dec 2020 08:51:55 +0100",
+            "body": "[Error reading body]",
+            "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e5",
             "source": "myriam.favreau@nouvelle-aquitaine.fr",
             "target": "delegation_generale@archivistes.org",
-            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2192 delegation_generale@archivistes.org"
+            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2192 delegation_generale@archivistes.org",
+            "date": "Tue, 01 Dec 2020 09:53:54 +0000",
+            "body": "[Error reading body]",
+            "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e6",
             "source": "louis.germain@archivistes.qc.ca",
             "target": "mldubois@valorescence.be",
-            "label": "louis.germain@archivistes.qc.ca \u2192 mldubois@valorescence.be"
+            "label": "louis.germain@archivistes.qc.ca \u2192 mldubois@valorescence.be",
+            "date": "Tue, 02 Feb 2021 11:23:16 -0500",
+            "body": "[Error reading body]",
+            "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine"
         },
         {
             "id": "e7",
             "source": "louis.germain@archivistes.qc.ca",
             "target": "coordination@archivistes.be",
-            "label": "louis.germain@archivistes.qc.ca \u2192 coordination@archivistes.be"
+            "label": "louis.germain@archivistes.qc.ca \u2192 coordination@archivistes.be",
+            "date": "Tue, 02 Feb 2021 11:23:16 -0500",
+            "body": "[Error reading body]",
+            "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine"
         },
         {
             "id": "e8",
             "source": "louis.germain@archivistes.qc.ca",
             "target": "taik.bourhis@umontreal.ca",
-            "label": "louis.germain@archivistes.qc.ca \u2192 taik.bourhis@umontreal.ca"
+            "label": "louis.germain@archivistes.qc.ca \u2192 taik.bourhis@umontreal.ca",
+            "date": "Tue, 02 Feb 2021 11:23:16 -0500",
+            "body": "[Error reading body]",
+            "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine"
         },
         {
             "id": "e9",
             "source": "louis.germain@archivistes.qc.ca",
             "target": "yves.lapointe@mcgill.ca",
-            "label": "louis.germain@archivistes.qc.ca \u2192 yves.lapointe@mcgill.ca"
+            "label": "louis.germain@archivistes.qc.ca \u2192 yves.lapointe@mcgill.ca",
+            "date": "Tue, 02 Feb 2021 11:23:16 -0500",
+            "body": "[Error reading body]",
+            "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine"
         },
         {
             "id": "e10",
             "source": "louis.germain@archivistes.qc.ca",
             "target": "Alain.DUBOIS@admin.vs.ch",
-            "label": "louis.germain@archivistes.qc.ca \u2192 Alain.DUBOIS@admin.vs.ch"
+            "label": "louis.germain@archivistes.qc.ca \u2192 Alain.DUBOIS@admin.vs.ch",
+            "date": "Tue, 02 Feb 2021 11:23:16 -0500",
+            "body": "[Error reading body]",
+            "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine"
         },
         {
             "id": "e11",
             "source": "louis.germain@archivistes.qc.ca",
             "target": "foisykarine@gmail.com",
-            "label": "louis.germain@archivistes.qc.ca \u2192 foisykarine@gmail.com"
+            "label": "louis.germain@archivistes.qc.ca \u2192 foisykarine@gmail.com",
+            "date": "Tue, 02 Feb 2021 11:23:16 -0500",
+            "body": "[Error reading body]",
+            "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine"
         },
         {
             "id": "e12",
             "source": "louis.germain@archivistes.qc.ca",
             "target": "celine.guyon@archivistes.org",
-            "label": "louis.germain@archivistes.qc.ca \u2192 celine.guyon@archivistes.org"
+            "label": "louis.germain@archivistes.qc.ca \u2192 celine.guyon@archivistes.org",
+            "date": "Tue, 02 Feb 2021 11:23:16 -0500",
+            "body": "[Error reading body]",
+            "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine"
         },
         {
             "id": "e13",
             "source": "louis.germain@archivistes.qc.ca",
             "target": "tizian.zumthurm@uni.lu",
-            "label": "louis.germain@archivistes.qc.ca \u2192 tizian.zumthurm@uni.lu"
+            "label": "louis.germain@archivistes.qc.ca \u2192 tizian.zumthurm@uni.lu",
+            "date": "Tue, 02 Feb 2021 11:23:16 -0500",
+            "body": "[Error reading body]",
+            "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine"
         },
         {
             "id": "e14",
             "source": "vincent.taillandier@coomic.coop",
             "target": "delegation_generale@archivistes.org",
-            "label": "vincent.taillandier@coomic.coop \u2192 delegation_generale@archivistes.org"
+            "label": "vincent.taillandier@coomic.coop \u2192 delegation_generale@archivistes.org",
+            "date": "Tue, 01 Dec 2020 10:28:45 +0100",
+            "body": "[Error reading body]",
+            "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e15",
             "source": "vincent.taillandier@coomic.coop",
             "target": "myriam.favreau@nouvelle-aquitaine.fr",
-            "label": "vincent.taillandier@coomic.coop \u2192 myriam.favreau@nouvelle-aquitaine.fr"
+            "label": "vincent.taillandier@coomic.coop \u2192 myriam.favreau@nouvelle-aquitaine.fr",
+            "date": "Tue, 01 Dec 2020 10:28:45 +0100",
+            "body": "[Error reading body]",
+            "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e16",
             "source": "vincent.taillandier@coomic.coop",
             "target": "celine.guyon@archivistes.org",
-            "label": "vincent.taillandier@coomic.coop \u2192 celine.guyon@archivistes.org"
+            "label": "vincent.taillandier@coomic.coop \u2192 celine.guyon@archivistes.org",
+            "date": "Tue, 01 Dec 2020 10:28:45 +0100",
+            "body": "[Error reading body]",
+            "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e17",
             "source": "louis.germain@archivistes.qc.ca",
             "target": "celine.guyon@archivistes.org",
-            "label": "louis.germain@archivistes.qc.ca \u2192 celine.guyon@archivistes.org"
+            "label": "louis.germain@archivistes.qc.ca \u2192 celine.guyon@archivistes.org",
+            "date": "Thu, 11 Feb 2021 16:23:29 -0500",
+            "body": "[Error reading body]",
+            "subject": "RE: Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine"
         },
         {
             "id": "e18",
             "source": "coordination@archivistes.be",
             "target": "louis.germain@archivistes.qc.ca",
-            "label": "coordination@archivistes.be \u2192 louis.germain@archivistes.qc.ca"
+            "label": "coordination@archivistes.be \u2192 louis.germain@archivistes.qc.ca",
+            "date": "Fri, 12 Feb 2021 12:33:13 +0100",
+            "body": "[Error reading body]",
+            "subject": "Re: Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine"
         },
         {
             "id": "e19",
             "source": "delegation_generale@archivistes.org",
             "target": "vincent.taillandier@coomic.coop",
-            "label": "delegation_generale@archivistes.org \u2192 vincent.taillandier@coomic.coop"
+            "label": "delegation_generale@archivistes.org \u2192 vincent.taillandier@coomic.coop",
+            "date": "Tue, 01 Dec 2020 13:23:54 +0100",
+            "body": "[Error reading body]",
+            "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e20",
             "source": "delegation_generale@archivistes.org",
             "target": "myriam.favreau@nouvelle-aquitaine.fr",
-            "label": "delegation_generale@archivistes.org \u2192 myriam.favreau@nouvelle-aquitaine.fr"
+            "label": "delegation_generale@archivistes.org \u2192 myriam.favreau@nouvelle-aquitaine.fr",
+            "date": "Tue, 01 Dec 2020 13:23:54 +0100",
+            "body": "[Error reading body]",
+            "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e21",
             "source": "vincent.taillandier@coomic.coop",
             "target": "delegation_generale@archivistes.org",
-            "label": "vincent.taillandier@coomic.coop \u2192 delegation_generale@archivistes.org"
+            "label": "vincent.taillandier@coomic.coop \u2192 delegation_generale@archivistes.org",
+            "date": "Mon, 30 Nov 2020 18:44:10 +0100",
+            "body": "[Error reading body]",
+            "subject": "Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e22",
             "source": "vincent.taillandier@coomic.coop",
             "target": "myriam.favreau@nouvelle-aquitaine.fr",
-            "label": "vincent.taillandier@coomic.coop \u2192 myriam.favreau@nouvelle-aquitaine.fr"
+            "label": "vincent.taillandier@coomic.coop \u2192 myriam.favreau@nouvelle-aquitaine.fr",
+            "date": "Mon, 30 Nov 2020 18:44:10 +0100",
+            "body": "[Error reading body]",
+            "subject": "Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         },
         {
             "id": "e23",
             "source": "vincent.taillandier@coomic.coop",
             "target": "celine.guyon@archivistes.org",
-            "label": "vincent.taillandier@coomic.coop \u2192 celine.guyon@archivistes.org"
+            "label": "vincent.taillandier@coomic.coop \u2192 celine.guyon@archivistes.org",
+            "date": "Mon, 30 Nov 2020 18:44:10 +0100",
+            "body": "[Error reading body]",
+            "subject": "Facture MIC - facilitation Groupe de travail Relance du plaidoyer"
         }
     ]
 }
