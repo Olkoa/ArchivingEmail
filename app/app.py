@@ -10,6 +10,7 @@ import pandas as pd
 import os
 import sys
 import time
+from bs4 import BeautifulSoup
 import json
 
 
