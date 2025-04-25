@@ -52,7 +52,7 @@ Continuing with database optimization...
 
 - set un projet comme actif depuis le fichier constants.py ?
 
-- s'assurer que mails pas dupliquer dans senderemail
+- s'assurer que mails pas dupliqués dans senderemail
 
 --------------------------------------------------------------------------------------
 ### Pistes d'améliorations post restitution
