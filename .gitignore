@@ -28,6 +28,7 @@ emails_with_embeddings_sample.pkl
 .env
 *.log
 # *.json
+etat_upload_joel.json
 
 scaleway_p_key
 scaleway_p_key.pub
@@ -38,3 +39,4 @@ scaleway_p_key.pub
 elasticsearch-8.12.1-linux-x86_64.tar.gz
 elasticsearch-8.12.1
 dump
+
