@@ -18,7 +18,13 @@
 
 *.docx
 *.zip
+# Ignore all pkl files
 *.pkl
+
+# But not these specific files
+!app/components/.streamlit/users.pkl
+
+# Specific pkl files to ignore
 emails_with_embeddings_improved.pkl
 emails_with_embeddings_sample.pkl
 
