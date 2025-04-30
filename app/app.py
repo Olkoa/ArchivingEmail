@@ -63,7 +63,7 @@ st.sidebar.title("Navigation")
 
 # Organize pages into categories for better navigation
 navigation_categories = {
-    
+
     "Overview": ["Dashboard"],
     "Exploration": ["Email Explorer", "Network Analysis", "Timeline"],
     "Search": ["Recherche", "Recherche ElasticSearch"],
@@ -217,14 +217,14 @@ elif page == "Graph":
         # Step 1: Define folder path
         # Get the current script directory
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        eml_folder = os.path.join(project_root, 'data','processed' ,'celine_readpst_with_S' , 'celine_guyon' , 'Archive')
-        
+        eml_folder = os.path.join(project_root, 'data','Projects' ,'Projet Demo', 'Boîte mail de Céline', 'processed', 'celine.guyon', 'Archive')
 
-    
+
+
     # Optio
         #eml_folder = "../data/processed/celine_readpst_with_s/celine.guyon/Archive"
         emails_data = []
-        
+
         # Step 2: Parse .eml files
         for filename in os.listdir(eml_folder):
             if filename.endswith(".eml"):
@@ -250,7 +250,7 @@ elif page == "Graph":
                             body = decode_unicode_escape(body)
                         except Exception as e:
                             body = "[Error reading body]"
-                        
+
 
 
                         for name, addr in receiver_list:
@@ -299,13 +299,13 @@ elif page == "Graph":
         df.to_csv(f"{eml_folder}/temp_data.csv", index=False)
 
         # Button to run script and pass data
-        
+
         with st.spinner("Running script..."):
             try:
                 result = subprocess.run(["python", "components/js2.py", f"{eml_folder}/temp_data.csv"],
                                         capture_output=True, text=True, check=True)
                 st.success("✅ Script executed successfully!")
-                
+
             except subprocess.CalledProcessError as e:
                 st.error("❌ Failed to run the script.")
                 st.text(e.stderr)
@@ -319,14 +319,12 @@ elif page == "Graph":
         # Step 1: Define folder path
         # Get the current script directory
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        eml_folder = os.path.join(project_root, 'data','processed' ,'celine_readpst_with_S' , 'celine_guyon' , 'Éléments envoyés')
-        
+        eml_folder = os.path.join(project_root, 'data','Projects' ,'Projet Demo', 'Boîte mail de Céline', 'processed', 'celine.guyon', 'Éléments envoyés')
 
-    
     # Optio
         #eml_folder = "../data/processed/celine_readpst_with_s/celine.guyon/Archive"
         emails_data = []
-        
+
         # Step 2: Parse .eml files
         for filename in os.listdir(eml_folder):
             if filename.endswith(".eml"):
@@ -385,13 +383,13 @@ elif page == "Graph":
         df.to_csv(f"{eml_folder}/temp_data.csv", index=False)
 
         # Button to run script and pass data
-        
+
         with st.spinner("Running script..."):
             try:
                 result = subprocess.run(["python", "components/js.py", f"{eml_folder}/temp_data.csv"],
                                         capture_output=True, text=True, check=True)
                 st.success("✅ Script executed successfully!")
-                
+
             except subprocess.CalledProcessError as e:
                 st.error("❌ Failed to run the script.")
                 st.text(e.stderr)
@@ -410,7 +408,7 @@ elif page == "Graph":
         html_path = os.path.join(folder_path, "components/viz copy 28.html")
         with open(html_path, "r", encoding="utf-8") as f:
             html_content = f.read()
-    
+
     # For example, replace a placeholder in HTML like {{DATA_JSON}}
         html_content = html_content.replace("__GRAPH_DATA__", json.dumps(data_json))
 
@@ -420,14 +418,13 @@ elif page == "Graph":
         # Step 1: Define folder path
         # Get the current script directory
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-        eml_folder = os.path.join(project_root, 'data','processed' ,'celine_readpst_with_S' , 'celine_guyon' , 'Courrier indésirable')
-        
+        eml_folder = os.path.join(project_root, 'data','Projects' ,'Projet Demo', 'Boîte mail de Céline', 'processed', 'celine.guyon' , 'Courrier indésirable')
 
-    
+
     # Optio
-        #eml_folder = "../data/processed/celine_readpst_with_s/celine.guyon/Archive"
+
         emails_data = []
-        
+
         # Step 2: Parse .eml files
         for filename in os.listdir(eml_folder):
             if filename.endswith(".eml"):
@@ -486,13 +483,13 @@ elif page == "Graph":
         df.to_csv(f"{eml_folder}/temp_data.csv", index=False)
 
         # Button to run script and pass data
-        
+
         with st.spinner("Running script..."):
             try:
                 result = subprocess.run(["python", "components/js.py", f"{eml_folder}/temp_data.csv"],
                                         capture_output=True, text=True, check=True)
                 st.success("✅ Script executed successfully!")
-                
+
             except subprocess.CalledProcessError as e:
                 st.error("❌ Failed to run the script.")
                 st.text(e.stderr)
@@ -505,9 +502,9 @@ elif page == "Graph":
     import streamlit.components.v1 as components
     import os
 
-       
 
-        
+
+
     folder_path = os.path.dirname(__file__)
 
     import json
@@ -521,13 +518,13 @@ elif page == "Graph":
     html_path = os.path.join(folder_path, "components/viz copy 28.html")
     with open(html_path, "r", encoding="utf-8") as f:
         html_content = f.read()
-    
+
     # For example, replace a placeholder in HTML like {{DATA_JSON}}
     html_content = html_content.replace("__GRAPH_DATA__", json.dumps(data_json))
 
         # Display in Streamlit
     components.html(html_content, height=1200,width=1200)
- 
+
 elif page == "Email Explorer":
     emails_df = load_data(selected_mailbox)
     st.subheader("Email Explorer")
