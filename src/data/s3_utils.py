@@ -203,6 +203,32 @@ class S3Handler:
             self.logger.error(f"Error uploading file {file_path}: {e}")
             return False
 
+    def upload_directory(self, local_dir, bucket_name, s3_prefix):
+        """
+        Upload a directory and all its contents to S3, preserving the folder structure.
+
+        Args:
+            s3_handler: Instance of S3Handler class
+            local_dir: Path to local directory
+            bucket_name: Name of the S3 bucket
+            s3_prefix: Prefix in S3 where files should be uploaded
+        """
+        for root, dirs, files in os.walk(local_dir):
+            for file in files:
+                local_file_path = os.path.join(root, file)
+
+                # Create S3 key by replacing local path with S3 prefix
+                relative_path = os.path.relpath(local_file_path, local_dir)
+                s3_key = os.path.join(s3_prefix, relative_path).replace("\\", "/")
+
+                # Upload the file
+                s3_handler.upload_file(
+                    file_path=local_file_path,
+                    bucket_name=bucket_name,
+                    object_key=s3_key
+                )
+                print(f"Uploaded {local_file_path} to {bucket_name}/{s3_key}")
+
     def upload_fileobj(self, file_obj: BinaryIO, bucket_name: str,
                       object_key: str,
                       extra_args: Optional[Dict[str, Any]] = None) -> bool:

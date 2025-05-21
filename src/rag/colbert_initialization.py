@@ -26,6 +26,8 @@ from src.rag.colbert_rag import (
     get_all_mbox_paths
 )
 
+from src.data.email_analyzer import EmailAnalyzer
+
 from constants import ACTIVE_PROJECT
 
 
@@ -45,7 +47,8 @@ from constants import ACTIVE_PROJECT
 def initialize_colbert_rag_system(
     emails_df: Optional[pd.DataFrame] = None,
     project_root: Optional[str] = None,
-    force_rebuild: bool = False
+    force_rebuild: bool = False,
+    test_mode: bool = False,
 ) -> str:
     """
     Initialize the Colbert RAG system by processing emails and creating the index.
@@ -65,7 +68,7 @@ def initialize_colbert_rag_system(
     #     )
     # Determine project root if not provided
     if project_root is None:
-        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
     # Set index directory - using a different name to avoid conflicts
     index_dir = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes')
@@ -91,14 +94,24 @@ def initialize_colbert_rag_system(
 
         print(f"Found {len(mbox_paths)} mbox files")
 
-        # Load and prepare emails from all mbox files
-        emails_data = load_and_prepare_emails(mbox_paths)
-        print(emails_data)
+        # if test_mode:
+        #     # Load and prepare emails from all mbox files
+        #     colbert_df = EmailAnalyzer.get_mail_bodies_for_embedding_DataFrame(max_body_chars = 8000, limit = 3)
+        # else:
+        #     colbert_df = EmailAnalyzer.get_mail_bodies_for_embedding_DataFrame(max_body_chars = 8000, limit = 10)
 
-        print(f"Loaded {len(emails_data)} emails for indexing")
+        emails_data = load_and_prepare_emails(mbox_paths)
+
+        print("mails loaded")
+
+        # print(emails_data)
+
+        # print(f"Loaded {colbert_df.shape[0]} emails for indexing\nStarting Indexing...")
 
         # Initialize the Colbert RAG system
+        # initialize_colbert_rag(colbert_df, index_dir)
         initialize_colbert_rag(emails_data, index_dir)
+
 
         end_time = time.time()
         print(f"Colbert RAG index built successfully at {index_dir}")
@@ -108,11 +121,10 @@ def initialize_colbert_rag_system(
 
     return index_dir
 
-
 if __name__ == "__main__":
     # Test initialization
 
     # Initialize Colbert RAG system
-    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True)
+    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True, test_mode=True)
 
     print(f"Colbert RAG system initialized with index at {index_dir}")

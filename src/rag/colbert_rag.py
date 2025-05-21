@@ -22,9 +22,6 @@ import textwrap
 # Import RAGAtouille library
 RAGATOUILLE_AVAILABLE = True
 
-from ragatouille import RAGPretrainedModel
-
-
 try:
     from ragatouille import RAGPretrainedModel
 except ImportError:
@@ -33,7 +30,6 @@ except ImportError:
 
 # Parse email functionality from the loading module
 from src.data.loading import parse_email_message, load_mbox_file
-
 
 def prepare_email_for_rag(email_data: Dict[str, Any]) -> str:
     """
@@ -59,7 +55,6 @@ def prepare_email_for_rag(email_data: Dict[str, Any]) -> str:
         formatted_email += f"\n{email_data.get('body', '')}"
 
     return formatted_email
-
 
 def load_and_prepare_emails(mailbox_paths: List[str]) -> List[Tuple[str, Dict[str, Any]]]:
     """
@@ -112,7 +107,6 @@ def load_and_prepare_emails(mailbox_paths: List[str]) -> List[Tuple[str, Dict[st
 
     return all_emails
 
-
 def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output_dir: str) -> str:
     """
     Initialize the Colbert RAG system with email data.
@@ -134,7 +128,11 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
 
     try:
         # Initialize the RAG model with ColBERTv2.0
+
+        print("pretraining")
         rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0")
+
+        print("past pretrained")
 
         # Index the email collection
         print(f"Indexing {len(email_texts)} emails...")
@@ -173,7 +171,7 @@ def load_colbert_rag(index_path: str):
     """
     try:
         # Initialize the RAG model directly - RAGAtouille will automatically use the last created index
-        rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0")
+        rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0", verbose=True, COLBERT_LOAD_TORCH_EXTENSION_VERBOSE=True)
         print(f"Loaded RAG model with index 'emails_index'")
         return rag_model
     except Exception as e:
