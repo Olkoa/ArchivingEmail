@@ -350,70 +350,70 @@ class EmailAnalyzer:
 
         # Now get "to" recipients as separate rows
         to_query = """
-        SELECT 
+        SELECT
             re.id AS email_id,
             e.id AS entity_id,
             e.name AS recipient_name,
             e.email AS recipient_email,
             'to' AS recipient_type
-        FROM 
+        FROM
             receiver_emails re
-        JOIN 
+        JOIN
             email_recipients_to ert ON re.id = ert.email_id
-        JOIN 
+        JOIN
             entities e ON ert.entity_id = e.id
         """
-        
+
         if limit:
             to_query += f" WHERE re.id IN (SELECT id FROM receiver_emails LIMIT {limit})"
-        
+
         to_df = conn.execute(to_query).df()
-        
+
         # Get CC recipients
         cc_query = """
-        SELECT 
+        SELECT
             re.id AS email_id,
             e.id AS entity_id,
             e.name AS recipient_name,
             e.email AS recipient_email,
             'cc' AS recipient_type
-        FROM 
+        FROM
             receiver_emails re
-        JOIN 
+        JOIN
             email_recipients_cc ercc ON re.id = ercc.email_id
-        JOIN 
+        JOIN
             entities e ON ercc.entity_id = e.id
         """
-        
+
         if limit:
             cc_query += f" WHERE re.id IN (SELECT id FROM receiver_emails LIMIT {limit})"
-        
+
         cc_df = conn.execute(cc_query).df()
-        
+
         # Get BCC recipients
         bcc_query = """
-        SELECT 
+        SELECT
             re.id AS email_id,
             e.id AS entity_id,
             e.name AS recipient_name,
             e.email AS recipient_email,
             'bcc' AS recipient_type
-        FROM 
+        FROM
             receiver_emails re
-        JOIN 
+        JOIN
             email_recipients_bcc erbcc ON re.id = erbcc.email_id
-        JOIN 
+        JOIN
             entities e ON erbcc.entity_id = e.id
         """
-        
+
         if limit:
             bcc_query += f" WHERE re.id IN (SELECT id FROM receiver_emails LIMIT {limit})"
-        
+
         bcc_df = conn.execute(bcc_query).df()
-        
+
         # Combine all recipients
         all_recipients = pd.concat([to_df, cc_df, bcc_df])
-        
+
         # Merge core data with recipients to get one row per recipient
         merged_df = pd.merge(
             core_df,
@@ -421,7 +421,7 @@ class EmailAnalyzer:
             on='email_id',
             how='inner'
         )
-        
+
         # Convert timestamps to proper datetime format
         if 'timestamp' in merged_df.columns and not pd.api.types.is_datetime64_any_dtype(merged_df['timestamp']):
             merged_df['timestamp'] = pd.to_datetime(merged_df['timestamp'], errors='coerce')
@@ -430,33 +430,29 @@ class EmailAnalyzer:
 
     def get_app_DataFrame(self, mailbox=None, limit=None):
         """
-        Get a dataframe with specific columns needed for the application.
+        Get a dataframe with specific columns needed for the application,
+        creating one row per recipient rather than one per email.
 
         Args:
             mailbox: Optional filter for specific mailbox
             limit: Optional limit on the number of rows returned
 
         Returns:
-            pandas DataFrame with columns: message_id, date, from, to, cc, subject,
-            body, attachments, has_attachments, direction, mailbox
+            pandas DataFrame with columns: message_id, date, from, recipient_email,
+            recipient_type, subject, body, attachments, has_attachments,
+            direction, mailbox
         """
         conn = self.connect()
 
-        query = """
+        # Get core email data first
+        core_query = """
         SELECT
+            re.id AS email_id,
             re.message_id,
             re.timestamp AS date,
             re.mailbox_name,
             re.direction,
             sender.email AS "from",
-            (SELECT string_agg(e.email, ', ')
-            FROM email_recipients_to ert
-            JOIN entities e ON ert.entity_id = e.id
-            WHERE ert.email_id = re.id) AS "to",
-            (SELECT string_agg(e.email, ', ')
-            FROM email_recipients_cc ercc
-            JOIN entities e ON ercc.entity_id = e.id
-            WHERE ercc.email_id = re.id) AS cc,
             re.subject,
             re.body,
             (SELECT string_agg(a.filename, '|')
@@ -474,26 +470,132 @@ class EmailAnalyzer:
 
         # Add mailbox filter if specified
         if mailbox:
-            query += f" WHERE re.folder = '{mailbox}'"
+            core_query += f" WHERE re.folder = '{mailbox}'"
 
         # Add limit if specified
         if limit:
-            query += f" LIMIT {limit}"
+            core_query += f" LIMIT {limit}"
 
-        # Execute the query and convert to DataFrame
-        df = conn.execute(query).df()
+        # Execute the core query and convert to DataFrame
+        core_df = conn.execute(core_query).df()
+
+        # Now get "to" recipients as separate rows
+        to_query = """
+        SELECT
+            re.id AS email_id,
+            e.email AS recipient_email,
+            'to' AS recipient_type
+        FROM
+            receiver_emails re
+        JOIN
+            email_recipients_to ert ON re.id = ert.email_id
+        JOIN
+            entities e ON ert.entity_id = e.id
+        """
+
+        if mailbox:
+            to_query += f" WHERE re.folder = '{mailbox}'"
+
+        if limit:
+            limit_clause = f" re.id IN (SELECT id FROM receiver_emails"
+            if mailbox:
+                limit_clause += f" WHERE folder = '{mailbox}'"
+            limit_clause += f" LIMIT {limit})"
+
+            if mailbox:
+                to_query += f" AND {limit_clause}"
+            else:
+                to_query += f" WHERE {limit_clause}"
+
+        to_df = conn.execute(to_query).df()
+
+        # Get CC recipients
+        cc_query = """
+        SELECT
+            re.id AS email_id,
+            e.email AS recipient_email,
+            'cc' AS recipient_type
+        FROM
+            receiver_emails re
+        JOIN
+            email_recipients_cc ercc ON re.id = ercc.email_id
+        JOIN
+            entities e ON ercc.entity_id = e.id
+        """
+
+        if mailbox:
+            cc_query += f" WHERE re.folder = '{mailbox}'"
+
+        if limit:
+            limit_clause = f" re.id IN (SELECT id FROM receiver_emails"
+            if mailbox:
+                limit_clause += f" WHERE folder = '{mailbox}'"
+            limit_clause += f" LIMIT {limit})"
+
+            if mailbox:
+                cc_query += f" AND {limit_clause}"
+            else:
+                cc_query += f" WHERE {limit_clause}"
+
+        cc_df = conn.execute(cc_query).df()
+
+        # Get BCC recipients
+        bcc_query = """
+        SELECT
+            re.id AS email_id,
+            e.email AS recipient_email,
+            'bcc' AS recipient_type
+        FROM
+            receiver_emails re
+        JOIN
+            email_recipients_bcc erbcc ON re.id = erbcc.email_id
+        JOIN
+            entities e ON erbcc.entity_id = e.id
+        """
+
+        if mailbox:
+            bcc_query += f" WHERE re.folder = '{mailbox}'"
+
+        if limit:
+            limit_clause = f" re.id IN (SELECT id FROM receiver_emails"
+            if mailbox:
+                limit_clause += f" WHERE folder = '{mailbox}'"
+            limit_clause += f" LIMIT {limit})"
+
+            if mailbox:
+                bcc_query += f" AND {limit_clause}"
+            else:
+                bcc_query += f" WHERE {limit_clause}"
+
+        bcc_df = conn.execute(bcc_query).df()
+
+        # Combine all recipients
+        all_recipients = pd.concat([to_df, cc_df, bcc_df])
+
+        # Merge core data with recipients to get one row per recipient
+        merged_df = pd.merge(
+            core_df,
+            all_recipients,
+            on='email_id',
+            how='inner'
+        )
+
+        # Drop the email_id column as it was just used for merging
+        if 'email_id' in merged_df.columns:
+            merged_df = merged_df.drop('email_id', axis=1)
 
         # Convert timestamps to proper datetime format
-        if 'date' in df.columns and not pd.api.types.is_datetime64_any_dtype(df['date']):
-            df['date'] = pd.to_datetime(df['date'], errors='coerce')
+        if 'date' in merged_df.columns and not pd.api.types.is_datetime64_any_dtype(merged_df['date']):
+            merged_df['date'] = pd.to_datetime(merged_df['date'], errors='coerce')
 
         # Convert attachments to a list format if needed
-        if 'attachments' in df.columns:
-            df['attachments'] = df['attachments'].apply(
+        if 'attachments' in merged_df.columns:
+            merged_df['attachments'] = merged_df['attachments'].apply(
                 lambda x: x.split('|') if isinstance(x, str) and x else []
             )
 
-        return df
+        print(merged_df.columns)
+        return merged_df
 
     def get_mail_bodies_for_embedding_DataFrame(self, max_body_chars: int = 8000, limit: int = None):
         """

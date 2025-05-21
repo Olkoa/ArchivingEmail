@@ -719,7 +719,7 @@ else:
             # Get unique senders and recipients
             unique_senders = emails_df['from'].dropna().unique().tolist()
             unique_recipients = []
-            for recipients in emails_df['to'].dropna():
+            for recipients in emails_df["to"].dropna():
                 for recipient in recipients.split(';'):
                     recipient = recipient.strip()
                     if recipient and recipient not in unique_recipients:
@@ -746,7 +746,7 @@ else:
         if selected_sender != "Tous":
             filters['from'] = selected_sender
         if selected_recipient != "Tous":
-            filters['to'] = selected_recipient
+            filters["to"] = selected_recipient
         if has_attachments:
             filters['has_attachments'] = True
 
@@ -929,7 +929,7 @@ else:
                 # Get unique senders and recipients
                 unique_senders = emails_df['from'].dropna().unique().tolist()
                 unique_recipients = []
-                for recipients in emails_df['to'].dropna():
+                for recipients in emails_df["to"].dropna():
                     for recipient in recipients.split(';'):
                         recipient = recipient.strip()
                         if recipient and recipient not in unique_recipients:
@@ -969,7 +969,7 @@ else:
             if selected_sender != "Tous":
                 filters['from'] = selected_sender
             if selected_recipient != "Tous":
-                filters['to'] = selected_recipient
+                filters["to"] = selected_recipient
             if has_attachments:
                 filters['has_attachments'] = True
 
