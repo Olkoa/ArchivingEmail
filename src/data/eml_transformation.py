@@ -861,7 +861,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                         'email': reply_to_email,
                         'alias_names': None,
                         'alias_emails': None,
-                        'is_physical_person': True
+                        'is_physical_person': True # can be changed later based on if list diffusion or not
                     })
                 else:
                     reply_to_id = entity_cache[reply_to_email]

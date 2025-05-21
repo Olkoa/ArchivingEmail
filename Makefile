@@ -75,7 +75,8 @@ all: setup data run
 # Transform .pst files in raw in eml in processed
 .PHONY: pst_transform
 pst_transform:
-	readpst -j 0 -e -o data/processed/celine_readpst_with_S data/raw/celine.guyon.pst
+	readpst -j 0 -e -o "data/Projects/Projet Demo/Boîte mail de Céline/processed" "data/Projects/Projet Demo/Boîte mail de Céline/raw/celine.guyon.pst"
+
 
 # Transform .pst files in raw in eml in processed
 # python ${MCP_PATH}/olkoa/src/features/chatbot.py
