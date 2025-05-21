@@ -279,18 +279,19 @@ class EmailAnalyzer:
 
     def get_comprehensive_email_dataset(self, limit=None):
         """
-        Get a comprehensive dataset combining relevant information from all tables.
-        This creates a single dataframe with emails and all their associated metadata.
+        Get a comprehensive dataset with emails and their recipients,
+        creating one row per recipient rather than aggregating.
 
         Args:
             limit: Optional limit on the number of rows returned
 
         Returns:
-            pandas DataFrame with comprehensive email data
+            pandas DataFrame with comprehensive email data and one row per recipient
         """
         conn = self.connect()
 
-        query = """
+        # First get the core email data without recipient aggregation
+        core_query = """
         SELECT
             -- Email core data
             re.id AS email_id,
@@ -318,37 +319,6 @@ class EmailAnalyzer:
             reply_to.name AS reply_to_name,
             reply_to.email AS reply_to_email,
 
-            -- Recipients (aggregated)
-            (SELECT string_agg(e.name, ', ')
-            FROM email_recipients_to ert
-            JOIN entities e ON ert.entity_id = e.id
-            WHERE ert.email_id = re.id) AS to_recipients,
-
-            (SELECT string_agg(e.email, ', ')
-            FROM email_recipients_to ert
-            JOIN entities e ON ert.entity_id = e.id
-            WHERE ert.email_id = re.id) AS to_emails,
-
-            (SELECT string_agg(e.name, ', ')
-            FROM email_recipients_cc ercc
-            JOIN entities e ON ercc.entity_id = e.id
-            WHERE ercc.email_id = re.id) AS cc_recipients,
-
-            (SELECT string_agg(e.email, ', ')
-            FROM email_recipients_cc ercc
-            JOIN entities e ON ercc.entity_id = e.id
-            WHERE ercc.email_id = re.id) AS cc_emails,
-
-            (SELECT string_agg(e.name, ', ')
-            FROM email_recipients_bcc erbcc
-            JOIN entities e ON erbcc.entity_id = e.id
-            WHERE erbcc.email_id = re.id) AS bcc_recipients,
-
-            (SELECT string_agg(e.email, ', ')
-            FROM email_recipients_bcc erbcc
-            JOIN entities e ON erbcc.entity_id = e.id
-            WHERE erbcc.email_id = re.id) AS bcc_emails,
-
             -- Mailing list information
             ml.id AS mailing_list_id,
             ml.name AS mailing_list_name,
@@ -373,16 +343,90 @@ class EmailAnalyzer:
         """
 
         if limit:
-            query += f" LIMIT {limit}"
+            core_query += f" LIMIT {limit}"
 
-        # Execute the query and convert to DataFrame
-        df = conn.execute(query).df()
+        # Get the core data first
+        core_df = conn.execute(core_query).df()
 
+        # Now get "to" recipients as separate rows
+        to_query = """
+        SELECT 
+            re.id AS email_id,
+            e.id AS entity_id,
+            e.name AS recipient_name,
+            e.email AS recipient_email,
+            'to' AS recipient_type
+        FROM 
+            receiver_emails re
+        JOIN 
+            email_recipients_to ert ON re.id = ert.email_id
+        JOIN 
+            entities e ON ert.entity_id = e.id
+        """
+        
+        if limit:
+            to_query += f" WHERE re.id IN (SELECT id FROM receiver_emails LIMIT {limit})"
+        
+        to_df = conn.execute(to_query).df()
+        
+        # Get CC recipients
+        cc_query = """
+        SELECT 
+            re.id AS email_id,
+            e.id AS entity_id,
+            e.name AS recipient_name,
+            e.email AS recipient_email,
+            'cc' AS recipient_type
+        FROM 
+            receiver_emails re
+        JOIN 
+            email_recipients_cc ercc ON re.id = ercc.email_id
+        JOIN 
+            entities e ON ercc.entity_id = e.id
+        """
+        
+        if limit:
+            cc_query += f" WHERE re.id IN (SELECT id FROM receiver_emails LIMIT {limit})"
+        
+        cc_df = conn.execute(cc_query).df()
+        
+        # Get BCC recipients
+        bcc_query = """
+        SELECT 
+            re.id AS email_id,
+            e.id AS entity_id,
+            e.name AS recipient_name,
+            e.email AS recipient_email,
+            'bcc' AS recipient_type
+        FROM 
+            receiver_emails re
+        JOIN 
+            email_recipients_bcc erbcc ON re.id = erbcc.email_id
+        JOIN 
+            entities e ON erbcc.entity_id = e.id
+        """
+        
+        if limit:
+            bcc_query += f" WHERE re.id IN (SELECT id FROM receiver_emails LIMIT {limit})"
+        
+        bcc_df = conn.execute(bcc_query).df()
+        
+        # Combine all recipients
+        all_recipients = pd.concat([to_df, cc_df, bcc_df])
+        
+        # Merge core data with recipients to get one row per recipient
+        merged_df = pd.merge(
+            core_df,
+            all_recipients,
+            on='email_id',
+            how='inner'
+        )
+        
         # Convert timestamps to proper datetime format
-        if 'timestamp' in df.columns and not pd.api.types.is_datetime64_any_dtype(df['timestamp']):
-            df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
+        if 'timestamp' in merged_df.columns and not pd.api.types.is_datetime64_any_dtype(merged_df['timestamp']):
+            merged_df['timestamp'] = pd.to_datetime(merged_df['timestamp'], errors='coerce')
 
-        return df
+        return merged_df
 
     def get_app_DataFrame(self, mailbox=None, limit=None):
         """
@@ -487,6 +531,32 @@ class EmailAnalyzer:
         df["body"] = df["body"].apply(lambda x: x[:max_body_chars])
 
         return df
+
+    def get_receiver_emails(self, limit=None):
+        """
+        Get a DataFrame with receiver emails.
+
+        Args:
+            limit: Optional limit on the number of rows returned
+
+        Returns:
+            pandas DataFrame with receiver emails
+        """
+        conn = self.connect()
+
+        query = """
+        SELECT *
+        FROM
+            receiver_emails
+        """
+
+        if limit:
+            query += f" LIMIT {limit}"
+
+        df = conn.execute(query).df()
+
+        return df
+
 
 if __name__ == "__main__":
 

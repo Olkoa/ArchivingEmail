@@ -561,7 +561,6 @@ def extract_message_data(message, folder_name, config_file, mailbox_name="Boîte
         children_emails=None
     )
 
-
     # Create a data dictionary for our normalized database tables
     email_data = {
         'id': email_id,
@@ -899,7 +898,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                 'in_reply_to': email_data.get('in_reply_to')
             })
 
-            # Process recipients (to, cc, bcc)
+            # Process recipients (to, cc, bcc) #
             if receiver_email.to:
                 for entity in receiver_email.to:
                     if entity.email.email not in entity_cache:
