@@ -14,7 +14,6 @@ from bs4 import BeautifulSoup
 import json
 
 
-
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 

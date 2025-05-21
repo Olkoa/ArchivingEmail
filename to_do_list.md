@@ -3,10 +3,11 @@
 
 ## Urgent
 
+- Pour faire une vrai création de projet et la transformation pst eml, penser à faire/lire ça: https://stackoverflow.com/questions/89228/how-do-i-execute-a-program-or-call-a-system-command
+
 - Timeline pas encore fonctionnel en sélectionant la boîte mail de Céline directement.
 
 - Transformer l'app en traitement de mbox à df de duckdb à df **en cours**
-
 
 -  Extrait des mails envoyés depuis sa boîtes quand printés, problème de structure ? Trop de champs sans adresse, on met par défaut céline en envoyeur ?
 ['AAF - Céline Guyon <MAILER-DAEMON>']
