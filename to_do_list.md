@@ -3,6 +3,10 @@
 
 ## Urgent
 
+- Rajouter des critères pertinents pour décompter reçu vs envoyé.
+
+- fix de l'app après modif 1 destinataire par ligne
+
 - Pour faire une vrai création de projet et la transformation pst eml, penser à faire/lire ça: https://stackoverflow.com/questions/89228/how-do-i-execute-a-program-or-call-a-system-command
 
 - Timeline pas encore fonctionnel en sélectionant la boîte mail de Céline directement.

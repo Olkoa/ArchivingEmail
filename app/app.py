@@ -207,7 +207,7 @@ else:
                 st.sidebar.warning("No emails found in the selected mailbox(es).")
                 # Return empty DataFrame with expected columns
                 return pd.DataFrame(columns=[
-                    "message_id", "date", "from", "to", "cc", "subject",
+                    "message_id", "date", "from", "recipient_email", "cc", "subject",
                     "body", "attachments", "has_attachments", "direction", "mailbox"
                 ])
 
@@ -216,7 +216,7 @@ else:
             st.sidebar.error(f"Error loading mailboxes: {e}")
             # Return empty DataFrame with expected columns
             return pd.DataFrame(columns=[
-                "message_id", "date", "from", "to", "cc", "subject",
+                "message_id", "date", "from", "recipient_email", "cc", "subject",
                 "body", "attachments", "has_attachments", "direction", "mailbox"
             ])
 
@@ -226,7 +226,7 @@ else:
         """Load and cache the selected mailbox data from DuckDB"""
         try:
 
-            db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'célineETjoel.duckdb')
+            db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'Projet Demo.duckdb')
 
             # Get data from DuckDB using EmailAnalyzer
             analyzer = EmailAnalyzer(db_path=db_path)
@@ -241,7 +241,7 @@ else:
                 st.sidebar.warning("No emails found in the selected mailbox(es).")
                 # Return empty DataFrame with expected columns
                 return pd.DataFrame(columns=[
-                    "message_id", "date", "from", "to", "cc", "subject",
+                    "message_id", "date", "from", "recipient_email", "cc", "subject",
                     "body", "attachments", "has_attachments", "direction", "mailbox"
                 ])
 
@@ -250,7 +250,7 @@ else:
             st.sidebar.error(f"Error loading data from DuckDB: {e}")
             # Return empty DataFrame with expected columns
             return pd.DataFrame(columns=[
-                "message_id", "date", "from", "to", "cc", "subject",
+                "message_id", "date", "from", "recipient_email", "cc", "subject",
                 "body", "attachments", "has_attachments", "direction", "mailbox"
             ])
 
@@ -273,7 +273,7 @@ else:
             st.metric("Received Emails", received_count)
 
         with col4:
-            unique_contacts = emails_df["from"].nunique() + emails_df["to"].nunique()
+            unique_contacts = emails_df["from"].nunique() + emails_df["recipient_email"].nunique()
             st.metric("Unique Contacts", unique_contacts)
 
         # Timeline chart
@@ -719,7 +719,7 @@ else:
             # Get unique senders and recipients
             unique_senders = emails_df['from'].dropna().unique().tolist()
             unique_recipients = []
-            for recipients in emails_df["to"].dropna():
+            for recipients in emails_df["recipient_email"].dropna():
                 for recipient in recipients.split(';'):
                     recipient = recipient.strip()
                     if recipient and recipient not in unique_recipients:
@@ -746,7 +746,7 @@ else:
         if selected_sender != "Tous":
             filters['from'] = selected_sender
         if selected_recipient != "Tous":
-            filters["to"] = selected_recipient
+            filters["recipient_email"] = selected_recipient
         if has_attachments:
             filters['has_attachments'] = True
 
@@ -907,7 +907,7 @@ else:
             if include_from:
                 search_fields.extend(["from", "from_name"])
             if include_to:
-                search_fields.extend(["to", "to_name"])
+                search_fields.extend(["recipient_email", "to_name"])
 
             # At least one field must be selected
             if not search_fields:
@@ -929,7 +929,7 @@ else:
                 # Get unique senders and recipients
                 unique_senders = emails_df['from'].dropna().unique().tolist()
                 unique_recipients = []
-                for recipients in emails_df["to"].dropna():
+                for recipients in emails_df["recipient_email"].dropna():
                     for recipient in recipients.split(';'):
                         recipient = recipient.strip()
                         if recipient and recipient not in unique_recipients:
@@ -969,7 +969,7 @@ else:
             if selected_sender != "Tous":
                 filters['from'] = selected_sender
             if selected_recipient != "Tous":
-                filters["to"] = selected_recipient
+                filters["recipient_email"] = selected_recipient
             if has_attachments:
                 filters['has_attachments'] = True
 
