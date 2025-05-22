@@ -340,26 +340,34 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
 #         print(f"Error loading Colbert RAG model: {e}")
 #         raise
 
-def load_colbert_rag(index_path: str):
-    """
-    Load a previously initialized Colbert RAG model.
+# def load_colbert_rag(index_path: str):
+#     """
+#     Load a previously initialized Colbert RAG model.
 
-    Args:
-        index_path: Path to the saved index directory (unused in this implementation)
+#     Args:
+#         index_path: Path to the saved index directory (unused in this implementation)
 
-    Returns:
-        Loaded RAG model
-    """
+#     Returns:
+#         Loaded RAG model
+#     """
+#     try:
+#         rag_model = RAGPretrainedModel.from_index("emails_index")
+#         print("Loaded RAG model with index 'emails_index'")
+#         return rag_model
+#     except Exception as e:
+#         print(f"Error loading Colbert RAG model: {e}")
+#         raise
+
+def load_colbert_rag(ragatouille_index_path: str):
     try:
-        rag_model = RAGPretrainedModel.from_index("emails_index")
-        print("Loaded RAG model with index 'emails_index'")
+        rag_model = RAGPretrainedModel.from_index(ragatouille_index_path)
+        print(f"Loaded RAG model with index from: {ragatouille_index_path}")
         return rag_model
     except Exception as e:
         print(f"Error loading Colbert RAG model: {e}")
         raise
 
-
-def search_with_colbert(query: str, index_path: str, top_k: int = 5) -> List[Dict[str, Any]]:
+def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_path: str, top_k: int = 5) -> List[Dict[str, Any]]:
     """
     Search emails using the Colbert RAG model.
 
@@ -373,7 +381,8 @@ def search_with_colbert(query: str, index_path: str, top_k: int = 5) -> List[Dic
     """
     try:
         # Load the RAG model
-        rag_model = load_colbert_rag(index_path)
+        rag_model = load_colbert_rag(ragatouille_index_path = ragatouille_index_path, )
+        
 
         # Search for the query
         print(f"Searching for: '{query}'")
@@ -387,7 +396,7 @@ def search_with_colbert(query: str, index_path: str, top_k: int = 5) -> List[Dic
         print(f"Found {len(results)} results")
 
         # Load the email metadata
-        metadata_path = os.path.join(index_path, "email_metadata.pkl")
+        metadata_path = os.path.join(path_to_metadata, "email_metadata.pkl")
         if os.path.exists(metadata_path):
             try:
                 with open(metadata_path, "rb") as f:
@@ -525,7 +534,7 @@ def generate_answer(query: str, results: List[Dict[str, Any]]) -> str:
     return answer
 
 
-def colbert_rag_answer(query: str, index_path: str, top_k: int = 5) -> Tuple[str, List[str]]:
+def colbert_rag_answer(query: str, path_to_metadata: str, ragatouille_index_path:str, top_k: int = 5) -> Tuple[str, List[str]]:
     """
     Get an answer to a query using Colbert RAG.
 
@@ -538,7 +547,11 @@ def colbert_rag_answer(query: str, index_path: str, top_k: int = 5) -> Tuple[str
         Tuple of (answer, formatted source previews)
     """
     # Search with Colbert
-    results = search_with_colbert(query, index_path, top_k=top_k)
+    results = search_with_colbert(
+    query = query,
+    path_to_metadata = path_to_metadata,
+    ragatouille_index_path = ragatouille_index_path,
+    top_k=top_k)
 
     # Generate answer
     answer = generate_answer(query, results)
@@ -551,8 +564,9 @@ def colbert_rag_answer(query: str, index_path: str, top_k: int = 5) -> Tuple[str
 
 if __name__ == "__main__":
     # Set path to the index of the active project
-    index_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes')
+    path_to_metadata = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes')
+    ragatouille_index_path = os.path.join(project_root, '.ragatouille', 'colbert', 'indexes', 'emails_index')
 
-    colbert_rag_answer(query = "Quel mail parle d'Olkoa ?", index_path = index_path)
+    colbert_rag_answer(query = "Quel mail parle d'Olkoa ?", path_to_metadata = path_to_metadata, ragatouille_index_path = ragatouille_index_path)
 
 
