@@ -8,8 +8,7 @@ including processing mbox files and creating the necessary indexes.
 import os
 import sys
 import pandas as pd
-import mailbox
-from typing import List, Dict, Any, Optional, Tuple
+from typing import Optional
 import time
 
 # Add the necessary paths
@@ -17,20 +16,21 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
-# from src.data.loading import load_mailboxes
-# Check if RAGAtouille is available
-# try:
+
 from src.rag.colbert_rag import (
-    load_and_prepare_emails,
     initialize_colbert_rag,
-    get_all_mbox_paths
+    prepare_mails_for_rag
+    # load_and_prepare_emails,
+    # get_all_mbox_paths
 )
 
 from src.data.email_analyzer import EmailAnalyzer
 
 from constants import ACTIVE_PROJECT
 
-
+# from src.data.loading import load_mailboxes
+# Check if RAGAtouille is available
+# try:
 
 # except ImportError:
 #     RAGATOUILLE_AVAILABLE = False
@@ -45,7 +45,7 @@ from constants import ACTIVE_PROJECT
 
 
 def initialize_colbert_rag_system(
-    emails_df: Optional[pd.DataFrame] = None,
+    ids_series: Optional[pd.DataFrame] = None,
     project_root: Optional[str] = None,
     force_rebuild: bool = False,
     test_mode: bool = False,
@@ -83,24 +83,26 @@ def initialize_colbert_rag_system(
         os.makedirs(index_dir, exist_ok=True)
 
         start_time = time.time()
-        print(f"Building Colbert RAG index (this may take a while)...")
+        print("Building Colbert RAG index (this may take a while)...")
 
         # Get paths to all mbox files
-        base_dir = os.path.join(project_root, 'data', 'raw')
-        mbox_paths = get_all_mbox_paths(base_dir)
+        # base_dir = os.path.join(project_root, 'data', 'raw')
+        # mbox_paths = get_all_mbox_paths(base_dir)
+        # if not mbox_paths:
+        #     raise ValueError(f"No mbox files found in {base_dir}")
+        # print(f"Found {len(mbox_paths)} mbox files")
 
-        if not mbox_paths:
-            raise ValueError(f"No mbox files found in {base_dir}")
+        if test_mode:
+            # Load and prepare emails from all mbox files
+            colbert_df = EmailAnalyzer.get_mails_for_rag(max_body_chars = 8000, limit = 100)
+        else:
+            colbert_df = EmailAnalyzer.get_mails_for_rag(max_body_chars = 8000, limit = 500000)
 
-        print(f"Found {len(mbox_paths)} mbox files")
+        # emails_data = load_and_prepare_emails(mbox_paths)
 
-        # if test_mode:
-        #     # Load and prepare emails from all mbox files
-        #     colbert_df = EmailAnalyzer.get_mail_bodies_for_embedding_DataFrame(max_body_chars = 8000, limit = 3)
-        # else:
-        #     colbert_df = EmailAnalyzer.get_mail_bodies_for_embedding_DataFrame(max_body_chars = 8000, limit = 10)
-
-        emails_data = load_and_prepare_emails(mbox_paths)
+        # Faire cette fonction ensuite (df avec mail ID, puis dans l'ordre 
+        # expediteur - Destinataire - date - sujet - body cut au dernier message)
+        # emails_data = prepare_mails_for_rag()
 
         print("mails loaded")
 
@@ -111,7 +113,6 @@ def initialize_colbert_rag_system(
         # Initialize the Colbert RAG system
         # initialize_colbert_rag(colbert_df, index_dir)
         initialize_colbert_rag(emails_data, index_dir)
-
 
         end_time = time.time()
         print(f"Colbert RAG index built successfully at {index_dir}")

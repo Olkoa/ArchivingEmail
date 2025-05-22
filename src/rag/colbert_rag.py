@@ -6,106 +6,207 @@ RAGAtouille library with ColBERTv2.0 retriever for email data.
 """
 
 import os
-import sys
-import pandas as pd
-import mailbox
-import email
-from typing import List, Dict, Any, Tuple, Optional
+# import mailbox
+from typing import List, Dict, Any, Tuple
 import pickle
-import json
-from pathlib import Path
-from datetime import datetime
-import tempfile
-import shutil
+# from pathlib import Path
 import textwrap
+import sys
+
+from ragatouille import RAGPretrainedModel
+
+# import email
+# import tempfile
+# import shutil
+# from datetime import datetime
+
+# import pandas as pd
+# import json
 
 # Import RAGAtouille library
 RAGATOUILLE_AVAILABLE = True
 
-try:
-    from ragatouille import RAGPretrainedModel
-except ImportError:
-    print("RAGAtouille not installed. Please install it with 'pip install ragatouille'")
-    RAGATOUILLE_AVAILABLE = False
+# try:
+#     from ragatouille import RAGPretrainedModel
+# except ImportError:
+#     print("RAGAtouille not installed. Please install it with 'pip install ragatouille'")
+#     RAGATOUILLE_AVAILABLE = False
+
+# Add the necessary paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 # Parse email functionality from the loading module
-from src.data.loading import parse_email_message, load_mbox_file
+# from src.data.loading import parse_email_message, load_mbox_file
 
-def prepare_email_for_rag(email_data: Dict[str, Any]) -> str:
+# def prepare_email_for_rag(email_data: Dict[str, Any]) -> str:
+#     """
+#     Format an email for indexing in the RAG system.
+
+#     Args:
+#         email_data: Dictionary containing parsed email data
+
+#     Returns:
+#         Formatted string representation of the email
+#     """
+#     formatted_email = f"From: {email_data.get('from', '')}\n"
+#     formatted_email += f"To: {email_data.get('to', '')}\n"
+
+#     if email_data.get('cc'):
+#         formatted_email += f"Cc: {email_data.get('cc', '')}\n"
+
+#     formatted_email += f"Subject: {email_data.get('subject', '')}\n"
+#     formatted_email += f"Date: {email_data.get('date', '')}\n"
+
+#     # Add body
+#     if email_data.get('body'):
+#         formatted_email += f"\n{email_data.get('body', '')}"
+
+#     return formatted_email
+
+def prepare_email_for_rag(email_row) -> str:
     """
-    Format an email for indexing in the RAG system.
-
+    Format an email row from DataFrame for indexing in the RAG system.
+    
     Args:
-        email_data: Dictionary containing parsed email data
-
+        email_row: pandas Series or dict containing email data from get_rag_email_dataset()
+    
     Returns:
         Formatted string representation of the email
     """
-    formatted_email = f"From: {email_data.get('from', '')}\n"
-    formatted_email += f"To: {email_data.get('to', '')}\n"
-
-    if email_data.get('cc'):
-        formatted_email += f"Cc: {email_data.get('cc', '')}\n"
-
-    formatted_email += f"Subject: {email_data.get('subject', '')}\n"
-    formatted_email += f"Date: {email_data.get('date', '')}\n"
-
-    # Add body
-    if email_data.get('body'):
-        formatted_email += f"\n{email_data.get('body', '')}"
-
+    # Handle both pandas Series and dict input
+    if hasattr(email_row, 'get'):
+        get_func = email_row.get
+    else:
+        get_func = lambda key, default='': getattr(email_row, key, default) if hasattr(email_row, key) else default
+    
+    formatted_email = f"From: {get_func('from', '')}\n"
+    
+    # Add To recipients
+    to_recipients = get_func('to_recipients', '')
+    if to_recipients:
+        formatted_email += f"To: {to_recipients}\n"
+    
+    # Add CC recipients if present
+    cc_recipients = get_func('cc_recipients', '')
+    if cc_recipients:
+        formatted_email += f"Cc: {cc_recipients}\n"
+    
+    # Add BCC recipients if present
+    bcc_recipients = get_func('bcc_recipients', '')
+    if bcc_recipients:
+        formatted_email += f"Bcc: {bcc_recipients}\n"
+    
+    formatted_email += f"Subject: {get_func('subject', '')}\n"
+    formatted_email += f"Date: {get_func('date', '')}\n"
+    
+    # Add body with last message extraction
+    body = get_func('body', '')
+    if body:
+        # Extract last message from email thread (basic implementation)
+        last_message = extract_last_message(body)
+        formatted_email += f"\n{last_message}"
+    
     return formatted_email
 
-def load_and_prepare_emails(mailbox_paths: List[str]) -> List[Tuple[str, Dict[str, Any]]]:
+def extract_last_message(body: str) -> str:
     """
-    Load emails from multiple mailbox files and prepare them for RAG.
-
+    Extract the last message from an email body (cuts threading).
+    
     Args:
-        mailbox_paths: List of paths to mailbox files
-
+        body: Full email body potentially containing threaded messages
+    
     Returns:
-        List of tuples with (formatted_email, metadata)
+        Last message content
     """
-    all_emails = []
+    if not body:
+        return ""
+    
+    # Common patterns that indicate start of previous messages
+    thread_indicators = [
+        "-----Original Message-----",
+        "From:",
+        "Le ", # French date format
+        "On ", # English date format
+        "> ", # Quote indicators
+        "---",
+        "________________________________", # Outlook separator
+        "Sent from my iPhone",
+        "Sent from my iPad",
+        "Get Outlook for"
+    ]
+    
+    lines = body.split('\n')
+    last_message_lines = []
+    
+    for line in lines:
+        # Check if this line indicates start of previous message
+        line_stripped = line.strip()
+        is_thread_start = False
+        
+        for indicator in thread_indicators:
+            if line_stripped.startswith(indicator):
+                is_thread_start = True
+                break
+        
+        if is_thread_start:
+            break
+        
+        last_message_lines.append(line)
+    
+    return '\n'.join(last_message_lines).strip()
 
-    for mbox_path in mailbox_paths:
-        try:
-            # Process each mbox file
-            mbox = mailbox.mbox(mbox_path)
+# def load_and_prepare_emails(mailbox_paths: List[str]) -> List[Tuple[str, Dict[str, Any]]]:
+#     """
+#     Load emails from multiple mailbox files and prepare them for RAG.
 
-            for i, message in enumerate(mbox):
-                try:
-                    # Parse the email message
-                    email_data = parse_email_message(message)
+#     Args:
+#         mailbox_paths: List of paths to mailbox files
 
-                    # Generate a unique ID
-                    email_id = email_data.get("message_id", f"email_{Path(mbox_path).stem}_{i}")
+#     Returns:
+#         List of tuples with (formatted_email, metadata)
+#     """
+#     all_emails = []
 
-                    # Format the email for RAG
-                    formatted_email = prepare_email_for_rag(email_data)
+#     for mbox_path in mailbox_paths:
+#         try:
+#             # Process each mbox file
+#             mbox = mailbox.mbox(mbox_path)
 
-                    # Create metadata for retrieval
-                    metadata = {
-                        "id": email_id,
-                        "from": email_data.get("from", ""),
-                        "to": email_data.get("to", ""),
-                        "subject": email_data.get("subject", ""),
-                        "date": str(email_data.get("date", "")),
-                        "mailbox": Path(mbox_path).parent.name,
-                        "direction": email_data.get("direction", ""),
-                        "has_attachments": email_data.get("has_attachments", False),
-                    }
+#             for i, message in enumerate(mbox):
+#                 try:
+#                     # Parse the email message
+#                     email_data = parse_email_message(message)
 
-                    # Add to the collection
-                    all_emails.append((formatted_email, metadata))
+#                     # Generate a unique ID
+#                     email_id = email_data.get("message_id", f"email_{Path(mbox_path).stem}_{i}")
 
-                except Exception as e:
-                    print(f"Error processing email: {e}")
+#                     # Format the email for RAG
+#                     formatted_email = prepare_email_for_rag(email_data)
 
-        except Exception as e:
-            print(f"Error loading mailbox {mbox_path}: {e}")
+#                     # Create metadata for retrieval
+#                     metadata = {
+#                         "id": email_id,
+#                         "from": email_data.get("from", ""),
+#                         "to": email_data.get("to", ""),
+#                         "subject": email_data.get("subject", ""),
+#                         "date": str(email_data.get("date", "")),
+#                         "mailbox": Path(mbox_path).parent.name,
+#                         "direction": email_data.get("direction", ""),
+#                         "has_attachments": email_data.get("has_attachments", False),
+#                     }
 
-    return all_emails
+#                     # Add to the collection
+#                     all_emails.append((formatted_email, metadata))
+
+#                 except Exception as e:
+#                     print(f"Error processing email: {e}")
+
+#         except Exception as e:
+#             print(f"Error loading mailbox {mbox_path}: {e}")
+
+#     return all_emails
 
 def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output_dir: str) -> str:
     """
@@ -141,7 +242,7 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
             document_ids=email_ids,
             document_metadatas=email_metadata,
             index_name="emails_index",  # This name is important - we'll use it to access the index
-            max_document_length=512,
+            max_document_length=8500,
             split_documents=True
         )
 
@@ -172,7 +273,7 @@ def load_colbert_rag(index_path: str):
     try:
         # Initialize the RAG model directly - RAGAtouille will automatically use the last created index
         rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0", verbose=True, COLBERT_LOAD_TORCH_EXTENSION_VERBOSE=True)
-        print(f"Loaded RAG model with index 'emails_index'")
+        print("Loaded RAG model with index 'emails_index'")
         return rag_model
     except Exception as e:
         print(f"Error loading Colbert RAG model: {e}")
@@ -322,7 +423,7 @@ def generate_answer(query: str, results: List[Dict[str, Any]]) -> str:
         return "Je n'ai pas trouvé d'informations pertinentes dans les archives d'emails pour répondre à votre question."
 
     # Simple approach to generate a response based on the retrieved information
-    answer = f"D'après les emails récupérés, voici ce que j'ai trouvé concernant votre question:\n\n"
+    answer = "D'après les emails récupérés, voici ce que j'ai trouvé concernant votre question:\n\n"
 
     for i, result in enumerate(results[:3]):  # Use top 3 results
         metadata = result.get('metadata', {})
