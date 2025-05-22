@@ -37,6 +37,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
+
+from constants import ACTIVE_PROJECT
+
 # Parse email functionality from the loading module
 # from src.data.loading import parse_email_message, load_mbox_file
 
@@ -65,50 +68,108 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..
 
 #     return formatted_email
 
-def prepare_email_for_rag(email_row) -> str:
+# def prepare_email_for_rag(email_row) -> str:
+#     """
+#     Format an email row from DataFrame for indexing in the RAG system.
+    
+#     Args:
+#         email_row: pandas Series or dict containing email data from get_rag_email_dataset()
+    
+#     Returns:
+#         Formatted string representation of the email
+#     """
+#     # Handle both pandas Series and dict input
+#     if hasattr(email_row, 'get'):
+#         get_func = email_row.get
+#     else:
+#         get_func = lambda key, default='': getattr(email_row, key, default) if hasattr(email_row, key) else default
+    
+#     formatted_email = f"From: {get_func('from', '')}\n"
+    
+#     # Add To recipients
+#     to_recipients = get_func('to_recipients', '')
+#     if to_recipients:
+#         formatted_email += f"To: {to_recipients}\n"
+    
+#     # Add CC recipients if present
+#     cc_recipients = get_func('cc_recipients', '')
+#     if cc_recipients:
+#         formatted_email += f"Cc: {cc_recipients}\n"
+    
+#     # Add BCC recipients if present
+#     bcc_recipients = get_func('bcc_recipients', '')
+#     if bcc_recipients:
+#         formatted_email += f"Bcc: {bcc_recipients}\n"
+    
+#     formatted_email += f"Subject: {get_func('subject', '')}\n"
+#     formatted_email += f"Date: {get_func('date', '')}\n"
+    
+#     # Add body with last message extraction
+#     body = get_func('body', '')
+#     if body:
+#         # Extract last message from email thread (basic implementation)
+#         last_message = extract_last_message(body)
+#         formatted_email += f"\n{last_message}"
+    
+#     return formatted_email
+
+def prepare_email_for_rag(df) -> List[Tuple[str, Dict[str, Any]]]:
     """
-    Format an email row from DataFrame for indexing in the RAG system.
-    
-    Args:
-        email_row: pandas Series or dict containing email data from get_rag_email_dataset()
-    
-    Returns:
-        Formatted string representation of the email
+    Format emails from DataFrame for indexing in the RAG system.
     """
-    # Handle both pandas Series and dict input
-    if hasattr(email_row, 'get'):
-        get_func = email_row.get
-    else:
-        get_func = lambda key, default='': getattr(email_row, key, default) if hasattr(email_row, key) else default
+    emails_data = []
     
-    formatted_email = f"From: {get_func('from', '')}\n"
+    for index, row in df.iterrows():
+        # Format the email content
+        formatted_email = f"From: {row.get('from', '')}\n"
+        
+        # Add recipients
+        to_recipients = row.get('to_recipients', '')
+        if to_recipients:
+            formatted_email += f"To: {to_recipients}\n"
+        
+        cc_recipients = row.get('cc_recipients', '')
+        if cc_recipients:
+            formatted_email += f"Cc: {cc_recipients}\n"
+        
+        bcc_recipients = row.get('bcc_recipients', '')
+        if bcc_recipients:
+            formatted_email += f"Bcc: {bcc_recipients}\n"
+        
+        formatted_email += f"Subject: {row.get('subject', '')}\n"
+        formatted_email += f"Date: {row.get('date', '')}\n"
+        
+        # Add body with aggressive truncation
+        body = row.get('body', '')
+        if body:
+            last_message = extract_last_message(body)
+            # Truncate to reasonable length (aim for ~300-400 tokens max)
+            # Rough estimate: 1 token ≈ 4 characters
+            max_chars = 1200  # This should be safe for 512 token limit
+            if len(last_message) > max_chars:
+                last_message = last_message[:max_chars] + "..."
+            formatted_email += f"\n{last_message}"
+        
+        # Final safety check - truncate entire email if too long
+        max_total_chars = 1500  # Conservative limit
+        if len(formatted_email) > max_total_chars:
+            formatted_email = formatted_email[:max_total_chars] + "..."
+        
+        # Create metadata dictionary
+        metadata = {
+            'email_id': row.get('email_id', ''),
+            'from': row.get('from', ''),
+            'to_recipients': row.get('to_recipients', ''),
+            'cc_recipients': row.get('cc_recipients', ''),
+            'bcc_recipients': row.get('bcc_recipients', ''),
+            'subject': row.get('subject', ''),
+            'date': str(row.get('date', '')),
+            'original_index': index
+        }
+        
+        emails_data.append((formatted_email, metadata))
     
-    # Add To recipients
-    to_recipients = get_func('to_recipients', '')
-    if to_recipients:
-        formatted_email += f"To: {to_recipients}\n"
-    
-    # Add CC recipients if present
-    cc_recipients = get_func('cc_recipients', '')
-    if cc_recipients:
-        formatted_email += f"Cc: {cc_recipients}\n"
-    
-    # Add BCC recipients if present
-    bcc_recipients = get_func('bcc_recipients', '')
-    if bcc_recipients:
-        formatted_email += f"Bcc: {bcc_recipients}\n"
-    
-    formatted_email += f"Subject: {get_func('subject', '')}\n"
-    formatted_email += f"Date: {get_func('date', '')}\n"
-    
-    # Add body with last message extraction
-    body = get_func('body', '')
-    if body:
-        # Extract last message from email thread (basic implementation)
-        last_message = extract_last_message(body)
-        formatted_email += f"\n{last_message}"
-    
-    return formatted_email
+    return emails_data
 
 def extract_last_message(body: str) -> str:
     """
@@ -242,7 +303,7 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
             document_ids=email_ids,
             document_metadatas=email_metadata,
             index_name="emails_index",  # This name is important - we'll use it to access the index
-            max_document_length=8500,
+            max_document_length=480,
             split_documents=True
         )
 
@@ -468,3 +529,12 @@ def colbert_rag_answer(query: str, index_path: str, top_k: int = 5) -> Tuple[str
     source_previews = [format_result_preview(result) for result in results]
 
     return answer, source_previews
+
+
+if __name__ == "__main__":
+    # Set path to the index of the active project
+    index_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes', "email_metadata.pkl")
+
+    colbert_rag_answer(query = "Quel mail parle d'Olkoa ?", index_path = index_path)
+
+

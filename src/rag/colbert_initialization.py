@@ -19,7 +19,7 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..
 
 from src.rag.colbert_rag import (
     initialize_colbert_rag,
-    prepare_mails_for_rag
+    prepare_email_for_rag
     # load_and_prepare_emails,
     # get_all_mbox_paths
 )
@@ -92,19 +92,27 @@ def initialize_colbert_rag_system(
         #     raise ValueError(f"No mbox files found in {base_dir}")
         # print(f"Found {len(mbox_paths)} mbox files")
 
+        db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
+        email_analyzer = EmailAnalyzer(db_path)
+
         if test_mode:
             # Load and prepare emails from all mbox files
-            colbert_df = EmailAnalyzer.get_mails_for_rag(max_body_chars = 8000, limit = 100)
+            colbert_df = email_analyzer.get_rag_email_dataset(limit = 100)
         else:
-            colbert_df = EmailAnalyzer.get_mails_for_rag(max_body_chars = 8000, limit = 500000)
+            colbert_df = email_analyzer.get_rag_email_dataset(limit = 500000)
 
         # emails_data = load_and_prepare_emails(mbox_paths)
 
         # Faire cette fonction ensuite (df avec mail ID, puis dans l'ordre 
         # expediteur - Destinataire - date - sujet - body cut au dernier message)
         # emails_data = prepare_mails_for_rag()
+        print(colbert_df.columns)
+        print(colbert_df.shape[0])
+        # Prepare for RAG (returns List[Tuple[str, Dict[str, Any]]])
+        emails_data = prepare_email_for_rag(colbert_df)
+        print("mails ready")
 
-        print("mails loaded")
+        print("mails ready")
 
         # print(emails_data)
 
@@ -118,7 +126,7 @@ def initialize_colbert_rag_system(
         print(f"Colbert RAG index built successfully at {index_dir}")
         print(f"Indexing completed in {end_time - start_time:.2f} seconds")
     else:
-        print(f"Using existing Colbert RAG index")
+        print("Using existing Colbert RAG index")
 
     return index_dir
 
