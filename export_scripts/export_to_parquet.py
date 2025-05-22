@@ -25,7 +25,7 @@ def export_duckdb_to_parquet(project_name: str = None):
     
     # Paths
     db_path = os.path.join(project_root, 'data', 'Projects', project_name, f"{project_name}.duckdb")
-    export_dir = os.path.join(project_root, 'data', 'Projects', project_name, 'parquet_export')
+    export_dir = os.path.join(project_root, 'export_scripts', 'parquet_export')
     
     # Create export directory
     os.makedirs(export_dir, exist_ok=True)
@@ -78,7 +78,7 @@ def export_rag_dataset_to_parquet(project_name: str = None, limit: int = None):
     
     # Paths
     db_path = os.path.join(project_root, 'data', 'Projects', project_name, f"{project_name}.duckdb")
-    export_dir = os.path.join(project_root, 'data', 'Projects', project_name, 'parquet_export')
+    export_dir = os.path.join(project_root, 'export_scripts', 'parquet_export')
     
     # Create export directory
     os.makedirs(export_dir, exist_ok=True)

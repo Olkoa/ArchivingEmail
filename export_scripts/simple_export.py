@@ -24,7 +24,7 @@ def simple_rag_export(limit: int = 50000):
     df = email_analyzer.get_rag_email_dataset(limit=limit)
     
     # Export
-    export_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'rag_emails_for_colab.parquet')
+    export_path = os.path.join(project_root, 'export_scripts', 'rag_emails_for_colab.parquet')
     df.to_parquet(export_path, index=False)
     
     print(f"✅ Exported to: {export_path}")
