@@ -292,7 +292,7 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
         # Initialize the RAG model with ColBERTv2.0
 
         print("pretraining")
-        rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0")
+        rag_model = RAGPretrainedModel.from_pretrained("jinaai/jina-colbert-v2") # jinaai/jina-colbert-v2
 
         print("past pretrained")
 
@@ -321,6 +321,25 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
         raise
 
 
+# def load_colbert_rag(index_path: str):
+#     """
+#     Load a previously initialized Colbert RAG model.
+
+#     Args:
+#         index_path: Path to the saved index directory (unused in this implementation)
+
+#     Returns:
+#         Loaded RAG model
+#     """
+#     try:
+#         # Initialize the RAG model directly - RAGAtouille will automatically use the last created index
+#         rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0", verbose=True)
+#         print("Loaded RAG model with index 'emails_index'")
+#         return rag_model
+#     except Exception as e:
+#         print(f"Error loading Colbert RAG model: {e}")
+#         raise
+
 def load_colbert_rag(index_path: str):
     """
     Load a previously initialized Colbert RAG model.
@@ -332,8 +351,7 @@ def load_colbert_rag(index_path: str):
         Loaded RAG model
     """
     try:
-        # Initialize the RAG model directly - RAGAtouille will automatically use the last created index
-        rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0", verbose=True, COLBERT_LOAD_TORCH_EXTENSION_VERBOSE=True)
+        rag_model = RAGPretrainedModel.from_index("emails_index")
         print("Loaded RAG model with index 'emails_index'")
         return rag_model
     except Exception as e:
@@ -533,7 +551,7 @@ def colbert_rag_answer(query: str, index_path: str, top_k: int = 5) -> Tuple[str
 
 if __name__ == "__main__":
     # Set path to the index of the active project
-    index_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes', "email_metadata.pkl")
+    index_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes')
 
     colbert_rag_answer(query = "Quel mail parle d'Olkoa ?", index_path = index_path)
 

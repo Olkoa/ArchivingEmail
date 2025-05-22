@@ -97,7 +97,7 @@ def initialize_colbert_rag_system(
 
         if test_mode:
             # Load and prepare emails from all mbox files
-            colbert_df = email_analyzer.get_rag_email_dataset(limit = 100)
+            colbert_df = email_analyzer.get_rag_email_dataset(limit = 400)
         else:
             colbert_df = email_analyzer.get_rag_email_dataset(limit = 500000)
 
