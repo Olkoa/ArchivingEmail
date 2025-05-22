@@ -6,6 +6,7 @@ RAGAtouille library with ColBERTv2.0 retriever for email data.
 """
 
 import os
+import time
 # import mailbox
 from typing import List, Dict, Any, Tuple
 import pickle
@@ -413,6 +414,11 @@ def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_pat
         for result in results:
             # Extract index from text_id (format: "email_X_chunk_Y")
             try:
+                # DEBUG: Print what we actually got
+                print(f"Result structure: {result}")
+                print(f"Result type: {type(result)}")
+                print(f"Result keys: {result.keys() if hasattr(result, 'keys') else 'No keys method'}")
+                
                 # Handle different ID formats
                 if "_chunk_" in result["text_id"]:
                     email_id = result["text_id"].split("_chunk_")[0]
@@ -507,6 +513,7 @@ def generate_answer(query: str, results: List[Dict[str, Any]]) -> str:
     Returns:
         Generated answer
     """
+    
     if not results:
         return "Je n'ai pas trouvé d'informations pertinentes dans les archives d'emails pour répondre à votre question."
 
@@ -531,6 +538,8 @@ def generate_answer(query: str, results: List[Dict[str, Any]]) -> str:
                 excerpt = text
             answer += f"Contenu: \"{excerpt}\"\n\n"
 
+
+
     return answer
 
 
@@ -546,6 +555,11 @@ def colbert_rag_answer(query: str, path_to_metadata: str, ragatouille_index_path
     Returns:
         Tuple of (answer, formatted source previews)
     """
+
+    # Start timer
+    start_time = time.time()
+    # End timer and print duration
+
     # Search with Colbert
     results = search_with_colbert(
     query = query,
@@ -559,6 +573,10 @@ def colbert_rag_answer(query: str, path_to_metadata: str, ragatouille_index_path
     # Format sources for display
     source_previews = [format_result_preview(result) for result in results]
 
+    end_time = time.time()
+    duration = end_time - start_time
+    print(f"\n🕐 Total answer operation completed in {duration:.2f} seconds")
+    
     return answer, source_previews
 
 
