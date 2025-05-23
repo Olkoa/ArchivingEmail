@@ -305,7 +305,7 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
             collection=email_texts,
             document_ids=email_ids,
             document_metadatas=email_metadata,
-            index_name="emails_index",  # This name is important - we'll use it to access the index
+            index_name=f"{ACTIVE_PROJECT}_emails_index",  # This name is important - we'll use it to access the index
             max_document_length=480,
             split_documents=True
         )
@@ -337,7 +337,7 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
 #     try:
 #         # Initialize the RAG model directly - RAGAtouille will automatically use the last created index
 #         rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0", verbose=True)
-#         print("Loaded RAG model with index 'emails_index'")
+#         print("Loaded RAG model with index f"{ACTIVE_PROJECT}_emails_index"")
 #         return rag_model
 #     except Exception as e:
 #         print(f"Error loading Colbert RAG model: {e}")
@@ -354,8 +354,8 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
 #         Loaded RAG model
 #     """
 #     try:
-#         rag_model = RAGPretrainedModel.from_index("emails_index")
-#         print("Loaded RAG model with index 'emails_index'")
+#         rag_model = RAGPretrainedModel.from_index(f"{ACTIVE_PROJECT}_emails_index")
+#         print("Loaded RAG model with index f"{ACTIVE_PROJECT}_emails_index"")
 #         return rag_model
 #     except Exception as e:
 #         print(f"Error loading Colbert RAG model: {e}")
@@ -389,7 +389,7 @@ def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_pat
 
         # Search for the query
         print(f"Searching for: '{query}'")
-        results = rag_model.search(query=query, k=top_k, index_name="emails_index")
+        results = rag_model.search(query=query, k=top_k, index_name=f"{ACTIVE_PROJECT}_emails_index")
 
         # Make sure we have results
         if results is None or len(results) == 0:
@@ -585,7 +585,7 @@ def colbert_rag_answer(query: str, path_to_metadata: str, ragatouille_index_path
 if __name__ == "__main__":
     # Set path to the index of the active project
     path_to_metadata = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes')
-    ragatouille_index_path = os.path.join(project_root, '.ragatouille', 'colbert', 'indexes', 'emails_index')
+    ragatouille_index_path = os.path.join(project_root, '.ragatouille', 'colbert', 'indexes', f"{ACTIVE_PROJECT}_emails_index")
 
     colbert_rag_answer(query = "Quel mail parle d'Olkoa ?", path_to_metadata = path_to_metadata, ragatouille_index_path = ragatouille_index_path)
 
