@@ -8,6 +8,7 @@
 *.pst
 *.mbox
 *.eml
+*.parquet
 
 *.ics
 *.vcf
