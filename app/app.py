@@ -1203,11 +1203,17 @@ else:
         st.title("Colbert RAG - Recherche sémantique avancée")
 
         # Import the Colbert RAG component
-        from components.colbert_rag_component import render_colbert_rag_component
-
-        # Render the component with the loaded email data
-        emails_df = load_data(selected_mailbox)
-        render_colbert_rag_component(emails_df)
+        try:
+            from components.colbert_rag_component import render_colbert_rag_component
+            
+            # Render the component with the loaded email data
+            emails_df = load_data(selected_mailbox)
+            render_colbert_rag_component(emails_df)
+        except ImportError as e:
+            st.error(f"Erreur d'importation du composant Colbert RAG: {str(e)}")
+            st.info("Veuillez vérifier que toutes les dépendances sont installées.")
+        except Exception as e:
+            st.error(f"Erreur lors du rendu du composant Colbert RAG: {str(e)}")
 
     # elif page == "Manage Projects":
     #     # Import and run the manage_projects page

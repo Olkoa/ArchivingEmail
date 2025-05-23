@@ -21,6 +21,7 @@ RAGATOUILLE_AVAILABLE = True
 try:
     from src.rag.colbert_initialization import initialize_colbert_rag_system
     from src.rag.colbert_rag import colbert_rag_answer, search_with_colbert
+    from constants import ACTIVE_PROJECT
 except ImportError:
     RAGATOUILLE_AVAILABLE = False
 
@@ -73,6 +74,17 @@ def render_colbert_rag_component(emails_df: pd.DataFrame):
     # Create tabs for different modes
     tabs = st.tabs(["Recherche Sémantique", "Questions-Réponses", "Configuration"])
 
+    # Set up paths for the indexes
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+    path_to_metadata = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes')
+    ragatouille_index_path = os.path.join(project_root, '.ragatouille', 'colbert', 'indexes', 'emails_index')
+
+    # Check if index exists
+    index_exists = os.path.exists(os.path.join(path_to_metadata, 'email_metadata.pkl'))
+
+    if not index_exists:
+        st.warning("L'index ColBERT n'a pas encore été créé. Veuillez aller dans l'onglet 'Configuration' pour créer l'index.")
+
     with tabs[0]:  # Semantic Search
         st.subheader("Recherche Sémantique avec ColBERT")
         st.write("""
@@ -103,68 +115,32 @@ def render_colbert_rag_component(emails_df: pd.DataFrame):
         # Search button
         search_button = st.button("Rechercher", key="colbert_search_button")
 
-        # Initialize and search
-        if search_button and search_query:
-            with st.spinner("Initialisation du système Colbert RAG..."):
+        # Search using colbert_rag_answer for better results
+        if search_button and search_query and index_exists:
+            with st.spinner("Recherche en cours..."):
                 try:
-                    # Get project root
-                    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+                    # Use colbert_rag_answer instead of just search
+                    start_time = time.time()
+                    answer, source_previews = colbert_rag_answer(
+                        query=search_query,
+                        path_to_metadata=path_to_metadata,
+                        ragatouille_index_path=ragatouille_index_path,
+                        top_k=top_k
+                    )
+                    search_time = time.time() - start_time
 
-                    # Initialize Colbert RAG system
-                    index_dir = initialize_colbert_rag_system(emails_df, project_root)
+                    # Display the answer
+                    st.subheader(f"Réponse ({search_time:.2f} secondes)")
+                    st.write(answer)
 
-                    # Execute search
-                    with st.spinner("Recherche en cours..."):
-                        start_time = time.time()
-                        results = search_with_colbert(search_query, index_dir, top_k=top_k)
-                        search_time = time.time() - start_time
-
-                    # Display results
-                    st.subheader(f"Résultats ({len(results)} trouvés en {search_time:.2f} secondes)")
-
-                    if results:
-                        # Convert results to dataframe for display
-                        results_data = []
-                        for result in results:
-                            metadata = result.get('metadata', {})
-                            # Extract the text content, limit to first 200 chars for preview
-                            text_preview = result.get('text', '')[:200] + "..." if len(result.get('text', '')) > 200 else result.get('text', '')
-
-                            results_data.append({
-                                "from": metadata.get("from", "Inconnu"),
-                                "to": metadata.get("to", "Inconnu"),
-                                "subject": metadata.get("subject", "Pas de sujet"),
-                                "date": metadata.get("date", ""),
-                                "body": text_preview,
-                                "score": f"{result.get('score', 0):.2f}",
-                                "id": metadata.get("id", ""),
-                                "mailbox": metadata.get("mailbox", ""),
-                            })
-
-                        # Convert to DataFrame
-                        results_df = pd.DataFrame(results_data)
-
-                        # Display results
-                        st.dataframe(
-                            results_df[["from", "to", "subject", "date", "score", "body"]],
-                            use_container_width=True,
-                            hide_index=True,
-                        )
-
-                        # Show detailed results in expanders
-                        for i, result in enumerate(results):
-                            with st.expander(f"Résultat {i+1}: {result.get('metadata', {}).get('subject', 'Pas de sujet')}"):
-                                metadata = result.get('metadata', {})
-                                st.write(f"**De:** {metadata.get('from', 'Inconnu')}")
-                                st.write(f"**À:** {metadata.get('to', 'Inconnu')}")
-                                st.write(f"**Sujet:** {metadata.get('subject', 'Pas de sujet')}")
-                                st.write(f"**Date:** {metadata.get('date', 'Date inconnue')}")
-                                st.write(f"**Score:** {result.get('score', 0):.4f}")
-                                st.write("**Contenu:**")
-                                st.text(result.get('text', 'Pas de contenu'))
-
+                    # Display source emails
+                    if source_previews:
+                        st.subheader(f"{len(source_previews)} emails sources trouvés")
+                        for i, preview in enumerate(source_previews):
+                            with st.expander(f"Email source {i+1}"):
+                                st.markdown(preview)
                     else:
-                        st.info("Aucun résultat trouvé. Essayez une autre requête.")
+                        st.info("Aucun email source trouvé.")
 
                 except Exception as e:
                     st.error(f"Erreur lors de la recherche: {str(e)}")
@@ -195,7 +171,7 @@ def render_colbert_rag_component(emails_df: pd.DataFrame):
         # Chat input
         user_query = st.chat_input("Posez une question sur vos emails:")
 
-        if user_query:
+        if user_query and index_exists:
             # Display user message
             st.chat_message("user").write(user_query)
 
@@ -208,16 +184,15 @@ def render_colbert_rag_component(emails_df: pd.DataFrame):
                 thinking_msg.write("Réflexion...")
 
                 try:
-                    # Get project root
-                    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
-
-                    # Initialize Colbert RAG system
-                    index_dir = initialize_colbert_rag_system(emails_df, project_root)
-
                     # Get answer from Colbert RAG system
                     with st.spinner():
                         start_time = time.time()
-                        answer, sources = colbert_rag_answer(user_query, index_dir, top_k=3)
+                        answer, sources = colbert_rag_answer(
+                            query=user_query,
+                            path_to_metadata=path_to_metadata,
+                            ragatouille_index_path=ragatouille_index_path,
+                            top_k=3
+                        )
                         elapsed_time = time.time() - start_time
 
                     # Replace thinking message with answer
@@ -257,25 +232,18 @@ def render_colbert_rag_component(emails_df: pd.DataFrame):
         Cette section vous permet de configurer et de gérer le système Colbert RAG.
         """)
 
-        # Get project root
-        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
-
-        # Index location
-        index_dir = os.path.join(project_root, 'data', 'processed', 'colbert_index')
-
         # Display index status
-        index_exists = os.path.exists(os.path.join(index_dir, 'emails_index'))
-
         st.write("### État de l'index")
         if index_exists:
             st.success("L'index Colbert RAG est déjà créé et prêt à l'emploi.")
-            st.write(f"Emplacement de l'index: `{index_dir}`")
+            st.write(f"Emplacement de la métadata: `{path_to_metadata}`")
+            st.write(f"Emplacement de l'index RAGAtouille: `{ragatouille_index_path}`")
 
             # Show index stats if available
             try:
-                metadata_path = os.path.join(index_dir, "email_metadata.pkl")
+                import pickle
+                metadata_path = os.path.join(path_to_metadata, "email_metadata.pkl")
                 if os.path.exists(metadata_path):
-                    import pickle
                     with open(metadata_path, "rb") as f:
                         email_metadata = pickle.load(f)
                     st.write(f"Nombre de documents indexés: {len(email_metadata)}")
@@ -289,8 +257,8 @@ def render_colbert_rag_component(emails_df: pd.DataFrame):
 
         # Button to rebuild index
         rebuild_button = st.button(
-            "Recréer l'index",
-            help="Cela recréera l'index Colbert RAG à partir de tous les emails disponibles. Cette opération peut prendre du temps.",
+            "Créer/Recréer l'index",
+            help="Cela créera ou recréera l'index Colbert RAG à partir de tous les emails disponibles. Cette opération peut prendre du temps.",
             key="rebuild_colbert_index"
         )
 
@@ -298,8 +266,10 @@ def render_colbert_rag_component(emails_df: pd.DataFrame):
             with st.spinner("Création de l'index Colbert RAG en cours..."):
                 try:
                     # Initialize Colbert RAG system with force rebuild
-                    index_dir = initialize_colbert_rag_system(emails_df, project_root, force_rebuild=True)
-                    st.success(f"Index créé avec succès à {index_dir}")
+                    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True)
+                    st.success(f"Index créé avec succès")
+                    st.info(f"Metadata stocké à: {path_to_metadata}")
+                    st.info(f"Index RAGAtouille à: {ragatouille_index_path}")
                     st.rerun()
                 except Exception as e:
                     st.error(f"Erreur lors de la création de l'index: {str(e)}")
@@ -307,7 +277,7 @@ def render_colbert_rag_component(emails_df: pd.DataFrame):
         # Advanced configuration
         st.write("### Configuration avancée")
         st.info("""
-        Le système Colbert RAG utilise le modèle pré-entraîné ColBERTv2.0 de Stanford NLP.
+        Le système Colbert RAG utilise le modèle pré-entraîné jinaai/jina-colbert-v2.
 
         Pour en savoir plus sur ColBERT, consultez:
         - [Site officiel de ColBERT](https://github.com/stanford-futuredata/ColBERT)
