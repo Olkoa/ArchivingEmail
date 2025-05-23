@@ -1,7 +1,14 @@
 # Tasks to execute at some point
 
+- rebuild db en local
 
 ## Urgent
+
+- faire cette requête claude
+
+olkoa/src/rag/colbert_rag.py
+
+can you check this file and tell me if replacing "emails_index" with f"{ACTIVE_PROJECT}_emails_index" everywhere would allow me to store and identify multiple indexes from colbert ragatouille or not ?
 
 - Rajouter des critères pertinents pour décompter reçu vs envoyé.
 

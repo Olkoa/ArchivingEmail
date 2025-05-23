@@ -146,13 +146,13 @@ def prepare_email_for_rag(df) -> List[Tuple[str, Dict[str, Any]]]:
             last_message = extract_last_message(body)
             # Truncate to reasonable length (aim for ~300-400 tokens max)
             # Rough estimate: 1 token ≈ 4 characters
-            max_chars = 1200  # This should be safe for 512 token limit
+            max_chars = 1200  # This should be safe for 512 token limit 1200
             if len(last_message) > max_chars:
                 last_message = last_message[:max_chars] + "..."
             formatted_email += f"\n{last_message}"
         
         # Final safety check - truncate entire email if too long
-        max_total_chars = 1500  # Conservative limit
+        max_total_chars = 1500  # Conservative limit 1500
         if len(formatted_email) > max_total_chars:
             formatted_email = formatted_email[:max_total_chars] + "..."
         
@@ -288,6 +288,8 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
     email_texts = [email[0] for email in emails_data]
     email_ids = [f"email_{i}" for i in range(len(emails_data))]
     email_metadata = [email[1] for email in emails_data]
+
+    print(email_texts[0])
 
     try:
         # Initialize the RAG model with ColBERTv2.0
