@@ -1,0 +1,73 @@
+{
+  "config":{
+    "query_token_id":"[QueryMarker]",
+    "doc_token_id":"[DocumentMarker]",
+    "query_token":"[QueryMarker]",
+    "doc_token":"[DocumentMarker]",
+    "ncells":null,
+    "centroid_score_threshold":null,
+    "ndocs":null,
+    "load_index_with_mmap":false,
+    "index_path":null,
+    "index_bsize":32,
+    "nbits":2,
+    "kmeans_niters":20,
+    "resume":false,
+    "pool_factor":1,
+    "clustering_mode":"hierarchical",
+    "protected_tokens":0,
+    "similarity":"cosine",
+    "bsize":64,
+    "accumsteps":1,
+    "lr":0.000003,
+    "maxsteps":500000,
+    "save_every":null,
+    "warmup":null,
+    "warmup_bert":null,
+    "relu":false,
+    "nway":7,
+    "use_ib_negatives":false,
+    "reranker":false,
+    "distillation_alpha":1.0,
+    "ignore_scores":true,
+    "model_name":"jinaai/jina-colbert-v2",
+    "query_maxlen":32,
+    "attend_to_mask_tokens":true,
+    "interaction":"colbert",
+    "dim":128,
+    "doc_maxlen":3000,
+    "mask_punctuation":true,
+    "checkpoint":"jinaai/jina-colbert-v2",
+    "triples":null,
+    "collection":[
+      "list with 19137 elements starting with...",
+      [
+        "From: contact2@histoirecoloniale.net\nTo: hco-info@lists.riseup.net\nSubject: [hco-info] Archives, loi, r\u00e9volutionnaire et espoir au menu de cette lettre d'Histoire coloniale et postcoloniale\nDate: 2024-02-01 11:04:53\n\nseconde \u00e9dition de janvier\nLa France et les archives de la guerre d\u2019Alg\u00e9rie\n31 janvier 2024",
+        "From: info@wikimedia.fr\nTo: celine.guyon@archivistes.org\nSubject: L'observatoire de l'open content vous pr\u00e9sente sa 1\u00e8re newsletter 2024\nDate: 2024-01-29 08:01:51\n\nL'observatoire de l'open content vous pr\u00e9sente sa 1\u00e8re newsletter 2024 Des infolettres trimestrielles sur la culture libre concoct\u00e9es par l'Observatoire de l'open content et illustr\u00e9es avec des images\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\u00a0\u034f\u200c\nDes infolettres trimestrielles sur la culture libre concoct\u00e9es par l'Observatoire de l'open content et illustr\u00e9es avec des images (parfois d\u00e9cal\u00e9es) issues de Wikimedia Commons. Un projet de Wikim\u00e9dia France.\n#1 Lettre annuelle 2024\nLa lecture du journal, Monnier, Henry Bonaventure (Paris, 07\u201306\u20131799 - Paris, 03\u201301\u20131877 \u2014 3\u20136\u20131877), dessinateur-lithographe, Paris Mus\u00e9es, CC0\n\u00c9dito\nNous sommes tr\u00e8s heureux de vous proposer la toute premi\u00e8re lettre annuelle de l\u2019open content qui marque les premiers pas de l\u2019observatoire dans son engagement de devenir r\u00e9f\u00e9rent aupr\u00e8s des publics professionnels et des pouvoirs publics. Les contenus que nous proposerons, \u00e9volueront au gr\u00e9 des d\u00e9marches initi\u00e9es par les institutions culturelles, des travaux propos\u00e9s par la recherche, et des \u00e9ventuelles d\u00e9cisions des pouvoirs publics.Le comit\u00e9 de l\u2019Observatoire de l'open content ainsi que toute l\u2019\u00e9quipe de Wikim\u00e9dia France vous souhaitent une tr\u00e8s belle ann\u00e9e 2024\u00a0!\n\u00ad\nLire la suite\n\u00ad\n\u00ad\n[RestonsTendance] Open content : o\u00f9 en est-on\u00a0en France ?\nLes contenus culturels participent \u00e0 l'\u00e9ducation de chacun, favorisent la d\u00e9mocratisation culturelle et la transmission des savoirs et sont de v\u00e9ritables biens communs qu\u2019il convient de rendre accessibles et de diffuser au plus grand nombre. Pour autant, les nouveaux usages du num\u00e9rique permettent-ils r\u00e9ellement une diffusion et une r\u00e9utilisation des images des \u0153uvres\u00a0?\n\u00ad\nLire la suite\n\u00ad\nCarte de France selon la nouvelle divisionAnonyme, graveur, CC0, via Wikimedia Commons\n\u00ad\n\u00ad\n[Des chiffres et des lettres]\u00a0Les chiffres cl\u00e9s de l'open content\n88% des institutions culturelles\nd\u00e9clarent avoir d\u00e9j\u00e0 num\u00e9ris\u00e9 des contenus de leurs collections\n26% des institutions culturelles\nd\u00e9clarent utiliser des licences libres\n80% des institutions culturelles\nd\u00e9clarent manquer de personnel form\u00e9 pour d\u00e9velopper une d\u00e9marche open content au sein de leur organisation\n\u00ad\nLire la suite\n\u00ad\n* ces chiffres sont issus du Rapport sur l\u2019open content dans les institutions culturelles en France\n\u00ad\n\u00ad\n[On vous accompagne] Pourquoi et comment passer \u00e0 l'open content ?\nLes premiers laur\u00e9ats du label Culture Libre\nRetour sur la premi\u00e8re ann\u00e9e du label Culture Libre avec des t\u00e9moignages ...",
+        "From: aaf_adherents@listes.archivistes.org\nTo: aaf_adherents@listes.archivistes.org\nSubject: [SPAM] [aaf_adherents] Adh\u00e9rents \u00e0 titre personnel de l'AAF, vous pouvez renouveler votre cotisation en ligne\nDate: 2024-01-24 12:06:00\n\nBonjour\nLes adh\u00e9rents de l\u2019AAF cotisant \u00e0 titre personnel ont normalement re\u00e7u ce matin un message les invitant \u00e0 renouveler leur cotisation en ligne via leur Extranet pour l\u2019ann\u00e9e 2024, avec des identifiants individuels (diff\u00e9rents de ceux\npour se connecter \u00e0 notre site Internet) se pr\u00e9sentant sous cette forme\u00a0:\nLien de l'Extranet :\nhttps://op.eudonet.com/xtranet/aaf/home\nIdentifiant Extranet\u00a0\u00a0 [votre identifiant]\nMot de passe Extranet\u00a0\u00a0[votre mot de passe]\nPour la plupart d\u2019entre vous, le message a \u00e9t\u00e9 normalement d\u00e9livr\u00e9 dans vos messageries.\nToutefois, le message g\u00e9n\u00e9r\u00e9 via notre logiciel peut se mettre dans vos ind\u00e9sirables, nous vous invitons \u00e0 les v\u00e9rifier le cas \u00e9ch\u00e9ant.\nDe m\u00eame, certains op\u00e9rateurs bloquent syst\u00e9matiquement nos messages. Il semble que ce soit le cas de Gmail et Hotmail entre autres.\nEnfin, les pare-feu de certaines messageries professionnelles peuvent bloquer certains de nos messages.\nSi vous n\u2019avez pas re\u00e7u le message intitul\u00e9 \u00ab\u00a0[AAF] Adh\u00e9rents de l'AAF, l'Association vous invite \u00e0 r\u00e9gler votre cotisation 2024 en ligne\u00a0\u00bb ce matin (et uniquement dans ce cas), je vous invite \u00e0 me contacter pour que je vous communique\nvos identifiants.\nLes organismes adh\u00e9rents de l\u2019AAF ont par ailleurs re\u00e7u par mel un appel \u00e0 renouveler leur cotisation le 15 janvier dernier.\nBien cordialement\nNicolas DIDON\nResponsable de la vie associative et des finances\nJe suis pr\u00e9sent les lundi, mercredi et un vendredi sur deux\nAssociation des archivistes fran\u00e7ais\nFormation\net publications g\u00e9r\u00e9es par AFF\n8\nrue Jean-Marie J\u00e9go - 75013 Paris\nLigne directe :\u00a001 46 06 39 44\nPortable pro :\u00a006\n72 11 52 95\nvieassociative@archivistes.org"
+      ]
+    ],
+    "queries":null,
+    "index_name":"Projet Demo_emails_index",
+    "overwrite":false,
+    "root":".ragatouille/",
+    "experiment":"colbert",
+    "index_root":null,
+    "name":"2025-05/26/13.32.46",
+    "rank":0,
+    "nranks":1,
+    "amp":true,
+    "gpus":1,
+    "avoid_fork_if_possible":false
+  },
+  "num_chunks":1,
+  "num_partitions":32768,
+  "num_embeddings":8343079,
+  "avg_doclen":435.9658776193,
+  "RAGatouille":{
+    "index_config":{
+      "index_type":"PLAID",
+      "index_name":"Projet Demo_emails_index"
+    }
+  }
+}

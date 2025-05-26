@@ -1,0 +1,4002 @@
+{
+  "email_0":{
+    "email_id":"37bf6b72-a83d-4c69-8df0-4bd2af185ccc",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Archives, loi, r\u00e9volutionnaire et espoir au menu de cette lettre d'Histoire coloniale et postcoloniale",
+    "date":"2024-02-01 11:04:53",
+    "original_index":0
+  },
+  "email_1":{
+    "email_id":"db3f532b-c78f-4eb0-bc57-125d56c06f6b",
+    "from":"info@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"L'observatoire de l'open content vous pr\u00e9sente sa 1\u00e8re newsletter 2024",
+    "date":"2024-01-29 08:01:51",
+    "original_index":1
+  },
+  "email_2":{
+    "email_id":"72f359eb-c508-4f93-a3a1-1a94679f19a9",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] [aaf_adherents] Adh\u00e9rents \u00e0 titre personnel de l'AAF, vous pouvez renouveler votre cotisation en ligne",
+    "date":"2024-01-24 12:06:00",
+    "original_index":2
+  },
+  "email_3":{
+    "email_id":"a5aa4934-e702-4169-896e-214b92811a8b",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Les Rendez-vous de l'ANR : nouveau webinaire \"Science avec et pour la soci\u00e9t\u00e9\"",
+    "date":"2024-01-23 15:29:00",
+    "original_index":3
+  },
+  "email_4":{
+    "email_id":"2a3ac7df-61a9-4b3d-994f-009a941b4109",
+    "from":"florent@news.economic-studies.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Perspectives 2024 du march\u00e9 de la prestation de services de formation",
+    "date":"2024-01-23 08:17:01",
+    "original_index":4
+  },
+  "email_5":{
+    "email_id":"fb3f6504-a570-407a-9586-63317b8046a1",
+    "from":"evenement@lecnfpt.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Colloque en distanciel - 40 ans de la loi du 26 janvier 1984",
+    "date":"2024-01-23 03:00:27",
+    "original_index":5
+  },
+  "email_6":{
+    "email_id":"82adfa1e-217d-41ab-b9c6-94e0073271c8",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Les inscriptions aux Rencontres Annuelles de la section des Archivistes d\u00e9partementaux les 14 et 15 mars 2024 \u00e0 Orl\u00e9ans sont ouvertes !",
+    "date":"2024-01-22 10:08:48",
+    "original_index":6
+  },
+  "email_7":{
+    "email_id":"826aa38a-3904-4d72-b004-26ada201a7b9",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] R\u00e9abonnement 2024 - La Gazette des archives",
+    "date":"2024-01-19 15:28:37",
+    "original_index":7
+  },
+  "email_8":{
+    "email_id":"1fff1286-7015-45d2-9b47-53eb9f987efc",
+    "from":"evenement@lecnfpt.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Colloque en distanciel - 40 ans de la loi du 26 janvier 1984",
+    "date":"2024-01-15 12:01:45",
+    "original_index":8
+  },
+  "email_9":{
+    "email_id":"a7ae956d-a03a-407c-9c9b-1f57e619be6f",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Rectificatif",
+    "date":"2024-01-12 13:23:02",
+    "original_index":9
+  },
+  "email_10":{
+    "email_id":"5317329e-6df2-45c5-892d-b96648d69e29",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Archivage remaniement minist\u00e9riel - Article dans le journal La Croix",
+    "date":"2024-01-12 13:10:04",
+    "original_index":10
+  },
+  "email_11":{
+    "email_id":"e673b890-1b5e-4e33-9d75-1eef9bbe298e",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Lancement d'un nouveau magazine FRANCE ALG\u00c9RIE ACTUALIT\u00c9.",
+    "date":"2024-01-11 17:49:27",
+    "original_index":11
+  },
+  "email_12":{
+    "email_id":"50a3f314-b714-467d-914d-8a1f4e7ffc6f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Immedi'actes : mise en ligne des supports du colloque des archivistes communaux, intercommunaux et itin\u00e9rants 2023",
+    "date":"2024-01-11 11:02:08",
+    "original_index":12
+  },
+  "email_13":{
+    "email_id":"fcd1b341-bbbc-4ce2-839d-fdcd383cc251",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Voeux de l'AAF pour 2024",
+    "date":"2024-01-10 15:28:01",
+    "original_index":13
+  },
+  "email_14":{
+    "email_id":"edb9d27e-c85f-4c60-b664-8a151c9773e4",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Esclavage, oubli, ignorance, migration au menu de la lettre Histoire coloniale de ce d\u00e9but janvier",
+    "date":"2024-01-09 19:19:52",
+    "original_index":14
+  },
+  "email_15":{
+    "email_id":"fc0e167b-f8cd-4727-86e2-0899693bb779",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Re: [aaf_adherents] L'AAF relance sa bourse de soutien \u00e0 la recherche !",
+    "date":"2024-01-08 09:35:36",
+    "original_index":15
+  },
+  "email_16":{
+    "email_id":"c7de2a6f-0c7c-4750-ba4f-e83418b52df1",
+    "from":"f.lavenir@plimsoll.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Perspectives 2024 du march\u00e9 de la prestation de services de formation",
+    "date":"2024-01-04 08:10:19",
+    "original_index":16
+  },
+  "email_17":{
+    "email_id":"a3b3807b-276c-4004-b445-f361459a1953",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] L'AAF relance sa bourse de soutien \u00e0 la recherche !",
+    "date":"2023-12-21 14:30:13",
+    "original_index":17
+  },
+  "email_18":{
+    "email_id":"39d8e0de-b51c-4545-8508-638da6f36cf6",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Palestine, plaque, caf\u00e9, crimes, marche... au menu d'Histoire coloniale et postcoloniale en d\u00e9cembre",
+    "date":"2023-12-20 09:14:29",
+    "original_index":18
+  },
+  "email_19":{
+    "email_id":"c6a08086-fe4e-422d-a166-e316b1f38d72",
+    "from":"nathalie@customerline.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Conformit\u00e9 RGPD L'AAF<>Celine",
+    "date":"2023-12-19 07:21:55",
+    "original_index":19
+  },
+  "email_20":{
+    "email_id":"d10b223b-8d73-4790-ab73-b67b2e77ed67",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Immedi'actes : mise en ligne des supports du colloque des archivistes communaux, intercommunaux et itin\u00e9rants 2023",
+    "date":"2023-12-18 17:33:52",
+    "original_index":20
+  },
+  "email_21":{
+    "email_id":"9f9a5915-72ef-4f7a-964b-cad34bc0904a",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_section_aesp] Annonce \u00e9lection du pr\u00e9sident de section et de la composition de votre bureau de section",
+    "date":"2023-12-18 07:44:12",
+    "original_index":21
+  },
+  "email_22":{
+    "email_id":"eeac001f-4ea4-46dd-8126-6d6f4b3d0491",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Retour sur le conseil d'administration du 08/12",
+    "date":"2023-12-15 09:58:25",
+    "original_index":22
+  },
+  "email_23":{
+    "email_id":"885c992e-07f2-4d43-9ca8-525863ca2bc3",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] \"Femmes (in)visibles dans les archives\" : appel \u00e0 articles pour le n\u00b0148 d'Archivistes !",
+    "date":"2023-12-14 10:56:49",
+    "original_index":23
+  },
+  "email_24":{
+    "email_id":"406920b6-b5c0-4811-9410-5cc68e9de481",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] Appel \u00e0 contributions | Journ\u00e9e d'\u00e9tude de l'AAF 4 et 5 avril 2024 | Conserver le num\u00e9rique : pour quoi, pour qui ?",
+    "date":"2023-12-14 07:48:56",
+    "original_index":24
+  },
+  "email_25":{
+    "email_id":"5e418275-060a-4cf5-9ce8-b9f28af4b181",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] R\u00e9servez la date ! Assembl\u00e9e g\u00e9n\u00e9rale et journ\u00e9e d'\u00e9tude de l'AAF 4 et 5 avril 2024",
+    "date":"2023-12-13 15:14:06",
+    "original_index":25
+  },
+  "email_26":{
+    "email_id":"958af55e-cb90-45b8-9dfb-5ea5ff3d02e6",
+    "from":"ne-pas-repondre-listmonk+nl@framasoft.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Les Framactus : faisons avancer le web \u00e9thique et convivial !",
+    "date":"2023-12-13 13:28:32",
+    "original_index":26
+  },
+  "email_27":{
+    "email_id":"eaa1fc8e-0e1b-43e9-8740-1c03f0af0ad7",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] RASAD 2024 : d\u00e9couvrez le programme !",
+    "date":"2023-12-13 11:06:04",
+    "original_index":27
+  },
+  "email_28":{
+    "email_id":"e2a5b936-5d4e-4541-8488-9bd8b775f6c5",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #33",
+    "date":"2023-12-12 16:15:08",
+    "original_index":28
+  },
+  "email_29":{
+    "email_id":"d3dd06f2-ae3a-429e-9764-f2d4059ecfd3",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Journ\u00e9e d'\u00e9tude de la section AACO\u00c9 en partenariat avec les ANMT \"Archiver en temps de guerre\" | ouverture des inscriptions",
+    "date":"2023-12-11 14:08:43",
+    "original_index":29
+  },
+  "email_30":{
+    "email_id":"18f4d070-9ab4-479e-bff3-80e0853fcd0d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] La Gazette des archives est sur Pers\u00e9e",
+    "date":"2023-12-11 10:14:18",
+    "original_index":30
+  },
+  "email_31":{
+    "email_id":"c4ef8c20-bf60-49ca-8b86-d96723dc5c65",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] ERRATUM : Appel \u00e0 contributions - La Gazette des archives, num\u00e9ro varia",
+    "date":"2023-12-05 14:08:34",
+    "original_index":31
+  },
+  "email_32":{
+    "email_id":"a957ec4b-61db-4e28-bfba-dc8d56cdd59c",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Appel \u00e0 contributions - La Gazette des archives, num\u00e9ro varia",
+    "date":"2023-12-05 13:35:38",
+    "original_index":32
+  },
+  "email_33":{
+    "email_id":"68b508ef-de75-4485-8a09-2b61b2f2a709",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] SEMINAIRE : Des statues pour m\u00e9moire ?",
+    "date":"2023-12-04 18:46:36",
+    "original_index":33
+  },
+  "email_34":{
+    "email_id":"1cfc4556-76e3-4ee0-a71b-d267d593c5c3",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-12-01 21:27:30",
+    "original_index":34
+  },
+  "email_35":{
+    "email_id":"a7713e92-f3df-481c-9aa5-770ce756c0b0",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Mise en ligne du compte-rendu du conseil d'administration du 4 octobre 2023",
+    "date":"2023-12-01 15:05:42",
+    "original_index":35
+  },
+  "email_36":{
+    "email_id":"e2b01ff4-f7f3-4e1e-900b-e4df83f24c0c",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] La Gazette des archives est sur Pers\u00e9e",
+    "date":"2023-11-29 16:23:30",
+    "original_index":36
+  },
+  "email_37":{
+    "email_id":"bd8c1002-a5c1-45cf-9998-08ffe54d7801",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [Ressources] retour d'exp\u00e9rience AMAE refonte arborescence",
+    "date":"2023-11-28 11:20:58",
+    "original_index":37
+  },
+  "email_38":{
+    "email_id":"64057a4d-61be-48df-88fa-b935a8687cc7",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #31",
+    "date":"2023-11-28 10:24:27",
+    "original_index":38
+  },
+  "email_39":{
+    "email_id":"5ce06509-96d6-470f-a899-f24b4dc13a5a",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Fermeture de la permanence de l'AAF du 25 au 29 d\u00e9cembre 2023",
+    "date":"2023-11-28 09:17:22",
+    "original_index":39
+  },
+  "email_40":{
+    "email_id":"69e2abc2-04c8-4b35-a784-c39399d975a3",
+    "from":"loimobilite501@gmail.com",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] Fwd: Report des 64 ans d\u00e9voy\u00e9 par LFI,",
+    "date":"2023-11-24 22:08:44",
+    "original_index":40
+  },
+  "email_41":{
+    "email_id":"a52c425f-f49e-4082-9fdc-bf044be523f2",
+    "from":"info@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Lien Webinaire Label culture Libre 23 novembre 2023",
+    "date":"2023-11-23 07:01:11",
+    "original_index":41
+  },
+  "email_42":{
+    "email_id":"b0f688da-ab7a-4741-b2f5-1baedf1f88fe",
+    "from":"info@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Lien Webinaire Label culture Libre 23 novembre 2023",
+    "date":"2023-11-22 18:21:46",
+    "original_index":42
+  },
+  "email_43":{
+    "email_id":"a9fc3968-4a6d-4ec2-816a-b36315fab35b",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"louis.faivredarcier@archivistes.org",
+    "bcc_recipients":"",
+    "subject":"[aaf_section_aesp] R\u00e9sultats des \u00e9lections partielles au bureau de la section AESP",
+    "date":"2023-11-20 15:49:22",
+    "original_index":43
+  },
+  "email_44":{
+    "email_id":"120256e8-ab92-49e1-b573-0015c6621ccc",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] [hco-info] Projection-d\u00e9bat : L'Alg\u00e9rie De Gaulle et la bombe",
+    "date":"2023-11-20 02:16:21",
+    "original_index":44
+  },
+  "email_45":{
+    "email_id":"23341a86-d082-4cd1-bc04-97aff8fe8d59",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Compte-rendu du conseil d'administration du 6 septembre 2023",
+    "date":"2023-11-16 13:41:31",
+    "original_index":45
+  },
+  "email_46":{
+    "email_id":"1948f797-5c36-49db-9ae1-1c62a601d83c",
+    "from":"florent@news.economic-studies.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"1311 soci\u00e9t\u00e9s not\u00e9es et estim\u00e9es sur le march\u00e9 de la prestation de services de formation",
+    "date":"2023-11-16 08:17:32",
+    "original_index":46
+  },
+  "email_47":{
+    "email_id":"1f23c3cb-239b-40eb-ae88-78f736731294",
+    "from":"info@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Inscriptions Webinaire Label culture Libre 23 novembre 2023",
+    "date":"2023-11-16 07:31:24",
+    "original_index":47
+  },
+  "email_48":{
+    "email_id":"f5003a09-a5ee-4486-b0a8-484e0933f300",
+    "from":"ne-pas-repondre-listmonk+nl@framasoft.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Lettre d\u2019information n\u00b035 - Automne 2023",
+    "date":"2023-11-15 10:18:07",
+    "original_index":48
+  },
+  "email_49":{
+    "email_id":"12469538-ad4a-426d-8ac3-3efda485bd03",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] RAPPEL : Rencontres annuelles du Groupe Biblioth\u00e8ques d'archives les 23 et 24 novembre 2023 \u00e0 l'IMEC",
+    "date":"2023-11-14 10:53:05",
+    "original_index":49
+  },
+  "email_50":{
+    "email_id":"b285083b-e3af-47e2-8d09-dcde35cd8950",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] [hco-info] Journ\u00e9e d'\u00e9tude \u00e0 Sciences Po sur la guerre d'Alg\u00e9rie et la science politique",
+    "date":"2023-11-13 19:14:49",
+    "original_index":50
+  },
+  "email_51":{
+    "email_id":"7171044a-5664-422d-8414-8089d5ee1cc5",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : Deux nouvelles offres d'emploi sur le site de l'AAF !",
+    "date":"2023-11-13 09:45:35",
+    "original_index":51
+  },
+  "email_52":{
+    "email_id":"309a5291-a6b5-4bfd-b6fa-636b4f4dafae",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_section_aesp] \u00c9lections AESP : fin des votes ce soir minuit.",
+    "date":"2023-11-10 11:26:55",
+    "original_index":52
+  },
+  "email_53":{
+    "email_id":"f5c3bc02-1384-4749-b797-0dd7392c43d8",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] #AAF_AMAE : mise en ligne de deux nouvelles fiches pratiques",
+    "date":"2023-11-09 19:25:31",
+    "original_index":53
+  },
+  "email_54":{
+    "email_id":"92671010-42b0-48ff-b89f-ec70bbe6e449",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] #AAFValenciennes23 : mise en ligne des posters scientifiques",
+    "date":"2023-11-09 18:59:51",
+    "original_index":54
+  },
+  "email_55":{
+    "email_id":"093bff2f-4ce8-45db-8f38-1528206488e2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : Trois nouvelles offres d'emploi sur le site de l'AAF !",
+    "date":"2023-11-09 16:49:32",
+    "original_index":55
+  },
+  "email_56":{
+    "email_id":"65dc1291-29d9-46cb-aebb-8494e1393bbe",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Archivistes ! 146 \"La sant\u00e9 des archivistes au travail\" : parution",
+    "date":"2023-11-09 14:45:14",
+    "original_index":56
+  },
+  "email_57":{
+    "email_id":"eec50671-dbf7-4d52-9ccf-b54513e14ca4",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Temps de rencontre du groupe de travail \"archives alternatives\" 20/11/2023 \u00e0 l'AAF",
+    "date":"2023-11-08 15:54:57",
+    "original_index":57
+  },
+  "email_58":{
+    "email_id":"90be6461-33d7-4955-b257-07de2429b635",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #29",
+    "date":"2023-11-08 09:23:30",
+    "original_index":58
+  },
+  "email_59":{
+    "email_id":"13fb9a57-32ae-4df8-a915-384a93171705",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Groupe de travail archives audiovisuelles : webinaire le 09/11/2023 de 10h \u00e0 12h",
+    "date":"2023-11-07 13:22:25",
+    "original_index":59
+  },
+  "email_60":{
+    "email_id":"f17913b5-f35d-412e-869c-7259316f3ea6",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : Une nouvelle offre d'emploi sur le site de l'AAF",
+    "date":"2023-11-07 10:21:19",
+    "original_index":60
+  },
+  "email_61":{
+    "email_id":"438ff8f6-c84c-44b6-85dd-9e8cdad4ade7",
+    "from":"f.lavenir@plimsoll.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"1311 soci\u00e9t\u00e9s not\u00e9es et estim\u00e9es sur le march\u00e9 de la prestation de services de formation",
+    "date":"2023-11-06 08:42:04",
+    "original_index":61
+  },
+  "email_62":{
+    "email_id":"5c19cf2c-5126-41db-a88c-fa21ea5c59e2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Archives et intelligence artificielle : appel \u00e0 contributions iconographiques !",
+    "date":"2023-11-03 10:47:01",
+    "original_index":62
+  },
+  "email_63":{
+    "email_id":"3f9656f6-6ea7-4fc2-97f6-a65b40400fda",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT BA] - Rencontres annuelles les 23 et 24 novembre 2023 \u00e0 l'IMEC",
+    "date":"2023-11-02 09:29:43",
+    "original_index":63
+  },
+  "email_64":{
+    "email_id":"6d154942-0ae1-40b3-a636-5365073700d5",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Koukou, Gilles, Mehdi, Isra\u00ebl - Palestine au sommaire de la lettre Histoire coloniale et poscoloniale",
+    "date":"2023-11-01 13:18:42",
+    "original_index":64
+  },
+  "email_65":{
+    "email_id":"53c22b5f-ff50-48a7-a39e-8890ea21bf30",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] La Gazette des archives n\u00b0267 (2022-3) \"Archives audiovisuelles, r\u00e9inventer les m\u00e9tiers du patrimoine\" : parution",
+    "date":"2023-10-31 10:19:30",
+    "original_index":65
+  },
+  "email_66":{
+    "email_id":"f5ea4de5-622f-4dde-8980-e1a9fbbf7c4e",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #28",
+    "date":"2023-10-30 15:33:33",
+    "original_index":66
+  },
+  "email_67":{
+    "email_id":"135772c5-2136-4ac1-9184-aee269882ca1",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : trois nouvelles offres sur le site de l'AAF",
+    "date":"2023-10-30 15:27:09",
+    "original_index":67
+  },
+  "email_68":{
+    "email_id":"8f65ebbc-fe81-4199-9c12-8e397a0d4ef5",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"d.martincourt@abf.asso.fr, bruno38stephan@gmail.com",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] [archives-fr] Formation r\u00e9alis\u00e9e par une association : statut et traitement des archives",
+    "date":"2023-10-29 23:04:30",
+    "original_index":68
+  },
+  "email_69":{
+    "email_id":"cc23c450-fc92-4a9b-9aad-c9724006271a",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_section_aesp] \u00c9lections AESP : envoi du mat\u00e9riel de vote ce jour",
+    "date":"2023-10-26 08:47:06",
+    "original_index":69
+  },
+  "email_70":{
+    "email_id":"556d55de-c5a9-4fea-8f7e-3f38d3eb0a82",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : cinq nouvelles offres d'emploi sur le site de l'AAF !",
+    "date":"2023-10-25 16:27:31",
+    "original_index":70
+  },
+  "email_71":{
+    "email_id":"1ee152bf-5237-40db-8992-ae8e3ca595db",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Emploi-M\u00e9tier : \u00e9tat des lieux de l\u2019enqu\u00eate de l\u2019AAF lanc\u00e9e en 2023",
+    "date":"2023-10-25 15:51:09",
+    "original_index":71
+  },
+  "email_72":{
+    "email_id":"a0fe26b5-0f46-469e-881a-8e47aa07bf7c",
+    "from":"michael@colibrity.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"On vous pr\u00e9pare votre vid\u00e9o en motion",
+    "date":"2023-10-19 11:03:07",
+    "original_index":72
+  },
+  "email_73":{
+    "email_id":"2050c84d-f1cb-4c2c-aed2-7dbb82aacde5",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #27",
+    "date":"2023-10-17 09:50:39",
+    "original_index":73
+  },
+  "email_74":{
+    "email_id":"34ec8a4b-401d-4ae9-8eaf-23b4995d3063",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Frantz Fanon, Affranchis, Amn\u00e9sies, Saint-Michel au menu de la lettre d'Histoire coloniale et postcoloniale",
+    "date":"2023-10-16 18:23:12",
+    "original_index":74
+  },
+  "email_75":{
+    "email_id":"11f6c52b-2606-4007-b484-155686304ab5",
+    "from":"richard.patry@outlook.fr",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Proposition de loi pour reporter la loi sur la retraite \u00e0 64 ans au 1/09/2026",
+    "date":"2023-10-16 13:38:15",
+    "original_index":75
+  },
+  "email_76":{
+    "email_id":"205724a1-b6ff-4296-a4dd-20d360baf03f",
+    "from":"michael@colibrity.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"On vous pr\u00e9pare votre vid\u00e9o en motion",
+    "date":"2023-10-16 13:02:51",
+    "original_index":76
+  },
+  "email_77":{
+    "email_id":"8fc9ea60-1cb4-472a-b154-eb11520a9a62",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Webinaire du groupe de travail archives audiovisuelles | 09/11/2023 | 10H \u00e0 12H",
+    "date":"2023-10-13 16:36:39",
+    "original_index":77
+  },
+  "email_78":{
+    "email_id":"e1634b6d-6db7-4fc7-a080-37b7698c67b1",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Inscrivez-vous ! Journ\u00e9e du groupe r\u00e9gional Auvergne-Rh\u00f4ne-Alpes \"Nouveaux usages, nouveaux publics\" 13/11/2023, Lyon",
+    "date":"2023-10-13 06:04:42",
+    "original_index":78
+  },
+  "email_79":{
+    "email_id":"134da7be-6a89-40db-8026-b4e2083d71a0",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Les Rendez-vous de l'ANR : nouvelles dates et vid\u00e9os disponibles",
+    "date":"2023-10-12 14:16:11",
+    "original_index":79
+  },
+  "email_80":{
+    "email_id":"8549e897-85e0-4988-be95-ceb87ecbe30c",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : trois nouvelles offres sur le site de l'AAF",
+    "date":"2023-10-11 14:50:38",
+    "original_index":80
+  },
+  "email_81":{
+    "email_id":"91bf23c3-99bf-41b5-a9e9-58e99075babc",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Stand de l'AAF au salon des maires : recherche de b\u00e9n\u00e9voles",
+    "date":"2023-10-09 10:12:38",
+    "original_index":81
+  },
+  "email_82":{
+    "email_id":"adc8eec8-022f-4abb-bbcd-3c901c854464",
+    "from":"michael@colibrity.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"On vous pr\u00e9pare votre vid\u00e9o en motion",
+    "date":"2023-10-09 04:09:01",
+    "original_index":82
+  },
+  "email_83":{
+    "email_id":"24dfa0da-62a4-49ca-bbbb-090bc87359d9",
+    "from":"michelerodary@orange.fr",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Semaine Franz Fanon",
+    "date":"2023-10-08 18:12:48",
+    "original_index":83
+  },
+  "email_84":{
+    "email_id":"ed03f783-9e71-4efb-ab6d-6d2ebb80c195",
+    "from":"hco-info@lists.riseup.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Sortie d'ouvrage. Libres de couleur. Les affranchis et leurs descendants en terre d'esclavage (XIVe-XIXe si\u00e8cles)",
+    "date":"2023-10-08 08:38:45",
+    "original_index":84
+  },
+  "email_85":{
+    "email_id":"32f99827-65dc-4331-88b0-8ee386800a5f",
+    "from":"elhamrijamel@hotmail.fr",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Nouveaut\u00e9] Livre \"Les musulmans dans l'histoire de France\" de Jamel EL HAMRI",
+    "date":"2023-10-07 16:30:01",
+    "original_index":85
+  },
+  "email_86":{
+    "email_id":"94dcfb94-27c8-4919-b4a6-9cd5d7a7dba1",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT BA] - Rencontres annuelles les 23 et 24 novembre 2023 \u00e0 l'IMEC",
+    "date":"2023-10-06 14:40:50",
+    "original_index":86
+  },
+  "email_87":{
+    "email_id":"091c00dc-75c0-4c5d-9326-62a2d4d3e0b6",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Re: [hco-info] 17 octobre, Police, Blois, film, podcast au menu de la lettre d'Histoire coloniale et postcoloniale",
+    "date":"2023-10-06 01:54:48",
+    "original_index":87
+  },
+  "email_88":{
+    "email_id":"a65f292c-7dba-4057-b9f4-757943957001",
+    "from":"hco-info@lists.riseup.net",
+    "to_recipients":"contact2@histoirecoloniale.net, hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [hco-info] 17 octobre, Police, Blois, film, podcast au menu de la lettre d'Histoire coloniale et postcoloniale",
+    "date":"2023-10-04 14:23:41",
+    "original_index":88
+  },
+  "email_89":{
+    "email_id":"3baea71f-fb08-4878-a646-71c8481548ec",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] 17 octobre, Police, Blois, film, podcast au menu de la lettre d'Histoire coloniale et postcoloniale",
+    "date":"2023-10-04 14:15:08",
+    "original_index":89
+  },
+  "email_90":{
+    "email_id":"67bb99f9-8453-4a08-9bc0-1f8c684d1f16",
+    "from":"antoondebaets@concernedhistorians.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"29th Annual Report of the Network of Concerned Historians: Edition 2023 (covering 105 countries) [Last reminder]",
+    "date":"2023-10-02 17:29:38",
+    "original_index":90
+  },
+  "email_91":{
+    "email_id":"c084ad2a-5901-4565-917d-8515d7758782",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : sept nouvelles offres sur le site de l'AAF",
+    "date":"2023-10-02 16:25:30",
+    "original_index":91
+  },
+  "email_92":{
+    "email_id":"49f35d14-2826-4135-932f-e5e1ad49f4dc",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : sept nouvelles offres sur le site de l'AAF",
+    "date":"2023-10-02 16:24:21",
+    "original_index":92
+  },
+  "email_93":{
+    "email_id":"23d035d9-4bf8-490e-9d74-ab143bafb211",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #25",
+    "date":"2023-10-02 16:16:04",
+    "original_index":93
+  },
+  "email_94":{
+    "email_id":"6fd442fe-55bb-4594-b6aa-bb9ed7e804de",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_section_aesp]  TR: Elections partielles au bureau de la section AESP : ouverture des candidatures",
+    "date":"2023-10-02 14:45:50",
+    "original_index":94
+  },
+  "email_95":{
+    "email_id":"696ae330-784a-4c94-999d-85e2fbef2517",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Revivez l\u2019\u00e9dition 2023 des Rencontres Recherche et Cr\u00e9ation !",
+    "date":"2023-10-02 14:17:57",
+    "original_index":95
+  },
+  "email_96":{
+    "email_id":"abe1c439-0640-4ea7-b134-da0ad7524a43",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Arriv\u00e9e de notre charg\u00e9e de formation",
+    "date":"2023-09-28 14:42:49",
+    "original_index":96
+  },
+  "email_97":{
+    "email_id":"19cd97de-35bd-442e-809b-51b09a8004bc",
+    "from":"no-reply@mac0.cognism-privacy.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] Notice of Data Processing. This is not an advertisement.",
+    "date":"2023-09-28 13:57:34",
+    "original_index":97
+  },
+  "email_98":{
+    "email_id":"4f8e2b05-f9a4-4233-b053-fad6ea27ee27",
+    "from":"antoondebaets@concernedhistorians.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Russia: Sign petition for historian and Memorial co-chair Oleg Orlov",
+    "date":"2023-09-27 10:00:47",
+    "original_index":98
+  },
+  "email_99":{
+    "email_id":"8b79d76d-2b46-46c8-a75b-b546d1212fbf",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT BA] - Rencontres annuelles les 23 et 24 novembre 2023 \u00e0 l'IMEC",
+    "date":"2023-09-22 13:28:22",
+    "original_index":99
+  },
+  "email_100":{
+    "email_id":"dba4adb1-6c70-4cd4-af2c-a5455b36b009",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Maroc, crimes racistes, Camus, dans la lettre d'histoire coloniale",
+    "date":"2023-09-22 05:25:28",
+    "original_index":100
+  },
+  "email_101":{
+    "email_id":"e9c2a448-9da3-46f2-86bc-c27fd1236d9e",
+    "from":"florent@news.economic-studies.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Hausse de la valeur des soci\u00e9t\u00e9s sur le march\u00e9 de la prestation de services de formation",
+    "date":"2023-09-21 08:21:27",
+    "original_index":101
+  },
+  "email_102":{
+    "email_id":"6f180208-d3c0-460c-8e67-f58e82b4f295",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_section_aesp] TR: Elections partielles au bureau de la section AESP : ouverture des candidatures",
+    "date":"2023-09-21 07:36:51",
+    "original_index":102
+  },
+  "email_103":{
+    "email_id":"b1ad6752-1406-40df-bd23-30cd811739b6",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Le catalogue des formations 2024 est disponible !",
+    "date":"2023-09-20 14:18:53",
+    "original_index":103
+  },
+  "email_104":{
+    "email_id":"289a842b-edf2-4a31-853a-cb08d144a0aa",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Le catalogue des formations 2024 est disponible !",
+    "date":"2023-09-20 14:11:35",
+    "original_index":104
+  },
+  "email_105":{
+    "email_id":"cc21ed0b-30b4-4281-9076-a896ea0dd0f9",
+    "from":"contact@efutura-asso.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"La lettre de la Transition Num\u00e9rique - Septembre 2023",
+    "date":"2023-09-19 10:08:20",
+    "original_index":105
+  },
+  "email_106":{
+    "email_id":"d30ac773-ecf4-4270-ad8e-6de2f4ceee8e",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #24",
+    "date":"2023-09-19 08:19:30",
+    "original_index":106
+  },
+  "email_107":{
+    "email_id":"c5bf9ded-4664-4e72-be17-e7fe73e68f4b",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #24",
+    "date":"2023-09-19 08:17:02",
+    "original_index":107
+  },
+  "email_108":{
+    "email_id":"77a9ce35-fc1b-40dc-b962-28972d18fcd8",
+    "from":"f.lavenir@plimsoll.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] Hausse de la valeur des soci\u00e9t\u00e9s sur le march\u00e9 de la prestation de services de formation",
+    "date":"2023-09-18 09:55:39",
+    "original_index":108
+  },
+  "email_109":{
+    "email_id":"daf2f94e-eb96-45cc-93c8-57973027e67d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : six nouvelles offres sur le site de l'AAF",
+    "date":"2023-09-15 14:38:34",
+    "original_index":109
+  },
+  "email_110":{
+    "email_id":"b8d87ccd-aa5f-40c7-988e-ed9cf80b2ee2",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Les Rendez-vous de l'ANR : la nouvelle formule est en ligne !",
+    "date":"2023-09-14 08:42:26",
+    "original_index":110
+  },
+  "email_111":{
+    "email_id":"3659ff59-aa8b-45e2-b189-d29f1b56c3f6",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] La Gazette des archives n\u00b0266 (2022-2) \"Les archives de l'enfance\" : parution",
+    "date":"2023-09-13 09:42:00",
+    "original_index":111
+  },
+  "email_112":{
+    "email_id":"d8c1cb43-0211-413e-a409-3ed4aaf285e2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Relance \u2013 Archivistes ! 147 : appel \u00e0 contributions",
+    "date":"2023-09-13 08:28:06",
+    "original_index":112
+  },
+  "email_113":{
+    "email_id":"e12cace4-9e10-481d-9ca1-91e938b79e2f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #23",
+    "date":"2023-09-12 07:54:39",
+    "original_index":113
+  },
+  "email_114":{
+    "email_id":"2887ff06-bb85-4bd9-ac83-79c2f978c3c0",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : deux nouvelles offres sur le site de l'AAF",
+    "date":"2023-09-11 14:49:23",
+    "original_index":114
+  },
+  "email_115":{
+    "email_id":"65cfee00-5ff2-47f5-8bf7-87018a5294e4",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Guide pratique ouverture et r\u00e9utilisation donn\u00e9es publiques : une consultation de la CNIL",
+    "date":"2023-09-11 14:04:08",
+    "original_index":115
+  },
+  "email_116":{
+    "email_id":"8f3aadea-7dba-4711-b846-155b107c5bb7",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] D\u00e9but des travaux de refonte du site internet de l'AAF",
+    "date":"2023-09-11 07:45:37",
+    "original_index":116
+  },
+  "email_117":{
+    "email_id":"1ba3d14c-467c-4575-9a21-0c02ce4180aa",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] D\u00e9c\u00e8s de Fran\u00e7ois G\u00e8ze",
+    "date":"2023-09-10 19:26:17",
+    "original_index":117
+  },
+  "email_118":{
+    "email_id":"61089314-bb8c-4af9-a79e-f9402c5ea5ca",
+    "from":"timmy@notice.nbtengyu.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Re: Would you be interested in working with us at nbtengyu.com",
+    "date":"2023-09-08 21:00:49",
+    "original_index":118
+  },
+  "email_119":{
+    "email_id":"b1fb619e-4bb8-44d5-ad93-61a0ac1303a9",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_section_aesp] Elections partielles au bureau de la section AESP : ouverture des candidatures",
+    "date":"2023-09-08 08:10:37",
+    "original_index":119
+  },
+  "email_120":{
+    "email_id":"43fdc59d-be5f-4cad-8a4b-a739ad36753e",
+    "from":"antoondebaets@concernedhistorians.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"29th Annual Report of the Network of Concerned Historians: Edition 2023 (covering 105 countries) [Reminder]",
+    "date":"2023-09-05 20:18:57",
+    "original_index":120
+  },
+  "email_121":{
+    "email_id":"a70222b0-e282-4828-9930-abd1cddb128c",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #22",
+    "date":"2023-09-04 09:18:31",
+    "original_index":121
+  },
+  "email_122":{
+    "email_id":"97d6c216-99fc-4694-b3e7-8e76bff7b9d1",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] #AAFValenciennes23 : des places suppl\u00e9mentaires pour le d\u00eener de gala !",
+    "date":"2023-09-01 15:25:22",
+    "original_index":122
+  },
+  "email_123":{
+    "email_id":"b491a770-1241-483d-866b-f698ef169e74",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Lettre Histoire Coloniale - ao\u00fbt 2023",
+    "date":"2023-09-01 04:09:45",
+    "original_index":123
+  },
+  "email_124":{
+    "email_id":"f3043bbc-aab8-49db-89b7-ac64b2957c8f",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"L'ANR Tour devient \"Les Rendez-vous de l'ANR\"",
+    "date":"2023-08-31 12:03:02",
+    "original_index":124
+  },
+  "email_125":{
+    "email_id":"3e6b7fcd-35e4-4b52-87b8-c28053a7e3aa",
+    "from":"hco-info@lists.riseup.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] D\u00e9sabonn\u00e9e",
+    "date":"2023-08-26 14:06:48",
+    "original_index":125
+  },
+  "email_126":{
+    "email_id":"9fd1ceb5-c336-42a1-b468-751eaf67db74",
+    "from":"hco-info-request@lists.riseup.net",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Rappel de votre abonnement \u00e0 hco-info",
+    "date":"2023-08-25 01:55:13",
+    "original_index":126
+  },
+  "email_127":{
+    "email_id":"04ce05ec-92ce-4ae9-b329-10530e2397fa",
+    "from":"ne-pas-repondre+nl@framasoft.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] Lettre d\u2019information n\u00b035 \u2014 \u00c9t\u00e9 2023",
+    "date":"2023-08-23 01:25:23",
+    "original_index":127
+  },
+  "email_128":{
+    "email_id":"baee1039-a5e0-483a-9cf1-c56c0fbb869d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #20",
+    "date":"2023-08-21 15:15:46",
+    "original_index":128
+  },
+  "email_129":{
+    "email_id":"eb4d3a4b-7827-4290-895a-6b54a7c00603",
+    "from":"loimobilite204@gmail.com",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] Fwd: Proposition de loi pour reporter la loi sur la retraite \u00e0 64 ans au 1/09/2025",
+    "date":"2023-08-13 11:44:10",
+    "original_index":129
+  },
+  "email_130":{
+    "email_id":"8333d729-42bc-4c68-8170-025a32b85ce6",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] EMPLOI : 3 nouvelles offres d'emploi sur le site de l'AAF",
+    "date":"2023-08-03 23:26:47",
+    "original_index":130
+  },
+  "email_131":{
+    "email_id":"7c3ddd7c-28cf-48df-af90-f76c8339f9d2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Archivistes ! 147 : appel \u00e0 contributions",
+    "date":"2023-08-03 17:21:23",
+    "original_index":131
+  },
+  "email_132":{
+    "email_id":"e3606dd0-8628-4b6c-bfd7-7e3d907db4bc",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Archivistes ! 145 \"Archives, alimentation et gastronomie\" : parution",
+    "date":"2023-08-02 15:36:16",
+    "original_index":132
+  },
+  "email_133":{
+    "email_id":"aeb15f3b-87ec-4b38-a351-63e4c354b4b1",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #19",
+    "date":"2023-08-01 15:36:57",
+    "original_index":133
+  },
+  "email_134":{
+    "email_id":"39e08e48-ca5d-4e81-bbe7-c74694cc652e",
+    "from":"antoondebaets@concernedhistorians.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"29th Annual Report of the Network of Concerned Historians: Edition 2023 (covering 105 countries)",
+    "date":"2023-08-01 12:05:19",
+    "original_index":134
+  },
+  "email_135":{
+    "email_id":"98d2cea5-c903-4e50-8149-def8ba99e93c",
+    "from":"f.lavenir@plimsoll.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] 104 entreprises du march\u00e9 de la prestation de services de formation en grande difficult\u00e9",
+    "date":"2023-08-01 07:39:15",
+    "original_index":135
+  },
+  "email_136":{
+    "email_id":"bf1e8ab7-9e09-4c40-83c3-44d12d2808c0",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"L'ANR Tour devient \"Les Rendez-vous de l'ANR\"",
+    "date":"2023-07-28 13:03:24",
+    "original_index":136
+  },
+  "email_137":{
+    "email_id":"2a09ee78-0437-4f54-ad24-d96cd24e2d25",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Catalogue de nos formations 2024 : fin des pr\u00e9commandes ce jour !",
+    "date":"2023-07-21 13:35:10",
+    "original_index":137
+  },
+  "email_138":{
+    "email_id":"707a76b0-b107-4f4e-850e-c4c0cc82f3ca",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] D\u00e9mission de Louis-Gilles Pairault, pr\u00e9sident de la section AESP",
+    "date":"2023-07-20 15:48:22",
+    "original_index":138
+  },
+  "email_139":{
+    "email_id":"42ac2007-20a0-4fbd-9758-91e5c5e43b33",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Mod\u00e9ration de la liste de diffusion archives-fr",
+    "date":"2023-07-20 15:35:31",
+    "original_index":139
+  },
+  "email_140":{
+    "email_id":"9b363bed-d877-4be9-a590-51cd5fc25eff",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"presidence@bouclier-bleu.fr",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Adh\u00e9sion de l'AAF au Bouclier bleu France",
+    "date":"2023-07-20 13:34:04",
+    "original_index":140
+  },
+  "email_141":{
+    "email_id":"b340aef5-37bc-4c87-8b6b-f1b1c70ff940",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-07-19 17:01:27",
+    "original_index":141
+  },
+  "email_142":{
+    "email_id":"b2cebc6d-e072-4d4d-a234-b2c1885c4e81",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-07-19 13:50:50",
+    "original_index":142
+  },
+  "email_143":{
+    "email_id":"3eecd031-7f78-4aa0-9242-fe939c524f8d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #18",
+    "date":"2023-07-18 10:26:25",
+    "original_index":143
+  },
+  "email_144":{
+    "email_id":"2577a928-9523-479a-8b1e-cf0627b4f15e",
+    "from":"communication@info-cnfpt.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"D\u00e9couvrez le rapport d'activit\u00e9 2022 du CNFPT",
+    "date":"2023-07-11 15:25:49",
+    "original_index":144
+  },
+  "email_145":{
+    "email_id":"7c64631f-1b31-4c32-8d9c-e48496715f09",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"D\u00e9but du live des Rencontres Recherche et Cr\u00e9ation",
+    "date":"2023-07-10 07:03:10",
+    "original_index":145
+  },
+  "email_146":{
+    "email_id":"d9e80605-f006-48fb-ae0b-4eded31ec63a",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Mise en ligne du compte-rendu du conseil d'administration du 2 juin 2023",
+    "date":"2023-07-07 13:21:35",
+    "original_index":146
+  },
+  "email_147":{
+    "email_id":"c0e9a360-091e-4150-abdc-5e9378acb972",
+    "from":"communication@info-cnfpt.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"D\u00e9couvrez le rapport d'activit\u00e9 2022 du CNFPT",
+    "date":"2023-07-06 12:55:17",
+    "original_index":147
+  },
+  "email_148":{
+    "email_id":"2293d191-242f-40de-b738-455ba992e400",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-07-03 17:01:23",
+    "original_index":148
+  },
+  "email_149":{
+    "email_id":"64fbc96a-f731-4724-b72a-1d48096f1b90",
+    "from":"louisgilles@yahoo.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Poste de ma\u00eetre de conf\u00e9rences associ\u00e9 \u00e0 l Enssib",
+    "date":"2023-06-29 19:07:42",
+    "original_index":149
+  },
+  "email_150":{
+    "email_id":"84609841-732c-4fd3-83aa-46dfa9af9cb7",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Catalogue de nos formations 2024 : pr\u00e9commandez-le d\u00e8s aujourd'hui et jusqu'au 21 juillet !",
+    "date":"2023-06-29 12:19:08",
+    "original_index":150
+  },
+  "email_151":{
+    "email_id":"9dec43a9-fcdc-4349-aca9-fe9e5746d7e6",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Imm\u00e9di'actes : les supports de trois nouvelles journ\u00e9es d'\u00e9tude en ligne !",
+    "date":"2023-06-28 16:27:55",
+    "original_index":151
+  },
+  "email_152":{
+    "email_id":"8a9db895-c728-44a3-8795-e82e96dfe755",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #16",
+    "date":"2023-06-27 10:07:11",
+    "original_index":152
+  },
+  "email_153":{
+    "email_id":"5375d106-4182-4ea8-8d32-24c27ca04d44",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Rappel inscription l Rencontres Recherche & Cr\u00e9ation, 10 & 11 juillet, Festival d\u2019Avignon & en ligne",
+    "date":"2023-06-27 08:03:52",
+    "original_index":153
+  },
+  "email_154":{
+    "email_id":"2f0b1cfe-a7e1-4f2d-a028-75ea11bf761f",
+    "from":"f.lavenir@plimsoll.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] La valeur financi\u00e8re des soci\u00e9t\u00e9s du march\u00e9  de la prestation de services de formation r\u00e9v\u00e9l\u00e9e dans une nouvelle \u00e9tude",
+    "date":"2023-06-20 15:23:18",
+    "original_index":154
+  },
+  "email_155":{
+    "email_id":"e23f34be-f495-4478-a32e-d34337734304",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #15",
+    "date":"2023-06-20 09:15:00",
+    "original_index":155
+  },
+  "email_156":{
+    "email_id":"cb9e4f1e-a470-45c1-bf66-40cdab1f93c4",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-06-19 13:49:40",
+    "original_index":156
+  },
+  "email_157":{
+    "email_id":"5aca0f6c-80c0-4002-b880-8a3d8b54c963",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-06-18 17:42:56",
+    "original_index":157
+  },
+  "email_158":{
+    "email_id":"d563da13-a5b0-4981-952e-809afb84fa1f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] Inculpation de Donald Trump dans l'affaire des archives de la Maison Blanche",
+    "date":"2023-06-16 15:23:46",
+    "original_index":158
+  },
+  "email_159":{
+    "email_id":"15aa9d28-02a5-4cca-807b-1d578843776e",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Adh\u00e9sions individuelles : vous pouvez r\u00e9gler votre cotisation 2023 en ligne !",
+    "date":"2023-06-15 14:02:32",
+    "original_index":159
+  },
+  "email_160":{
+    "email_id":"6197da89-f6b3-41b7-a95d-b9d68008e454",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Re: [aaf_adherents] Archives et alimentation : appel \u00e0 contributions !",
+    "date":"2023-06-15 13:17:22",
+    "original_index":160
+  },
+  "email_161":{
+    "email_id":"7f82fbf8-6bef-46b2-be89-d508e2a73190",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [Communiqu\u00e9 et revue de presse] : Destruction d'archives au S\u00e9n\u00e9gal",
+    "date":"2023-06-14 13:51:33",
+    "original_index":161
+  },
+  "email_162":{
+    "email_id":"113b0823-55a6-4bfd-996a-9d5b9a9bbfee",
+    "from":"jack.sweeney@centreco.co.uk",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Commercial Funded & CAPEX Solar Installations",
+    "date":"2023-06-14 11:45:03",
+    "original_index":162
+  },
+  "email_163":{
+    "email_id":"3935814a-7cba-404e-8391-c5745013abb0",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] Condamnation de Donald Trump dans l'affaire des archives de la Maison Blanche",
+    "date":"2023-06-12 16:09:51",
+    "original_index":163
+  },
+  "email_164":{
+    "email_id":"74f8a1ae-c149-4840-b266-2e4285ac18a3",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Condamnation de Donald Trump dans l'affaire des archives de la Maison Blanche",
+    "date":"2023-06-12 15:39:14",
+    "original_index":164
+  },
+  "email_165":{
+    "email_id":"229acb2b-602c-46d3-a2ef-57c6db696e26",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Archives et alimentation : appel \u00e0 contributions !",
+    "date":"2023-06-12 09:21:12",
+    "original_index":165
+  },
+  "email_166":{
+    "email_id":"0ef6ddd3-6cd8-450a-bd1c-54c8e76fd002",
+    "from":"hco-info@lists.riseup.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Esclavage, empires, diplomatie, samedi 10 juin 2023 15H",
+    "date":"2023-06-08 16:47:02",
+    "original_index":166
+  },
+  "email_167":{
+    "email_id":"171b4efb-71e1-4bc8-9b1d-4fbd050d677d",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Rappel inscription l Rencontres Recherche & Cr\u00e9ation, 10 & 11 juillet, Festival d\u2019Avignon & en ligne",
+    "date":"2023-06-08 08:03:14",
+    "original_index":167
+  },
+  "email_168":{
+    "email_id":"d31c97da-25f9-438e-aed8-b4348bd1ebef",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"mleminhman@apsv.fr",
+    "bcc_recipients":"",
+    "subject":"[aaf_section_aesp] Formation en alternance assistant archiviste : accueillir un alternant ?",
+    "date":"2023-06-07 10:41:42",
+    "original_index":168
+  },
+  "email_169":{
+    "email_id":"fca4c04c-d08f-44fa-8893-dfb05b110d94",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Retour sur le Conseil d'administration du 02 juin 2023",
+    "date":"2023-06-07 09:31:11",
+    "original_index":169
+  },
+  "email_170":{
+    "email_id":"a8b8a1c0-3b2c-4d6f-915b-2080dee6cd85",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] #AAFValenciennes23 | ouverture des inscriptions pour le colloque des archivistes communaux, intercommunaux et itin\u00e9rants",
+    "date":"2023-06-07 08:10:34",
+    "original_index":170
+  },
+  "email_171":{
+    "email_id":"7b33f8d0-58ed-494d-ba28-4b6cd13ae3d7",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #14",
+    "date":"2023-06-05 15:13:48",
+    "original_index":171
+  },
+  "email_172":{
+    "email_id":"7357f0fb-6c46-466f-81c0-b1399a58127d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Ouverture des inscriptions pour la journ\u00e9e \u00ab l'intelligence artificielle (IA) dans la gestion des donn\u00e9es \u00bb en partenariat avec l'\u00c9cole des Chartes",
+    "date":"2023-06-05 14:00:35",
+    "original_index":172
+  },
+  "email_173":{
+    "email_id":"0890c101-fba2-485a-9d68-e7a42e8400d2",
+    "from":"richard.patry@mailo.com",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"La loi retraite macron 2023 trop suffisante et insuffisante, nouvelle loi \u00e0 venir",
+    "date":"2023-06-05 08:20:16",
+    "original_index":173
+  },
+  "email_174":{
+    "email_id":"25df324d-e72e-45d7-a3ea-d4a2453c7b90",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-06-04 13:48:14",
+    "original_index":174
+  },
+  "email_175":{
+    "email_id":"e71f5c71-da0d-42c9-99f0-4f5dcfd6ef99",
+    "from":"bordeflume@orange.fr",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Comm\u00e9moration 70 ans apr\u00e8s la r\u00e9pression du 14 juillet 1953",
+    "date":"2023-06-03 16:10:39",
+    "original_index":175
+  },
+  "email_176":{
+    "email_id":"f848e7ce-1dff-43e4-93cc-4c22acc5e1e0",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-06-03 02:52:50",
+    "original_index":176
+  },
+  "email_177":{
+    "email_id":"4437c5c3-c310-40ae-8a67-afbab6ce4765",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] 3000e adh\u00e9sion",
+    "date":"2023-06-01 13:33:37",
+    "original_index":177
+  },
+  "email_178":{
+    "email_id":"39df1986-daa0-4ae0-af9a-5277f214b4ed",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Journ\u00e9e d'\u00e9tude \"L'intelligence artificielle dans la gestion des donn\u00e9es\" - 04/07/23 - en partenariat avec l'Ecole nationale des Chartes",
+    "date":"2023-05-31 12:37:53",
+    "original_index":178
+  },
+  "email_179":{
+    "email_id":"7f6cf5e7-3fcf-4240-a4dc-5b170d8d2234",
+    "from":"nathalie@customerline.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Conformit\u00e9 RGPD L'AAF<>Celine",
+    "date":"2023-05-31 06:53:56",
+    "original_index":179
+  },
+  "email_180":{
+    "email_id":"9154ff0b-2279-4248-b4dd-6f5a04bffe53",
+    "from":"sambourcier1@gmail.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"notre s\u00e9ance du 18",
+    "date":"2023-05-30 14:44:24",
+    "original_index":180
+  },
+  "email_181":{
+    "email_id":"c68a6eb9-f752-4e37-a7ef-d890d1a9ab4b",
+    "from":"florent@news.economic-studies.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"La valeur financi\u00e8re des soci\u00e9t\u00e9s du march\u00e9  de la prestation de services de formation r\u00e9v\u00e9l\u00e9e dans une nouvelle \u00e9tude",
+    "date":"2023-05-30 08:16:10",
+    "original_index":181
+  },
+  "email_182":{
+    "email_id":"a1f9fcb0-74eb-4e30-afa8-d5993c1647d9",
+    "from":"nathalie@customerline.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Conformit\u00e9 RGPD L'AAF<>Celine",
+    "date":"2023-05-26 06:48:51",
+    "original_index":182
+  },
+  "email_183":{
+    "email_id":"96cc03c5-3f14-425f-ac85-af3abcb6fb38",
+    "from":"ne-pas-repondre+nl@framasoft.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Lettre d\u2019information Hors S\u00e9rie n\u00b006 \u2014 Dorlotons D\u00e9googlisons",
+    "date":"2023-05-26 02:05:01",
+    "original_index":183
+  },
+  "email_184":{
+    "email_id":"4437e5be-da7e-4ef3-941e-bc13d952d7e1",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Rappel : journ\u00e9e du groupe r\u00e9gional Aquitaine | la s\u00e9curit\u00e9 et la conservation du patrimoine | 08 juin 2023 | Bordeaux",
+    "date":"2023-05-25 14:23:49",
+    "original_index":184
+  },
+  "email_185":{
+    "email_id":"24ffa27f-1c1a-46a7-b3ff-15352ef0b24a",
+    "from":"groupupdates@facebookmail.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Vous avez re\u00e7u une invitation pour rejoindre le groupe Le Sem Imagine L'archive! sur Facebook",
+    "date":"2023-05-25 06:48:52",
+    "original_index":185
+  },
+  "email_186":{
+    "email_id":"646a4d1e-82a1-4bee-b152-5440cc86437b",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] RAPPEL : Journ\u00e9e d\u2019\u00e9changes du groupe Centre Val de Loire | Les plans de sauvegarde,\u00e9laboration et application | 9 juin 2023 | Bourges",
+    "date":"2023-05-24 12:15:01",
+    "original_index":186
+  },
+  "email_187":{
+    "email_id":"85769ca3-bafa-4547-be08-491ec16d8290",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] les archives d'ATD Quart Monde entrent au registre international du patrimoine",
+    "date":"2023-05-24 10:42:43",
+    "original_index":187
+  },
+  "email_188":{
+    "email_id":"37cc7e39-e008-4727-bd60-ecab6111d965",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] #AAFRennes2025 : r\u00e9servez les dates pour le Forum des archivistes 2025 !",
+    "date":"2023-05-23 13:55:22",
+    "original_index":188
+  },
+  "email_189":{
+    "email_id":"f364f5a0-5c77-47f3-aaf0-25dcd677d4dd",
+    "from":"nathalie@customerline.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Conformit\u00e9 RGPD L'AAF<>Celine",
+    "date":"2023-05-23 06:46:35",
+    "original_index":189
+  },
+  "email_190":{
+    "email_id":"39c17488-e1fb-4efc-96c4-844c9fdd8654",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] J-150 avant le Colloque des archivistes communaux, intercommunaux et itin\u00e9rants !",
+    "date":"2023-05-22 16:24:36",
+    "original_index":190
+  },
+  "email_191":{
+    "email_id":"23283fe4-0aa4-47b1-a87e-650627c9fd21",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Mise en ligne du compte-rendu du conseil d'administration du 27 janvier 2023",
+    "date":"2023-05-22 08:12:57",
+    "original_index":191
+  },
+  "email_192":{
+    "email_id":"e22e7bb2-e35a-4541-a90a-2882a4aef753",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-05-18 16:57:59",
+    "original_index":192
+  },
+  "email_193":{
+    "email_id":"419ad2c7-2912-4010-8832-5f6a4f30e453",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Destructions ill\u00e9gales d'archives : nos contacts avec la cellule investigation de Radio France",
+    "date":"2023-05-17 13:57:16",
+    "original_index":193
+  },
+  "email_194":{
+    "email_id":"9467b587-7bc8-4d08-aa6f-16cb590f0e48",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Archivistes ! 144 \"L'itin\u00e9rant.e : une.e archiviste tout terrain\" : parution",
+    "date":"2023-05-17 13:50:56",
+    "original_index":194
+  },
+  "email_195":{
+    "email_id":"82f6da3a-dcb2-4421-bc91-a744735bcfe4",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Rappel : journ\u00e9e du groupe r\u00e9gional Aquitaine | la s\u00e9curit\u00e9 et la conservation du patrimoine | 08 juin 2023 | Bordeaux",
+    "date":"2023-05-16 12:08:11",
+    "original_index":195
+  },
+  "email_196":{
+    "email_id":"30c2e49f-40ef-4f67-ba66-7c60fbaa5d09",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #13",
+    "date":"2023-05-15 15:35:07",
+    "original_index":196
+  },
+  "email_197":{
+    "email_id":"975fe98f-5e9f-4741-84ab-95b62230455d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #12",
+    "date":"2023-05-15 15:01:19",
+    "original_index":197
+  },
+  "email_198":{
+    "email_id":"8f02c0fc-0c67-4ce3-96dc-243512387c2c",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] TR: Mois des archives association des archivistes luxembourgeois",
+    "date":"2023-05-15 12:31:06",
+    "original_index":198
+  },
+  "email_199":{
+    "email_id":"23de6959-865d-4b27-813f-f6da82a1d2dd",
+    "from":"thomas.knox@centreco.co.uk",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Funded/CAPEX Solar Installations - Centreco UK",
+    "date":"2023-05-11 15:12:57",
+    "original_index":199
+  },
+  "email_200":{
+    "email_id":"986c5144-a265-48c5-a651-7973aebdc1ce",
+    "from":"thomas.knox@centreco.co.uk",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Funded/CAPEX Solar Installations - Centreco UK",
+    "date":"2023-05-11 15:12:40",
+    "original_index":200
+  },
+  "email_201":{
+    "email_id":"7a452de4-bc25-4037-b10c-2594f2d42052",
+    "from":"antoondebaets@concernedhistorians.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Input for United Nations report on the impacts of colonialism on the enjoyment of human rights by LGBT persons",
+    "date":"2023-05-10 18:54:25",
+    "original_index":201
+  },
+  "email_202":{
+    "email_id":"51c2a98a-7d5c-4f8f-8455-99debe5ca44f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Journ\u00e9e du groupe r\u00e9gional Aquitaine | la s\u00e9curit\u00e9 et la conservation du patrimoine | 08 juin 2023 | Bordeaux",
+    "date":"2023-05-10 13:08:47",
+    "original_index":202
+  },
+  "email_203":{
+    "email_id":"f9ffd4ca-353c-4056-88f2-16d934ceb6fe",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Journ\u00e9e d\u2019\u00e9changes du groupe Centre Val de Loire | Les plans de sauvegarde,\u00e9laboration et application | 9 juin 2023 | Bourges",
+    "date":"2023-05-10 10:09:55",
+    "original_index":203
+  },
+  "email_204":{
+    "email_id":"863004a8-5424-4a5d-be70-d97e62231220",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Inscription ! Rencontres Recherche et Cr\u00e9ation - 10 & 11 juillet 2023, Festival d\u2019Avignon & en ligne",
+    "date":"2023-05-09 14:03:28",
+    "original_index":204
+  },
+  "email_205":{
+    "email_id":"4a8a0132-f93b-4848-a1f2-61ae69dee916",
+    "from":"leweb@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Webinaire sur l\u2019appel ANR \"Science avec et pour la soci\u00e9t\u00e9 - Ambitions innovantes\"",
+    "date":"2023-05-05 12:34:33",
+    "original_index":205
+  },
+  "email_206":{
+    "email_id":"0de29d24-9f98-4443-8fca-b356f5ddbfb7",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-05-03 10:16:11",
+    "original_index":206
+  },
+  "email_207":{
+    "email_id":"4aa6c5f8-5748-48db-b8ce-f20ceac0c2b7",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #10",
+    "date":"2023-05-03 09:31:35",
+    "original_index":207
+  },
+  "email_208":{
+    "email_id":"5ed1418e-982f-4572-932c-c7c0f38082d2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #10",
+    "date":"2023-05-03 09:31:13",
+    "original_index":208
+  },
+  "email_209":{
+    "email_id":"e9cf3d92-e2f4-4ba6-8147-9aa88fd36d7f",
+    "from":"bordeflume@orange.fr",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Pr\u00e9paration 70\u00e8me anniversaire de la r\u00e9pression du 14 juillet 53",
+    "date":"2023-05-01 23:12:45",
+    "original_index":209
+  },
+  "email_210":{
+    "email_id":"ad2c6336-4cb3-4d7e-9886-6eaea0fb3dbc",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #11",
+    "date":"2023-04-26 22:25:02",
+    "original_index":210
+  },
+  "email_211":{
+    "email_id":"6b6b7c33-21c2-4da7-8fdb-33f573cbc9c0",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #11",
+    "date":"2023-04-26 22:24:18",
+    "original_index":211
+  },
+  "email_212":{
+    "email_id":"55b36270-b3d5-4eaa-9d65-ea44423de35a",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] #IAENCAAF23 - [JE] L'intelligence artificielle dans la gestion des donn\u00e9es - 04/07/23",
+    "date":"2023-04-26 17:34:34",
+    "original_index":212
+  },
+  "email_213":{
+    "email_id":"ceac9aad-4e2b-4ba3-ae41-fc65f4b94e2f",
+    "from":"f.lavenir@plimsoll.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Etude 2023 Services de Formation",
+    "date":"2023-04-26 07:34:42",
+    "original_index":213
+  },
+  "email_214":{
+    "email_id":"050cc0e7-2308-468d-94fe-06a7351da775",
+    "from":"hco-info@lists.riseup.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Printemps f\u00e9ministe chez PMN \u00e9d!",
+    "date":"2023-04-23 10:14:45",
+    "original_index":214
+  },
+  "email_215":{
+    "email_id":"404fea3a-a0c7-4114-817b-551ffeacaaea",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-04-20 22:59:00",
+    "original_index":215
+  },
+  "email_216":{
+    "email_id":"8a631013-4b98-4638-b614-0cd480c2727b",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-04-20 13:46:09",
+    "original_index":216
+  },
+  "email_217":{
+    "email_id":"936d34f2-a6dc-4a9a-a790-174b58667d91",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Prenez date ! Rencontres Recherche et Cr\u00e9ation - 10 & 11 juillet 2023, Festival d\u2019Avignon & en ligne",
+    "date":"2023-04-20 12:57:58",
+    "original_index":217
+  },
+  "email_218":{
+    "email_id":"3a850f71-2726-4f5b-b481-a7f1db7a3bb8",
+    "from":"ne-pas-repondre-listmonk+nl@framasoft.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Lettre d\u2019information n\u00b034 \u2014 Printemps 2023",
+    "date":"2023-04-19 17:10:50",
+    "original_index":218
+  },
+  "email_219":{
+    "email_id":"22cc398c-cca0-4200-830e-8f4bce7a2d25",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] De nouvelles offres d'emploi sur le site de l'AAF",
+    "date":"2023-04-19 14:29:41",
+    "original_index":219
+  },
+  "email_220":{
+    "email_id":"f1df7335-3ca8-4af5-9f02-af149c54427b",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #9",
+    "date":"2023-04-17 20:44:25",
+    "original_index":220
+  },
+  "email_221":{
+    "email_id":"cb7cc1a3-b434-4561-9b9e-3e7011157f63",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] De nouvelles offres d'emploi sur le site de l'AAF",
+    "date":"2023-04-17 20:39:06",
+    "original_index":221
+  },
+  "email_222":{
+    "email_id":"9cc7c775-0b21-48cf-a4b1-7c78c7979074",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Offre Apprentissage Ville Rouen  2023-2024 : pour diffusion",
+    "date":"2023-04-17 13:05:15",
+    "original_index":222
+  },
+  "email_223":{
+    "email_id":"17c93f40-8dd8-4fed-a49d-507b2679ba57",
+    "from":"info@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Inscriptions \u00e0 la Journ\u00e9e Wikimedia Culture et Num\u00e9rique jusqu'au 20 avril 2023",
+    "date":"2023-04-14 15:20:49",
+    "original_index":223
+  },
+  "email_224":{
+    "email_id":"b342ae52-1ff0-4e13-be69-bbe4fde87ba2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Retour sur l'AG 2023 et publication d'une r\u00e9solution vot\u00e9e lors de l'AG 2022",
+    "date":"2023-04-13 13:06:51",
+    "original_index":224
+  },
+  "email_225":{
+    "email_id":"301316b7-3bb4-498a-a90d-7dde7fe8120f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] Formation en alternance assistant.e archiviste : ouverture des candidatures et nouveau d\u00e9lai",
+    "date":"2023-04-13 08:43:04",
+    "original_index":225
+  },
+  "email_226":{
+    "email_id":"f9ae782f-d098-4623-9a75-1da106e66f0a",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Visites du groupe de travail Biblioth\u00e8ques d'archives - journ\u00e9e du 15 avril 2023",
+    "date":"2023-04-12 16:16:29",
+    "original_index":226
+  },
+  "email_227":{
+    "email_id":"58c83230-7cb5-4a26-b90e-c3548f46efd5",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [Rappel] 11/05, Marseille | Journ\u00e9e d'\u00e9tude des archivistes r\u00e9gionaux, ouverte \u00e0 tous",
+    "date":"2023-04-12 10:15:51",
+    "original_index":227
+  },
+  "email_228":{
+    "email_id":"50c0e181-b589-4df0-b42b-0f7496746175",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #8",
+    "date":"2023-04-11 15:40:55",
+    "original_index":228
+  },
+  "email_229":{
+    "email_id":"57aab387-655a-43d2-9561-07f06533a832",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Journ\u00e9e Wikim\u00e9dia Culture et Num\u00e9rique | 25 avril 2024 | INHA",
+    "date":"2023-04-11 14:50:05",
+    "original_index":229
+  },
+  "email_230":{
+    "email_id":"35fc7f9c-175d-4cfb-bc47-8b9961c45705",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Arriv\u00e9e de M\u00e9lissa Hafhaf, assistante d'\u00e9ditions en alternance, dans l'\u00e9quipe de la permanence",
+    "date":"2023-04-11 12:48:45",
+    "original_index":230
+  },
+  "email_231":{
+    "email_id":"7e1365b6-edb2-4e29-a0e2-e756bbe4875d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Le groupe de travail archives audiovisuelles lance son compte instagram !",
+    "date":"2023-04-11 07:41:28",
+    "original_index":231
+  },
+  "email_232":{
+    "email_id":"345dc98f-638c-41b6-912c-bb5ed52a5db2",
+    "from":"charles.personnaz@inp.fr",
+    "to_recipients":"benedicte.grailles@univ-angers.fr, patrice.marcilloux@univ-angers.fr, magalie.moysan@univ-angers.fr, jean.vigreux@u-bourgogne.fr, pauline.lemaigre-gaffier@uvsq.fr, matthieu.deoliveira@univ-lille3.fr, nicolas.carrier@univ-lyon3.fr, regis.boulat@uha.fr, catherine.saliou@univ-paris8.fr, olivier.marin@univ-paris13.fr, nathalie.genet-rouffiac@intradef.gouv.fr, nicolas.chibaeff@diplomatie.gouv.fr, olivier.matteoni@univ-paris1.fr, camille.desenclos@u-picardie.fr, amoulis@univ-tlse2.fr, itheiller@univ-tlse2.fr, celine.guyon@archivistes.org, marie-francoise.limon@culture.gouv.fr, laurence.americi@univ-amu.fr, sylvie.le-clech@culture.gouv.fr, luc.forlivesi@culture.gouv.fr, isabelle.dion@culture.gouv.fr, anmt@culture.gouv.fr, francoise.lemaire@culture.gouv.fr, bruno.ricard@culture.gouv.fr, hguichard-spica@yvelines.fr, pierre.chastang@uvsq.fr",
+    "cc_recipients":"francoise.banat-berger@culture.gouv.fr, jean-charles.bedague@culture.gouv.fr, severine.blenner-michel@inp.fr, sophie.seyer@inp.fr",
+    "bcc_recipients":"",
+    "subject":"Concours 2023 de conservateur du patrimoine - sp\u00e9cialit\u00e9 archives",
+    "date":"2023-04-06 16:35:58",
+    "original_index":232
+  },
+  "email_233":{
+    "email_id":"72371219-b2ef-4caf-9187-2a6fb90058bb",
+    "from":"info@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Invitation Journ\u00e9e Wikimedia Culture et Num\u00e9rique 2023",
+    "date":"2023-04-06 15:18:00",
+    "original_index":233
+  },
+  "email_234":{
+    "email_id":"ea0d233a-446b-41d7-8a62-f35d46d9acf1",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Journ\u00e9e du groupe r\u00e9gional Aquitaine | la s\u00e9curit\u00e9 et la conservation du patrimoine | 08 juin 2023 | Bordeaux",
+    "date":"2023-04-06 14:21:09",
+    "original_index":234
+  },
+  "email_235":{
+    "email_id":"a55bb1c5-2016-4701-8f4d-50736ae61f77",
+    "from":"hco-info@lists.riseup.net",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Demande de signature",
+    "date":"2023-04-06 09:30:41",
+    "original_index":235
+  },
+  "email_236":{
+    "email_id":"eb72fc85-de9c-40ab-a595-42a1f0a60d43",
+    "from":"florent@news.economic-studies.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Etude 2023 Services de Formation",
+    "date":"2023-04-06 08:18:54",
+    "original_index":236
+  },
+  "email_237":{
+    "email_id":"3af74c99-c3f5-49f4-95fa-1fce034c32b0",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-04-05 20:12:22",
+    "original_index":237
+  },
+  "email_238":{
+    "email_id":"9d755879-618d-4022-bddc-85439f3e48a4",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-04-04 16:16:26",
+    "original_index":238
+  },
+  "email_239":{
+    "email_id":"547857af-329d-4bd2-b411-b116c83bf62f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] 11/05, Marseille | Journ\u00e9e d'\u00e9tude des archivistes r\u00e9gionaux, ouverte \u00e0 tous",
+    "date":"2023-04-04 13:45:26",
+    "original_index":239
+  },
+  "email_240":{
+    "email_id":"d06be912-f8fb-456b-b775-77739361d331",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #7",
+    "date":"2023-04-03 15:37:14",
+    "original_index":240
+  },
+  "email_241":{
+    "email_id":"85c41a3e-45fa-419e-88da-4291554122f2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [Groupe r\u00e9gional PACA-Corse-Monaco] - journ\u00e9e du 13 avril 2023",
+    "date":"2023-04-03 14:11:58",
+    "original_index":241
+  },
+  "email_242":{
+    "email_id":"7d5c5300-a54e-4e14-9469-59ffcfe13a42",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Formation en alternance assistant.e archiviste : ouverture des candidatures",
+    "date":"2023-04-03 07:52:52",
+    "original_index":242
+  },
+  "email_243":{
+    "email_id":"b9dcaf22-16db-44f4-b415-e95ebcccdda6",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Prenez date ! Rencontres Recherche et Cr\u00e9ation les 10 et 11 juillet au Festival d\u2019Avignon",
+    "date":"2023-03-30 12:46:24",
+    "original_index":243
+  },
+  "email_244":{
+    "email_id":"90498b03-e72d-4b20-abc3-a2b2100e3b37",
+    "from":"info@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Invitation Journ\u00e9e Wikimedia Culture et Num\u00e9rique 2023",
+    "date":"2023-03-25 07:04:49",
+    "original_index":244
+  },
+  "email_245":{
+    "email_id":"c95f0a6f-3fbc-457e-8ba0-d9770f580353",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] De nouvelles offres d'emploi sur le site de l'AAF",
+    "date":"2023-03-23 13:48:05",
+    "original_index":245
+  },
+  "email_246":{
+    "email_id":"b2ec5a38-95be-40e7-9611-3be587109929",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] Destructions d'archives",
+    "date":"2023-03-23 07:23:09",
+    "original_index":246
+  },
+  "email_247":{
+    "email_id":"fffd018e-d9aa-4d38-8ca0-97f5a7a887c5",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] De nouvelles offres d'emploi sur le site de l'AAF",
+    "date":"2023-03-22 14:36:09",
+    "original_index":247
+  },
+  "email_248":{
+    "email_id":"2afb0e6e-f192-479f-b7e4-d4a7f2136090",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Votre pouvoir pour l'AG 2023 de l'AAF",
+    "date":"2023-03-22 13:47:15",
+    "original_index":248
+  },
+  "email_249":{
+    "email_id":"8b8ccb4d-70d7-4c59-847d-3cafc6e040a6",
+    "from":"contact@efutura-asso.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[JTN eFutura] : Rendez-vous le 12 octobre 2023",
+    "date":"2023-03-22 10:10:12",
+    "original_index":249
+  },
+  "email_250":{
+    "email_id":"0d9a9782-cbdc-4d64-80fa-22ce37ee9ac4",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #6",
+    "date":"2023-03-21 15:20:09",
+    "original_index":250
+  },
+  "email_251":{
+    "email_id":"ba0cc187-1f18-4254-8459-ec89d6ef820e",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-03-20 17:37:28",
+    "original_index":251
+  },
+  "email_252":{
+    "email_id":"8efebeec-ab20-4e85-b0d1-23b2cb68f158",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] #AAFValenciennes 2023 : d\u00e9couvrez l'affiche du colloque de la section des archivistes communaux, intercommunaux et itin\u00e9rants !",
+    "date":"2023-03-17 12:20:12",
+    "original_index":252
+  },
+  "email_253":{
+    "email_id":"199f9e9c-9cca-443d-a283-d3a8210cb969",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Reprise de la formation en alternance \"Assistant.e archiviste\" APSV-AAF",
+    "date":"2023-03-16 15:53:34",
+    "original_index":253
+  },
+  "email_254":{
+    "email_id":"392aa9e7-8803-4339-b3cd-39e26804609d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [Groupe r\u00e9gional PACA-Corse-Monaco] - journ\u00e9e du 13 avril 2023",
+    "date":"2023-03-16 15:24:41",
+    "original_index":254
+  },
+  "email_255":{
+    "email_id":"064ff888-7594-4dc0-b42d-c058eb1e3f70",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] De nouvelles offres d'emploi sur le site de l'AAF",
+    "date":"2023-03-15 13:06:42",
+    "original_index":255
+  },
+  "email_256":{
+    "email_id":"af25aa63-1918-4a2c-b21c-f0727e73921b",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] AG 2023 de l'AAF : fin des inscriptions demain 17/03",
+    "date":"2023-03-15 08:29:39",
+    "original_index":256
+  },
+  "email_257":{
+    "email_id":"913b16b6-9889-4771-a200-0c8c6a6a7433",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] De nouvelles offres d'emploi sur le site de l'AAF",
+    "date":"2023-03-13 16:49:49",
+    "original_index":257
+  },
+  "email_258":{
+    "email_id":"b7be8a65-01c5-44a1-a430-12ca84d7e11d",
+    "from":"patry.richard@outlook.fr",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM]  Le projet de loi retraite Macron passe par l\u2019absence de 29 d\u00e9put\u00e9s NUPES, retour des fonds de pension",
+    "date":"2023-03-10 09:54:12",
+    "original_index":258
+  },
+  "email_259":{
+    "email_id":"49e3ba86-8914-41d4-9045-e5961b6afb20",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] De nouvelles offres d'emploi sur le site de l'AAF",
+    "date":"2023-03-08 16:18:12",
+    "original_index":259
+  },
+  "email_260":{
+    "email_id":"6aa1bcae-edeb-49bb-b1b6-57168ef14c88",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] De nouvelles offres d'emploi sur le site de l'AAF",
+    "date":"2023-03-07 19:35:23",
+    "original_index":260
+  },
+  "email_261":{
+    "email_id":"4c22fd45-236a-4d0c-a6cc-1cbe9735d9a2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #5",
+    "date":"2023-03-07 17:21:47",
+    "original_index":261
+  },
+  "email_262":{
+    "email_id":"cc96f316-cd07-4a82-aa3d-3b4be46b33c7",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] \u00c0 quelques jours des RASAD, consultez notre rubrique \u00e9v\u00e8nements !",
+    "date":"2023-03-07 11:21:33",
+    "original_index":262
+  },
+  "email_263":{
+    "email_id":"f5dd3f1c-12b1-49c8-99ff-348ec58bb61a",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-03-06 13:43:53",
+    "original_index":263
+  },
+  "email_264":{
+    "email_id":"06d5cf2d-0db5-43d6-b7ce-36ffffd06557",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] Lien pour suivre la rencontre-d\u00e9bat : l\u2019acc\u00e8s aux archives sur le pass\u00e9 colonial",
+    "date":"2023-03-03 17:15:01",
+    "original_index":264
+  },
+  "email_265":{
+    "email_id":"ea63526d-28aa-42c7-9825-448585aeb499",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] De nouvelles offres d'emploi sur le site de l'AAF",
+    "date":"2023-03-03 17:08:50",
+    "original_index":265
+  },
+  "email_266":{
+    "email_id":"2491bcb5-ae32-41c3-bd82-99783174f7a9",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info]  4 mars, d\u00e9bat : L\u2019acc\u00e8s aux archives sur le pass\u00e9 colonial et AG de l'association",
+    "date":"2023-03-03 09:18:19",
+    "original_index":266
+  },
+  "email_267":{
+    "email_id":"e0ad180f-79cf-47c8-9a1e-b05aa45bfcda",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] IMPORTANT | Cotisations 2023 membres actifs | souci avec notre outil de paiement en ligne",
+    "date":"2023-03-02 16:59:41",
+    "original_index":267
+  },
+  "email_268":{
+    "email_id":"ffe73a56-029f-4601-90fc-b38e1e12c219",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] Convocation et procuration \u00e0 l\u2019assembl\u00e9e g\u00e9n\u00e9rale annuelle de l\u2019Association des archivistes fran\u00e7ais",
+    "date":"2023-03-02 15:29:13",
+    "original_index":268
+  },
+  "email_269":{
+    "email_id":"13af476e-4558-479b-bb34-3ac275388709",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] #AAFRennes2025 : une pr\u00e9sidente, un th\u00e8me et un hashtag # pour le Forum des archivistes 2025 !",
+    "date":"2023-03-02 14:07:44",
+    "original_index":269
+  },
+  "email_270":{
+    "email_id":"3614db62-12ce-42e3-817f-eeb2255dc0ab",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Convocation \u00e0 l\u2019assembl\u00e9e g\u00e9n\u00e9rale annuelle de l\u2019Association des archivistes fran\u00e7ais",
+    "date":"2023-03-01 13:50:27",
+    "original_index":270
+  },
+  "email_271":{
+    "email_id":"b335af9a-1434-4ff3-82a5-0c1e7b41ab56",
+    "from":"bordeflume@orange.fr",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] \u201cL\u2019Alg\u00e9rie, de Gaulle et la bombe \u00bbUne invitation qui pourrait vous int\u00e9resser.",
+    "date":"2023-02-28 19:39:46",
+    "original_index":271
+  },
+  "email_272":{
+    "email_id":"2d4130f0-8ef7-4016-a9ca-13f8e94d529d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Une nouvelle offre d'emploi sur le site de l'AAF",
+    "date":"2023-02-28 14:13:51",
+    "original_index":272
+  },
+  "email_273":{
+    "email_id":"1ee94e34-111b-4817-9ffb-e175f3bb006e",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"jeremie.maria@fnbp.banquepopulaire.fr, catherine.berton@allianz.fr, louis-gilles.pairault@perlesdhistoire.fr",
+    "bcc_recipients":"",
+    "subject":"[aaf_section_aesp] convocation \u00e0 l'assembl\u00e9e g\u00e9n\u00e9rale de la section des archivistes d'entreprise et du secteur priv\u00e9 (jeudi 30 mars 2023)",
+    "date":"2023-02-28 09:55:48",
+    "original_index":273
+  },
+  "email_274":{
+    "email_id":"c66b6f6c-4d8e-4648-9a97-fb37df3d1eb1",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] AG 2023 de l'AAF : programme de la journ\u00e9e d'\u00e9tude \"Archives et cybers\u00e9curit\u00e9\"",
+    "date":"2023-02-24 11:21:30",
+    "original_index":274
+  },
+  "email_275":{
+    "email_id":"04ce66ad-4bf8-4115-b227-ca56554e6823",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-02-23 17:28:13",
+    "original_index":275
+  },
+  "email_276":{
+    "email_id":"0e77d5df-7b72-4157-81c1-45eaaed93c5c",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #4",
+    "date":"2023-02-20 17:45:47",
+    "original_index":276
+  },
+  "email_277":{
+    "email_id":"50cb15d4-8086-495a-a9de-e377e6a6bdee",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] RASAD 2023 : captation vid\u00e9o et atelier du 30/03",
+    "date":"2023-02-20 14:39:06",
+    "original_index":277
+  },
+  "email_278":{
+    "email_id":"e3cc26c2-b1a3-4c14-83c9-62f046a1f1d8",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-02-19 13:41:10",
+    "original_index":278
+  },
+  "email_279":{
+    "email_id":"2dd4a7a1-ee92-41d6-ae27-b4c6c0d7cdb0",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Forum des archivistes 2025 : d\u00e9couvrez le centre des congr\u00e8s de Rennes",
+    "date":"2023-02-17 15:06:38",
+    "original_index":279
+  },
+  "email_280":{
+    "email_id":"51a5c1d6-357d-47d9-93f8-b4995b19f842",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] La Gazette des archives n\u00b0265 (2022-1) \"Archives et engagement\" : parution",
+    "date":"2023-02-16 10:51:13",
+    "original_index":280
+  },
+  "email_281":{
+    "email_id":"09a681d3-9511-4a61-8b41-86370b9e76b3",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] L'AAF recrute un.e charg\u00e9.e d'\u00e9dition en alternance !",
+    "date":"2023-02-15 09:23:33",
+    "original_index":281
+  },
+  "email_282":{
+    "email_id":"2ba76b81-1be5-4919-a16f-f0eb8255eb4d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] TR: News! ICA Congress Abu Dhabi 2023 / Nouvelles du Congr\u00e8s de l'ICA 2023 Abu Dhabi ! / \u00a1Noticias! Congreso ICA Abu Dabi 2023",
+    "date":"2023-02-15 09:22:46",
+    "original_index":282
+  },
+  "email_283":{
+    "email_id":"a50cbe8c-4606-453f-9d39-79751cd4e51a",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Registre des arr\u00eat\u00e9s du personnel : arr\u00eat\u00e9s et contrats d'engagement personnel ?",
+    "date":"2023-02-15 05:55:06",
+    "original_index":283
+  },
+  "email_284":{
+    "email_id":"c9d2e38b-62e8-4c99-b3ce-54c127149640",
+    "from":"contact@efutura-asso.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Formations 2023 - S\u00e9curit\u00e9, ECM, SAE, GED, Gouvernance de l'information",
+    "date":"2023-02-13 17:39:00",
+    "original_index":284
+  },
+  "email_285":{
+    "email_id":"eab7ce6c-57cc-43ee-bfc4-ec0140ee7bc8",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] En 2025, un vent d'ouest soufflera sur le Forum des archivistes !",
+    "date":"2023-02-10 06:49:46",
+    "original_index":285
+  },
+  "email_286":{
+    "email_id":"c50432a9-416c-4db5-8954-a26bf7adf815",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] AG 2023 de l'AAF et journ\u00e9e d'\u00e9tude \"Cybers\u00e9curit\u00e9 et archives\" : les inscriptions sont ouvertes !",
+    "date":"2023-02-09 10:40:58",
+    "original_index":286
+  },
+  "email_287":{
+    "email_id":"7880fb13-f568-4b6d-91f0-aabfc8275b9c",
+    "from":"raphaelle.branche@univ-paris1.fr",
+    "to_recipients":"pierremansat@gmail.com, noewagener@protonmail.com, celine.guyon@archivistes.org, isabelle.neuschwander1@orange.fr",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Fwd: [hco-info] 4 mars, d\u00e9bat : L\u2019acc\u00e8s aux archives sur le pass\u00e9 colonial\u00a0et AG de l'association Histoire coloniale et postcoloniale",
+    "date":"2023-02-08 14:46:29",
+    "original_index":287
+  },
+  "email_288":{
+    "email_id":"0927888c-4ae8-47fa-bc77-b51993f11ee2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] IMPORTANT | Cotisations 2023 membres actifs | souci avec notre outil de paiement en ligne",
+    "date":"2023-02-08 11:09:19",
+    "original_index":288
+  },
+  "email_289":{
+    "email_id":"7dfe5b7d-1981-466d-a50e-b711304a823b",
+    "from":"contact2@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] 4 mars, d\u00e9bat : L\u2019acc\u00e8s aux archives sur le pass\u00e9 colonial\u00a0et AG de l'association Histoire coloniale et postcoloniale",
+    "date":"2023-02-08 10:06:25",
+    "original_index":289
+  },
+  "email_290":{
+    "email_id":"331d1568-67d1-4fbf-8655-6504e251d05c",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #3",
+    "date":"2023-02-07 10:35:11",
+    "original_index":290
+  },
+  "email_291":{
+    "email_id":"e374993b-97f5-4960-84c0-20b23a905f1d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Journ\u00e9e d'\u00e9tude du groupe r\u00e9gional PACA | 13 avril 2023 | Marseille",
+    "date":"2023-02-07 08:12:01",
+    "original_index":291
+  },
+  "email_292":{
+    "email_id":"a726596d-74f1-428c-931b-435d408a18a5",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-02-04 13:38:49",
+    "original_index":292
+  },
+  "email_293":{
+    "email_id":"3f8d03f6-898b-475c-8e35-a4fb7160b4ea",
+    "from":"antoondebaets@concernedhistorians.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Urgent petition: Colombian historians Sergio Antonio Mosquera and Mar\u00eda Fernanda Parra received death threats",
+    "date":"2023-02-03 18:31:45",
+    "original_index":293
+  },
+  "email_294":{
+    "email_id":"62d833cc-7eaf-4ad4-975d-f595126bc64d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents]  Retour sur le Conseil d'administration du 27 janvier 2023",
+    "date":"2023-02-01 17:45:41",
+    "original_index":294
+  },
+  "email_295":{
+    "email_id":"cd70afb2-0693-4f7d-8b3e-c5e8e9d8911f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Archivistes ! 143 \"Les archives notariales, quelques minutes pour comprendre !\" : parution",
+    "date":"2023-02-01 15:03:41",
+    "original_index":295
+  },
+  "email_296":{
+    "email_id":"8a0929cf-e77a-48f9-ab93-f838d7b2cf25",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Commission de r\u00e9solution des conflits pour le mandat 2022-2025",
+    "date":"2023-02-01 09:33:00",
+    "original_index":296
+  },
+  "email_297":{
+    "email_id":"78333912-ef10-4381-b079-76b3676bdff5",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Retour sur le Conseil d'administration du 27 janvier 2023 et pr\u00e9cisions sur l'AG 2023 et sa journ\u00e9e d'\u00e9tude",
+    "date":"2023-01-31 18:03:59",
+    "original_index":297
+  },
+  "email_298":{
+    "email_id":"f6f669f9-b55c-4c8a-90d9-325be7908a34",
+    "from":"florent@news.economic-studies.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"ARCHIVISTES FRANCAIS FORMATION not\u00e9 et estim\u00e9 dans une nouvelle \u00e9tude sectorielle",
+    "date":"2023-01-31 08:24:16",
+    "original_index":298
+  },
+  "email_299":{
+    "email_id":"d09b4750-35f4-4e21-b5f9-fbec79a13d5c",
+    "from":"ne-pas-repondre-listmonk+nl@framasoft.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Newsletter Hors S\u00e9rie : bonne ann\u00e9e !",
+    "date":"2023-01-27 02:25:50",
+    "original_index":299
+  },
+  "email_300":{
+    "email_id":"a7ee95a0-55bc-4ee7-9899-c02d6e4cf34a",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Lien vers le bulletin d'adh\u00e9sion 2023",
+    "date":"2023-01-26 16:38:00",
+    "original_index":300
+  },
+  "email_301":{
+    "email_id":"bbf519e5-093e-4fb7-9706-e4d60c69c4c3",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #2",
+    "date":"2023-01-24 08:56:44",
+    "original_index":301
+  },
+  "email_302":{
+    "email_id":"1b08fcad-1ba1-4120-86ed-2a3ab470f398",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [publications] Les archives d\u00e9m\u00e9nagent - Petits guides des archives",
+    "date":"2023-01-20 15:33:18",
+    "original_index":302
+  },
+  "email_303":{
+    "email_id":"9661e864-dfd4-4918-9127-a162a4b27ab5",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [Imm\u00e9di'actes] : mise en ligne des supports des interventions de la journ\u00e9e AURORE du 18 novembre 2022",
+    "date":"2023-01-20 14:50:54",
+    "original_index":303
+  },
+  "email_304":{
+    "email_id":"90404167-4269-48e0-9492-2e4268815b37",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-01-20 13:35:44",
+    "original_index":304
+  },
+  "email_305":{
+    "email_id":"1efe4498-bbe1-4f2b-a66e-161a15fbbf9f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Mise en ligne du compte-rendu du conseil d'administration du 25 novembre 2022",
+    "date":"2023-01-19 16:02:29",
+    "original_index":305
+  },
+  "email_306":{
+    "email_id":"4ca1a8c3-4fea-47e9-83fd-ebb84ceeca51",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] L\u2019AAF lance deux questionnaires sur l\u2019emploi",
+    "date":"2023-01-19 09:47:40",
+    "original_index":306
+  },
+  "email_307":{
+    "email_id":"bb17693d-6910-4b7c-bb0d-3c3bfc11328f",
+    "from":"communication@info-cnfpt.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Venez vous former, le CNFPT s'adapte \u00e0 vos besoins",
+    "date":"2023-01-18 12:39:41",
+    "original_index":307
+  },
+  "email_308":{
+    "email_id":"c37fc43b-e08b-4e8b-b878-8786eafe74bd",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_section_aesp] D\u00e9couvrez la nouvelle exposition permanente du mus\u00e9e d\u2019Histoire de Lyon consacr\u00e9e \u00e0 l\u2019histoire industrielle lyonnaise.",
+    "date":"2023-01-18 11:37:23",
+    "original_index":308
+  },
+  "email_309":{
+    "email_id":"4a630e3b-52c9-4271-97e3-1edb5d612d4e",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Les inscriptions aux Rencontres Annuelles de la section des Archivistes d\u00e9partementaux les 9 et 10 mars 2023 \u00e0 Nancy sont ouvertes",
+    "date":"2023-01-17 15:06:45",
+    "original_index":309
+  },
+  "email_310":{
+    "email_id":"7b9db420-f0b2-4b25-a336-33b77b8fb296",
+    "from":"michael@dewolves.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Concernant notre rendez-vous DeWolves X Archivistes",
+    "date":"2023-01-17 09:32:51",
+    "original_index":310
+  },
+  "email_311":{
+    "email_id":"8a3afcff-11b8-404a-8102-aa89f69b9142",
+    "from":"loimobilite202@gmail.com",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Fwd: proposition de loi unanime pour la retraite des TUC et autres stages",
+    "date":"2023-01-16 11:53:35",
+    "original_index":311
+  },
+  "email_312":{
+    "email_id":"56685571-b93f-42fd-af4f-98da7c49a856",
+    "from":"michael@dewolves.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Concernant notre rendez-vous DeWolves X Archivistes",
+    "date":"2023-01-12 13:04:39",
+    "original_index":312
+  },
+  "email_313":{
+    "email_id":"58cfc042-37ff-4ca1-8636-e85205c4c3da",
+    "from":"f.lavenir@plimsoll.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] ARCHIVISTES FRANCAIS FORMATION not\u00e9 et estim\u00e9 dans une nouvelle \u00e9tude sectorielle",
+    "date":"2023-01-12 09:20:59",
+    "original_index":313
+  },
+  "email_314":{
+    "email_id":"51377ffa-638e-4bcd-adde-511037ea2b2b",
+    "from":"aaf_section_aee@listes.archivistes.org",
+    "to_recipients":"aaf_section_aee@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_section_aesp] Congr\u00e8s international d'Histoire des entreprises en France 2023",
+    "date":"2023-01-11 12:03:16",
+    "original_index":314
+  },
+  "email_315":{
+    "email_id":"89894323-9707-420a-9ee4-682f69e95989",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Cleaning days de la permanence 12/01 et 16/01",
+    "date":"2023-01-11 11:55:31",
+    "original_index":315
+  },
+  "email_316":{
+    "email_id":"d0b6f6c8-5dc8-4a09-89f1-90453a9360be",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [GT Biblioth\u00e8ques d'archives] Les perles des biblioth\u00e8ques d'archives #1",
+    "date":"2023-01-10 09:47:15",
+    "original_index":316
+  },
+  "email_317":{
+    "email_id":"5bb559b1-3e15-4861-8c39-0fadddea1cfd",
+    "from":"michael@dewolves.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Concernant notre rendez-vous DeWolves X Archivistes",
+    "date":"2023-01-09 13:04:33",
+    "original_index":317
+  },
+  "email_318":{
+    "email_id":"63d5ec45-8b38-4dd4-b835-d2d6c5797493",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] COFEM : Prochaine r\u00e9union du GT Emploi mardi 10 janvier",
+    "date":"2023-01-06 13:00:49",
+    "original_index":318
+  },
+  "email_319":{
+    "email_id":"bdcfac84-0c3e-4ed3-b10e-882fe755afea",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Le centre de formation de l'AAF obtient la certification Qualiopi",
+    "date":"2023-01-05 15:53:48",
+    "original_index":319
+  },
+  "email_320":{
+    "email_id":"7a3b3f66-6a08-41bc-a049-bb4a461f6afd",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Assembl\u00e9e g\u00e9n\u00e9rale 2023 de l'AAF : save the date !",
+    "date":"2023-01-05 15:10:32",
+    "original_index":320
+  },
+  "email_321":{
+    "email_id":"a7f50785-96c8-4635-82b8-6cd75765b340",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2023-01-05 13:34:10",
+    "original_index":321
+  },
+  "email_322":{
+    "email_id":"63309347-4649-49d2-baff-3297ee6679ef",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Appel \u00e0 contribution pour les Journ\u00e9es des archivistes r\u00e9gionaux en mai 2023 : La sensibilisation \u00e0 l\u2019archivage : quelles pratiques, quels acteurs ?",
+    "date":"2023-01-05 09:10:07",
+    "original_index":322
+  },
+  "email_323":{
+    "email_id":"303a0ae0-abeb-4475-8b74-5bd3cc2b2479",
+    "from":"contact@efutura-asso.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Association eFutura - Belle et Heureuse Ann\u00e9e 2023 !",
+    "date":"2023-01-04 09:01:16",
+    "original_index":323
+  },
+  "email_324":{
+    "email_id":"3df244ff-92db-499a-8937-1e45bb02763d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Imm\u00e9di'actes : mise en ligne des supports de la journ\u00e9e \"Archives et d\u00e9veloppement durable\" du groupe r\u00e9gional Normandie",
+    "date":"2023-01-03 15:48:16",
+    "original_index":324
+  },
+  "email_325":{
+    "email_id":"02d42838-f860-4d9a-80d1-ec59ccdbb2d1",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] L'AAF vous pr\u00e9sente tous ses v\u0153ux pour l'ann\u00e9e 2023 !",
+    "date":"2023-01-03 10:15:00",
+    "original_index":325
+  },
+  "email_326":{
+    "email_id":"19b69591-6092-4a73-946f-34ec85cc5acd",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [RAPPEL] Colloque des archivistes communaux, intercommunaux et itin\u00e9rants 2023 : appel \u00e0 communication",
+    "date":"2023-01-03 09:05:22",
+    "original_index":326
+  },
+  "email_327":{
+    "email_id":"a15cab16-d7c2-46c9-a6bc-25f09293cf9d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] 1lib1ref et mois de la contribution 2023 Wikim\u00e9dia",
+    "date":"2023-01-03 08:28:26",
+    "original_index":327
+  },
+  "email_328":{
+    "email_id":"678d0f39-93f3-4905-8a94-607bcbed4f69",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2022-12-21 13:34:45",
+    "original_index":328
+  },
+  "email_329":{
+    "email_id":"ba362531-db54-4d25-a277-d8aec6cb62c4",
+    "from":"contact@efutura.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"La lettre de la Transition Num\u00e9rique - D\u00e9cembre 2022",
+    "date":"2022-12-21 09:00:42",
+    "original_index":329
+  },
+  "email_330":{
+    "email_id":"3e38e336-bc3d-4a63-b646-044a393060be",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] #RASAD2023 : d\u00e9couvrez le programme !",
+    "date":"2022-12-16 14:10:56",
+    "original_index":330
+  },
+  "email_331":{
+    "email_id":"cb4b2a0c-5827-4f44-b9f1-45acfd50fb94",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Fermeture de la permanence en cette fin d'ann\u00e9e",
+    "date":"2022-12-15 17:15:34",
+    "original_index":331
+  },
+  "email_332":{
+    "email_id":"22d1f948-35ab-4f6c-aebb-75a395f729b3",
+    "from":"ne-pas-repondre-listmonk+nl@framasoft.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Newsletter 33 - hiver 2022",
+    "date":"2022-12-14 21:38:41",
+    "original_index":332
+  },
+  "email_333":{
+    "email_id":"9bb5dda2-1077-42e3-88ff-ff0cf261bcaa",
+    "from":"xavier.cailleau@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"D\u00e9couvrez la vid\u00e9o du webinaire Label Culture Libre",
+    "date":"2022-12-14 16:27:10",
+    "original_index":333
+  },
+  "email_334":{
+    "email_id":"61566167-21c1-4fa7-9942-2129e3df7204",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [Imm\u00e9di'actes] : mise en ligne des supports des interventions des RASAD 2021",
+    "date":"2022-12-14 15:36:22",
+    "original_index":334
+  },
+  "email_335":{
+    "email_id":"1c71f815-15fd-4d34-8a6d-9ed0ccd38409",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Journ\u00e9es des archivistes r\u00e9gionaux 2023 : d\u00e9couvrez le th\u00e8me, les dates, le lieu et l'appel \u00e0 communication",
+    "date":"2022-12-14 09:16:55",
+    "original_index":335
+  },
+  "email_336":{
+    "email_id":"ade9922e-e6af-4288-921e-e36264e494e6",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] D\u00e9couvrez la liste de tous les dossiers parus dans Archivistes !",
+    "date":"2022-12-13 14:53:21",
+    "original_index":336
+  },
+  "email_337":{
+    "email_id":"7b5c788e-e5f6-4b53-85e9-02db9ca2252d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] (Re)D\u00e9couvrez le Guide d'archivage \u00e0 l'usage des administrations dans les d\u00e9partements",
+    "date":"2022-12-13 10:32:54",
+    "original_index":337
+  },
+  "email_338":{
+    "email_id":"d0f6aa20-03b1-4f28-ae4d-0a44a9002ffe",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Webinaire du groupe de travail de l'AAF \"Archives audiovisuelles\" le 15 d\u00e9cembre \u00e0 9h30",
+    "date":"2022-12-08 14:28:24",
+    "original_index":338
+  },
+  "email_339":{
+    "email_id":"9f9e8e31-f080-4493-8147-4c5ee2bf9bc1",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] [Imm\u00e9di'actes] : mise en ligne des supports des journ\u00e9es du groupe de travail Archives audiovisuelles",
+    "date":"2022-12-08 10:53:18",
+    "original_index":339
+  },
+  "email_340":{
+    "email_id":"40e5fc63-5a97-4ef4-b66b-4459d4b4feeb",
+    "from":"michel.cottin@an.etat.lu",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Ok pour 27 ou 28/02",
+    "date":"2022-12-07 13:28:58",
+    "original_index":340
+  },
+  "email_341":{
+    "email_id":"22460294-a551-4acb-9ce3-d1564b61fab2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] COFEM : Prochaines r\u00e9unions des groupes de travail : report GT Centre de formation et formateurs",
+    "date":"2022-12-06 13:55:39",
+    "original_index":341
+  },
+  "email_342":{
+    "email_id":"03068c0c-32f3-4058-bd23-be57066f71c6",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2022-12-06 13:32:11",
+    "original_index":342
+  },
+  "email_343":{
+    "email_id":"e5afa800-0499-4f6d-b475-49366d69704c",
+    "from":"michael@colibrity.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Convertissez davantage de vos prospects en clients",
+    "date":"2022-12-06 11:52:25",
+    "original_index":343
+  },
+  "email_344":{
+    "email_id":"6a627ef7-f7f1-406b-bd75-4902a7970306",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org, vieassociative@archivistes.org",
+    "cc_recipients":"chloe.de_la_barre@enssib.fr",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Enqu\u00eate sur la visibilit\u00e9 des fonds d\u2019\u00e9rudits locaux",
+    "date":"2022-12-06 10:34:21",
+    "original_index":344
+  },
+  "email_345":{
+    "email_id":"1fd5fc42-432b-4f61-a34f-b662302829b2",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org, vieassociative@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Enqu\u00eate sur la visibilit\u00e9 des fonds d\u2019\u00e9rudits locaux",
+    "date":"2022-12-06 10:33:08",
+    "original_index":345
+  },
+  "email_346":{
+    "email_id":"2167f63b-8f0a-46da-bb0f-ed0151a02c0b",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [Imm\u00e9di'actes] : mise en ligne des supports des journ\u00e9es du groupe de travail Archives audiovisuelles",
+    "date":"2022-12-02 14:11:39",
+    "original_index":346
+  },
+  "email_347":{
+    "email_id":"3132bed1-657e-49b9-8813-d93efe821819",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Retour sur le conseil d'administration du 25/11/2022",
+    "date":"2022-11-30 15:11:58",
+    "original_index":347
+  },
+  "email_348":{
+    "email_id":"e3b57524-e05f-4e8c-b441-b1eca9ad3460",
+    "from":"f.lavenir@plimsoll.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Perspectives 2023 de ARCHIVISTES FRANCAIS FORMATION et de son march\u00e9",
+    "date":"2022-11-30 08:21:40",
+    "original_index":348
+  },
+  "email_349":{
+    "email_id":"0b37742c-8656-4005-a97a-c7eedcb1c22b",
+    "from":"baruch@ehess.fr",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"coordonn\u00e9es",
+    "date":"2022-11-29 10:27:08",
+    "original_index":349
+  },
+  "email_350":{
+    "email_id":"4a727efc-70a2-4fcb-b409-cafbe358345a",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] La phase d'appel \u00e0 commentaires de la NF Z42-026 sur la num\u00e9risation fid\u00e8le se poursuit : donnez votre avis !",
+    "date":"2022-11-28 09:19:52",
+    "original_index":350
+  },
+  "email_351":{
+    "email_id":"511b1bec-211e-4e56-a11a-577286e34215",
+    "from":"loimobilite204@gmail.com",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] Fwd: Selon la cgc macron ne veut plus payer les pensions des fonctionnaires",
+    "date":"2022-11-27 21:34:51",
+    "original_index":351
+  },
+  "email_352":{
+    "email_id":"74f2702a-6c27-4748-88b2-667d94eb700a",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [RAPPEL] Colloque des archivistes communaux, intercommunaux et itin\u00e9rants 2023 : appel \u00e0 communication",
+    "date":"2022-11-25 14:50:55",
+    "original_index":352
+  },
+  "email_353":{
+    "email_id":"dd2754fb-bb87-448a-9fa9-e2999fa0680f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] RAPPEL : Inscriptions ouvertes pour la journ\u00e9e de la section des archivistes d'entreprise et du secteur priv\u00e9 de l'AAF le 6 d\u00e9cembre 2022 (date limite d'inscription : 30/11)",
+    "date":"2022-11-23 08:35:09",
+    "original_index":353
+  },
+  "email_354":{
+    "email_id":"89fca3d2-d411-475e-86e9-93ad0a77201e",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Rappel : webinaire de pr\u00e9sentation des outils de l'AAF aux b\u00e9n\u00e9voles (08/12/2022 - 12h30 \u00e0 13h30)",
+    "date":"2022-11-23 08:20:01",
+    "original_index":354
+  },
+  "email_355":{
+    "email_id":"bbf676d6-be0e-46ff-bdc2-2777a0096a81",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2022-11-21 13:31:08",
+    "original_index":355
+  },
+  "email_356":{
+    "email_id":"a7bf2c97-bee6-4f84-a135-68aac7e5ed3b",
+    "from":"sandrine.hilaire@everial.com",
+    "to_recipients":"president@efutura.fr, benoit.charon@activbold.com, ldodin@altereos.fr, nicolas.roy@arkhineo.fr, rbillaud@cincom.com, dmo@dipafrica.com, marjorie.segui@ei-technologies.com, thierry.rigate@e-i.com, estelle.mochel@e-i.com, lionel.garcia@everial.com, i.carrio@everteam.com, n.lamriri@ever-team.com, a.thieulent@everteam.com, gilbert.leguen@ventoris.eu, gabriel.gil@gli-services.fr, idiagne@gainde2000.sn, mamara@i-numerics.com, richard.collot@idpconsulting.eu, anne.collot@idpconsulting.eu, yves.mittelmann@incitius.com, jp.delalouviere@intalio.com, hussein.abdallah@intalio.com, antoine.hraoui@intalio.com, fcornu@imds-world.com, dbonte@imds-world.com, pascal.lenoir@kalpa.fr, s.bartoli@lcsys.fr, jeanlouis.ercolani@maarch.org, daf@maarch.org, eric.blat@numen.fr, francois.chahuneau@numen.fr, joel.quere@numen.fr, ldelaittre@numexo.com, philippe.chantin@ourouk.fr, anne-florence.hachet@palm-data.com, jmf@siatel.com, olivier.vidal@sicem.fr, mathieu.donzel@sages-informatique.com, l.desouliere@zeendoc.com, thibaud.viala@kleegroup.com, valerie.desjardins@kleegroup.com, jean-philippe.balivet@tessi.fr, eric.jamet@tessi.fr, rene.huelsbusch@de.rhenus.com, ludovicrigolat@vectura.fr, thibault.ribba@xdemat.fr, chmaginot@airfrance.fr, hajudick@airfrance.fr, odile.frossard@cea.fr, epetetin@inpi.fr, fgaltier@inpi.fr, laurent.ducol@saint-gobain.com, emmanuel.francois@smartbuildingsalliance.org, lidia.zerrouki@smartbuildingsalliance.org, ghermouet@ugap.fr, pierrefrederic.brau@archivistes.org, celine.guyon@archivistes.org, katell.auguie.aaf@free.fr, gboglo@apsv.fr, oflament@apsv.fr, mleminhman@apsv.fr, zrabia@cci-paris-idf.fr, mohamadou.diallo@cio-mag.com, laurent.prevel@ensiie.fr, armelle.de-boisse@enssib.fr, laurent.duplouy@bnf.fr, lucm@osiane.cg, jean-christophe.burie@univ-lr.fr, ipaire@univ-lr.fr, nelly.chauvin@valconum.org, gerard.cathaly-pretou@laposte.net, philippe-martin.conseils@orange.fr, wladimirtaranoff@gmail.com, christian.dubourg@free.fr, delphine.chantharaksa@e-i.com, aurelie.rocamora@everial.com, veronique.bloque@intalio.com, pgautschi@imds-world.com, pdm@numexo.com, olivier.mollet@kleegroup.com, delegation_generale@archivistes.org, agnes.caron@ebd.fr, yacine.ghamri@univ-lr.fr, jean-loup.guillaume@univ-lr.fr, jean-marc.ogier@univ-lr.fr, jose.castellon@activbold.com, cd@sages-informatique.com, agnes.bosdarros@tessi.fr, olivier.deboisboissel@laposte.net, jean-marc.wallet@univ-lr.fr, n.harfouche@zeendoc.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"eFutura - prochain GT Facture - Facture \u00e9lectronique 2024",
+    "date":"2022-11-18 09:40:16",
+    "original_index":356
+  },
+  "email_357":{
+    "email_id":"f7205146-ab63-446a-bf06-4de1c318ae1f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Ouverture des inscriptions de la journ\u00e9e de la section des archivistes d'entreprise et du secteur priv\u00e9 de l'AAF le 6 d\u00e9cembre 2022",
+    "date":"2022-11-17 08:29:53",
+    "original_index":357
+  },
+  "email_358":{
+    "email_id":"4a3978e2-69f7-4d1d-9a4e-a130e2ba974f",
+    "from":"xavier.cailleau@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Inscriptions Label Culture Libre 24 novembre 2022",
+    "date":"2022-11-16 17:04:21",
+    "original_index":358
+  },
+  "email_359":{
+    "email_id":"8f70b45c-eb64-4875-a04b-3f8c78df4f21",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Mise en ligne du compte-rendu du conseil d'administration du 9 septembre 2022",
+    "date":"2022-11-16 11:17:39",
+    "original_index":359
+  },
+  "email_360":{
+    "email_id":"ba7ce08a-22ed-4ce7-af11-0a73aa48f332",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"RE: [aaf_adherents] COFEM : Prochaines r\u00e9unions des groupes de travail : report GT Centre de formation et formateurs",
+    "date":"2022-11-15 15:02:58",
+    "original_index":360
+  },
+  "email_361":{
+    "email_id":"664a9dba-3a7a-45a4-a790-f1716b3c481f",
+    "from":"sandrine.hilaire@everial.com",
+    "to_recipients":"president@efutura.fr, benoit.charon@activbold.com, ldodin@altereos.fr, nicolas.roy@arkhineo.fr, rbillaud@cincom.com, dmo@dipafrica.com, marjorie.segui@ei-technologies.com, thierry.rigate@e-i.com, estelle.mochel@e-i.com, lionel.garcia@everial.com, i.carrio@everteam.com, n.lamriri@ever-team.com, a.thieulent@everteam.com, gilbert.leguen@ventoris.eu, gabriel.gil@gli-services.fr, idiagne@gainde2000.sn, mamara@i-numerics.com, richard.collot@idpconsulting.eu, anne.collot@idpconsulting.eu, yves.mittelmann@incitius.com, jp.delalouviere@intalio.com, hussein.abdallah@intalio.com, antoine.hraoui@intalio.com, fcornu@imds-world.com, dbonte@imds-world.com, pascal.lenoir@kalpa.fr, s.bartoli@lcsys.fr, jeanlouis.ercolani@maarch.org, daf@maarch.org, eric.blat@numen.fr, francois.chahuneau@numen.fr, joel.quere@numen.fr, ldelaittre@numexo.com, philippe.chantin@ourouk.fr, anne-florence.hachet@palm-data.com, jmf@siatel.com, olivier.vidal@sicem.fr, mathieu.donzel@sages-informatique.com, l.desouliere@zeendoc.com, thibaud.viala@kleegroup.com, valerie.desjardins@kleegroup.com, jean-philippe.balivet@tessi.fr, eric.jamet@tessi.fr, rene.huelsbusch@de.rhenus.com, ludovicrigolat@vectura.fr, thibault.ribba@xdemat.fr, chmaginot@airfrance.fr, hajudick@airfrance.fr, odile.frossard@cea.fr, epetetin@inpi.fr, fgaltier@inpi.fr, laurent.ducol@saint-gobain.com, emmanuel.francois@smartbuildingsalliance.org, lidia.zerrouki@smartbuildingsalliance.org, ghermouet@ugap.fr, pierrefrederic.brau@archivistes.org, celine.guyon@archivistes.org, katell.auguie.aaf@free.fr, gboglo@apsv.fr, oflament@apsv.fr, mleminhman@apsv.fr, zrabia@cci-paris-idf.fr, mohamadou.diallo@cio-mag.com, laurent.prevel@ensiie.fr, armelle.de-boisse@enssib.fr, laurent.duplouy@bnf.fr, lucm@osiane.cg, jean-christophe.burie@univ-lr.fr, ipaire@univ-lr.fr, nelly.chauvin@valconum.org, gerard.cathaly-pretou@laposte.net, philippe-martin.conseils@orange.fr, wladimirtaranoff@gmail.com, christian.dubourg@free.fr, delphine.chantharaksa@e-i.com, aurelie.rocamora@everial.com, veronique.bloque@intalio.com, pgautschi@imds-world.com, pdm@numexo.com, olivier.mollet@kleegroup.com, delegation_generale@archivistes.org, agnes.caron@ebd.fr, yacine.ghamri@univ-lr.fr, jean-loup.guillaume@univ-lr.fr, jean-marc.ogier@univ-lr.fr, jose.castellon@activbold.com, cd@sages-informatique.com, agnes.bosdarros@tessi.fr, olivier.deboisboissel@laposte.net, jean-marc.wallet@univ-lr.fr, n.harfouche@zeendoc.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"eFutura - prochain GT Facture - Facture \u00e9lectronique 2024",
+    "date":"2022-11-15 11:24:35",
+    "original_index":361
+  },
+  "email_362":{
+    "email_id":"887cd52f-ac6a-464c-8eda-7a7613015d8e",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Question sur relations Archiviste-DPO",
+    "date":"2022-11-15 08:29:14",
+    "original_index":362
+  },
+  "email_363":{
+    "email_id":"e98bc705-18c0-4890-9a2b-2196c70ede5e",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Derni\u00e8res disponibilit\u00e9s ! Formation \"Ma\u00eetriser le droit li\u00e9 \u00e0 la communicabilit\u00e9 des archives\" 8 et 9 d\u00e9cembre 2022 [Paris,AAF]",
+    "date":"2022-11-14 11:38:50",
+    "original_index":363
+  },
+  "email_364":{
+    "email_id":"e376d2b5-7bc4-4669-9919-f1248c20db34",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] TR: DPC shares French translations of two Technology Watch Guidance Notes on World Digital Preservation Day",
+    "date":"2022-11-10 13:05:38",
+    "original_index":364
+  },
+  "email_365":{
+    "email_id":"d14bab5d-653d-4fcb-8574-15158347c81f",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Archivistes ! 142 \"Archives abandonn\u00e9es,  retrouv\u00e9es,  sauvegard\u00e9es\" : parution",
+    "date":"2022-11-09 10:00:18",
+    "original_index":365
+  },
+  "email_366":{
+    "email_id":"2af4f138-3e99-4269-8a48-6d429379f898",
+    "from":"xavier.cailleau@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Inscriptions webinaire Label Culture Libre",
+    "date":"2022-11-09 09:42:46",
+    "original_index":366
+  },
+  "email_367":{
+    "email_id":"16ba32a3-0723-4f58-ae56-fad8bc25d1c9",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] RAPPEL : Journ\u00e9e du groupe Biblioth\u00e8ques d'archives de l'AAF le 24 novembre 2022 \u00e0 Paris",
+    "date":"2022-11-08 07:49:32",
+    "original_index":367
+  },
+  "email_368":{
+    "email_id":"1d6c9e57-e7ba-4321-b541-a1578fa9821a",
+    "from":"communication@info-cnfpt.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Recueil des plans de formation",
+    "date":"2022-11-07 15:27:53",
+    "original_index":368
+  },
+  "email_369":{
+    "email_id":"7ba5d5c1-855a-4fae-be24-b2d6b2166132",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Derni\u00e8res heures pour s'inscrire aux journ\u00e9es AURORE les 17 et 18 novembre 2022 \u00e0 Lille",
+    "date":"2022-11-07 10:06:27",
+    "original_index":369
+  },
+  "email_370":{
+    "email_id":"1ec3a777-d224-4353-9e21-30869e9ade09",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2022-11-06 13:29:17",
+    "original_index":370
+  },
+  "email_371":{
+    "email_id":"8f289d28-aa3e-4f24-a032-7037f18fd000",
+    "from":"michel.cottin@an.etat.lu",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Offre de stage Luxembourg",
+    "date":"2022-11-05 14:56:27",
+    "original_index":371
+  },
+  "email_372":{
+    "email_id":"74df79f9-9f3c-420e-97de-325a03e5d826",
+    "from":"info@gosendyoufast.com",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SPAM] Re: 1er sur Goooooooogle \ud83c\udfc6",
+    "date":"2022-11-04 06:48:48",
+    "original_index":372
+  },
+  "email_373":{
+    "email_id":"87637f2a-b929-4424-b74e-a53be25dedba",
+    "from":"xavier.cailleau@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Inscriptions webinaire Label Culture Libre",
+    "date":"2022-11-03 09:38:20",
+    "original_index":373
+  },
+  "email_374":{
+    "email_id":"aa062557-d17c-42d7-83f8-10f74e9fc191",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] TR: Inscriptions webinaire Label Culture Libre Wikim\u00e9dia",
+    "date":"2022-11-03 08:25:41",
+    "original_index":374
+  },
+  "email_375":{
+    "email_id":"88ee1b1d-8abe-4452-8886-7514fbcf47d4",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] COFEM : Prochaines r\u00e9unions des groupes de travail",
+    "date":"2022-10-27 12:39:37",
+    "original_index":375
+  },
+  "email_376":{
+    "email_id":"70f986a3-f8a6-4854-9368-0d6692daa871",
+    "from":"xavier.cailleau@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Label Culture Libre",
+    "date":"2022-10-27 07:44:58",
+    "original_index":376
+  },
+  "email_377":{
+    "email_id":"d623a20f-f676-4eb8-968e-a0ebb0685d55",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Label \"Culture Libre\" - Wikimedia",
+    "date":"2022-10-25 08:54:38",
+    "original_index":377
+  },
+  "email_378":{
+    "email_id":"8bd82850-7cf8-4700-a13f-d337fd49d272",
+    "from":"xavier.cailleau@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SAVE THE DATE] Label Culture Libre",
+    "date":"2022-10-24 12:01:05",
+    "original_index":378
+  },
+  "email_379":{
+    "email_id":"170c0c3e-f7c0-400f-92df-9b30371cdfc6",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2022-10-22 13:28:29",
+    "original_index":379
+  },
+  "email_380":{
+    "email_id":"fc803429-0cda-417f-920d-aaf705311f5d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] La parole est \u00e0 vous : la NF Z42-026 sur la num\u00e9risation fid\u00e8le est en phase d'appel \u00e0 commentaires",
+    "date":"2022-10-21 12:06:57",
+    "original_index":380
+  },
+  "email_381":{
+    "email_id":"a8783a45-380d-4bca-9d73-7ec77303b419",
+    "from":"ne-pas-repondre-listmonk+nl@framasoft.org",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Lettre d'info n\u00b032 - automne 2022",
+    "date":"2022-10-20 15:46:46",
+    "original_index":381
+  },
+  "email_382":{
+    "email_id":"4bccb629-5f4b-4be2-94ec-1346383d479b",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Arriv\u00e9e d'un apprenti assistant de formation \u00e0 la permanence : bienvenue Axel !",
+    "date":"2022-10-20 06:17:04",
+    "original_index":382
+  },
+  "email_383":{
+    "email_id":"3b282eb7-8139-4dba-9379-c73b4dee8208",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] [Relance] : Appel \u00e0 communication RASAD 2023",
+    "date":"2022-10-18 06:01:31",
+    "original_index":383
+  },
+  "email_384":{
+    "email_id":"6a8cdb97-689c-4af1-9b6c-e7be6e7cf5e0",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"unknown@example.com",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Nouvelle session de la formation \"Ma\u00eetriser le droit li\u00e9 \u00e0 la communicabilit\u00e9 des archives\" 8 et 9 d\u00e9cembre 2022 [Paris;AAF]",
+    "date":"2022-10-17 09:49:37",
+    "original_index":384
+  },
+  "email_385":{
+    "email_id":"3c6d3871-f424-497c-b7f5-5226eb2b653c",
+    "from":"evenement@anr.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Les webinaires de l'ANR Tour 2023 sont disponibles en replay",
+    "date":"2022-10-14 14:16:01",
+    "original_index":385
+  },
+  "email_386":{
+    "email_id":"a0228718-e3cc-471b-ab4f-ff950567640a",
+    "from":"f.lavenir@plimsoll.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"Estimation de la valeur de ARCHIVISTES FRANCAIS FORMATION r\u00e9v\u00e9l\u00e9e dans la nouvelle \u00e9tude Plimsoll 2022",
+    "date":"2022-10-14 09:51:55",
+    "original_index":386
+  },
+  "email_387":{
+    "email_id":"3325ce79-8a11-4775-8b9b-70d5122f6a79",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Ouverture des inscriptions de la Journ\u00e9e du groupe Biblioth\u00e8ques d'archives de l'AAF le 24 novembre 2022 \u00e0 Paris",
+    "date":"2022-10-13 09:38:07",
+    "original_index":387
+  },
+  "email_388":{
+    "email_id":"6fa34200-83a8-4464-a540-ae5b9dc5c126",
+    "from":"contact@efutura.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[JTN eFutura] M\u00e9tavers et Transition Num\u00e9rique : Mythes et r\u00e9alit\u00e9s",
+    "date":"2022-10-12 07:18:11",
+    "original_index":388
+  },
+  "email_389":{
+    "email_id":"82283bcd-6c86-4faa-9145-9ef3a2020dfa",
+    "from":"xavier.cailleau@wikimedia.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[SAVE THE DATE] Label Culture Libre et RDV open content",
+    "date":"2022-10-12 07:01:54",
+    "original_index":389
+  },
+  "email_390":{
+    "email_id":"52a22841-b451-4d1a-862e-ad0d8fbb46de",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Derni\u00e8res places disponibles pour la journ\u00e9e du groupe r\u00e9gional Normandie le 15 novembre 2022 \u00e0 Evreux \"Archives et d\u00e9veloppement durable\" !",
+    "date":"2022-10-10 14:49:52",
+    "original_index":390
+  },
+  "email_391":{
+    "email_id":"161c5086-47bc-4705-b0ce-df132c68137d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Ouverture des inscriptions des journ\u00e9es AURORE les 17 et 18 novembre 2022 \u00e0 Lille",
+    "date":"2022-10-07 13:40:38",
+    "original_index":391
+  },
+  "email_392":{
+    "email_id":"67952fd0-072d-488e-b1a0-f0d1e03279c8",
+    "from":"contact@histoirecoloniale.net",
+    "to_recipients":"hco-info@lists.riseup.net",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[hco-info] [Histoire coloniale et postcoloniale ] Les nouveaut\u00e9s",
+    "date":"2022-10-07 13:26:51",
+    "original_index":392
+  },
+  "email_393":{
+    "email_id":"af974716-132a-4313-9c0e-182204020981",
+    "from":"florent@news.economic-studies.fr",
+    "to_recipients":"celine.guyon@archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"ARCHIVISTES FRANCAIS FORMATION not\u00e9 et estim\u00e9 dans une nouvelle \u00e9tude sectorielle",
+    "date":"2022-10-06 09:19:58",
+    "original_index":393
+  },
+  "email_394":{
+    "email_id":"86444c32-4284-4287-a562-26759e7acb2d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Fermeture du standard t\u00e9l\u00e9phonique de l'AAF les mardi et jeudi apr\u00e8s-midi",
+    "date":"2022-10-05 17:04:35",
+    "original_index":394
+  },
+  "email_395":{
+    "email_id":"a5b32cbc-5998-4120-b6a8-fb6aafb00b82",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Appel aux b\u00e9n\u00e9voles : GT archives alternatives",
+    "date":"2022-10-05 12:00:53",
+    "original_index":395
+  },
+  "email_396":{
+    "email_id":"85c35a41-2c94-45b1-887f-5e7306db2c15",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Derniers jours pour vous inscrire aux Premi\u00e8res rencontres du groupe Archives audiovisuelles de l'AAF du 19 au 21 octobre 2022 \u00e0 Clermont-Ferrand !",
+    "date":"2022-10-05 07:14:26",
+    "original_index":396
+  },
+  "email_397":{
+    "email_id":"42a9b290-ae83-4e54-863d-ea2852f6a04d",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Colloque des archivistes communaux, intercommunaux et itin\u00e9rants 2023 : appel \u00e0 communication",
+    "date":"2022-10-04 07:30:42",
+    "original_index":397
+  },
+  "email_398":{
+    "email_id":"76bf13f1-444e-4119-9106-c1e9dbdbcd8b",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Parution du RGPD : le r\u00f4le de l'archiviste",
+    "date":"2022-10-03 13:59:34",
+    "original_index":398
+  },
+  "email_399":{
+    "email_id":"f847769e-a007-4dd6-89a4-98d31d180d3e",
+    "from":"aaf_adherents@listes.archivistes.org",
+    "to_recipients":"aaf_adherents@listes.archivistes.org",
+    "cc_recipients":"",
+    "bcc_recipients":"",
+    "subject":"[aaf_adherents] Hommage \u00e0 Laurence Perry",
+    "date":"2022-09-29 11:06:24",
+    "original_index":399
+  }
+}
