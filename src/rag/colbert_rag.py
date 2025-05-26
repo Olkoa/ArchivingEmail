@@ -270,7 +270,7 @@ def extract_last_message(body: str) -> str:
 
 #     return all_emails
 
-def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output_dir: str, batch_size: int = 5000) -> str:
+def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output_dir: str, batch_size: int = 50) -> str:
     """
     Initialize the Colbert RAG system with email data.
 
@@ -329,10 +329,14 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
                 batch_metadata = email_metadata[i:end_idx]
                 
                 print(f"Adding batch {i//batch_size + 1}: emails {i} to {end_idx-1}...")
+                # rag_model.add_to_index(
+                #     collection=batch_texts,
+                #     document_ids=batch_ids,
+                #     document_metadatas=batch_metadata,
+                #     index_name=f"{ACTIVE_PROJECT}_emails_index"
+                # )
                 rag_model.add_to_index(
-                    collection=batch_texts,
-                    document_ids=batch_ids,
-                    document_metadatas=batch_metadata,
+                    documents=batch_texts,  # 'documents' instead of 'collection'
                     index_name=f"{ACTIVE_PROJECT}_emails_index"
                 )
         else:
@@ -346,8 +350,8 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
                 max_document_length=3000,
                 split_documents=True,
                 use_faiss=True,
-                index_bsize=32,
-                nbits=2,
+                # index_bsize=32,
+                # nbits=2,
             )
 
         print("Done indexing!")

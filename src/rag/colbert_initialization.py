@@ -134,6 +134,6 @@ if __name__ == "__main__":
     # Test initialization
 
     # Initialize Colbert RAG system
-    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True, test_mode=False)
+    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True, test_mode=True)
 
     print(f"Colbert RAG system initialized with index at {index_dir}")
