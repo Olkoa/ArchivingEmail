@@ -146,13 +146,13 @@ def prepare_email_for_rag(df) -> List[Tuple[str, Dict[str, Any]]]:
             last_message = extract_last_message(body)
             # Truncate to reasonable length (aim for ~300-400 tokens max)
             # Rough estimate: 1 token ≈ 4 characters
-            max_chars = 1200  # This should be safe for 512 token limit 1200
+            max_chars = 7000  # This should be safe for 512 token limit 1200
             if len(last_message) > max_chars:
                 last_message = last_message[:max_chars] + "..."
             formatted_email += f"\n{last_message}"
         
         # Final safety check - truncate entire email if too long
-        max_total_chars = 1500  # Conservative limit 1500
+        max_total_chars = 8000  # Conservative limit 1500
         if len(formatted_email) > max_total_chars:
             formatted_email = formatted_email[:max_total_chars] + "..."
         
@@ -306,8 +306,9 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
             document_ids=email_ids,
             document_metadatas=email_metadata,
             index_name=f"{ACTIVE_PROJECT}_emails_index",  # This name is important - we'll use it to access the index
-            max_document_length=480,
-            split_documents=True
+            max_document_length=8000,
+            split_documents=True,
+            use_faiss=True
         )
 
         print("Done indexing!")
