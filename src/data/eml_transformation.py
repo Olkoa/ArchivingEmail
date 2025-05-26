@@ -1,9 +1,8 @@
 
-from src.models.models import EmailAddress, MailingList, Organisation, Position, Entity, Attachment, ReceiverEmail, SenderEmail
-from src.data.duckdb_utils import setup_database
 
 import argparse
 import os
+import sys
 from typing import List, Optional, Union, Dict, Any
 import re
 import html
@@ -19,6 +18,17 @@ from bs4 import BeautifulSoup
 import json
 
 import pandas as pd
+
+# Add the necessary paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+
+from src.models.models import EmailAddress, MailingList, Entity, Attachment, ReceiverEmail, SenderEmail
+from src.data.duckdb_utils import setup_database
+
+from constants import ACTIVE_PROJECT
+
 
 def clean_html(html_string):
     """
@@ -1170,16 +1180,31 @@ def process_eml_files(directory: Union[str, Path],
 
     print(f"DuckDB database saved to {output_path}")
 
+def generate_duck_db() -> bool:
+    db_path = f"data/Projects/{ACTIVE_PROJECT}/{ACTIVE_PROJECT}.duckdb"
+    eml_folder_path = f"data/Projects/{ACTIVE_PROJECT}/"
+
+    try:
+        setup_database(db_path) # duckdb_conn =
+        process_eml_files(eml_folder_path, db_path)
+        return True
+    except Exception as e:
+        print(f"Error generating DuckDB: {e}")
+        return False
+    pass
+
+
 if __name__ == "__main__":
-    # Set up argument parser
-    parser = argparse.ArgumentParser(description='Process EML files into a DuckDB database')
-    parser.add_argument('path_to_eml', nargs='?', default="data/processed/celine_readpst_with_S",
-                        help='Path to the directory containing EML files')
-    parser.add_argument('path_for_db', nargs='?', default="data/Projects/Boîte mail de Céline/celine.duckdb",
-                        help='Path where the DuckDB file should be created')
+    generate_duck_db()
+    ## Set up argument parser
+    # parser = argparse.ArgumentParser(description='Process EML files into a DuckDB database')
+    # parser.add_argument('path_to_eml', nargs='?', default="data/processed/celine_readpst_with_S",
+    #                     help='Path to the directory containing EML files')
+    # parser.add_argument('path_for_db', nargs='?', default="data/Projects/Boîte mail de Céline/celine.duckdb",
+    #                     help='Path where the DuckDB file should be created')
 
-    # Parse arguments
-    args = parser.parse_args()
+    # # Parse arguments
+    # args = parser.parse_args()
 
-    # Process the files using the provided arguments
-    process_eml_files(args.path_to_eml, args.path_for_db)
+    # # Process the files using the provided arguments
+    # process_eml_files(args.path_to_eml, args.path_for_db)
