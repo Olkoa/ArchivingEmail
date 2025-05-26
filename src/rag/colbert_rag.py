@@ -270,7 +270,7 @@ def extract_last_message(body: str) -> str:
 
 #     return all_emails
 
-def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output_dir: str, batch_size: int = 50) -> str:
+def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output_dir: str, batch_size: int = 5000) -> str:
     """
     Initialize the Colbert RAG system with email data.
 
@@ -335,10 +335,7 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
                 #     document_metadatas=batch_metadata,
                 #     index_name=f"{ACTIVE_PROJECT}_emails_index"
                 # )
-                rag_model.add_to_index(
-                    documents=batch_texts,  # 'documents' instead of 'collection'
-                    index_name=f"{ACTIVE_PROJECT}_emails_index"
-                )
+                rag_model.add_to_index(batch_texts)
         else:
             # Index all at once if manageable size
             print(f"Indexing all {len(email_texts)} emails...")
