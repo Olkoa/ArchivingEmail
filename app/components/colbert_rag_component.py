@@ -22,7 +22,8 @@ try:
     from src.rag.colbert_initialization import initialize_colbert_rag_system
     from src.rag.colbert_rag import colbert_rag_answer, search_with_colbert
     from constants import ACTIVE_PROJECT
-except ImportError:
+except ImportError as e:
+    print(f"RAGAtouille import failed: {e}")
     RAGATOUILLE_AVAILABLE = False
 
 def render_colbert_rag_component(emails_df: pd.DataFrame):
