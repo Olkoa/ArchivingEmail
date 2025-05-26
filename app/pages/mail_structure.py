@@ -63,14 +63,16 @@ def render_mail_structure_page():
         # Font size selection
         font_size = st.selectbox(
             "Taille du texte:",
-            options=['small', 'normal', 'large', 'xlarge'],
+            options=['très petit', 'petit', 'assez petit', 'normal', 'large', 'très large'],
             format_func=lambda x: {
-                'small': '🔤 Petit (10px)',
-                'normal': '🔤 Normal (12px)', 
-                'large': '🔤 Grand (14px)',
-                'xlarge': '🔤 Très grand (16px)'
+                'très petit': '🔤 Très petit (14px)',
+                'petit': '🔤 Petit (16px)',
+                'assez petit': '🔤 Assez petit (18px)',
+                'normal': '🔤 Normal (20px)', 
+                'large': '🔤 Large (24px)',
+                'très large': '🔤 Très large (28px)'
             }[x],
-            index=1,  # Default to 'normal'
+            index=3,  # Default to 'normal'
             key="graph_font_size"
         )
         
@@ -136,12 +138,18 @@ def render_mail_structure_page():
                     
                 # Show current font size if detectable
                 if "font-size:" in existing_graph:
-                    if "10px" in existing_graph:
-                        st.info("🔤 Taille actuelle: Petit")
-                    elif "14px" in existing_graph:
-                        st.info("🔤 Taille actuelle: Grand")
+                    if "14px" in existing_graph:
+                        st.info("🔤 Taille actuelle: Très petit")
                     elif "16px" in existing_graph:
-                        st.info("🔤 Taille actuelle: Très grand")
+                        st.info("🔤 Taille actuelle: Petit")
+                    elif "18px" in existing_graph:
+                        st.info("🔤 Taille actuelle: Assez petit")
+                    elif "20px" in existing_graph:
+                        st.info("🔤 Taille actuelle: Normal")
+                    elif "24px" in existing_graph:
+                        st.info("🔤 Taille actuelle: Large")
+                    elif "28px" in existing_graph:
+                        st.info("🔤 Taille actuelle: Très large")
                     else:
                         st.info("🔤 Taille actuelle: Normal")
         else:
@@ -207,10 +215,12 @@ def render_mail_structure_page():
           - 📈 Horizontal: Structure de gauche à droite (pour les grands écrans)
         
         - **Taille du texte:**
-          - 🔤 Petit (10px): Pour les structures très complexes
-          - 🔤 Normal (12px): Taille par défaut recommandée
-          - 🔤 Grand (14px): Pour une meilleure lisibilité
-          - 🔤 Très grand (16px): Pour les présentations
+          - 🔤 Très petit (14px): Pour les structures très complexes
+          - 🔤 Petit (16px): Pour les structures complexes
+          - 🔤 Assez petit (18px): Taille compacte
+          - 🔤 Normal (20px): Taille par défaut recommandée
+          - 🔤 Large (24px): Pour une meilleure lisibilité
+          - 🔤 Très large (28px): Pour les présentations
         
         - **Couleurs des nœuds:**
           - 🔵 Bleu: Boîte de réception / Inbox

@@ -52,7 +52,6 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
         'huge': '20px',        # ← New huge size
         'overweight': '24px',  # ← New overweight size
         'fat': '28px',  # ← New fat size
-
     }
 
     selected_font_size = font_sizes.get(font_size, font_sizes['huge'])
