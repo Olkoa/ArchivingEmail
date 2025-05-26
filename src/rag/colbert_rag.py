@@ -296,15 +296,7 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
     try:
         # Initialize the RAG model with ColBERTv2.0
         print("Loading pretrained model...")
-        # Force CPU usage if GPU memory is insufficient
-        import torch
-        device = "cuda" if torch.cuda.is_available() and torch.cuda.get_device_properties(0).total_memory > 15e9 else "cpu"
-        print(f"Using device: {device}")
-        
-        rag_model = RAGPretrainedModel.from_pretrained(
-            "jinaai/jina-colbert-v2",
-            device=device
-        )
+        rag_model = RAGPretrainedModel.from_pretrained("jinaai/jina-colbert-v2")
         print("Model loaded successfully")
 
         # Process in batches if we have too many emails
@@ -325,8 +317,8 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
                 max_document_length=3000,
                 split_documents=True,
                 use_faiss=True,
-                index_bsize=32,  # Even smaller batch size
-                nbits=2,
+                # index_bsize=32,  # Even smaller batch size
+                # nbits=2,
             )
             
             # Add remaining batches
