@@ -45,6 +45,7 @@ scaleway_p_key.pub
 elasticsearch-8.12.1-linux-x86_64.tar.gz
 elasticsearch-8.12.1
 dump
-
-# Scaleways
+## Scaleways
 venv
+ju
+ju.pub
