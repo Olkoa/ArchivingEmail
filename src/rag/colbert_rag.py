@@ -415,30 +415,37 @@ def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_pat
         # Enrich results with metadata
         enriched_results = []
         for result in results:
-            # Extract index from text_id (format: "email_X_chunk_Y")
+            # Extract index from document_id (format: "email_X")
             try:
                 # DEBUG: Print what we actually got
                 print(f"Result structure: {result}")
                 print(f"Result type: {type(result)}")
                 print(f"Result keys: {result.keys() if hasattr(result, 'keys') else 'No keys method'}")
                 
-                # Handle different ID formats
-                if "_chunk_" in result["text_id"]:
-                    email_id = result["text_id"].split("_chunk_")[0]
-                    email_index = int(email_id.replace("email_", ""))
+                # Handle the new RAGAtouille result format
+                document_id = result.get("document_id", "")
+                content = result.get("content", "")
+                score = result.get("score", 0.0)
+                
+                # Extract email index from document_id (format: "email_X")
+                if document_id.startswith("email_"):
+                    email_index = int(document_id.replace("email_", ""))
                 else:
-                    email_index = int(result["text_id"].replace("email_", ""))
+                    print(f"Unexpected document_id format: {document_id}")
+                    email_index = 0
 
                 # Get metadata if available
                 metadata = {}
                 if email_index < len(email_metadata):
                     metadata = email_metadata[email_index]
+                else:
+                    print(f"No metadata found for email_index {email_index}, total metadata: {len(email_metadata)}")
 
-                # Create enriched result
+                # Create enriched result in the expected format
                 enriched_result = {
-                    "text": result["text"],
-                    "text_id": result["text_id"],
-                    "score": result["score"],
+                    "text": content,
+                    "text_id": document_id,
+                    "score": score,
                     "metadata": metadata
                 }
 
@@ -446,8 +453,15 @@ def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_pat
 
             except (ValueError, IndexError, KeyError) as e:
                 print(f"Error enriching result: {e}")
-                # Still include the result without enrichment
-                enriched_results.append(result)
+                print(f"Result keys available: {list(result.keys()) if hasattr(result, 'keys') else 'No keys'}")
+                # Create a fallback result structure
+                fallback_result = {
+                    "text": result.get("content", "No content available"),
+                    "text_id": result.get("document_id", "unknown"),
+                    "score": result.get("score", 0.0),
+                    "metadata": result.get("document_metadata", {})
+                }
+                enriched_results.append(fallback_result)
 
         return enriched_results
 
@@ -486,16 +500,25 @@ def format_result_preview(result: Dict[str, Any]) -> str:
     Returns:
         Formatted preview string
     """
+    # Get metadata from either 'metadata' field or 'document_metadata' field
     metadata = result.get('metadata', {})
+    if not metadata and 'document_metadata' in result:
+        metadata = result['document_metadata']
+    
+    # Handle the case where metadata is empty
+    if not metadata:
+        print(f"Warning: No metadata found in result. Available keys: {list(result.keys())}")
+    
     preview = f"**De:** {metadata.get('from', 'Inconnu')}\n"
-    preview += f"**À:** {metadata.get('to', 'Inconnu')}\n"
+    preview += f"**À:** {metadata.get('to_recipients', metadata.get('to', 'Inconnu'))}\n"
     preview += f"**Sujet:** {metadata.get('subject', 'Pas de sujet')}\n"
     preview += f"**Date:** {metadata.get('date', 'Date inconnue')}\n"
 
     # Include the text content
-    if result.get('text'):
+    text_content = result.get('text') or result.get('content', '')
+    if text_content:
         # Wrap to multiple lines for better readability
-        wrapped_text = textwrap.fill(result['text'], width=80)
+        wrapped_text = textwrap.fill(text_content, width=80)
         preview += f"**Contenu:**\n```\n{wrapped_text}\n```\n"
 
     # Add relevance score if available
