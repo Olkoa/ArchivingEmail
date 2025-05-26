@@ -9,8 +9,8 @@ def openrouter_llm_api_call(
     user_prompt : str = "Result of 2+2 ?",
     assistant_prompt: str = "",
     model: str ="openai/gpt-4o",
-    env_var_open_router_base_url: str = "OPENROUTER_BASE_URL",
-    env_var_open_router_api_key: str = "OPENROUTER_API_KEY"
+    env_var_open_router_base_url: str = "OPENAI_BASE_URL", # "OPENROUTER_BASE_URL",
+    env_var_open_router_api_key: str = "OPENAI_API_KEY" # "OPENROUTER_API_KEY"
     ):
     """
 
