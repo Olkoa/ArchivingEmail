@@ -270,13 +270,14 @@ def extract_last_message(body: str) -> str:
 
 #     return all_emails
 
-def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output_dir: str) -> str:
+def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output_dir: str, batch_size: int = 5000) -> str:
     """
     Initialize the Colbert RAG system with email data.
 
     Args:
         emails_data: List of tuples with (formatted_email, metadata)
         output_dir: Path to save metadata (actual index is saved by RAGAtouille internally)
+        batch_size: Number of emails to process at once to manage memory
 
     Returns:
         Path to the index directory
@@ -289,27 +290,73 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
     email_ids = [f"email_{i}" for i in range(len(emails_data))]
     email_metadata = [email[1] for email in emails_data]
 
-    print(email_texts[0])
+    print(f"First email preview: {email_texts[0][:200]}...")
+    print(f"Total emails to index: {len(email_texts)}")
 
     try:
         # Initialize the RAG model with ColBERTv2.0
-
-        print("pretraining")
-        rag_model = RAGPretrainedModel.from_pretrained("jinaai/jina-colbert-v2") # jinaai/jina-colbert-v2
-
-        print("past pretrained")
-
-        # Index the email collection
-        print(f"Indexing {len(email_texts)} emails...")
-        rag_model.index(
-            collection=email_texts,
-            document_ids=email_ids,
-            document_metadatas=email_metadata,
-            index_name=f"{ACTIVE_PROJECT}_emails_index",  # This name is important - we'll use it to access the index
-            max_document_length=8000,
-            split_documents=True,
-            use_faiss=True
+        print("Loading pretrained model...")
+        # Force CPU usage if GPU memory is insufficient
+        import torch
+        device = "cuda" if torch.cuda.is_available() and torch.cuda.get_device_properties(0).total_memory > 15e9 else "cpu"
+        print(f"Using device: {device}")
+        
+        rag_model = RAGPretrainedModel.from_pretrained(
+            "jinaai/jina-colbert-v2",
+            device=device
         )
+        print("Model loaded successfully")
+
+        # Process in batches if we have too many emails
+        if len(email_texts) > batch_size:
+            print(f"Processing {len(email_texts)} emails in batches of {batch_size}")
+            
+            # Index first batch
+            batch_texts = email_texts[:batch_size]
+            batch_ids = email_ids[:batch_size] 
+            batch_metadata = email_metadata[:batch_size]
+            
+            print(f"Indexing first batch: {len(batch_texts)} emails...")
+            rag_model.index(
+                collection=batch_texts,
+                document_ids=batch_ids,
+                document_metadatas=batch_metadata,
+                index_name=f"{ACTIVE_PROJECT}_emails_index",
+                max_document_length=3000,
+                split_documents=True,
+                use_faiss=True,
+                index_bsize=32,  # Even smaller batch size
+                nbits=2,
+            )
+            
+            # Add remaining batches
+            for i in range(batch_size, len(email_texts), batch_size):
+                end_idx = min(i + batch_size, len(email_texts))
+                batch_texts = email_texts[i:end_idx]
+                batch_ids = email_ids[i:end_idx]
+                batch_metadata = email_metadata[i:end_idx]
+                
+                print(f"Adding batch {i//batch_size + 1}: emails {i} to {end_idx-1}...")
+                rag_model.add_to_index(
+                    collection=batch_texts,
+                    document_ids=batch_ids,
+                    document_metadatas=batch_metadata,
+                    index_name=f"{ACTIVE_PROJECT}_emails_index"
+                )
+        else:
+            # Index all at once if manageable size
+            print(f"Indexing all {len(email_texts)} emails...")
+            rag_model.index(
+                collection=email_texts,
+                document_ids=email_ids,
+                document_metadatas=email_metadata,
+                index_name=f"{ACTIVE_PROJECT}_emails_index",
+                max_document_length=3000,
+                split_documents=True,
+                use_faiss=True,
+                index_bsize=32,
+                nbits=2,
+            )
 
         print("Done indexing!")
 
