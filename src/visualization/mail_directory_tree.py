@@ -1,7 +1,7 @@
 """
 Mail Directory Tree Visualization
 
-This module provides functionality to create and display mail folder structure 
+This module provides functionality to create and display mail folder structure
 visualizations using Mermaid diagrams.
 """
 
@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 
 
-def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None, 
+def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None,
                                   orientation='horizontal', font_size='large'):
     """
     Generate a Mermaid graph diagram from folder structure data.
@@ -43,19 +43,20 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
 
     # Set graph direction based on orientation
     graph_direction = "graph TD" if orientation == 'vertical' else "graph LR"
-    
+
     # Set font size based on parameter
     font_sizes = {
-        'tiny': '8px',        # ← New tiny size
-        'small': '10px',
-        'normal': '12px', 
-        'large': '14px',
-        'xlarge': '16px',
-        'huge': '20px'        # ← New huge size
+        'normal +': '14px',
+        'large': '16px',
+        'xlarge': '18px',
+        'huge': '20px',        # ← New huge size
+        'overweight': '24px',  # ← New overweight size
+        'fat': '28px',  # ← New fat size
+
     }
-    
-    selected_font_size = font_sizes.get(font_size, '12px')
-    
+
+    selected_font_size = font_sizes.get(font_size, font_sizes['huge'])
+
     # Start building the Mermaid diagram
     mermaid_code = [
         graph_direction,
@@ -73,7 +74,7 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
     # Process folder paths to create nodes and relationships
     nodes = {}
     node_classes = {}
-    relationships = []
+    relationships = set()  # Use set to avoid duplicate relationships
 
     # Helper function to create safe node IDs
     def create_node_id(path):
@@ -118,7 +119,8 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
             if i > 0:
                 parent_path = '/'.join(parts[:i])
                 parent_id = create_node_id(parent_path)
-                relationships.append(f"    {parent_id} --> {current_id}")
+                # Add to set to avoid duplicates
+                relationships.add(f"    {parent_id} --> {current_id}")
 
             # Only add node if not already added
             if current_id not in nodes:
@@ -139,8 +141,8 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
     mermaid_code.extend(nodes.values())
     mermaid_code.append("")
 
-    # Add relationships
-    mermaid_code.extend(relationships)
+    # Add relationships (convert set to list for consistent ordering)
+    mermaid_code.extend(sorted(relationships))
     mermaid_code.append("")
 
     # Add styling
@@ -153,12 +155,12 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
 def get_folder_data_from_db(db_path):
     """
     Extract folder structure data from DuckDB.
-    
+
     Parameters:
     -----------
     db_path : str
         Path to the DuckDB database
-        
+
     Returns:
     --------
     pandas.DataFrame
@@ -170,26 +172,26 @@ def get_folder_data_from_db(db_path):
         project_root = os.path.abspath(os.path.join(current_dir, '..', '..'))
         if project_root not in sys.path:
             sys.path.append(project_root)
-        
+
         from src.data.email_analyzer import EmailAnalyzer
-        
+
         # Initialize analyzer and get folder structure
         analyzer = EmailAnalyzer(db_path=db_path)
-        
+
         # Get folder structure query
         folder_query = """
-        SELECT 
+        SELECT
             folder_path as folders,
             COUNT(*) as count
-        FROM emails 
-        WHERE folder_path IS NOT NULL 
-        GROUP BY folder_path 
+        FROM emails
+        WHERE folder_path IS NOT NULL
+        GROUP BY folder_path
         ORDER BY count DESC
         """
-        
+
         df = analyzer.execute_query(folder_query)
         return df
-        
+
     except Exception as e:
         print(f"Error extracting folder data from database: {e}")
         # Return sample data for demonstration
@@ -199,7 +201,7 @@ def get_folder_data_from_db(db_path):
 def get_sample_folder_data():
     """
     Return sample folder data for demonstration purposes.
-    
+
     Returns:
     --------
     pandas.DataFrame
@@ -225,14 +227,14 @@ def get_sample_folder_data():
         "celine.guyon/Boîte de réception/Conflit": 6,
         "celine.guyon/Boîte de réception/Formation à distance": 2
     }
-    
+
     return pd.DataFrame({'folders': list(data.keys()), 'count': list(data.values())})
 
 
 def save_mermaid_graph(mermaid_code, project_name, project_root):
     """
     Save the generated Mermaid graph to the project data folder.
-    
+
     Parameters:
     -----------
     mermaid_code : str
@@ -241,7 +243,7 @@ def save_mermaid_graph(mermaid_code, project_name, project_root):
         Name of the active project
     project_root : str
         Path to the project root directory
-        
+
     Returns:
     --------
     str
@@ -251,16 +253,16 @@ def save_mermaid_graph(mermaid_code, project_name, project_root):
         # Create the data directory path for the project
         data_dir = Path(project_root) / "data" / "Projects" / project_name
         data_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Save the Mermaid graph
         graph_file = data_dir / "mail_folder_structure.mermaid"
-        
+
         with open(graph_file, 'w', encoding='utf-8') as f:
             f.write(mermaid_code)
-        
+
         print(f"Mermaid graph saved to: {graph_file}")
         return str(graph_file)
-        
+
     except Exception as e:
         print(f"Error saving Mermaid graph: {e}")
         return None
@@ -269,14 +271,14 @@ def save_mermaid_graph(mermaid_code, project_name, project_root):
 def load_existing_mermaid_graph(project_name, project_root):
     """
     Load an existing Mermaid graph from the project data folder.
-    
+
     Parameters:
     -----------
     project_name : str
         Name of the active project
     project_root : str
         Path to the project root directory
-        
+
     Returns:
     --------
     str or None
@@ -284,13 +286,13 @@ def load_existing_mermaid_graph(project_name, project_root):
     """
     try:
         graph_file = Path(project_root) / "data" / "Projects" / project_name / "mail_folder_structure.mermaid"
-        
+
         if graph_file.exists():
             with open(graph_file, 'r', encoding='utf-8') as f:
                 return f.read()
-        
+
         return None
-        
+
     except Exception as e:
         print(f"Error loading existing Mermaid graph: {e}")
         return None
@@ -299,14 +301,14 @@ def load_existing_mermaid_graph(project_name, project_root):
 def get_folder_structure_from_project(project_name, project_root):
     """
     Get folder structure data for a specific project.
-    
+
     Parameters:
     -----------
     project_name : str
         Name of the project
     project_root : str
         Path to the project root directory
-        
+
     Returns:
     --------
     pandas.DataFrame
@@ -315,13 +317,13 @@ def get_folder_structure_from_project(project_name, project_root):
     try:
         # Try to get data from DuckDB first
         db_path = Path(project_root) / "data" / "Projects" / project_name / f"{project_name}.duckdb"
-        
+
         if db_path.exists():
             return get_folder_data_from_db(str(db_path))
         else:
             print(f"Database not found at {db_path}, using sample data")
             return get_sample_folder_data()
-            
+
     except Exception as e:
         print(f"Error getting folder structure from project: {e}")
         return get_sample_folder_data()
