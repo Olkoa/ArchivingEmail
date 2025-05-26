@@ -145,6 +145,7 @@ else:
 
         "Overview": ["Dashboard"],
         "Exploration": ["Email Explorer", "Network Analysis", "Timeline"],
+        "Visualization": ["Structure de la boîte mail"],
         "Search": ["Recherche", "Recherche ElasticSearch"],
         "Graph": ["Graph"],
         "AI Assistants": ["Chat", "Colbert RAG", "Chat + RAG"]
@@ -1215,6 +1216,17 @@ else:
         except Exception as e:
             st.error(f"Erreur lors du rendu du composant Colbert RAG: {str(e)}")
 
+    elif page == "Structure de la boîte mail":
+        # Import and render the Mail Structure page
+        try:
+            from pages.mail_structure import render_mail_structure_page
+            render_mail_structure_page()
+        except ImportError as e:
+            st.error(f"Erreur d'importation de la page Structure de la boîte mail: {str(e)}")
+            st.info("Veuillez vérifier que le module mail_structure.py est disponible.")
+        except Exception as e:
+            st.error(f"Erreur lors du rendu de la page Structure de la boîte mail: {str(e)}")
+    
     elif page == "Chat + RAG":
         # Import and render the Chat + RAG component
         try:

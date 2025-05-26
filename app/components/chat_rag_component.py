@@ -127,15 +127,6 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
     if not index_exists:
         st.warning("⚠️ L'index ColBERT n'a pas encore été créé.")
         st.info("Veuillez d'abord créer l'index dans la page 'Colbert RAG' avant d'utiliser Chat + RAG.")
-        
-        if st.button("🚀 Créer l'index maintenant"):
-            with st.spinner("Création de l'index ColBERT en cours..."):
-                try:
-                    initialize_colbert_rag_system(project_root=project_root, force_rebuild=True)
-                    st.success("✅ Index créé avec succès")
-                    st.rerun()
-                except Exception as e:
-                    st.error(f"❌ Erreur lors de la création de l'index: {str(e)}")
         return
 
     # Configuration section in sidebar

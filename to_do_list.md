@@ -16,9 +16,8 @@ can you check this file and tell me if replacing "emails_index" with f"{ACTIVE_P
 
 - Pour faire une vrai création de projet et la transformation pst eml, penser à faire/lire ça: https://stackoverflow.com/questions/89228/how-do-i-execute-a-program-or-call-a-system-command
 
-- Timeline pas encore fonctionnel en sélectionant la boîte mail de Céline directement.
 
-- Transformer l'app en traitement de mbox à df de duckdb à df **en cours**
+- Transformer l'app en traitement de mbox/pst à df de duckdb à df **en cours**
 
 -  Extrait des mails envoyés depuis sa boîtes quand printés, problème de structure ? Trop de champs sans adresse, on met par défaut céline en envoyeur ?
 ['AAF - Céline Guyon <MAILER-DAEMON>']
@@ -35,8 +34,6 @@ NO ADRESSSSS
 NO ADRESSSSS
 NO ADRESSSSS
 ### Tâches
-
-- faire le Répertoires des folders a partir de la colonne du df qui a déjà ce nom (assez facile et enlever le path root juste)
 
 - demander à hedi ajouter options TOP 10, 50 et 100 avec un slider sur le graph
 

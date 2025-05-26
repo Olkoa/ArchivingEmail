@@ -1,6 +1,18 @@
 import re
 from collections import defaultdict
 import duckdb
+import os
+import sys
+
+
+
+
+# Add the necessary paths
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+print(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+
+
+from constants import ACTIVE_PROJECT
 
 def parse_schema(schema_str):
     """Parse the SQL schema string into a structured format."""
@@ -71,7 +83,7 @@ def generate_mermaid(tables, relationships):
 
     # Add entities with attributes
     for table_name, columns in tables.items():
-        entity_def = [f"    {table_name} {{"]
+        entity_def = [f"    {table_name} " + "{"]
 
         for column_name, data_type in columns:
             # Format the data type to be lowercase
@@ -111,7 +123,7 @@ if __name__ == "__main__":
 
     """API endpoint to get the database schema as JSON"""
     # Connect to your DuckDB database
-    conn = duckdb.connect('data/database/database.duckdb')  # Change to your database path
+    conn = duckdb.connect(f"data/Projects/{ACTIVE_PROJECT}/{ACTIVE_PROJECT}.duckdb")  # Change to your database path
 
     # Get all tables and columns
     schema_data = conn.execute("""
