@@ -462,6 +462,8 @@ def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_pat
                 print(f"Result type: {type(result)}")
                 print(f"Result keys: {result.keys() if hasattr(result, 'keys') else 'No keys method'}")
                 
+
+                print(f"Processing result: {result}")
                 # Handle the new RAGAtouille result format
                 document_id = result.get("document_id", "")
                 content = result.get("content", "")
