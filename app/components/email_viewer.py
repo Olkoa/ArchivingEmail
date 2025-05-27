@@ -239,15 +239,16 @@ def create_email_table_with_viewer(
         st.info("Aucun email à afficher.")
         return
 
+    print(emails_df.columns)
     # Create a copy with limited columns for display
-    display_df = emails_df[['date', 'from', 'to', 'subject']].copy()
+    display_df = emails_df[['date', 'from', 'recipient_email', 'subject']].copy() # to = recipient_email
 
     # Format date for display
     if 'date' in display_df.columns:
         display_df['date'] = display_df['date'].apply(format_email_date)
 
     # Decode the text fields for display
-    for field in ['from', 'to', 'subject']:
+    for field in ['from', 'recipient_email', 'subject']:
         if field in display_df.columns:
             display_df[field] = display_df[field].apply(decode_email_text)
 
@@ -289,7 +290,7 @@ def _create_modal_email_table(
 
     # Display simple table using standard Streamlit dataframe
     st.dataframe(
-        display_df[['date', 'from', 'to', 'subject']],
+        display_df[['date', 'from', 'recipient_email', 'subject']],
         hide_index=True,
         use_container_width=True,
         key=f"{key_prefix}_table"
@@ -381,7 +382,7 @@ def _create_modal_email_table(
             with modal.container():
                 # Email metadata with text wrapping for long values - properly decoded
                 decoded_from = decode_email_text(selected_email['from'])
-                decoded_to = decode_email_text(selected_email['to'])
+                decoded_to = decode_email_text(selected_email['recipient_email'])
 
                 col1, col2 = st.columns(2)
                 with col1:
@@ -431,7 +432,7 @@ if __name__ == "__main__":
     data = {
         "date": [pd.Timestamp("2023-01-01"), pd.Timestamp("2023-01-02")],
         "from": ["sender1@example.com", "sender2@example.com"],
-        "to": ["recipient1@example.com", "recipient2@example.com"],
+        "recipient_email": ["recipient1@example.com", "recipient2@example.com"],
         "subject": ["Test Subject 1", "Test Subject 2"],
         "body": ["This is the body of email 1", "This is the body of email 2"],
         "has_attachments": [False, True],
