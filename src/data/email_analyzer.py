@@ -703,20 +703,124 @@ class EmailAnalyzer:
         print(merged_df.columns)
         return merged_df
 
+
+    def get_app_dataframe_agg_recipients(self, limit=None):
+        """
+        Get a comprehensive dataset combining relevant information from all tables.
+        This creates a single dataframe with emails and all their associated metadata.
+
+        Args:
+            limit: Optional limit on the number of rows returned
+
+        Returns:
+            pandas DataFrame with comprehensive email data
+        """
+        conn = self.connect()
+
+        query = """
+        SELECT
+            -- Email core data
+            re.id AS email_id,
+            re.message_id,
+            re.mailbox_name,
+            re.direction,
+            re.timestamp,
+            re.subject,
+            re.body,
+            re.folder,
+            re.in_reply_to,
+
+            -- Sender information
+            sender.id AS sender_id,
+            sender.name AS sender_name,
+            sender.email AS sender_email,
+            sender.is_physical_person AS sender_is_person,
+
+            -- Reply-to information
+            reply_to.id AS reply_to_id,
+            reply_to.name AS reply_to_name,
+            reply_to.email AS reply_to_email,
+
+            -- Recipients (aggregated)
+            (SELECT string_agg(e.name, ', ')
+            FROM email_recipients_to ert
+            JOIN entities e ON ert.entity_id = e.id
+            WHERE ert.email_id = re.id) AS to_recipients,
+
+            (SELECT string_agg(e.email, ', ')
+            FROM email_recipients_to ert
+            JOIN entities e ON ert.entity_id = e.id
+            WHERE ert.email_id = re.id) AS to_emails,
+
+            (SELECT string_agg(e.name, ', ')
+            FROM email_recipients_cc ercc
+            JOIN entities e ON ercc.entity_id = e.id
+            WHERE ercc.email_id = re.id) AS cc_recipients,
+
+            (SELECT string_agg(e.email, ', ')
+            FROM email_recipients_cc ercc
+            JOIN entities e ON ercc.entity_id = e.id
+            WHERE ercc.email_id = re.id) AS cc_emails,
+
+            (SELECT string_agg(e.name, ', ')
+            FROM email_recipients_bcc erbcc
+            JOIN entities e ON erbcc.entity_id = e.id
+            WHERE erbcc.email_id = re.id) AS bcc_recipients,
+
+            (SELECT string_agg(e.email, ', ')
+            FROM email_recipients_bcc erbcc
+            JOIN entities e ON erbcc.entity_id = e.id
+            WHERE erbcc.email_id = re.id) AS bcc_emails,
+
+            -- Mailing list information
+            ml.id AS mailing_list_id,
+            ml.name AS mailing_list_name,
+            ml.email_address AS mailing_list_email,
+
+            -- Attachment information (counts and aggregate info)
+            (SELECT COUNT(*) FROM attachments a WHERE a.email_id = re.id) AS attachment_count,
+            (SELECT string_agg(a.filename, ', ') FROM attachments a WHERE a.email_id = re.id) AS attachment_filenames,
+            (SELECT SUM(a.size) FROM attachments a WHERE a.email_id = re.id) AS total_attachment_size,
+
+            -- Thread information
+            (SELECT COUNT(*) FROM email_children ec WHERE ec.parent_id = re.id) AS child_email_count,
+            re.mother_email_id
+        FROM
+            receiver_emails re
+        LEFT JOIN
+            entities sender ON re.sender_id = sender.id
+        LEFT JOIN
+            entities reply_to ON re.reply_to_id = reply_to.id
+        LEFT JOIN
+            mailing_lists ml ON re.mailing_list_id = ml.id
+        """
+
+        if limit:
+            query += f" LIMIT {limit}"
+
+        # Execute the query and convert to DataFrame
+        df = conn.execute(query).df()
+
+        # Convert timestamps to proper datetime format
+        if 'timestamp' in df.columns and not pd.api.types.is_datetime64_any_dtype(df['timestamp']):
+            df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
+
+        return df
+
     def get_rag_email_dataset(self, limit=None):
         """
         Get a simplified dataset optimized for RAG indexing.
         Returns one row per email with aggregated recipient information.
-        
+
         Args:
             limit: Optional limit on the number of rows returned
-        
+
         Returns:
-            pandas DataFrame with columns: email_id, from, to_recipients, cc_recipients, 
+            pandas DataFrame with columns: email_id, from, to_recipients, cc_recipients,
             bcc_recipients, date, subject, body
         """
         conn = self.connect()
-        
+
         query = """
         SELECT
             -- Email core data
@@ -724,26 +828,26 @@ class EmailAnalyzer:
             re.timestamp AS date,
             re.subject,
             re.body,
-            
+
             -- Sender information
             sender.email AS "from",
-            
+
             -- Recipients (aggregated)
             (SELECT string_agg(e.email, ', ')
             FROM email_recipients_to ert
             JOIN entities e ON ert.entity_id = e.id
             WHERE ert.email_id = re.id) AS to_recipients,
-            
+
             (SELECT string_agg(e.email, ', ')
             FROM email_recipients_cc ercc
             JOIN entities e ON ercc.entity_id = e.id
             WHERE ercc.email_id = re.id) AS cc_recipients,
-            
+
             (SELECT string_agg(e.email, ', ')
             FROM email_recipients_bcc erbcc
             JOIN entities e ON erbcc.entity_id = e.id
             WHERE erbcc.email_id = re.id) AS bcc_recipients
-            
+
         FROM
             receiver_emails re
         LEFT JOIN
@@ -751,23 +855,23 @@ class EmailAnalyzer:
         ORDER BY
             re.timestamp DESC
         """
-        
+
         if limit:
             query += f" LIMIT {limit}"
-        
+
         # Execute the query and convert to DataFrame
         df = conn.execute(query).df()
-        
+
         # Convert timestamps to proper datetime format
         if 'date' in df.columns and not pd.api.types.is_datetime64_any_dtype(df['date']):
             df['date'] = pd.to_datetime(df['date'], errors='coerce')
-        
+
         # Clean up None values in recipient fields
         recipient_columns = ['to_recipients', 'cc_recipients', 'bcc_recipients']
         for col in recipient_columns:
             if col in df.columns:
                 df[col] = df[col].fillna('')
-        
+
         return df
 
     def get_receiver_emails(self, limit=None):
