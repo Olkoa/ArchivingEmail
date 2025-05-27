@@ -13,7 +13,7 @@ from pathlib import Path
 
 
 def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None,
-                                  orientation='horizontal', font_size='large'):
+                                  orientation='horizontal', font_size='normal'):
     """
     Generate a Mermaid graph diagram from folder structure data.
 
@@ -46,15 +46,15 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
 
     # Set font size based on parameter
     font_sizes = {
-        'normal +': '14px',
-        'large': '16px',
-        'xlarge': '18px',
-        'huge': '20px',        # ← New huge size
-        'overweight': '24px',  # ← New overweight size
-        'fat': '28px',  # ← New fat size
+    'très petit': '14px',
+    'petit': '16px',
+    'assez petit': '18px',
+    'normal': '20px',
+    'large': '24px',
+    'très large': '28px'
     }
 
-    selected_font_size = font_sizes.get(font_size, font_sizes['huge'])
+    selected_font_size = font_sizes.get(font_size, '20px')  # Default to 20px
 
     # Start building the Mermaid diagram
     mermaid_code = [
