@@ -23,11 +23,10 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 
 # Import project constants and elasticsearch enhanced search functionality
-from constants import EMAIL_DISPLAY_TYPE, SIDEBAR_STATE
+from constants import EMAIL_DISPLAY_TYPE, SIDEBAR_STATE, ACTIVE_PROJECT
 from src.features.elasticsearch_enhanced import enhanced_search_emails
 from src.features.decodeml import decode_unicode_escape , getBody
 from components.logins import make_hashed_password, verify_password, add_user, initialize_users_db
-
 
 # Set page configuration - MUST BE FIRST STREAMLIT COMMAND
 st.set_page_config(
@@ -164,14 +163,13 @@ else:
     st.sidebar.title("Data")
 
     # This will have to be an accessible var from the project selection and forward
-    project_name = "Projet Demo"
 
     # get the mailboxes names from the project config file to allow separating mailboxs in the same project.
-    # with open(f"data/Projects/{project_name}/project_config_file.json", 'r', encoding='utf-8') as file:
-    with open(os.path.join(project_root, 'data', 'Projects', project_name, 'project_config_file.json'), 'r', encoding='utf-8') as file:
+    # with open(f"data/Projects/{ACTIVE_PROJECT}/project_config_file.json", 'r', encoding='utf-8') as file:
+    with open(os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'project_config_file.json'), 'r', encoding='utf-8') as file:
         json_data = json.load(file)
 
-    mailboxs_names = list(json_data["Projet Demo"]["mailboxs"].keys())
+    mailboxs_names = list(json_data[ACTIVE_PROJECT]["mailboxs"].keys())
 
     mailbox_options = ["All Mailboxes"] + mailboxs_names
     selected_mailbox = st.sidebar.selectbox("Select Mailbox:", mailbox_options)
@@ -227,7 +225,7 @@ else:
         """Load and cache the selected mailbox data from DuckDB"""
         try:
 
-            db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'Projet Demo.duckdb')
+            db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
 
             # Get data from DuckDB using EmailAnalyzer
             analyzer = EmailAnalyzer(db_path=db_path)
@@ -297,7 +295,7 @@ else:
             # Step 1: Define folder path
             # Get the current script directory
             project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-            eml_folder = os.path.join(project_root, 'data','Projects' ,'Projet Demo', 'Boîte mail de Céline', 'processed', 'celine.guyon', 'Archive')
+            eml_folder = os.path.join(project_root, 'data','Projects' , ACTIVE_PROJECT, 'Boîte mail de Céline', 'processed', 'celine.guyon', 'Archive')
 
 
 
@@ -399,7 +397,7 @@ else:
             # Step 1: Define folder path
             # Get the current script directory
             project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-            eml_folder = os.path.join(project_root, 'data','Projects' ,'Projet Demo', 'Boîte mail de Céline', 'processed', 'celine.guyon', 'Éléments envoyés')
+            eml_folder = os.path.join(project_root, 'data','Projects' , ACTIVE_PROJECT, 'Boîte mail de Céline', 'processed', 'celine.guyon', 'Éléments envoyés')
 
         # Optio
             #eml_folder = "../data/processed/celine_readpst_with_s/celine.guyon/Archive"
@@ -498,7 +496,7 @@ else:
             # Step 1: Define folder path
             # Get the current script directory
             project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-            eml_folder = os.path.join(project_root, 'data','Projects' ,'Projet Demo', 'Boîte mail de Céline', 'processed', 'celine.guyon' , 'Courrier indésirable')
+            eml_folder = os.path.join(project_root, 'data','Projects' , ACTIVE_PROJECT, 'Boîte mail de Céline', 'processed', 'celine.guyon' , 'Courrier indésirable')
 
 
         # Optio

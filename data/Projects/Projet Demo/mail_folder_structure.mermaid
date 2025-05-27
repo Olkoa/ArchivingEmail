@@ -1,12 +1,12 @@
 graph LR
-    classDef inbox fill:#4285F4,color:white,stroke:#fff,stroke-width:1px,font-size:16px
-    classDef sent fill:#34A853,color:white,stroke:#fff,stroke-width:1px,font-size:16px
-    classDef trash fill:#EA4335,color:white,stroke:#fff,stroke-width:1px,font-size:16px
-    classDef spam fill:#8E24AA,color:white,stroke:#fff,stroke-width:1px,font-size:16px
-    classDef drafts fill:#FBBC05,color:black,stroke:#fff,stroke-width:1px,font-size:16px
-    classDef archive fill:#0097A7,color:white,stroke:#fff,stroke-width:1px,font-size:16px
-    classDef root fill:#757575,color:white,stroke:#fff,stroke-width:1px,font-size:16px
-    classDef subFolder fill:#78909C,color:white,stroke:#fff,stroke-width:1px,font-size:16px
+    classDef inbox fill:#4285F4,color:white,stroke:#fff,stroke-width:1px,font-size:20px
+    classDef sent fill:#34A853,color:white,stroke:#fff,stroke-width:1px,font-size:20px
+    classDef trash fill:#EA4335,color:white,stroke:#fff,stroke-width:1px,font-size:20px
+    classDef spam fill:#8E24AA,color:white,stroke:#fff,stroke-width:1px,font-size:20px
+    classDef drafts fill:#FBBC05,color:black,stroke:#fff,stroke-width:1px,font-size:20px
+    classDef archive fill:#0097A7,color:white,stroke:#fff,stroke-width:1px,font-size:20px
+    classDef root fill:#757575,color:white,stroke:#fff,stroke-width:1px,font-size:20px
+    classDef subFolder fill:#78909C,color:white,stroke:#fff,stroke-width:1px,font-size:20px
 
     celine.guyon["celine.guyon"]
     celine.guyon_Archive["Archive (10)"]
@@ -30,33 +30,21 @@ graph LR
 
     celine.guyon --> celine.guyon_Archive
     celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_AG
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Archives_classifiees
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Conflit
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Formation_a_distance
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Gazette
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Idees
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Instances
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Plaidoyer
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_RH
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_gestioncrise
-    celine.guyon --> celine.guyon_Boite_de_reception
-    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_gestioncrise
-    celine.guyon_Boite_de_reception_gestioncrise --> celine.guyon_Boite_de_reception_gestioncrise_Ateliers
     celine.guyon --> celine.guyon_Brouillons
     celine.guyon --> celine.guyon_Courrier_indesirable
     celine.guyon --> celine.guyon_Élements_envoyes
     celine.guyon --> celine.guyon_Élements_supprimes
+    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_AG
+    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Archives_classifiees
+    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Conflit
+    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Formation_a_distance
+    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Gazette
+    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Idees
+    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Instances
+    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_Plaidoyer
+    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_RH
+    celine.guyon_Boite_de_reception --> celine.guyon_Boite_de_reception_gestioncrise
+    celine.guyon_Boite_de_reception_gestioncrise --> celine.guyon_Boite_de_reception_gestioncrise_Ateliers
 
     celine.guyon:::root
     celine.guyon_Archive:::archive
