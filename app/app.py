@@ -595,8 +595,104 @@ else:
 
         # Top contacts
         st.subheader("Top Contacts")
-        # This would be implemented in a real application
 
+        if not emails_df.empty:
+            # Collect all contacts with their details
+            all_contacts = []
+
+            # Process senders (from column)
+            for idx, row in emails_df.iterrows():
+                if pd.notna(row['from']) and row['from'].strip():
+                    contact_email = row['from'].strip()
+                    is_mailing_list = pd.notna(row.get('mailing_list_email')) and row.get('mailing_list_email') != ''
+                    direction = 'sent' if row.get('direction') == 'sent' else 'received'
+
+                    all_contacts.append({
+                        'email': contact_email,
+                        'is_mailing_list': is_mailing_list,
+                        'direction': direction,
+                        'type': 'sender'
+                    })
+
+            # Process recipients (recipient_email column - aggregated)
+            for idx, row in emails_df.iterrows():
+                if pd.notna(row['recipient_email']) and row['recipient_email'].strip():
+                    # Split aggregated recipients
+                    recipients = [r.strip() for r in row['recipient_email'].split(',') if r.strip()]
+                    is_mailing_list = pd.notna(row.get('mailing_list_email')) and row.get('mailing_list_email') != ''
+                    direction = 'sent' if row.get('direction') == 'sent' else 'received'
+
+                    for recipient in recipients:
+                        all_contacts.append({
+                            'email': recipient,
+                            'is_mailing_list': is_mailing_list,
+                            'direction': direction,
+                            'type': 'recipient'
+                        })
+
+            if all_contacts:
+                # Convert to DataFrame for easier processing
+                contacts_df = pd.DataFrame(all_contacts)
+
+                # Count occurrences and aggregate mailing list info
+                contact_stats = contacts_df.groupby('email').agg({
+                    'is_mailing_list': 'max',  # True if any occurrence is from mailing list
+                    'direction': 'count'       # Count total occurrences
+                }).rename(columns={'direction': 'email_count'})
+
+                # Sort by email count and get top 20
+                top_contacts = contact_stats.sort_values('email_count', ascending=False).head(20)
+
+                # Create display with symbols
+                contact_list = []
+                for email, stats in top_contacts.iterrows():
+                    # Determine symbol
+                    if stats['is_mailing_list']:
+                        symbol = "📮"  # Mailing list symbol
+                        contact_type = "Mailing List"
+                    else:
+                        symbol = "👤"  # Human user symbol
+                        contact_type = "Human User"
+
+                    contact_list.append({
+                        'Contact': f"{symbol} {email}",
+                        'Type': contact_type,
+                        'Email Count': stats['email_count']
+                    })
+
+                # Display as a table
+                if contact_list:
+                    contacts_display_df = pd.DataFrame(contact_list)
+                    st.dataframe(
+                        contacts_display_df,
+                        hide_index=True,
+                        use_container_width=True,
+                        column_config={
+                            "Contact": st.column_config.TextColumn(
+                                "Contact",
+                                width="large"
+                            ),
+                            "Type": st.column_config.TextColumn(
+                                "Type",
+                                width="medium"
+                            ),
+                            "Email Count": st.column_config.NumberColumn(
+                                "Email Count",
+                                width="small"
+                            )
+                        }
+                    )
+
+                    # Show summary
+                    mailing_lists = sum(1 for c in contact_list if c['Type'] == 'Mailing List')
+                    humans = len(contact_list) - mailing_lists
+                    st.caption(f"📮 {mailing_lists} mailing lists • 👤 {humans} human users")
+                else:
+                    st.info("No contact data available")
+            else:
+                st.info("No contacts found in the current dataset")
+        else:
+            st.info("No emails available to analyze contacts")
 
 
     elif page == "Graph":
