@@ -13,6 +13,9 @@ import time
 from bs4 import BeautifulSoup
 import json
 
+import plotly.express as px
+from collections import Counter
+
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -49,6 +52,8 @@ from src.rag.initialization import initialize_rag_system
 from src.rag.retrieval import get_rag_answer
 from src.features.search import search_emails
 from src.filters.email_filters import EmailFilters, create_sidebar_filters
+
+print("app getting started...")
 
 # Initialize user session state
 if "authenticated" not in st.session_state:
@@ -442,6 +447,7 @@ else:
                 "body", "attachments", "has_attachments", "direction", "mailbox"
             ])
 
+
     # Main content
     if page == "Dashboard":
         emails_df = load_data_with_filters(selected_mailbox, additional_filters, use_agg_recipients=True)
@@ -452,7 +458,7 @@ else:
         # Show comprehensive filter status
         show_comprehensive_filter_status(additional_filters, email_filters)
 
-        # Display key metr ics
+        # Display key metrics
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
@@ -488,9 +494,111 @@ else:
         st.subheader("Email Activity Over Time")
         st.plotly_chart(create_timeline(emails_df), use_container_width=True)
 
+        # Attachment formats charts
+        st.subheader("Attachment Formats Analysis")
+
+        if 'attachments' in emails_df.columns and not emails_df['attachments'].empty:
+            # Extract file extensions from attachments
+            all_extensions = []
+
+            for attachments in emails_df['attachments'].dropna():
+                if isinstance(attachments, list):
+                    # If it's already a list (from the analyzer)
+                    filenames = attachments
+                elif isinstance(attachments, str) and attachments.strip():
+                    # If it's a string, split by comma or pipe
+                    filenames = [f.strip() for f in attachments.replace('|', ',').split(',')]
+                else:
+                    continue
+
+                for filename in filenames:
+                    if isinstance(filename, str) and '.' in filename:
+                        ext = filename.split('.')[-1].lower().strip()
+                        if ext and len(ext) <= 10:  # Reasonable extension length
+                            all_extensions.append(f".{ext}")
+
+            if all_extensions:
+                # Count extensions
+                from collections import Counter
+                ext_counts = Counter(all_extensions)
+                total_files = len(all_extensions)
+
+                # For pie chart: group small extensions into "Others"
+                pie_data = {}
+                others_extensions = []
+
+                for ext, count in ext_counts.items():
+                    percentage = (count / total_files) * 100
+                    if percentage >= 0.5:  # Show extensions with 0.5% or more
+                        pie_data[ext] = count
+                    else:
+                        others_extensions.append(ext)
+
+                # Add "Others" category if there are small extensions
+                if others_extensions:
+                    others_count = sum(ext_counts[ext] for ext in others_extensions)
+                    others_label = "Others"
+                    pie_data[others_label] = others_count
+
+                # For bar chart: filter to top 7 extensions with >1%
+                bar_data = {}
+                for ext, count in ext_counts.most_common():
+                    percentage = (count / total_files) * 100
+                    if percentage >= 1.0:  # Only show extensions with 1% or more
+                        bar_data[ext] = count
+                    if len(bar_data) >= 7:  # Limit to top 7
+                        break
+
+                # Create two columns for the charts
+                chart_col1, chart_col2 = st.columns(2)
+
+                with chart_col1:
+                    # Pie chart with grouped "Others"
+                    import plotly.express as px
+                    fig_pie = px.pie(
+                        values=list(pie_data.values()),
+                        names=list(pie_data.keys()),
+                        title="Distribution of Attachment Formats"
+                    )
+                    fig_pie.update_traces(
+                        textposition='inside',
+                        textinfo='percent+label',
+                        hovertemplate='<b>%{label}</b><br>Nombre: %{value}<br>Pourcentage: %{percent}<extra></extra>'
+                    )
+                    fig_pie.update_layout(height=400)
+                    st.plotly_chart(fig_pie, use_container_width=True)
+
+                with chart_col2:
+                    # Bar chart (top 7 extensions with >1%)
+                    if bar_data:
+                        fig_bar = px.bar(
+                            x=list(bar_data.keys()),
+                            y=list(bar_data.values()),
+                            title="Top Attachment Formats (>1%, max 7)",
+                            labels={'x': 'File Extension', 'y': 'Nombre'}
+                        )
+                        fig_bar.update_traces(
+                            hovertemplate='<b>%{x}</b><br>Nombre: %{y}<br>Pourcentage: %{customdata:.1f}%<extra></extra>',
+                            customdata=[(count/total_files)*100 for count in bar_data.values()]
+                        )
+                        fig_bar.update_layout(height=400)
+                        st.plotly_chart(fig_bar, use_container_width=True)
+                    else:
+                        st.info("No extensions found with >1% representation for bar chart")
+
+                # Show summary stats
+                st.caption(f"Total attachment files: {len(all_extensions):,} | Unique formats: {len(ext_counts)} | Showing top {len(bar_data)} in bar chart")
+            else:
+                st.info("No attachment format data available in the filtered results")
+        else:
+            st.info("No attachments found in the current dataset")
+
         # Top contacts
         st.subheader("Top Contacts")
         # This would be implemented in a real application
+
+
+
     elif page == "Graph":
         import os
         import pandas as pd
