@@ -76,16 +76,25 @@ div[data-testid="stModal"] > div {
     max-height: 100% !important;
 }
 
-/* Make text area content more readable with better styling */
+/* Improved text area styling with better readability */
 .stTextArea textarea {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-    font-size: 0.95rem !important;
-    line-height: 1.5 !important;
+    font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
     background-color: #ffffff !important;
-    border: 1px solid #ddd !important;
-    border-radius: 6px !important;
-    padding: 12px !important;
-    color: #333 !important;
+    border: 1px solid #e1e5e9 !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    color: #2d3748 !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.01em !important;
+}
+
+/* Focus state for text areas */
+.stTextArea textarea:focus {
+    border-color: #007bff !important;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1) !important;
+    outline: none !important;
 }
 
 /* Email metadata styling */
@@ -202,6 +211,176 @@ def clear_email_selection(key_prefix: str) -> None:
     selected_email_key = f"{key_prefix}_selected_idx"
     if selected_email_key in st.session_state:
         st.session_state[selected_email_key] = None
+
+def parse_email_thread(email_body: str) -> list:
+    """Parse an email thread to separate individual messages.
+    
+    Returns a list of dictionaries, each containing:
+    - 'content': the message content
+    - 'is_reply': whether this is a reply (True) or the main message (False)
+    - 'sender': extracted sender if found
+    - 'recipient': extracted recipient if found
+    - 'date': extracted date if found
+    - 'subject': extracted subject if found
+    """
+    if not email_body or not isinstance(email_body, str):
+        return [{'content': email_body or '', 'is_reply': False, 'sender': None, 'recipient': None, 'date': None, 'subject': None}]
+    
+    # Common delimiters that indicate start of previous message
+    reply_patterns = [
+        # French Outlook format patterns
+        r'De\s*:\s*.+?(?=Envoyé\s*:|\n\n|$)',  # "De: ... Envoyé:" or end
+        r'From\s*:\s*.+?(?=Sent\s*:|\n\n|$)',     # "From: ... Sent:" or end
+        
+        # Standard reply patterns
+        r'Le .+ à .+, .+ a écrit\s*:',  # French: "Le [date] à [time], [sender] a écrit :"
+        r'On .+ at .+, .+ wrote\s*:',    # English: "On [date] at [time], [sender] wrote:"
+        r'Le .+ <.+> a écrit\s*:',      # "Le [date] <email> a écrit :"
+        
+        # Forward delimiters
+        r'‐‐‐‐‐‐‐ Original Message ‐‐‐‐‐‐‐',
+        r'-----Original Message-----',
+        
+        # Signature-like patterns that often precede quoted messages
+        r'_{20,}',  # Very long underscores
+        r'={20,}',  # Very long equals signs
+    ]
+    
+    import re
+    
+    # Find all delimiter positions
+    delimiters = []
+    for pattern in reply_patterns:
+        matches = list(re.finditer(pattern, email_body, re.MULTILINE | re.IGNORECASE | re.DOTALL))
+        for match in matches:
+            delimiters.append((match.start(), pattern, match.group()))
+    
+    # Sort delimiters by position
+    delimiters.sort(key=lambda x: x[0])
+    
+    if not delimiters:
+        # No delimiters found, return as single message
+        return [{'content': email_body.strip(), 'is_reply': False, 'sender': None, 'recipient': None, 'date': None, 'subject': None}]
+    
+    # Split by ALL delimiters to create multiple messages
+    messages = []
+    last_pos = 0
+    
+    for i, (pos, pattern, delimiter_text) in enumerate(delimiters):
+        # Add the content before this delimiter as a message
+        if pos > last_pos:
+            content = email_body[last_pos:pos].strip()
+            if content:
+                messages.append({
+                    'content': content,
+                    'is_reply': i > 0,  # First segment is main message
+                    'sender': None,
+                    'recipient': None,
+                    'date': None,
+                    'subject': None
+                })
+        
+        # Find the start of the next segment
+        if i < len(delimiters) - 1:
+            next_pos = delimiters[i + 1][0]
+        else:
+            next_pos = len(email_body)
+        
+        # Extract the content after this delimiter
+        reply_content = email_body[pos:next_pos].strip()
+        if reply_content:
+            # Extract metadata from the reply content
+            metadata = extract_email_metadata(reply_content)
+            
+            messages.append({
+                'content': reply_content,
+                'is_reply': True,
+                'sender': metadata.get('sender'),
+                'recipient': metadata.get('recipient'),
+                'date': metadata.get('date'),
+                'subject': metadata.get('subject')
+            })
+        
+        last_pos = next_pos
+    
+    # If no messages were created, return the original as single message
+    if not messages:
+        return [{'content': email_body.strip(), 'is_reply': False, 'sender': None, 'recipient': None, 'date': None, 'subject': None}]
+    
+    return messages
+
+def extract_email_metadata(email_text: str) -> dict:
+    """Extract sender, recipient, date, and subject from email text."""
+    import re
+    
+    metadata = {'sender': None, 'recipient': None, 'date': None, 'subject': None}
+    
+    # Extract sender patterns
+    sender_patterns = [
+        r'De\s*:\s*(.+?)(?=\n|Envoyé|$)',  # French Outlook "De: sender"
+        r'From\s*:\s*(.+?)(?=\n|Sent|$)',     # English Outlook "From: sender"
+        r'Le .+, (.+) a écrit',              # French format name
+    ]
+    
+    for pattern in sender_patterns:
+        match = re.search(pattern, email_text, re.IGNORECASE | re.MULTILINE)
+        if match:
+            sender = match.group(1).strip()
+            # Clean up sender (remove <> brackets if present)
+            sender = re.sub(r'[<>]', '', sender).strip()
+            # If it contains both name and email, prefer the email part
+            email_match = re.search(r'([\w\.-]+@[\w\.-]+)', sender)
+            if email_match:
+                metadata['sender'] = email_match.group(1)
+            else:
+                metadata['sender'] = sender
+            break
+    
+    # Extract recipient patterns
+    recipient_patterns = [
+        r'À\s*:\s*(.+?)(?=\n|Cc|Objet|$)',    # French "\u00c0: recipient"
+        r'To\s*:\s*(.+?)(?=\n|Cc|Subject|$)',   # English "To: recipient"
+    ]
+    
+    for pattern in recipient_patterns:
+        match = re.search(pattern, email_text, re.IGNORECASE | re.MULTILINE)
+        if match:
+            recipient = match.group(1).strip()
+            # Extract first email if multiple recipients
+            email_match = re.search(r'([\w\.-]+@[\w\.-]+)', recipient)
+            if email_match:
+                metadata['recipient'] = email_match.group(1)
+            else:
+                # If no email found, take first part before semicolon
+                first_recipient = recipient.split(';')[0].strip()
+                metadata['recipient'] = first_recipient
+            break
+    
+    # Extract date patterns
+    date_patterns = [
+        r'Envoyé\s*:\s*(.+?)(?=\n|À|$)',     # French "Envoyé: date"
+        r'Sent\s*:\s*(.+?)(?=\n|To|$)',        # English "Sent: date"
+    ]
+    
+    for pattern in date_patterns:
+        match = re.search(pattern, email_text, re.IGNORECASE | re.MULTILINE)
+        if match:
+            metadata['date'] = match.group(1).strip()
+            break
+    
+    # Extract subject patterns
+    subject_patterns = [
+        r'Objet\s*:\s*(.+?)(?=\n|$)',          # French "Objet: subject"
+        r'Subject\s*:\s*(.+?)(?=\n|$)',        # English "Subject: subject"
+    ]
+    
+    for pattern in subject_patterns:
+        match = re.search(pattern, email_text, re.IGNORECASE | re.MULTILINE)
+        if match:
+            metadata['subject'] = match.group(1).strip()
+            break
+    
+    return metadata
 
 def apply_contact_filter(emails_df: pd.DataFrame, contact_email: str) -> pd.DataFrame:
     """Filter emails to show only those involving a specific contact (as sender or recipient).
@@ -505,23 +684,93 @@ def _create_modal_email_table(
                     unsafe_allow_html=True
                 )
 
-                # Email body in a styled container
+                # Email body with thread parsing
                 st.markdown('<div class="email-content">', unsafe_allow_html=True)
                 
                 # Decode the email body for proper display
                 decoded_body = decode_email_text(selected_email['body'])
-
-                # Calculate height more generously for larger modal
-                content_height = max(min(len(decoded_body.splitlines()) * 20, 500), 200)  # Larger min/max heights
-
-                st.text_area(
-                    "Contenu de l'email",
-                    value=decoded_body,
-                    height=content_height,
-                    disabled=True,
-                    key=f"dialog_textarea_{selected_idx}",
-                    label_visibility="collapsed"  # Hide the label for cleaner look
-                )
+                
+                # Parse the email thread
+                thread_messages = parse_email_thread(decoded_body)
+                
+                if len(thread_messages) > 1:
+                    # Display as threaded conversation
+                    st.markdown("### 💬 Conversation Thread")
+                    
+                    for i, message in enumerate(thread_messages):
+                        if message['is_reply']:
+                            # Display as a reply block
+                            with st.container():
+                                # Create metadata string
+                                metadata_parts = []
+                                if message['sender']:
+                                    metadata_parts.append(f"de {message['sender']}")
+                                if message['recipient']:
+                                    metadata_parts.append(f"à {message['recipient']}")
+                                if message['date']:
+                                    metadata_parts.append(f"le {message['date']}")
+                                
+                                metadata_str = ' • '.join(metadata_parts) if metadata_parts else ''
+                                
+                                # Create a visual separator for replies
+                                st.markdown(
+                                    f"""
+                                    <div style="
+                                        border-left: 3px solid #007bff;
+                                        margin: 15px 0;
+                                        padding: 10px 15px;
+                                        background-color: #f8f9fa;
+                                        border-radius: 0 8px 8px 0;
+                                    ">
+                                        <div style="font-size: 0.85rem; color: #6c757d; margin-bottom: 8px;">
+                                            📧 <strong>Message précédent</strong>
+                                            {f' ({metadata_str})' if metadata_str else ''}
+                                        </div>
+                                        {f'<div style="font-size: 0.8rem; color: #495057; margin-bottom: 5px;"><strong>Objet:</strong> {message["subject"]}</div>' if message.get('subject') else ''}
+                                    </div>
+                                    """,
+                                    unsafe_allow_html=True
+                                )
+                                
+                                # Calculate height for this message
+                                message_height = max(min(len(message['content'].splitlines()) * 16, 250), 100)
+                                
+                                st.text_area(
+                                    "Message",
+                                    value=message['content'],
+                                    height=message_height,
+                                    disabled=True,
+                                    key=f"thread_message_{selected_idx}_{i}",
+                                    label_visibility="collapsed"
+                                )
+                        else:
+                            # Display as main message
+                            if i == 0:
+                                st.markdown("**📝 Message principal:**")
+                            
+                            # Calculate height for main message
+                            main_height = max(min(len(message['content'].splitlines()) * 20, 300), 150)
+                            
+                            st.text_area(
+                                "Message principal",
+                                value=message['content'],
+                                height=main_height,
+                                disabled=True,
+                                key=f"main_message_{selected_idx}_{i}",
+                                label_visibility="collapsed"
+                            )
+                else:
+                    # Single message - display normally
+                    content_height = max(min(len(decoded_body.splitlines()) * 20, 500), 200)
+                    
+                    st.text_area(
+                        "Contenu de l'email",
+                        value=decoded_body,
+                        height=content_height,
+                        disabled=True,
+                        key=f"dialog_textarea_{selected_idx}",
+                        label_visibility="collapsed"
+                    )
                 
                 st.markdown('</div>', unsafe_allow_html=True)
 

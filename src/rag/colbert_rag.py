@@ -72,10 +72,10 @@ from constants import ACTIVE_PROJECT
 # def prepare_email_for_rag(email_row) -> str:
 #     """
 #     Format an email row from DataFrame for indexing in the RAG system.
-    
+
 #     Args:
 #         email_row: pandas Series or dict containing email data from get_rag_email_dataset()
-    
+
 #     Returns:
 #         Formatted string representation of the email
 #     """
@@ -84,34 +84,34 @@ from constants import ACTIVE_PROJECT
 #         get_func = email_row.get
 #     else:
 #         get_func = lambda key, default='': getattr(email_row, key, default) if hasattr(email_row, key) else default
-    
+
 #     formatted_email = f"From: {get_func('from', '')}\n"
-    
+
 #     # Add To recipients
 #     to_recipients = get_func('to_recipients', '')
 #     if to_recipients:
 #         formatted_email += f"To: {to_recipients}\n"
-    
+
 #     # Add CC recipients if present
 #     cc_recipients = get_func('cc_recipients', '')
 #     if cc_recipients:
 #         formatted_email += f"Cc: {cc_recipients}\n"
-    
+
 #     # Add BCC recipients if present
 #     bcc_recipients = get_func('bcc_recipients', '')
 #     if bcc_recipients:
 #         formatted_email += f"Bcc: {bcc_recipients}\n"
-    
+
 #     formatted_email += f"Subject: {get_func('subject', '')}\n"
 #     formatted_email += f"Date: {get_func('date', '')}\n"
-    
+
 #     # Add body with last message extraction
 #     body = get_func('body', '')
 #     if body:
 #         # Extract last message from email thread (basic implementation)
 #         last_message = extract_last_message(body)
 #         formatted_email += f"\n{last_message}"
-    
+
 #     return formatted_email
 
 def prepare_email_for_rag(df) -> List[Tuple[str, Dict[str, Any]]]:
@@ -119,27 +119,27 @@ def prepare_email_for_rag(df) -> List[Tuple[str, Dict[str, Any]]]:
     Format emails from DataFrame for indexing in the RAG system.
     """
     emails_data = []
-    
+
     for index, row in df.iterrows():
         # Format the email content
         formatted_email = f"From: {row.get('from', '')}\n"
-        
+
         # Add recipients
         to_recipients = row.get('to_recipients', '')
         if to_recipients:
             formatted_email += f"To: {to_recipients}\n"
-        
+
         cc_recipients = row.get('cc_recipients', '')
         if cc_recipients:
             formatted_email += f"Cc: {cc_recipients}\n"
-        
+
         bcc_recipients = row.get('bcc_recipients', '')
         if bcc_recipients:
             formatted_email += f"Bcc: {bcc_recipients}\n"
-        
+
         formatted_email += f"Subject: {row.get('subject', '')}\n"
         formatted_email += f"Date: {row.get('date', '')}\n"
-        
+
         # Add body with aggressive truncation
         body = row.get('body', '')
         if body:
@@ -150,12 +150,12 @@ def prepare_email_for_rag(df) -> List[Tuple[str, Dict[str, Any]]]:
             if len(last_message) > max_chars:
                 last_message = last_message[:max_chars] + "..."
             formatted_email += f"\n{last_message}"
-        
+
         # Final safety check - truncate entire email if too long
         max_total_chars = 4000  # Conservative limit 1500
         if len(formatted_email) > max_total_chars:
             formatted_email = formatted_email[:max_total_chars] + "..."
-        
+
         # Create metadata dictionary
         metadata = {
             'email_id': row.get('email_id', ''),
@@ -167,24 +167,24 @@ def prepare_email_for_rag(df) -> List[Tuple[str, Dict[str, Any]]]:
             'date': str(row.get('date', '')),
             'original_index': index
         }
-        
+
         emails_data.append((formatted_email, metadata))
-    
+
     return emails_data
 
 def extract_last_message(body: str) -> str:
     """
     Extract the last message from an email body (cuts threading).
-    
+
     Args:
         body: Full email body potentially containing threaded messages
-    
+
     Returns:
         Last message content
     """
     if not body:
         return ""
-    
+
     # Common patterns that indicate start of previous messages
     thread_indicators = [
         "-----Original Message-----",
@@ -198,25 +198,25 @@ def extract_last_message(body: str) -> str:
         "Sent from my iPad",
         "Get Outlook for"
     ]
-    
+
     lines = body.split('\n')
     last_message_lines = []
-    
+
     for line in lines:
         # Check if this line indicates start of previous message
         line_stripped = line.strip()
         is_thread_start = False
-        
+
         for indicator in thread_indicators:
             if line_stripped.startswith(indicator):
                 is_thread_start = True
                 break
-        
+
         if is_thread_start:
             break
-        
+
         last_message_lines.append(line)
-    
+
     return '\n'.join(last_message_lines).strip()
 
 # def load_and_prepare_emails(mailbox_paths: List[str]) -> List[Tuple[str, Dict[str, Any]]]:
@@ -302,12 +302,12 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
         # Process in batches if we have too many emails
         if len(email_texts) > batch_size:
             print(f"Processing {len(email_texts)} emails in batches of {batch_size}")
-            
+
             # Index first batch
             batch_texts = email_texts[:batch_size]
-            batch_ids = email_ids[:batch_size] 
+            batch_ids = email_ids[:batch_size]
             batch_metadata = email_metadata[:batch_size]
-            
+
             print(f"Indexing first batch: {len(batch_texts)} emails...")
             rag_model.index(
                 collection=batch_texts,
@@ -320,14 +320,14 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
                 # index_bsize=32,  # Even smaller batch size
                 # nbits=2,
             )
-            
+
             # Add remaining batches
             for i in range(batch_size, len(email_texts), batch_size):
                 end_idx = min(i + batch_size, len(email_texts))
                 batch_texts = email_texts[i:end_idx]
                 batch_ids = email_ids[i:end_idx]
                 batch_metadata = email_metadata[i:end_idx]
-                
+
                 print(f"Adding batch {i//batch_size + 1}: emails {i} to {end_idx-1}...")
                 # rag_model.add_to_index(
                 #     collection=batch_texts,
@@ -364,51 +364,23 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
         print(f"Error initializing Colbert RAG: {e}")
         raise
 
-
-# def load_colbert_rag(index_path: str):
-#     """
-#     Load a previously initialized Colbert RAG model.
-
-#     Args:
-#         index_path: Path to the saved index directory (unused in this implementation)
-
-#     Returns:
-#         Loaded RAG model
-#     """
-#     try:
-#         # Initialize the RAG model directly - RAGAtouille will automatically use the last created index
-#         rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0", verbose=True)
-#         print("Loaded RAG model with index f"{ACTIVE_PROJECT}_emails_index"")
-#         return rag_model
-#     except Exception as e:
-#         print(f"Error loading Colbert RAG model: {e}")
-#         raise
-
-# def load_colbert_rag(index_path: str):
-#     """
-#     Load a previously initialized Colbert RAG model.
-
-#     Args:
-#         index_path: Path to the saved index directory (unused in this implementation)
-
-#     Returns:
-#         Loaded RAG model
-#     """
-#     try:
-#         rag_model = RAGPretrainedModel.from_index(f"{ACTIVE_PROJECT}_emails_index")
-#         print("Loaded RAG model with index f"{ACTIVE_PROJECT}_emails_index"")
-#         return rag_model
-#     except Exception as e:
-#         print(f"Error loading Colbert RAG model: {e}")
-#         raise
-
 def load_colbert_rag(ragatouille_index_path: str):
     try:
+        print(f"🔍 Attempting to load RAG model from: {ragatouille_index_path}")
+        print(f"📁 Index path exists: {os.path.exists(ragatouille_index_path)}")
+
+        # Add timeout or progress indicator
+        print("⏳ Loading RAG model (this may take several minutes on CPU)...")
+        start_time = time.time()
+
         rag_model = RAGPretrainedModel.from_index(ragatouille_index_path)
-        print(f"Loaded RAG model with index from: {ragatouille_index_path}")
+
+        load_time = time.time() - start_time
+        print(f"✅ RAG model loaded successfully in {load_time:.2f} seconds")
         return rag_model
     except Exception as e:
-        print(f"Error loading Colbert RAG model: {e}")
+        print(f"❌ Error loading Colbert RAG model: {e}")
+        print(f"🔧 Exception type: {type(e).__name__}")
         raise
 
 def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_path: str, top_k: int = 5) -> List[Dict[str, Any]]:
@@ -424,66 +396,74 @@ def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_pat
         List of search results with metadata
     """
     try:
-        # Load the RAG model
-        rag_model = load_colbert_rag(ragatouille_index_path = ragatouille_index_path, )
-        
+        print(f"🚀 Starting search for: '{query}'")
+        print(f"📊 Requesting top {top_k} results")
 
-        # Search for the query
-        print(f"Searching for: '{query}'")
+        # Load the RAG model with timing
+        print("⏳ Loading RAG model...")
+        load_start = time.time()
+        rag_model = load_colbert_rag(ragatouille_index_path=ragatouille_index_path)
+        load_time = time.time() - load_start
+        print(f"✅ Model loaded in {load_time:.2f} seconds")
+
+        # Search with timing
+        print("🔍 Executing search...")
+        search_start = time.time()
         results = rag_model.search(query=query, k=top_k, index_name=f"{ACTIVE_PROJECT}_emails_index")
+        search_time = time.time() - search_start
+        print(f"✅ Search completed in {search_time:.2f} seconds")
 
-        # Make sure we have results
+        # Validate results
         if results is None or len(results) == 0:
-            print("No results found")
+            print("⚠️ No results found")
             return []
 
-        print(f"Found {len(results)} results")
+        print(f"📈 Found {len(results)} results")
 
-        # Load the email metadata
+        # Load metadata with timing
+        print("📋 Loading metadata...")
+        metadata_start = time.time()
         metadata_path = os.path.join(path_to_metadata, "email_metadata.pkl")
+
         if os.path.exists(metadata_path):
             try:
                 with open(metadata_path, "rb") as f:
                     email_metadata = pickle.load(f)
+                metadata_time = time.time() - metadata_start
+                print(f"✅ Metadata loaded in {metadata_time:.3f} seconds ({len(email_metadata)} items)")
             except Exception as e:
-                print(f"Error loading metadata: {e}")
+                print(f"❌ Error loading metadata: {e}")
                 email_metadata = []
         else:
-            print(f"Metadata file not found at {metadata_path}, results will have limited metadata")
+            print(f"⚠️ Metadata file not found at {metadata_path}")
             email_metadata = []
 
-        # Enrich results with metadata
+        # Process results with progress
+        print("🔄 Processing results...")
         enriched_results = []
-        for result in results:
-            # Extract index from document_id (format: "email_X")
-            try:
-                # DEBUG: Print what we actually got
-                print(f"Result structure: {result}")
-                print(f"Result type: {type(result)}")
-                print(f"Result keys: {result.keys() if hasattr(result, 'keys') else 'No keys method'}")
-                
 
-                print(f"Processing result: {result}")
-                # Handle the new RAGAtouille result format
+        for i, result in enumerate(results):
+            try:
+                print(f"  Processing result {i+1}/{len(results)}")
+
                 document_id = result.get("document_id", "")
                 content = result.get("content", "")
                 score = result.get("score", 0.0)
-                
-                # Extract email index from document_id (format: "email_X")
+
+                # Extract email index
                 if document_id.startswith("email_"):
                     email_index = int(document_id.replace("email_", ""))
                 else:
-                    print(f"Unexpected document_id format: {document_id}")
+                    print(f"⚠️ Unexpected document_id format: {document_id}")
                     email_index = 0
 
-                # Get metadata if available
+                # Get metadata
                 metadata = {}
                 if email_index < len(email_metadata):
                     metadata = email_metadata[email_index]
                 else:
-                    print(f"No metadata found for email_index {email_index}, total metadata: {len(email_metadata)}")
+                    print(f"⚠️ No metadata for email_index {email_index}")
 
-                # Create enriched result in the expected format
                 enriched_result = {
                     "text": content,
                     "text_id": document_id,
@@ -492,11 +472,11 @@ def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_pat
                 }
 
                 enriched_results.append(enriched_result)
+                print(f"  ✅ Result {i+1} processed (score: {score:.3f})")
 
-            except (ValueError, IndexError, KeyError) as e:
-                print(f"Error enriching result: {e}")
-                print(f"Result keys available: {list(result.keys()) if hasattr(result, 'keys') else 'No keys'}")
-                # Create a fallback result structure
+            except Exception as e:
+                print(f"❌ Error processing result {i+1}: {e}")
+                # Fallback result
                 fallback_result = {
                     "text": result.get("content", "No content available"),
                     "text_id": result.get("document_id", "unknown"),
@@ -505,10 +485,14 @@ def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_pat
                 }
                 enriched_results.append(fallback_result)
 
+        print(f"✅ All results processed successfully")
         return enriched_results
 
     except Exception as e:
-        print(f"Error searching with Colbert: {e}")
+        print(f"❌ Critical error in search_with_colbert: {e}")
+        print(f"🔧 Exception type: {type(e).__name__}")
+        import traceback
+        print(f"📍 Traceback: {traceback.format_exc()}")
         raise
 
 
@@ -546,11 +530,11 @@ def format_result_preview(result: Dict[str, Any]) -> str:
     metadata = result.get('metadata', {})
     if not metadata and 'document_metadata' in result:
         metadata = result['document_metadata']
-    
+
     # Handle the case where metadata is empty
     if not metadata:
         print(f"Warning: No metadata found in result. Available keys: {list(result.keys())}")
-    
+
     preview = f"**De:** {metadata.get('from', 'Inconnu')}\n"
     preview += f"**À:** {metadata.get('to_recipients', metadata.get('to', 'Inconnu'))}\n"
     preview += f"**Sujet:** {metadata.get('subject', 'Pas de sujet')}\n"
@@ -581,7 +565,7 @@ def generate_answer(query: str, results: List[Dict[str, Any]]) -> str:
     Returns:
         Generated answer
     """
-    
+
     if not results:
         return "Je n'ai pas trouvé d'informations pertinentes dans les archives d'emails pour répondre à votre question."
 
@@ -611,7 +595,7 @@ def generate_answer(query: str, results: List[Dict[str, Any]]) -> str:
     return answer
 
 
-def colbert_rag_answer(query: str, path_to_metadata: str, ragatouille_index_path:str, top_k: int = 5) -> Tuple[str, List[str]]:
+def colbert_rag_answer(query: str, path_to_metadata: str, ragatouille_index_path: str, top_k: int = 5) -> Tuple[str, List[str]]:
     """
     Get an answer to a query using Colbert RAG.
 
@@ -623,29 +607,37 @@ def colbert_rag_answer(query: str, path_to_metadata: str, ragatouille_index_path
     Returns:
         Tuple of (answer, formatted source previews)
     """
-
-    # Start timer
+    print(f"🎯 Starting ColBERT RAG answer for query: '{query}'")
     start_time = time.time()
-    # End timer and print duration
 
-    # Search with Colbert
-    results = search_with_colbert(
-    query = query,
-    path_to_metadata = path_to_metadata,
-    ragatouille_index_path = ragatouille_index_path,
-    top_k=top_k)
+    try:
+        # Search with detailed logging
+        results = search_with_colbert(
+            query=query,
+            path_to_metadata=path_to_metadata,
+            ragatouille_index_path=ragatouille_index_path,
+            top_k=top_k
+        )
 
-    # Generate answer
-    answer = generate_answer(query, results)
+        # Generate answer
+        print("📝 Generating answer...")
+        answer = generate_answer(query, results)
 
-    # Format sources for display
-    source_previews = [format_result_preview(result) for result in results]
+        # Format sources
+        print("📚 Formatting source previews...")
+        source_previews = [format_result_preview(result) for result in results]
 
-    end_time = time.time()
-    duration = end_time - start_time
-    print(f"\n🕐 Total answer operation completed in {duration:.2f} seconds")
-    
-    return answer, source_previews
+        end_time = time.time()
+        duration = end_time - start_time
+        print(f"🎉 Total operation completed in {duration:.2f} seconds")
+
+        return answer, source_previews
+
+    except Exception as e:
+        end_time = time.time()
+        duration = end_time - start_time
+        print(f"❌ Operation failed after {duration:.2f} seconds: {e}")
+        raise
 
 
 if __name__ == "__main__":
@@ -654,5 +646,3 @@ if __name__ == "__main__":
     ragatouille_index_path = os.path.join(project_root, '.ragatouille', 'colbert', 'indexes', f"{ACTIVE_PROJECT}_emails_index")
 
     colbert_rag_answer(query = "Quel mail parle d'Olkoa ?", path_to_metadata = path_to_metadata, ragatouille_index_path = ragatouille_index_path)
-
-
