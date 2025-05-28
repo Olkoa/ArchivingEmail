@@ -41,7 +41,7 @@ st.set_page_config(
 
 # Import application components - using relative import
 sys.path.append(os.path.dirname(__file__))
-from components.email_viewer import create_email_table_with_viewer
+from components.email_viewer import create_email_table_with_viewer, apply_contact_filter, clear_email_selection
 
 from src.data.loading import load_mailboxes
 from src.data.email_analyzer import EmailAnalyzer
@@ -518,7 +518,31 @@ else:
             st.metric("Unique Contacts", unique_contacts)
 
         # Show table with filter status
-        show_df_table(emails_df, key_prefix="dashboard", filter_status=True)
+        # Check if a contact filter is active
+        contact_filter_key = "dashboard_contact_filter"
+        if contact_filter_key not in st.session_state:
+            st.session_state[contact_filter_key] = None
+
+        # Apply contact filter if one is active
+        filtered_emails_df = emails_df
+
+        print(filtered_emails_df["from"].value_counts()[0:14])
+
+        if st.session_state[contact_filter_key]:
+            filtered_emails_df = apply_contact_filter(emails_df, st.session_state[contact_filter_key])
+
+            # Display active contact filter info
+            st.info(f"📧 Filtrage actif pour le contact: `{st.session_state[contact_filter_key]}` | {len(filtered_emails_df)} emails trouvés")
+
+            # Add button to clear contact filter
+            col1, col2, col3 = st.columns([1, 2, 1])
+            with col2:
+                if st.button("❌ Supprimer le filtre contact", key="clear_contact_filter"):
+                    st.session_state[contact_filter_key] = None
+                    clear_email_selection("dashboard")  # Clear any selected email
+                    st.rerun()
+
+        show_df_table(filtered_emails_df, key_prefix="dashboard", filter_status=True)
 
         # Create two columns for the charts
         timeline_col1, contacts_col2 = st.columns(2)
@@ -597,24 +621,52 @@ else:
                             'Email Count': stats['email_count']
                         })
 
-                    # Display as a table
+                    ###### Commented but was a better display option
+                    # # Display as a table
+                    # if contact_list:
+                    #     contacts_display_df = pd.DataFrame(contact_list).drop(columns=['Type'])
+                    #     st.dataframe(
+                    #         contacts_display_df,
+                    #         hide_index=True,
+                    #         use_container_width=True,
+                    #         column_config={
+                    #             "Contact": st.column_config.TextColumn(
+                    #                 "Contact",
+                    #                 width="large"
+                    #             ),
+                    #             "Email Count": st.column_config.NumberColumn(
+                    #                 "Email Count",
+                    #                 width="small"
+                    #             )
+                    #         }
+                    #     )
+
+                    # Display as a clickable table
                     if contact_list:
                         contacts_display_df = pd.DataFrame(contact_list).drop(columns=['Type'])
-                        st.dataframe(
-                            contacts_display_df,
-                            hide_index=True,
-                            use_container_width=True,
-                            column_config={
-                                "Contact": st.column_config.TextColumn(
-                                    "Contact",
-                                    width="large"
-                                ),
-                                "Email Count": st.column_config.NumberColumn(
-                                    "Email Count",
-                                    width="small"
-                                )
-                            }
-                        )
+
+                        # Create clickable contact display
+                        st.write("**Cliquez sur un contact pour filtrer les emails**")
+
+                        # Display contacts as buttons in a more compact format
+                        for idx, contact_row in enumerate(contact_list):
+                            # Extract email from the formatted contact string
+                            contact_display = contact_row['Contact']
+                            # Extract email address (remove emoji and spaces)
+                            if '📮' in contact_display:  # Mailing list
+                                email_address = contact_display.replace('📮 ', '').strip()
+                            else:  # Human user
+                                email_address = contact_display.replace('👤 ', '').strip()
+
+                            # Create button for each contact
+                            if st.button(
+                                f"{contact_display} ({contact_row['Email Count']} emails)",
+                                key=f"contact_filter_{idx}",
+                                help=f"Cliquer pour voir tous les emails impliquant {email_address}"
+                            ):
+                                st.session_state[contact_filter_key] = email_address
+                                clear_email_selection("dashboard")  # Clear any selected email
+                                st.rerun()
 
                         # Show summary
                         mailing_lists = sum(1 for c in contact_list if c['Type'] == 'Mailing List')

@@ -203,6 +203,34 @@ def clear_email_selection(key_prefix: str) -> None:
     if selected_email_key in st.session_state:
         st.session_state[selected_email_key] = None
 
+def apply_contact_filter(emails_df: pd.DataFrame, contact_email: str) -> pd.DataFrame:
+    """Filter emails to show only those involving a specific contact (as sender or recipient).
+    Only searches in 'from' and 'recipient_email' fields, not in body or subject.
+    """
+    if contact_email and not emails_df.empty:
+        # Clean the contact email (remove any whitespace)
+        contact_email = contact_email.strip()
+        
+        # Filter emails where the contact is either sender or in recipients
+        # For sender: exact match (case-insensitive)
+        sender_mask = emails_df['from'].fillna('').str.lower() == contact_email.lower()
+        
+        # For recipients: check if contact email appears in the recipient list
+        # Split by comma and check each recipient
+        recipient_mask = emails_df['recipient_email'].fillna('').apply(
+            lambda recipients: any(
+                recipient.strip().lower() == contact_email.lower() 
+                for recipient in str(recipients).split(',') 
+                if recipient.strip()
+            )
+        )
+        
+        # Combine both conditions
+        mask = sender_mask | recipient_mask
+        
+        return emails_df[mask]
+    return emails_df
+
 def create_email_table_with_viewer(
     emails_df: pd.DataFrame,
     key_prefix: str = "email_table"
