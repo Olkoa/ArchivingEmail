@@ -10,7 +10,8 @@ from typing import Callable, Dict, Any, List, Optional
 import os
 import sys
 import json
-from streamlit_modal import Modal
+# Using native st.dialog instead of streamlit_modal for better reliability
+from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, DataReturnMode
 import quopri
 import base64
 import re
@@ -26,7 +27,7 @@ except ImportError:
     # Default for testing
     EMAIL_DISPLAY_TYPE = "MODAL"
 
-# CSS for the email display - optimized for modal positioning and viewport constraints
+# CSS for the email display - enhanced for better modal appearance
 EMAIL_STYLE_CSS = """
 <style>
 /* Better styling for standard Streamlit tables */
@@ -41,118 +42,93 @@ div[data-testid="stTable"] tr:hover {
     background-color: #f0f8ff;
 }
 
-/* Specific targeting for the email modal by key pattern */
-div[data-modal-container='true'][key*='_email_modal_'] {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    z-index: 999992 !important;
+/* AgGrid styling */
+.ag-theme-streamlit {
+    --ag-header-background-color: #f0f0f0;
+    --ag-header-foreground-color: #333;
+    --ag-row-hover-color: #f0f8ff;
+    --ag-selected-row-background-color: #e3f2fd;
 }
 
-/* Critical fix for modal positioning - direct attribute targeting */
-div[data-modal-container='true'] {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 999992 !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+.ag-theme-streamlit .ag-row {
+    cursor: pointer;
 }
 
-/* !!! MODAL POSITIONING FIXES !!! */
-/* Style for the streamlit-modal library specifically */
-.streamlit-modal {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 999999 !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    background-color: rgba(0,0,0,0.5) !important;
+.ag-theme-streamlit .ag-row:hover {
+    background-color: #f0f8ff !important;
 }
 
-.streamlit-modal .modal-dialog {
-    max-width: 95vw !important;
-    max-height: 95vh !important;
-    width: 650px !important;
-    margin: 0 auto !important;
-    overflow: visible !important;
-    position: relative !important;
+.ag-theme-streamlit .ag-row-selected {
+    background-color: #e3f2fd !important;
 }
 
-.streamlit-modal .modal-content {
-    max-height: 90vh !important;
-    overflow-y: auto !important;
-    border-radius: 8px !important;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3) !important;
-}
-
-/* Fix for the modal inner content margins */
-div[data-modal-container='true'] > div:first-child > div:first-child {
-    width: unset !important;
-    padding: 20px !important;
-    margin-top: 0 !important; /* Remove the 40px margin */
-}
-
-/* Override any modal dialog to ensure it's visible in the viewport */
+/* Enhanced modal styling for larger size */
 div[data-testid="stModal"] {
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    max-height: 90vh !important;
+    width: 95vw !important;
     max-width: 95vw !important;
-    width: 650px !important;
-    z-index: 9999 !important;
+    height: 90vh !important;
+    max-height: 90vh !important;
 }
 
-/* Style the close button to be more visible and prominent */
-div[data-testid="baseButton-secondary"] {
-    background-color: #e74c3c !important;
-    color: white !important;
-    border-color: #c0392b !important;
-    padding: 0.5rem 1rem !important;
-    font-weight: bold !important;
+div[data-testid="stModal"] > div {
     width: 100% !important;
-    margin: 0.5rem 0 !important;
-    font-size: 1rem !important;
+    height: 100% !important;
+    max-height: 100% !important;
 }
 
-/* Prevent horizontal overflow in email content */
-.element-container, .stMarkdown, .stMarkdown p {
-    max-width: 100% !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-}
-
-/* Make text area content more readable */
+/* Make text area content more readable with better styling */
 .stTextArea textarea {
-    font-family: monospace !important;
-    height: auto !important;
-    max-height: 40vh !important;
-    font-size: 0.9rem !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    background-color: #ffffff !important;
+    border: 1px solid #ddd !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+    color: #333 !important;
 }
 
-/* Email metadata needs to stay within bounds */
-.stMarkdown p, .email-field {
-    max-width: 100% !important;
-    white-space: normal !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
+/* Email metadata styling */
+.email-metadata {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 4px solid #007bff;
 }
 
-/* Ensure there's always space for the button at the bottom */
-.modal-footer {
-    margin-top: 15px !important;
-    text-align: center !important;
-    padding-bottom: 15px !important;
+.email-field {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.email-field strong {
+    color: #495057;
+    margin-right: 8px;
+}
+
+/* Email content container */
+.email-content {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Pagination styling */
+.pagination-info {
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin: 10px 0;
+}
+
+/* Responsive design for modal content */
+@media (max-width: 768px) {
+    div[data-testid="stModal"] {
+        width: 98vw !important;
+        height: 95vh !important;
+    }
 }
 </style>
 """
@@ -271,157 +247,240 @@ def _create_modal_email_table(
     display_df: pd.DataFrame,
     key_prefix: str
 ) -> None:
-    """Create an email table with a modal using streamlit_modal library when clicked."""
+    """Create an email table with AgGrid and modal display when row is clicked."""
 
     # Add an internal index column to track selections
     display_df = display_df.copy()
     display_df['_index'] = list(range(len(display_df)))
 
-    # Initialize session state variables if not exists
+    # Pagination settings
+    ITEMS_PER_PAGE = 50
+    total_items = len(display_df)
+    total_pages = (total_items + ITEMS_PER_PAGE - 1) // ITEMS_PER_PAGE  # Ceiling division
+    
+    # Session state management for pagination and selection
     selected_email_key = f"{key_prefix}_selected_idx"
+    current_page_key = f"{key_prefix}_current_page"
+    
     if selected_email_key not in st.session_state:
         st.session_state[selected_email_key] = None
+    if current_page_key not in st.session_state:
+        st.session_state[current_page_key] = 1
+
+    # Ensure current page is within bounds
+    if st.session_state[current_page_key] < 1:
+        st.session_state[current_page_key] = 1
+    elif st.session_state[current_page_key] > total_pages:
+        st.session_state[current_page_key] = total_pages
+    
+    current_page = st.session_state[current_page_key]
+
+    # Calculate pagination slice
+    start_idx = (current_page - 1) * ITEMS_PER_PAGE
+    end_idx = min(start_idx + ITEMS_PER_PAGE, total_items)
+    
+    # Get the current page data
+    paginated_display_df = display_df.iloc[start_idx:end_idx].copy()
 
     # Inject CSS for styling the table and modal
     st.markdown(EMAIL_STYLE_CSS, unsafe_allow_html=True)
 
-    # Display the standard Streamlit table
-    st.caption("Utilisez le sélecteur ci-dessous pour voir le contenu d'un email")
+    # Display instruction and pagination info
+    if total_pages > 1:
+        st.caption(f"Cliquez sur une ligne du tableau pour voir le contenu de l'email | Page {current_page} sur {total_pages} | Affichage des emails {start_idx + 1}-{end_idx} sur {total_items}")
+    else:
+        st.caption(f"Cliquez sur une ligne du tableau pour voir le contenu de l'email | Affichage de {total_items} emails")
 
-    # Display simple table using standard Streamlit dataframe
-    st.dataframe(
-        display_df[['date', 'from', 'recipient_email', 'subject']],
-        hide_index=True,
-        use_container_width=True,
-        key=f"{key_prefix}_table"
+    # Configure AgGrid options for paginated data
+    gb = GridOptionsBuilder.from_dataframe(paginated_display_df[['date', 'from', 'recipient_email', 'subject']])
+    
+    # Configure grid selection
+    gb.configure_selection(
+        selection_mode="single",
+        use_checkbox=False,
+        pre_selected_rows=[]
+    )
+    
+    # Configure columns
+    gb.configure_column("date", header_name="Date", width=120)
+    gb.configure_column("from", header_name="De", width=200)
+    gb.configure_column("recipient_email", header_name="À", width=200)
+    gb.configure_column("subject", header_name="Sujet", flex=1)
+    
+    # Make rows clickable
+    gb.configure_grid_options(
+        onRowClicked="function(params) { params.api.selectNode(params.node, true); }",
+        suppressRowDeselection=True
+    )
+    
+    grid_options = gb.build()
+
+    # Display the AgGrid with paginated data
+    grid_response = AgGrid(
+        paginated_display_df[['date', 'from', 'recipient_email', 'subject']],
+        gridOptions=grid_options,
+        data_return_mode=DataReturnMode.AS_INPUT,
+        update_mode=GridUpdateMode.SELECTION_CHANGED,
+        fit_columns_on_grid_load=True,
+        allow_unsafe_jscode=True,
+        key=f"{key_prefix}_aggrid_page_{current_page}"  # Include page in key to avoid conflicts
     )
 
-    # Provide a selectbox option for selecting emails
-    cols = st.columns([3, 1])
-    with cols[0]:
-        selected_idx = st.selectbox(
-            "Sélectionnez un email à afficher",
-            options=list(range(len(display_df))),
-            format_func=lambda i: f"{display_df.iloc[i]['date']} - {display_df.iloc[i]['subject'][:40]}...",
-            key=f"{key_prefix}_select"
-        )
+    # Pagination controls (only show if more than one page)
+    if total_pages > 1:
+        st.markdown("---")
+        
+        # Create pagination layout
+        col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 1.5, 1.5, 1])
+        
+        with col1:
+            if st.button("⏮️ Premier", key=f"{key_prefix}_first_page", disabled=(current_page == 1)):
+                st.session_state[current_page_key] = 1
+                st.rerun()
+        
+        with col2:
+            if st.button("⏪ Précédent", key=f"{key_prefix}_prev_page", disabled=(current_page == 1)):
+                st.session_state[current_page_key] = current_page - 1
+                st.rerun()
+        
+        with col3:
+            if st.button("Suivant ⏩", key=f"{key_prefix}_next_page", disabled=(current_page == total_pages)):
+                st.session_state[current_page_key] = current_page + 1
+                st.rerun()
+        
+        with col4:
+            if st.button("⏭️ Dernier", key=f"{key_prefix}_last_page", disabled=(current_page == total_pages)):
+                st.session_state[current_page_key] = total_pages
+                st.rerun()
+        
+        with col5:
+            st.markdown(f"<div style='text-align: center; padding-top: 8px;'><strong>Page {current_page}/{total_pages}</strong></div>", unsafe_allow_html=True)
+        
+        with col6:
+            # Page jump input
+            target_page = st.number_input(
+                "Aller à la page:",
+                min_value=1,
+                max_value=total_pages,
+                value=current_page,
+                key=f"{key_prefix}_page_input",
+                label_visibility="collapsed"
+            )
+        
+        with col7:
+            if st.button("Aller", key=f"{key_prefix}_go_page"):
+                if 1 <= target_page <= total_pages:
+                    st.session_state[current_page_key] = target_page
+                    st.rerun()
 
-    with cols[1]:
-        # Button to view the selected email
-        if st.button("Voir le contenu", key=f"{key_prefix}_view_btn"):
-            st.session_state[selected_email_key] = selected_idx
-            st.rerun()
+    # Check if a row was selected
+    try:
+        # AgGrid returns a dictionary with 'selected_rows' key
+        if (hasattr(grid_response, '__getitem__') and 
+            'selected_rows' in grid_response and 
+            grid_response['selected_rows'] is not None and 
+            len(grid_response['selected_rows']) > 0):
+            
+            selected_rows_data = grid_response['selected_rows']
+            
+            # Get the first selected row
+            if hasattr(selected_rows_data, 'iloc'):
+                # It's a DataFrame
+                selected_row = selected_rows_data.iloc[0]
+            elif isinstance(selected_rows_data, list) and len(selected_rows_data) > 0:
+                # It's a list of dictionaries
+                selected_row = selected_rows_data[0]
+            else:
+                return
+            
+            # Find the corresponding index in the original paginated dataframe
+            # We need to match based on the data since AgGrid might reorder
+            for idx, row in paginated_display_df.iterrows():
+                try:
+                    # Handle both dict and Series access
+                    if hasattr(selected_row, 'get'):
+                        # Dictionary access
+                        if (str(row['date']) == str(selected_row.get('date', '')) and 
+                            str(row['from']) == str(selected_row.get('from', '')) and 
+                            str(row['subject']) == str(selected_row.get('subject', ''))):
+                            # Convert paginated index to original dataframe index
+                            original_idx = start_idx + (idx - paginated_display_df.index[0])
+                            st.session_state[selected_email_key] = original_idx
+                            break
+                    else:
+                        # Series access
+                        if (str(row['date']) == str(selected_row['date']) and 
+                            str(row['from']) == str(selected_row['from']) and 
+                            str(row['subject']) == str(selected_row['subject'])):
+                            # Convert paginated index to original dataframe index
+                            original_idx = start_idx + (idx - paginated_display_df.index[0])
+                            st.session_state[selected_email_key] = original_idx
+                            break
+                except Exception as e:
+                    continue
+                    
+    except Exception as e:
+        pass
 
-    # Show email content in a modal if an email is selected
+    # Show email content in a dialog if an email is selected
     if st.session_state[selected_email_key] is not None:
         # Get the index of the person whose details should be shown
         selected_idx = st.session_state[selected_email_key]
 
-        # Make sure the index is valid
+        # Make sure the index is valid for the original dataframe
         if 0 <= selected_idx < len(emails_df):
             selected_email = emails_df.iloc[selected_idx]
 
             # Decode the subject and body
             decoded_subject = decode_email_text(selected_email['subject'])
 
-            # Create and configure the Modal with viewport-centered positioning
-            modal = Modal(
-                title=f"Email: {decoded_subject[:40] if len(decoded_subject) > 40 else decoded_subject}",
-                key=f"{key_prefix}_email_modal_{selected_idx}",
-                max_width=650  # Slightly smaller to ensure it fits
-            )
-
-            print(f"{key_prefix}_email_modal_{selected_idx}")
-
-            # Inject modal-specific CSS that targets the specific modal
-            st.markdown(f"""
-            <style>
-            /* Target this specific modal */
-            div[data-modal-container='true'][key="{key_prefix}_email_modal_{selected_idx}"] {{
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 100vw !important;
-                height: 100vh !important;
-                z-index: 999992 !important;
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-            }}
-
-            /* Target the inner content div with the unwanted margin */
-            div[data-modal-container='true'][key="{key_prefix}_email_modal_{selected_idx}"] > div:first-child > div:first-child {{
-                width: unset !important;
-                padding: 20px !important;
-                margin-top: 0 !important; /* Remove the 40px margin */
-            }}
-
-            /* Target modal content wrapper */
-            div[data-modal-container='true'] .stModal {{
-                max-width: 95vw !important;
-                width: 650px !important;
-                max-height: 90vh !important;
-                overflow: auto !important;
-            }}
-            </style>
-            """, unsafe_allow_html=True)
-
-
-            # Code to hide the native "X" close button in the modal
-            # This is a workaround to ensure the modal is closed only through the custom button sadly.
-            st.markdown(f"""
-            <style>
-                /* Hide the native "X" close button in the modal */
-                [class*="st-key-explorer_email_modal_0-close"] {{
-                    display: none !important;
-                }}
-            </style>
-            """, unsafe_allow_html=True)
-
-            # Modal content
-            with modal.container():
-                # Email metadata with text wrapping for long values - properly decoded
+            # Use st.dialog for modal display with larger size
+            @st.dialog(f"Email: {decoded_subject[:40] if len(decoded_subject) > 40 else decoded_subject}", width="large")
+            def show_email_dialog():
+                # Email metadata in a styled container
                 decoded_from = decode_email_text(selected_email['from'])
                 decoded_to = decode_email_text(selected_email['recipient_email'])
 
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.markdown(f"<div class='email-field'><strong>De:</strong> {decoded_from}</div>", unsafe_allow_html=True)
-                    st.markdown(f"<div class='email-field'><strong>À:</strong> {decoded_to}</div>", unsafe_allow_html=True)
+                # Create a styled metadata section
+                st.markdown(
+                    f"""
+                    <div class="email-metadata">
+                        <div class="email-field"><strong>De:</strong> {decoded_from}</div>
+                        <div class="email-field"><strong>À:</strong> {decoded_to}</div>
+                        <div class="email-field"><strong>Date:</strong> {format_email_date(selected_email['date'])}</div>
+                        {f'<div class="email-field"><strong>Pièces jointes:</strong> {decode_email_text(selected_email["attachments"])}</div>' if selected_email.get('has_attachments') else ''}
+                    </div>
+                    """, 
+                    unsafe_allow_html=True
+                )
 
-                with col2:
-                    st.markdown(f"<div class='email-field'><strong>Date:</strong> {format_email_date(selected_email['date'])}</div>", unsafe_allow_html=True)
-                    if selected_email.get('has_attachments'):
-                        decoded_attachments = decode_email_text(selected_email['attachments'])
-                        st.markdown(f"<div class='email-field'><strong>Pièces jointes:</strong> {decoded_attachments}</div>", unsafe_allow_html=True)
-
-                # Email body with smaller height to ensure modal fits
-                st.markdown("---")
-
+                # Email body in a styled container
+                st.markdown('<div class="email-content">', unsafe_allow_html=True)
+                
                 # Decode the email body for proper display
                 decoded_body = decode_email_text(selected_email['body'])
+
+                # Calculate height more generously for larger modal
+                content_height = max(min(len(decoded_body.splitlines()) * 20, 500), 200)  # Larger min/max heights
 
                 st.text_area(
                     "Contenu de l'email",
                     value=decoded_body,
-                    height=min(len(decoded_body.splitlines()) * 16, 180),  # Even more constrained height
+                    height=content_height,
                     disabled=True,
-                    key=f"textarea_{selected_idx}"
+                    key=f"dialog_textarea_{selected_idx}",
+                    label_visibility="collapsed"  # Hide the label for cleaner look
                 )
+                
+                st.markdown('</div>', unsafe_allow_html=True)
 
-                # Close button in footer section
-                st.markdown("<div class='modal-footer'>", unsafe_allow_html=True)
-                close_col1, close_col2, close_col3 = st.columns([1, 1, 1])
-                with close_col2:
-                    if st.button("Fermer", key=f"{key_prefix}_close_btn_{selected_idx}", use_container_width=True):
-                        st.session_state[selected_email_key] = None
-                        st.rerun()
-
-
-                st.markdown("</div>", unsafe_allow_html=True)
+                # Dialog closes automatically with native Streamlit controls
+            
+            # Show the dialog
+            show_email_dialog()
+                
         else:
             # Invalid index
-            st.error(f"Index invalide: {selected_idx}")
             st.session_state[selected_email_key] = None
 
 if __name__ == "__main__":
