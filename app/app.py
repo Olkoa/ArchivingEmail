@@ -20,8 +20,6 @@ from collections import Counter
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-print(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 
@@ -281,23 +279,79 @@ else:
 
         return filtered_df
 
+    def parse_search_query(search_term: str):
+        """Parse search query to extract from:, to:, and general text search."""
+        if not search_term:
+            return None, None, None
+
+        # Initialize variables
+        from_filter = None
+        to_filter = None
+        text_search = []
+
+        # Split by spaces and process each part
+        parts = search_term.split()
+
+        for part in parts:
+            if part.lower().startswith('from:'):
+                from_filter = part[5:].strip('"\'')
+            elif part.lower().startswith('to:'):
+                to_filter = part[3:].strip('"\'')
+            else:
+                text_search.append(part)
+
+        # Join remaining text for general search
+        general_text = ' '.join(text_search) if text_search else None
+
+        return from_filter, to_filter, general_text
+
     def show_df_table(df:pd.DataFrame, key_prefix: str, filter_status: bool = True):
+        # Use the provided dataframe (which may already be contact-filtered)
+        emails_df = df
 
-        emails_df = load_data_with_filters(selected_mailbox, additional_filters)
-
-        # Apply date range filter
-        emails_df = apply_date_filter(emails_df, date_range)
-
-        # st.subheader("Email Explorer")
-
-        # Email list with filter
-        search_term = st.text_input("Search in emails:")
+        # Email list with advanced search filter
+        search_term = st.text_input(
+            "Search in emails:",
+            placeholder='Examples: "projet" or from:john@example.com or to:marie@company.fr or from:sender@domain.com to:recipient@domain.com meeting'
+        )
 
         if search_term:
-            filtered_df = emails_df[
-                emails_df["subject"].str.contains(search_term, case=False, na=False) |
-                emails_df["body"].str.contains(search_term, case=False, na=False)
-            ]
+            # Parse the search query
+            from_filter, to_filter, general_text = parse_search_query(search_term)
+
+            # Start with all emails
+            filtered_df = emails_df.copy()
+
+            # Apply from filter if specified
+            if from_filter:
+                filtered_df = filtered_df[
+                    filtered_df["from"].str.contains(from_filter, case=False, na=False)
+                ]
+
+            # Apply to filter if specified
+            if to_filter:
+                filtered_df = filtered_df[
+                    filtered_df["recipient_email"].str.contains(to_filter, case=False, na=False)
+                ]
+
+            # Apply general text search if specified
+            if general_text:
+                filtered_df = filtered_df[
+                    filtered_df["subject"].str.contains(general_text, case=False, na=False) |
+                    filtered_df["body"].str.contains(general_text, case=False, na=False)
+                ]
+
+            # Show what filters are active
+            active_filters = []
+            if from_filter:
+                active_filters.append(f"**De:** `{from_filter}`")
+            if to_filter:
+                active_filters.append(f"**À:** `{to_filter}`")
+            if general_text:
+                active_filters.append(f"**Texte:** `{general_text}`")
+
+            if active_filters:
+                st.caption(f"🔍 Filtres actifs: {' • '.join(active_filters)} | {len(filtered_df)} résultats")
         else:
             filtered_df = emails_df
 
@@ -329,8 +383,6 @@ else:
                 mailbox=mailbox_selection,
                 filters=additional_filters
             )
-
-            print("Using filtered method:", df.columns)
 
             if len(df) == 0:
                 st.sidebar.warning("No emails found with the selected filters.")
@@ -525,8 +577,6 @@ else:
 
         # Apply contact filter if one is active
         filtered_emails_df = emails_df
-
-        print(filtered_emails_df["from"].value_counts()[0:14])
 
         if st.session_state[contact_filter_key]:
             filtered_emails_df = apply_contact_filter(emails_df, st.session_state[contact_filter_key])
