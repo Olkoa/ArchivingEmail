@@ -139,11 +139,11 @@ else:
     navigation_categories = {
 
         "Overview": ["Dashboard"],
-        "Exploration": ["Email Explorer", "Network Analysis", "Timeline"],
+        "Exploration": ["Email Explorer"], # "Network Analysis", "Timeline"
         "Visualization": ["Structure de la boîte mail"],
-        "Search": ["Recherche", "Recherche ElasticSearch"],
+        "Search": ["Recherche Sémantique"], # , "Recherche ElasticSearch"
         "Graph": ["Graph"],
-        "AI Assistants": ["Chat", "Colbert RAG", "Chat + RAG"]
+        "AI Assistants": ["Chat + RAG", "Colbert RAG"] # , "Chat"
     }
 
     # Display navigation categories
@@ -1243,7 +1243,7 @@ else:
         # Now create the timeline with the fixed dataframe
         st.plotly_chart(create_timeline(emails_df), use_container_width=True)
 
-    elif page == "Recherche":
+    elif page == "Recherche Sémantique":
         st.subheader("Recherche avancée")
 
         # Load emails data
@@ -1799,7 +1799,7 @@ else:
     elif page == "Structure de la boîte mail":
         # Import and render the Mail Structure page
         try:
-            from pages.mail_structure import render_mail_structure_page
+            from app.components.mail_structure import render_mail_structure_page
             render_mail_structure_page()
         except ImportError as e:
             st.error(f"Erreur d'importation de la page Structure de la boîte mail: {str(e)}")
