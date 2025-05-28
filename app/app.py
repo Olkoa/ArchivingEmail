@@ -118,29 +118,21 @@ if not st.session_state.authenticated:
     show_login_form()
 else:
     # Application title and description
-    st.title(f"Okloa - Email Archive Analytics (Logged in as: {st.session_state.username})")
-    st.markdown("""
-    Welcome to Okloa, a platform for exploring and analyzing archived email data.
-    This application helps you visualize email communication patterns, search through
-    the corpus, and extract insights using advanced natural language processing techniques.
-    """)
-
-    # Sidebar for navigation and controls
-    st.sidebar.title("Navigation")
-
-    # Add logout button in sidebar
-    if st.sidebar.button("Logout"):
-        st.session_state.authenticated = False
-        st.session_state.username = ""
-        st.rerun()
+    # st.title(f"Okloa - Email Archive Analytics (Logged in as: {st.session_state.username})")
+    # st.markdown("""
+    # Welcome to Okloa, a platform for exploring and analyzing archived email data.
+    # This application helps you visualize email communication patterns, search through
+    # the corpus, and extract insights using advanced natural language processing techniques.
+    # """)
+    st.title("Dashboard")
 
     # Application title and description
-    st.title("Okloa - Email Archive Analytics")
-    st.markdown("""
-        Welcome to Okloa, a platform for exploring and analyzing archived email data.
-        This application helps you visualize email communication patterns, search through
-        the corpus, and extract insights using advanced natural language processing techniques.
-    """)
+    # st.title("Okloa - Email Archive Analytics")
+    # st.markdown("""
+    #     Welcome to Okloa, a platform for exploring and analyzing archived email data.
+    #     This application helps you visualize email communication patterns, search through
+    #     the corpus, and extract insights using advanced natural language processing techniques.
+    # """)
 
     # Sidebar for navigation and controls
     st.sidebar.title("Navigation")
@@ -239,6 +231,16 @@ else:
     # Additional filters
     additional_filters = create_sidebar_filters(email_filters, selected_mailbox)
 
+
+    # Sidebar for logging out
+    st.sidebar.title("Connexion")
+
+    # Add logout button in sidebar
+    if st.sidebar.button("Logout"):
+        st.session_state.authenticated = False
+        st.session_state.username = ""
+        st.rerun()
+
     # Function to apply date range filter to dataframe
     def apply_date_filter(df, date_range):
         """Apply date range filter to a dataframe"""
@@ -278,6 +280,34 @@ else:
         }
 
         return filtered_df
+
+    def show_df_table(df:pd.DataFrame, key_prefix: str, filter_status: bool = True):
+
+        emails_df = load_data_with_filters(selected_mailbox, additional_filters)
+
+        # Apply date range filter
+        emails_df = apply_date_filter(emails_df, date_range)
+
+        # st.subheader("Email Explorer")
+
+        # Email list with filter
+        search_term = st.text_input("Search in emails:")
+
+        if search_term:
+            filtered_df = emails_df[
+                emails_df["subject"].str.contains(search_term, case=False, na=False) |
+                emails_df["body"].str.contains(search_term, case=False, na=False)
+            ]
+        else:
+            filtered_df = emails_df
+
+        # Display filtered emails with interactive viewer
+        # st.write(f"Showing {len(filtered_df)} emails")
+        create_email_table_with_viewer(filtered_df, key_prefix=key_prefix)
+
+        if filter_status:
+            # Show comprehensive filter status
+            show_comprehensive_filter_status(additional_filters, email_filters)
 
     # Load data based on selection from DuckDB with enhanced filtering
     @st.cache_data
@@ -355,7 +385,7 @@ else:
         # Additional filters
         additional_filter_summary = email_filters.get_filter_summary(additional_filters)
         if additional_filter_summary != "No additional filters active":
-            filter_messages.append(additional_filter_summary)
+            filter_messages.append("\n" + additional_filter_summary)
 
         # Display the combined filter status
         if filter_messages:
@@ -455,9 +485,6 @@ else:
         # Apply date range filter
         emails_df = apply_date_filter(emails_df, date_range)
 
-        # Show comprehensive filter status
-        show_comprehensive_filter_status(additional_filters, email_filters)
-
         # Display key metrics
         col1, col2, col3, col4 = st.columns(4)
 
@@ -490,9 +517,115 @@ else:
             unique_contacts = len(all_contacts)
             st.metric("Unique Contacts", unique_contacts)
 
-        # Timeline chart
-        st.subheader("Email Activity Over Time")
-        st.plotly_chart(create_timeline(emails_df), use_container_width=True)
+        # Show table with filter status
+        show_df_table(emails_df, key_prefix="dashboard", filter_status=True)
+
+        # Create two columns for the charts
+        timeline_col1, contacts_col2 = st.columns(2)
+
+        with timeline_col1:
+            # Timeline chart
+            # st.subheader("Email Activity Over Time")
+            st.plotly_chart(create_timeline(emails_df), use_container_width=True)
+
+            # Top contacts
+            st.subheader("Top Contacts")
+
+
+        if not emails_df.empty:
+            with contacts_col2:
+                # Collect all contacts with their details
+                all_contacts = []
+
+                # Process senders (from column)
+                for idx, row in emails_df.iterrows():
+                    if pd.notna(row['from']) and row['from'].strip():
+                        contact_email = row['from'].strip()
+                        is_mailing_list = pd.notna(row.get('mailing_list_email')) and row.get('mailing_list_email') != ''
+                        direction = 'sent' if row.get('direction') == 'sent' else 'received'
+
+                        all_contacts.append({
+                            'email': contact_email,
+                            'is_mailing_list': is_mailing_list,
+                            'direction': direction,
+                            'type': 'sender'
+                        })
+
+                # Process recipients (recipient_email column - aggregated)
+                for idx, row in emails_df.iterrows():
+                    if pd.notna(row['recipient_email']) and row['recipient_email'].strip():
+                        # Split aggregated recipients
+                        recipients = [r.strip() for r in row['recipient_email'].split(',') if r.strip()]
+                        is_mailing_list = pd.notna(row.get('mailing_list_email')) and row.get('mailing_list_email') != ''
+                        direction = 'sent' if row.get('direction') == 'sent' else 'received'
+
+                        for recipient in recipients:
+                            all_contacts.append({
+                                'email': recipient,
+                                'is_mailing_list': is_mailing_list,
+                                'direction': direction,
+                                'type': 'recipient'
+                            })
+
+                if all_contacts:
+                    # Convert to DataFrame for easier processing
+                    contacts_df = pd.DataFrame(all_contacts)
+
+                    # Count occurrences and aggregate mailing list info
+                    contact_stats = contacts_df.groupby('email').agg({
+                        'is_mailing_list': 'max',  # True if any occurrence is from mailing list
+                        'direction': 'count'       # Count total occurrences
+                    }).rename(columns={'direction': 'email_count'})
+
+                    # Sort by email count and get top 20
+                    top_contacts = contact_stats.sort_values('email_count', ascending=False).head(20)
+
+                    # Create display with symbols
+                    contact_list = []
+                    for email, stats in top_contacts.iterrows():
+                        # Determine symbol
+                        if stats['is_mailing_list']:
+                            symbol = "📮"  # Mailing list symbol
+                            contact_type = "Mailing List"
+                        else:
+                            symbol = "👤"  # Human user symbol
+                            contact_type = "Human User"
+
+                        contact_list.append({
+                            'Contact': f"{symbol} {email}",
+                            'Type': contact_type,
+                            'Email Count': stats['email_count']
+                        })
+
+                    # Display as a table
+                    if contact_list:
+                        contacts_display_df = pd.DataFrame(contact_list).drop(columns=['Type'])
+                        st.dataframe(
+                            contacts_display_df,
+                            hide_index=True,
+                            use_container_width=True,
+                            column_config={
+                                "Contact": st.column_config.TextColumn(
+                                    "Contact",
+                                    width="large"
+                                ),
+                                "Email Count": st.column_config.NumberColumn(
+                                    "Email Count",
+                                    width="small"
+                                )
+                            }
+                        )
+
+                        # Show summary
+                        mailing_lists = sum(1 for c in contact_list if c['Type'] == 'Mailing List')
+                        humans = len(contact_list) - mailing_lists
+                        st.caption(f"📮 {mailing_lists} mailing lists • 👤 {humans} human users")
+                    else:
+                        st.info("No contact data available")
+                else:
+                    st.info("No contacts found in the current dataset")
+        else:
+            st.info("No emails available to analyze contacts")
 
         # Attachment formats charts
         st.subheader("Attachment Formats Analysis")
@@ -568,131 +701,30 @@ else:
                     fig_pie.update_layout(height=400)
                     st.plotly_chart(fig_pie, use_container_width=True)
 
-                with chart_col2:
-                    # Bar chart (top 7 extensions with >1%)
-                    if bar_data:
-                        fig_bar = px.bar(
-                            x=list(bar_data.keys()),
-                            y=list(bar_data.values()),
-                            title="Top Attachment Formats (>1%, max 7)",
-                            labels={'x': 'File Extension', 'y': 'Nombre'}
-                        )
-                        fig_bar.update_traces(
-                            hovertemplate='<b>%{x}</b><br>Nombre: %{y}<br>Pourcentage: %{customdata:.1f}%<extra></extra>',
-                            customdata=[(count/total_files)*100 for count in bar_data.values()]
-                        )
-                        fig_bar.update_layout(height=400)
-                        st.plotly_chart(fig_bar, use_container_width=True)
-                    else:
-                        st.info("No extensions found with >1% representation for bar chart")
+                # with chart_col2:
+                #     # Bar chart (top 7 extensions with >1%)
+                #     if bar_data:
+                #         fig_bar = px.bar(
+                #             x=list(bar_data.keys()),
+                #             y=list(bar_data.values()),
+                #             title="Top Attachment Formats (>1%, max 7)",
+                #             labels={'x': 'File Extension', 'y': 'Nombre'}
+                #         )
+                #         fig_bar.update_traces(
+                #             hovertemplate='<b>%{x}</b><br>Nombre: %{y}<br>Pourcentage: %{customdata:.1f}%<extra></extra>',
+                #             customdata=[(count/total_files)*100 for count in bar_data.values()]
+                #         )
+                #         fig_bar.update_layout(height=400)
+                #         st.plotly_chart(fig_bar, use_container_width=True)
+                #     else:
+                #         st.info("No extensions found with >1% representation for bar chart")
 
                 # Show summary stats
-                st.caption(f"Total attachment files: {len(all_extensions):,} | Unique formats: {len(ext_counts)} | Showing top {len(bar_data)} in bar chart")
+                st.caption(f"Total attachment files: {len(all_extensions):,} | Unique formats: {len(ext_counts)}")
             else:
                 st.info("No attachment format data available in the filtered results")
         else:
             st.info("No attachments found in the current dataset")
-
-        # Top contacts
-        st.subheader("Top Contacts")
-
-        if not emails_df.empty:
-            # Collect all contacts with their details
-            all_contacts = []
-
-            # Process senders (from column)
-            for idx, row in emails_df.iterrows():
-                if pd.notna(row['from']) and row['from'].strip():
-                    contact_email = row['from'].strip()
-                    is_mailing_list = pd.notna(row.get('mailing_list_email')) and row.get('mailing_list_email') != ''
-                    direction = 'sent' if row.get('direction') == 'sent' else 'received'
-
-                    all_contacts.append({
-                        'email': contact_email,
-                        'is_mailing_list': is_mailing_list,
-                        'direction': direction,
-                        'type': 'sender'
-                    })
-
-            # Process recipients (recipient_email column - aggregated)
-            for idx, row in emails_df.iterrows():
-                if pd.notna(row['recipient_email']) and row['recipient_email'].strip():
-                    # Split aggregated recipients
-                    recipients = [r.strip() for r in row['recipient_email'].split(',') if r.strip()]
-                    is_mailing_list = pd.notna(row.get('mailing_list_email')) and row.get('mailing_list_email') != ''
-                    direction = 'sent' if row.get('direction') == 'sent' else 'received'
-
-                    for recipient in recipients:
-                        all_contacts.append({
-                            'email': recipient,
-                            'is_mailing_list': is_mailing_list,
-                            'direction': direction,
-                            'type': 'recipient'
-                        })
-
-            if all_contacts:
-                # Convert to DataFrame for easier processing
-                contacts_df = pd.DataFrame(all_contacts)
-
-                # Count occurrences and aggregate mailing list info
-                contact_stats = contacts_df.groupby('email').agg({
-                    'is_mailing_list': 'max',  # True if any occurrence is from mailing list
-                    'direction': 'count'       # Count total occurrences
-                }).rename(columns={'direction': 'email_count'})
-
-                # Sort by email count and get top 20
-                top_contacts = contact_stats.sort_values('email_count', ascending=False).head(20)
-
-                # Create display with symbols
-                contact_list = []
-                for email, stats in top_contacts.iterrows():
-                    # Determine symbol
-                    if stats['is_mailing_list']:
-                        symbol = "📮"  # Mailing list symbol
-                        contact_type = "Mailing List"
-                    else:
-                        symbol = "👤"  # Human user symbol
-                        contact_type = "Human User"
-
-                    contact_list.append({
-                        'Contact': f"{symbol} {email}",
-                        'Type': contact_type,
-                        'Email Count': stats['email_count']
-                    })
-
-                # Display as a table
-                if contact_list:
-                    contacts_display_df = pd.DataFrame(contact_list)
-                    st.dataframe(
-                        contacts_display_df,
-                        hide_index=True,
-                        use_container_width=True,
-                        column_config={
-                            "Contact": st.column_config.TextColumn(
-                                "Contact",
-                                width="large"
-                            ),
-                            "Type": st.column_config.TextColumn(
-                                "Type",
-                                width="medium"
-                            ),
-                            "Email Count": st.column_config.NumberColumn(
-                                "Email Count",
-                                width="small"
-                            )
-                        }
-                    )
-
-                    # Show summary
-                    mailing_lists = sum(1 for c in contact_list if c['Type'] == 'Mailing List')
-                    humans = len(contact_list) - mailing_lists
-                    st.caption(f"📮 {mailing_lists} mailing lists • 👤 {humans} human users")
-                else:
-                    st.info("No contact data available")
-            else:
-                st.info("No contacts found in the current dataset")
-        else:
-            st.info("No emails available to analyze contacts")
 
 
     elif page == "Graph":
