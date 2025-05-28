@@ -197,6 +197,12 @@ def decode_email_text(text, encoding='utf-8'):
 
     return text
 
+def clear_email_selection(key_prefix: str) -> None:
+    """Clear the selected email for a given key prefix. Useful when search or filters change."""
+    selected_email_key = f"{key_prefix}_selected_idx"
+    if selected_email_key in st.session_state:
+        st.session_state[selected_email_key] = None
+
 def create_email_table_with_viewer(
     emails_df: pd.DataFrame,
     key_prefix: str = "email_table"
@@ -261,11 +267,23 @@ def _create_modal_email_table(
     # Session state management for pagination and selection
     selected_email_key = f"{key_prefix}_selected_idx"
     current_page_key = f"{key_prefix}_current_page"
+    data_hash_key = f"{key_prefix}_data_hash"
+    
+    # Calculate a simple hash of the current data to detect changes
+    current_data_hash = hash(str(len(display_df)) + str(display_df.iloc[0].to_dict()) if len(display_df) > 0 else "empty")
     
     if selected_email_key not in st.session_state:
         st.session_state[selected_email_key] = None
     if current_page_key not in st.session_state:
         st.session_state[current_page_key] = 1
+    if data_hash_key not in st.session_state:
+        st.session_state[data_hash_key] = current_data_hash
+    
+    # Clear selection if data has changed (e.g., from search/filtering)
+    if st.session_state[data_hash_key] != current_data_hash:
+        st.session_state[selected_email_key] = None
+        st.session_state[current_page_key] = 1  # Reset to first page
+        st.session_state[data_hash_key] = current_data_hash
 
     # Ensure current page is within bounds
     if st.session_state[current_page_key] < 1:
@@ -336,21 +354,25 @@ def _create_modal_email_table(
         with col1:
             if st.button("⏮️ Premier", key=f"{key_prefix}_first_page", disabled=(current_page == 1)):
                 st.session_state[current_page_key] = 1
+                st.session_state[selected_email_key] = None  # Clear selection on page change
                 st.rerun()
         
         with col2:
             if st.button("⏪ Précédent", key=f"{key_prefix}_prev_page", disabled=(current_page == 1)):
                 st.session_state[current_page_key] = current_page - 1
+                st.session_state[selected_email_key] = None  # Clear selection on page change
                 st.rerun()
         
         with col3:
             if st.button("Suivant ⏩", key=f"{key_prefix}_next_page", disabled=(current_page == total_pages)):
                 st.session_state[current_page_key] = current_page + 1
+                st.session_state[selected_email_key] = None  # Clear selection on page change
                 st.rerun()
         
         with col4:
             if st.button("⏭️ Dernier", key=f"{key_prefix}_last_page", disabled=(current_page == total_pages)):
                 st.session_state[current_page_key] = total_pages
+                st.session_state[selected_email_key] = None  # Clear selection on page change
                 st.rerun()
         
         with col5:
@@ -371,6 +393,7 @@ def _create_modal_email_table(
             if st.button("Aller", key=f"{key_prefix}_go_page"):
                 if 1 <= target_page <= total_pages:
                     st.session_state[current_page_key] = target_page
+                    st.session_state[selected_email_key] = None  # Clear selection on page change
                     st.rerun()
 
     # Check if a row was selected
