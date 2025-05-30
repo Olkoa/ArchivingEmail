@@ -4,6 +4,7 @@ import os
 from openai import OpenAI
 
 
+
 def openrouter_llm_api_call(
     system_prompt: str = "",
     user_prompt : str = "Result of 2+2 ?",
@@ -39,34 +40,39 @@ def openrouter_llm_api_call(
         - OPENROUTER_API_KEY: The API key for OpenRouter authentication
     """
 
-    # load environment var
+    # Load environment variables from .env
     load_dotenv()
 
-    # Ensure OpenRouter access
-    client = OpenAI(
-    base_url= os.getenv(env_var_open_router_base_url),
-
+    # Get base URL and API key
+    base_url = os.getenv(env_var_open_router_base_url)
     api_key = os.getenv(env_var_open_router_api_key)
+
+    # Optional user identifier
+    username = os.getenv("USER")
+
+    # Initialize OpenAI client
+    client = OpenAI(
+        base_url=base_url,
+        api_key=api_key
     )
 
-    # make llm API call
-    completion = client.chat.completions.create(
-    model=model,
-    messages = [
-        {
-            "role": "system",
-            "content": system_prompt
-        },
-        {
-            "role": "user",
-            "content": user_prompt
-        },
-        {
-            "role": "assistant",
-            "content": assistant_prompt
-        }
-    ]
-    )
+    # Prepare common arguments
+    request_args = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+            {"role": "assistant", "content": assistant_prompt}
+        ]
+    }
+
+    # Conditionally add user ID if it exists
+    if username:
+        print(username)
+        request_args["extra_headers"] = {"HTTP-Referer": username, "X-Title": username}
+
+    # Make the API call
+    completion = client.chat.completions.create(**request_args)
 
     print(completion.choices[0].message.content)
     return completion.choices[0].message.content
