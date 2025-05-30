@@ -16,6 +16,12 @@ import json
 import plotly.express as px
 from collections import Counter
 
+# imports for graph
+import email
+from email.policy import default
+import streamlit.components.v1 as components
+import duckdb
+from pathlib import Path
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -830,15 +836,8 @@ else:
 
 
     elif page == "Graph":
-        import os
-        import pandas as pd
-        import email
-        from email.policy import default
-        import streamlit.components.v1 as components
-        import duckdb
-        from pathlib import Path
-        import streamlit as st
-        if st.button("🚀 Run Script with Archieve"):
+
+        if st.button("🚀 Run Script with Archive"):
             # Step 1: Define folder path
             # Get the current script directory
             project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
