@@ -14,6 +14,12 @@ import pickle
 import textwrap
 import sys
 
+
+# Quick fix to ensure AdamW is available
+import transformers
+from torch.optim import AdamW
+transformers.AdamW = AdamW
+
 from ragatouille import RAGPretrainedModel
 
 # import email
@@ -589,8 +595,6 @@ def generate_answer(query: str, results: List[Dict[str, Any]]) -> str:
             else:
                 excerpt = text
             answer += f"Contenu: \"{excerpt}\"\n\n"
-
-
 
     return answer
 

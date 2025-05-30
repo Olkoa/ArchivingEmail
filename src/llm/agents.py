@@ -26,14 +26,14 @@ class AgentDecision:
 
 class RAGDecisionAgent:
     """
-    Agent that determines whether a user question requires RAG search 
+    Agent that determines whether a user question requires RAG search
     through the email archives or can be answered by the LLM alone.
     """
-    
+
     def __init__(self, model: str = "openai/gpt-4.1-mini"):
         """
         Initialize the RAG Decision Agent.
-        
+
         Args:
             model: The LLM model to use for decision making
         """
@@ -64,15 +64,15 @@ Be decisive and confident in your analysis."""
     def decide(self, user_question: str) -> Dict[str, Any]:
         """
         Determine if the user question needs RAG search.
-        
+
         Args:
             user_question: The user's question
-            
+
         Returns:
             Dictionary with decision, reasoning, and confidence
         """
         print(f"🤖 RAG Decision Agent: Analyzing question: '{user_question}'")
-        
+
         user_prompt = f"""Analyze this user question and determine if it requires searching through email archives:
 
 Question: "{user_question}"
@@ -83,20 +83,20 @@ Consider:
 - Is it asking about specific dates, meetings, projects, or communications?
 
 Respond with valid JSON only."""
-        
+
         try:
             response = openrouter_llm_api_call(
                 system_prompt=self.system_prompt,
                 user_prompt=user_prompt,
                 model=self.model
             )
-            
+
             # Extract JSON from response
             decision_data = self._parse_json_response(response)
-            
+
             print(f"🤖 RAG Decision Agent: Decision = {decision_data}")
             return decision_data
-            
+
         except Exception as e:
             print(f"❌ RAG Decision Agent error: {e}")
             # Fallback: assume RAG is needed if uncertain
@@ -109,10 +109,10 @@ Respond with valid JSON only."""
     def _parse_json_response(self, response: str) -> Dict[str, Any]:
         """
         Parse JSON response from the LLM, handling various formats.
-        
+
         Args:
             response: Raw response from LLM
-            
+
         Returns:
             Parsed JSON data
         """
@@ -127,18 +127,18 @@ Respond with valid JSON only."""
                     return json.loads(json_match.group())
                 except json.JSONDecodeError:
                     pass
-            
+
             # Fallback parsing with regex for key values
             needs_rag = "true" in response.lower() if "needs_rag" in response.lower() else True
-            
+
             # Extract reasoning if possible
             reasoning_match = re.search(r'"reasoning":\s*"([^"]*)"', response)
             reasoning = reasoning_match.group(1) if reasoning_match else "Could not parse reasoning"
-            
+
             # Extract confidence if possible
             confidence_match = re.search(r'"confidence":\s*([0-9.]+)', response)
             confidence = float(confidence_match.group(1)) if confidence_match else 0.7
-            
+
             return {
                 "needs_rag": needs_rag,
                 "reasoning": reasoning,
@@ -151,11 +151,11 @@ class KValueAgent:
     Agent that determines the optimal 'k' value (number of documents to retrieve)
     based on the user question and context.
     """
-    
+
     def __init__(self, model: str = "openai/gpt-4.1-mini"):
         """
         Initialize the K-Value Agent.
-        
+
         Args:
             model: The LLM model to use for decision making
         """
@@ -200,16 +200,16 @@ Be practical and consider that more documents provide more context but also more
     def determine_k(self, user_question: str, max_k: int = 100) -> Dict[str, Any]:
         """
         Determine the optimal k value for the user question.
-        
+
         Args:
             user_question: The user's question
             max_k: Maximum allowed k value
-            
+
         Returns:
             Dictionary with k_value, reasoning, and confidence
         """
         print(f"🎯 K-Value Agent: Determining k for question: '{user_question}'")
-        
+
         user_prompt = f"""Analyze this user question and determine the optimal number of email documents (k) to retrieve:
 
 Question: "{user_question}"
@@ -223,20 +223,20 @@ Maximum allowed k: {max_k}
 Minimum k: 5
 
 Respond with valid JSON only."""
-        
+
         try:
             response = openrouter_llm_api_call(
                 system_prompt=self.system_prompt,
                 user_prompt=user_prompt,
                 model=self.model
             )
-            
+
             # Extract JSON from response
             k_data = self._parse_json_response(response, max_k)
-            
+
             print(f"🎯 K-Value Agent: Decision = {k_data}")
             return k_data
-            
+
         except Exception as e:
             print(f"❌ K-Value Agent error: {e}")
             # Fallback: use moderate k value
@@ -249,11 +249,11 @@ Respond with valid JSON only."""
     def _parse_json_response(self, response: str, max_k: int) -> Dict[str, Any]:
         """
         Parse JSON response and validate k value.
-        
+
         Args:
             response: Raw response from LLM
             max_k: Maximum allowed k value
-            
+
         Returns:
             Parsed and validated JSON data
         """
@@ -270,13 +270,13 @@ Respond with valid JSON only."""
                     data = self._regex_parse_k_response(response)
             else:
                 data = self._regex_parse_k_response(response)
-        
+
         # Validate and constrain k_value
         k_value = data.get("k_value", 7)
         if not isinstance(k_value, int):
             k_value = 7
         k_value = max(3, min(max_k, k_value))  # Constrain between 3 and max_k
-        
+
         return {
             "k_value": k_value,
             "reasoning": data.get("reasoning", "K value determined"),
@@ -286,25 +286,25 @@ Respond with valid JSON only."""
     def _regex_parse_k_response(self, response: str) -> Dict[str, Any]:
         """
         Fallback parsing using regex when JSON parsing fails.
-        
+
         Args:
             response: Raw response string
-            
+
         Returns:
             Parsed data dictionary
         """
         # Try to extract k_value
         k_match = re.search(r'"k_value":\s*(\d+)', response)
         k_value = int(k_match.group(1)) if k_match else 7
-        
+
         # Extract reasoning if possible
         reasoning_match = re.search(r'"reasoning":\s*"([^"]*)"', response)
         reasoning = reasoning_match.group(1) if reasoning_match else "Could not parse reasoning"
-        
+
         # Extract confidence if possible
         confidence_match = re.search(r'"confidence":\s*([0-9.]+)', response)
         confidence = float(confidence_match.group(1)) if confidence_match else 0.7
-        
+
         return {
             "k_value": k_value,
             "reasoning": reasoning,
@@ -317,70 +317,70 @@ class RAGOrchestrator:
     Orchestrator that combines both agents to make comprehensive decisions
     about RAG usage and parameters.
     """
-    
+
     def __init__(self, model: str = "openai/gpt-4.1-mini"):
         """
         Initialize the RAG Orchestrator with both agents.
-        
+
         Args:
             model: The LLM model to use for both agents
         """
         self.rag_decision_agent = RAGDecisionAgent(model=model)
         self.k_value_agent = KValueAgent(model=model)
-        
+
     def analyze_question(self, user_question: str, max_k: int = 15) -> AgentDecision:
         """
         Analyze a user question and return comprehensive RAG decisions.
-        
+
         Args:
             user_question: The user's question
             max_k: Maximum allowed k value
-            
+
         Returns:
             AgentDecision object with all decisions
         """
         print(f"🧠 RAG Orchestrator: Analyzing question: '{user_question}'")
-        
+
         # Step 1: Determine if RAG is needed
         rag_decision = self.rag_decision_agent.decide(user_question)
         needs_rag = rag_decision["needs_rag"]
-        
+
         print(f"🧠 RAG Orchestrator: RAG needed = {needs_rag}")
-        
+
         # Step 2: If RAG is needed, determine k value
         k_value = 0
         k_reasoning = "RAG not needed"
         k_confidence = 1.0
-        
+
         if needs_rag:
             k_decision = self.k_value_agent.determine_k(user_question, max_k)
             k_value = k_decision["k_value"]
             k_reasoning = k_decision["reasoning"]
             k_confidence = k_decision["confidence"]
-            
+
             print(f"🧠 RAG Orchestrator: k value = {k_value}")
-        
+
         # Combine reasoning and confidence
         combined_reasoning = f"RAG Decision: {rag_decision['reasoning']}. K Value: {k_reasoning}"
         combined_confidence = (rag_decision["confidence"] + k_confidence) / 2
-        
+
         result = AgentDecision(
             needs_rag=needs_rag,
             k_value=k_value,
             reasoning=combined_reasoning,
             confidence=combined_confidence
         )
-        
+
         print(f"🧠 RAG Orchestrator: Final decision = {result}")
         return result
 
     def get_decision_summary(self, decision: AgentDecision) -> str:
         """
         Get a human-readable summary of the agent decision.
-        
+
         Args:
             decision: AgentDecision object
-            
+
         Returns:
             Formatted summary string
         """
@@ -394,11 +394,11 @@ class RAGOrchestrator:
 def should_use_rag(user_question: str, model: str = "openai/gpt-4.1-mini") -> Tuple[bool, int]:
     """
     Simple function to determine if RAG should be used and with what k value.
-    
+
     Args:
         user_question: The user's question
         model: LLM model to use for decision making
-        
+
     Returns:
         Tuple of (needs_rag, k_value)
     """
@@ -410,18 +410,18 @@ def should_use_rag(user_question: str, model: str = "openai/gpt-4.1-mini") -> Tu
 def get_rag_parameters(user_question: str, model: str = "openai/gpt-4.1-mini", max_k: int = 15) -> Dict[str, Any]:
     """
     Get comprehensive RAG parameters for a user question.
-    
+
     Args:
         user_question: The user's question
         model: LLM model to use for decision making
         max_k: Maximum allowed k value
-        
+
     Returns:
         Dictionary with RAG parameters and metadata
     """
     orchestrator = RAGOrchestrator(model=model)
     decision = orchestrator.analyze_question(user_question, max_k)
-    
+
     return {
         "needs_rag": decision.needs_rag,
         "k_value": decision.k_value,
@@ -442,17 +442,17 @@ if __name__ == "__main__":
         "Who sent emails about budget this month?",
         "Summarize all discussions about the new product launch"
     ]
-    
+
     orchestrator = RAGOrchestrator()
-    
+
     for question in test_questions:
         print(f"\n{'='*60}")
         print(f"Testing: {question}")
         print('='*60)
-        
+
         decision = orchestrator.analyze_question(question)
         summary = orchestrator.get_decision_summary(decision)
-        
+
         print(f"Result: {summary}")
         print(f"Reasoning: {decision.reasoning}")
         print(f"Confidence: {decision.confidence:.2f}")
