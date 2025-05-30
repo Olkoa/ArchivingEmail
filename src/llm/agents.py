@@ -30,7 +30,7 @@ class RAGDecisionAgent:
     through the email archives or can be answered by the LLM alone.
     """
     
-    def __init__(self, model: str = "openai/gpt-4o-mini"):
+    def __init__(self, model: str = "openai/gpt-4.1-mini"):
         """
         Initialize the RAG Decision Agent.
         
@@ -152,7 +152,7 @@ class KValueAgent:
     based on the user question and context.
     """
     
-    def __init__(self, model: str = "openai/gpt-4o-mini"):
+    def __init__(self, model: str = "openai/gpt-4.1-mini"):
         """
         Initialize the K-Value Agent.
         
@@ -318,7 +318,7 @@ class RAGOrchestrator:
     about RAG usage and parameters.
     """
     
-    def __init__(self, model: str = "openai/gpt-4o-mini"):
+    def __init__(self, model: str = "openai/gpt-4.1-mini"):
         """
         Initialize the RAG Orchestrator with both agents.
         
@@ -391,7 +391,7 @@ class RAGOrchestrator:
 
 
 # Convenience functions for easy integration
-def should_use_rag(user_question: str, model: str = "openai/gpt-4o-mini") -> Tuple[bool, int]:
+def should_use_rag(user_question: str, model: str = "openai/gpt-4.1-mini") -> Tuple[bool, int]:
     """
     Simple function to determine if RAG should be used and with what k value.
     
@@ -407,7 +407,7 @@ def should_use_rag(user_question: str, model: str = "openai/gpt-4o-mini") -> Tup
     return decision.needs_rag, decision.k_value
 
 
-def get_rag_parameters(user_question: str, model: str = "openai/gpt-4o-mini", max_k: int = 15) -> Dict[str, Any]:
+def get_rag_parameters(user_question: str, model: str = "openai/gpt-4.1-mini", max_k: int = 15) -> Dict[str, Any]:
     """
     Get comprehensive RAG parameters for a user question.
     
