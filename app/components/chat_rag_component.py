@@ -151,10 +151,10 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
     if use_agents:
         st.sidebar.info("🧠 Les agents détermineront automatiquement le nombre d'emails à récupérer")
         max_emails = st.sidebar.slider(
-            "Nombre maximum d'emails",
+            "Nombre maximum d'emails récupérés",
             min_value=5,
-            max_value=20,
-            value=15,
+            max_value=100,
+            value=100,
             step=1,
             help="Limite maximale pour les agents"
         )

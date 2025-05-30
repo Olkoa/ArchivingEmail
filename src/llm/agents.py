@@ -165,10 +165,21 @@ class KValueAgent:
 Your task is to analyze user questions and determine how many emails should be retrieved:
 
 K VALUE GUIDELINES:
-- k=3-5: Simple, specific questions about one topic/person/event
-- k=5-8: Moderate complexity questions that might need multiple perspectives
-- k=8-12: Complex questions requiring comprehensive information
-- k=12-15: Very complex questions needing extensive context or analysis
+- k=5-12: Simple, specific questions about one topic/person/event
+  - "Les mails font-ils mention de recrutements ?"
+  - "Y a-t-il des échanges concernant un incident technique précis ?"
+
+- k=13-20: Moderate complexity questions that might need multiple perspectives
+  - "Des mails concernent-ils des discussions autour du télétravail ?"
+  - "Quels sujets sont évoqués dans les échanges liés à la direction financière ?"
+
+- k=21-30: Complex questions requiring comprehensive information
+  - "Résume les conversations entre Claire et Thomas sur le dernier trimestre."
+  - "Quels sont les points évoqués dans les discussions autour de la stratégie 2025 ?"
+
+- k=50-100: Very complex questions needing extensive context or analysis
+  - "Peux-tu faire un résumé de l’activité de cette boîte mail sur les 12 derniers mois ?"
+  - "Quels grands thèmes émergent dans l’ensemble des échanges depuis janvier 2023 ?"
 
 QUESTION TYPE EXAMPLES:
 - "What did John say about X?" → k=3-5 (specific person/topic)
@@ -186,7 +197,7 @@ You must respond with a valid JSON object in this exact format:
 
 Be practical and consider that more documents provide more context but also more noise."""
 
-    def determine_k(self, user_question: str, max_k: int = 15) -> Dict[str, Any]:
+    def determine_k(self, user_question: str, max_k: int = 100) -> Dict[str, Any]:
         """
         Determine the optimal k value for the user question.
         
@@ -209,7 +220,7 @@ Consider:
 - Scope: Is this about one person/event or multiple entities?
 
 Maximum allowed k: {max_k}
-Minimum k: 3
+Minimum k: 5
 
 Respond with valid JSON only."""
         
