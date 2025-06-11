@@ -78,7 +78,7 @@ def render_colbert_rag_component(emails_df: pd.DataFrame):
     # Set up paths for the indexes
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
     path_to_metadata = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes')
-    ragatouille_index_path = os.path.join(project_root, '.ragatouille', 'colbert', 'indexes', 'emails_index')
+    ragatouille_index_path = os.path.join(project_root, '.ragatouille', 'colbert', 'indexes', f'{ACTIVE_PROJECT}_emails_index')
 
     # Check if index exists
     index_exists = os.path.exists(os.path.join(path_to_metadata, 'email_metadata.pkl'))

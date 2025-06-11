@@ -97,13 +97,13 @@ def initialize_colbert_rag_system(
 
         if test_mode:
             # Load and prepare emails from all mbox files
-            colbert_df = email_analyzer.get_rag_email_dataset(limit = 400)
+            colbert_df = email_analyzer.get_rag_email_dataset(limit = 100)
         else:
             colbert_df = email_analyzer.get_rag_email_dataset(limit = 500000)
 
         # emails_data = load_and_prepare_emails(mbox_paths)
 
-        # Faire cette fonction ensuite (df avec mail ID, puis dans l'ordre 
+        # Faire cette fonction ensuite (df avec mail ID, puis dans l'ordre
         # expediteur - Destinataire - date - sujet - body cut au dernier message)
         # emails_data = prepare_mails_for_rag()
         print(colbert_df.columns)
@@ -134,6 +134,6 @@ if __name__ == "__main__":
     # Test initialization
 
     # Initialize Colbert RAG system
-    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True, test_mode=False)
+    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True, test_mode=True)
 
     print(f"Colbert RAG system initialized with index at {index_dir}")

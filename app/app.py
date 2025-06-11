@@ -1798,13 +1798,62 @@ else:
     elif page == "Structure de la boîte mail":
         # Import and render the Mail Structure page
         try:
-            from app.components.mail_structure import render_mail_structure_page
+            # Use the clean version by default
+            from components.mail_structure_clean import render_mail_structure_page
             render_mail_structure_page()
+
         except ImportError as e:
             st.error(f"Erreur d'importation de la page Structure de la boîte mail: {str(e)}")
             st.info("Veuillez vérifier que le module mail_structure.py est disponible.")
         except Exception as e:
             st.error(f"Erreur lors du rendu de la page Structure de la boîte mail: {str(e)}")
+            import traceback
+            st.code(traceback.format_exc())
+
+        # # Check if we should use alternative versions (from debug options)
+        # if st.session_state.get('use_step_debug_mail_structure', False):
+        #     try:
+        #         from components.mail_structure_step_debug import render_mail_structure_page as step_debug_render
+        #         st.markdown("---")
+        #         st.subheader("🔍 Step-by-Step Debug Version")
+        #         step_debug_render()
+        #         st.session_state.use_step_debug_mail_structure = False  # Reset after use
+        #     except Exception as e:
+        #         st.error(f"Step debug version failed: {str(e)}")
+        #         st.session_state.use_step_debug_mail_structure = False
+
+        # elif st.session_state.get('use_fixed_mail_structure', False):
+        #     try:
+        #         from components.mail_structure_fixed import render_mail_structure_page as fixed_render
+        #         st.markdown("---")
+        #         st.subheader("📁 Fixed Mail Structure")
+        #         fixed_render()
+        #         st.session_state.use_fixed_mail_structure = False  # Reset after use
+        #     except Exception as e:
+        #         st.error(f"Fixed version failed: {str(e)}")
+        #         st.session_state.use_fixed_mail_structure = False
+
+        # elif st.session_state.get('use_ultimate_mail_structure', False):
+        #     try:
+        #         from components.mail_structure_ultimate import render_mail_structure_page as ultimate_render
+        #         st.markdown("---")
+        #         st.subheader("🏆 Ultimate Mail Structure")
+        #         ultimate_render()
+        #         st.session_state.use_ultimate_mail_structure = False  # Reset after use
+        #     except Exception as e:
+        #         st.error(f"Ultimate version failed: {str(e)}")
+        #         st.session_state.use_ultimate_mail_structure = False
+
+        # elif st.session_state.get('use_diagnostic_mail_structure', False):
+        #     try:
+        #         from components.mail_structure_diagnostic import render_mail_structure_page as diagnostic_render
+        #         st.markdown("---")
+        #         st.subheader("🔧 Diagnostic Mail Structure")
+        #         diagnostic_render()
+        #         st.session_state.use_diagnostic_mail_structure = False  # Reset after use
+        #     except Exception as e:
+        #         st.error(f"Diagnostic version failed: {str(e)}")
+        #         st.session_state.use_diagnostic_mail_structure = False
 
     elif page == "Chat + RAG":
         # Import and render the Chat + RAG component
