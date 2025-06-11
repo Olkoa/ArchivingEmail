@@ -491,6 +491,14 @@ def _create_modal_email_table(
         st.session_state[selected_email_key] = None
         st.session_state[current_page_key] = 1  # Reset to first page
         st.session_state[data_hash_key] = current_data_hash
+        # Also clear previous selection tracking
+        if f"{key_prefix}_prev_selection" in st.session_state:
+            st.session_state[f"{key_prefix}_prev_selection"] = None
+        # Reset number input tracking
+        if f"{key_prefix}_prev_target_page" in st.session_state:
+            st.session_state[f"{key_prefix}_prev_target_page"] = 1
+        if f"{key_prefix}_number_input_changed" in st.session_state:
+            st.session_state[f"{key_prefix}_number_input_changed"] = False
 
     # Ensure current page is within bounds
     if st.session_state[current_page_key] < 1:
@@ -519,11 +527,13 @@ def _create_modal_email_table(
     # Configure AgGrid options for paginated data
     gb = GridOptionsBuilder.from_dataframe(paginated_display_df[['date', 'from', 'recipient_email', 'subject']])
     
-    # Configure grid selection
+    # Configure grid selection with more restrictive settings
     gb.configure_selection(
         selection_mode="single",
         use_checkbox=False,
-        pre_selected_rows=[]
+        pre_selected_rows=[],
+        rowMultiSelectWithClick=False,
+        suppressRowClickSelection=False
     )
     
     # Configure columns
@@ -532,10 +542,13 @@ def _create_modal_email_table(
     gb.configure_column("recipient_email", header_name="À", width=200)
     gb.configure_column("subject", header_name="Sujet", flex=1)
     
-    # Make rows clickable
+    # Make rows clickable but more controlled
     gb.configure_grid_options(
         onRowClicked="function(params) { params.api.selectNode(params.node, true); }",
-        suppressRowDeselection=True
+        suppressRowDeselection=True,
+        suppressCellSelection=True,
+        suppressMultiSort=True,
+        animateRows=False
     )
     
     grid_options = gb.build()
@@ -548,8 +561,14 @@ def _create_modal_email_table(
         update_mode=GridUpdateMode.SELECTION_CHANGED,
         fit_columns_on_grid_load=True,
         allow_unsafe_jscode=True,
-        key=f"{key_prefix}_aggrid_page_{current_page}"  # Include page in key to avoid conflicts
+        key=f"{key_prefix}_aggrid_page_{current_page}",  # Include page in key to avoid conflicts
+        reload_data=False  # Prevent unnecessary reloads
     )
+
+    # Store the previous selection state to detect actual changes
+    prev_selection_key = f"{key_prefix}_prev_selection"
+    if prev_selection_key not in st.session_state:
+        st.session_state[prev_selection_key] = None
 
     # Pagination controls (only show if more than one page)
     if total_pages > 1:
@@ -562,30 +581,37 @@ def _create_modal_email_table(
             if st.button("⏮️ Premier", key=f"{key_prefix}_first_page", disabled=(current_page == 1)):
                 st.session_state[current_page_key] = 1
                 st.session_state[selected_email_key] = None  # Clear selection on page change
+                st.session_state[f"{key_prefix}_prev_selection"] = None  # Clear selection tracking
                 st.rerun()
         
         with col2:
             if st.button("⏪ Précédent", key=f"{key_prefix}_prev_page", disabled=(current_page == 1)):
                 st.session_state[current_page_key] = current_page - 1
                 st.session_state[selected_email_key] = None  # Clear selection on page change
+                st.session_state[f"{key_prefix}_prev_selection"] = None  # Clear selection tracking
                 st.rerun()
         
         with col3:
             if st.button("Suivant ⏩", key=f"{key_prefix}_next_page", disabled=(current_page == total_pages)):
                 st.session_state[current_page_key] = current_page + 1
                 st.session_state[selected_email_key] = None  # Clear selection on page change
+                st.session_state[f"{key_prefix}_prev_selection"] = None  # Clear selection tracking
                 st.rerun()
         
         with col4:
             if st.button("⏭️ Dernier", key=f"{key_prefix}_last_page", disabled=(current_page == total_pages)):
                 st.session_state[current_page_key] = total_pages
                 st.session_state[selected_email_key] = None  # Clear selection on page change
+                st.session_state[f"{key_prefix}_prev_selection"] = None  # Clear selection tracking
                 st.rerun()
         
         with col5:
             st.markdown(f"<div style='text-align: center; padding-top: 8px;'><strong>Page {current_page}/{total_pages}</strong></div>", unsafe_allow_html=True)
         
         with col6:
+            # Store the number input value from the previous run
+            prev_target_page = st.session_state.get(f"{key_prefix}_prev_target_page", current_page)
+            
             # Page jump input
             target_page = st.number_input(
                 "Aller à la page:",
@@ -595,22 +621,42 @@ def _create_modal_email_table(
                 key=f"{key_prefix}_page_input",
                 label_visibility="collapsed"
             )
+            
+            # Detect if the number input changed (including +/-, arrow keys, Enter)
+            number_input_changed = (target_page != prev_target_page)
+            if number_input_changed:
+                st.session_state[f"{key_prefix}_prev_target_page"] = target_page
+                # Set flag to prevent modal opening on this run
+                st.session_state[f"{key_prefix}_number_input_changed"] = True
+                # Clear any selection when number input changes
+                st.session_state[selected_email_key] = None
+                st.session_state[f"{key_prefix}_prev_selection"] = None
         
         with col7:
             if st.button("Aller", key=f"{key_prefix}_go_page"):
                 if 1 <= target_page <= total_pages:
                     st.session_state[current_page_key] = target_page
                     st.session_state[selected_email_key] = None  # Clear selection on page change
+                    st.session_state[f"{key_prefix}_prev_selection"] = None  # Clear selection tracking
                     st.rerun()
 
-    # Check if a row was selected
-    try:
-        # AgGrid returns a dictionary with 'selected_rows' key
-        if (hasattr(grid_response, '__getitem__') and 
-            'selected_rows' in grid_response and 
-            grid_response['selected_rows'] is not None and 
-            len(grid_response['selected_rows']) > 0):
-            
+    # Handle row selection with improved detection
+    current_selection = None
+    
+    # Get the number input change status (if pagination is shown)
+    number_input_changed = False
+    if total_pages > 1:
+        number_input_changed = st.session_state.get(f"{key_prefix}_number_input_changed", False)
+        # Clear the flag after checking
+        if number_input_changed:
+            st.session_state[f"{key_prefix}_number_input_changed"] = False
+    
+    if (hasattr(grid_response, '__getitem__') and 
+        'selected_rows' in grid_response and 
+        grid_response['selected_rows'] is not None and 
+        len(grid_response['selected_rows']) > 0):
+        
+        try:
             selected_rows_data = grid_response['selected_rows']
             
             # Get the first selected row
@@ -621,36 +667,73 @@ def _create_modal_email_table(
                 # It's a list of dictionaries
                 selected_row = selected_rows_data[0]
             else:
-                return
+                selected_row = None
             
-            # Find the corresponding index in the original paginated dataframe
-            # We need to match based on the data since AgGrid might reorder
-            for idx, row in paginated_display_df.iterrows():
-                try:
-                    # Handle both dict and Series access
-                    if hasattr(selected_row, 'get'):
-                        # Dictionary access
-                        if (str(row['date']) == str(selected_row.get('date', '')) and 
-                            str(row['from']) == str(selected_row.get('from', '')) and 
-                            str(row['subject']) == str(selected_row.get('subject', ''))):
-                            # Convert paginated index to original dataframe index
-                            original_idx = start_idx + (idx - paginated_display_df.index[0])
-                            st.session_state[selected_email_key] = original_idx
-                            break
-                    else:
-                        # Series access
-                        if (str(row['date']) == str(selected_row['date']) and 
-                            str(row['from']) == str(selected_row['from']) and 
-                            str(row['subject']) == str(selected_row['subject'])):
-                            # Convert paginated index to original dataframe index
-                            original_idx = start_idx + (idx - paginated_display_df.index[0])
-                            st.session_state[selected_email_key] = original_idx
-                            break
-                except Exception as e:
-                    continue
-                    
-    except Exception as e:
-        pass
+            if selected_row is not None:
+                # Create a unique identifier for this selection
+                if hasattr(selected_row, 'get'):
+                    # Dictionary access
+                    current_selection = f"{selected_row.get('date', '')}_{selected_row.get('from', '')}_{selected_row.get('subject', '')}"
+                else:
+                    # Series access
+                    current_selection = f"{selected_row['date']}_{selected_row['from']}_{selected_row['subject']}"
+                
+        except Exception as e:
+            current_selection = None
+    
+    # Only process selection if:
+    # 1. It's different from the previous one
+    # 2. The number input wasn't just changed
+    # This prevents false triggers from button clicks and other interactions
+    if (current_selection is not None and 
+        current_selection != st.session_state[prev_selection_key] and
+        not number_input_changed):
+        
+        # Update the previous selection
+        st.session_state[prev_selection_key] = current_selection
+        
+        # Find the corresponding email in the original dataframe
+        try:
+            selected_rows_data = grid_response['selected_rows']
+            
+            # Get the first selected row
+            if hasattr(selected_rows_data, 'iloc'):
+                selected_row = selected_rows_data.iloc[0]
+            elif isinstance(selected_rows_data, list) and len(selected_rows_data) > 0:
+                selected_row = selected_rows_data[0]
+            else:
+                selected_row = None
+            
+            if selected_row is not None:
+                # Find the corresponding index in the original paginated dataframe
+                for idx, row in paginated_display_df.iterrows():
+                    try:
+                        # Handle both dict and Series access
+                        if hasattr(selected_row, 'get'):
+                            # Dictionary access
+                            if (str(row['date']) == str(selected_row.get('date', '')) and 
+                                str(row['from']) == str(selected_row.get('from', '')) and 
+                                str(row['subject']) == str(selected_row.get('subject', ''))):
+                                # Convert paginated index to original dataframe index
+                                original_idx = start_idx + (idx - paginated_display_df.index[0])
+                                st.session_state[selected_email_key] = original_idx
+                                break
+                        else:
+                            # Series access
+                            if (str(row['date']) == str(selected_row['date']) and 
+                                str(row['from']) == str(selected_row['from']) and 
+                                str(row['subject']) == str(selected_row['subject'])):
+                                # Convert paginated index to original dataframe index
+                                original_idx = start_idx + (idx - paginated_display_df.index[0])
+                                st.session_state[selected_email_key] = original_idx
+                                break
+                    except Exception as e:
+                        continue
+        except Exception as e:
+            pass
+    elif current_selection is None:
+        # No selection, clear the previous selection tracking
+        st.session_state[prev_selection_key] = None
 
     # Show email content in a dialog if an email is selected
     if st.session_state[selected_email_key] is not None:

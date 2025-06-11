@@ -70,8 +70,8 @@ def render_mail_structure_page():
         # Graph customization options
         orientation = st.radio(
             "Orientation:",
-            options=['vertical', 'horizontal'],
-            format_func=lambda x: '📊 Vertical' if x == 'vertical' else '📈 Horizontal',
+            options=['horizontal', 'vertical'],
+            format_func=lambda x: '📈 Horizontal' if x == 'horizontal' else '📊 Vertical',
             key="graph_orientation"
         )
 
