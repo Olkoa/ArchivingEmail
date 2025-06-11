@@ -223,8 +223,8 @@
     <table id="node-data-table">
       <thead>
         <tr>
-          <th>Property</th>
-          <th>Value</th>
+          <th>Sujet</th>
+          <th>Expéditeur</th>
         </tr>
       </thead>
       <tbody>
@@ -425,11 +425,6 @@
   function renderPage(page) {
     tableBody.innerHTML = "";
 
-    // Display node name
-    const nameRow = document.createElement("tr");
-    nameRow.innerHTML = `<td>Node Name</td><td>${node.name}</td>`;
-    tableBody.appendChild(nameRow);
-
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = interactions.slice(start, end);
@@ -437,21 +432,18 @@
     currentItems.forEach(edge => {
       const interactionRow = document.createElement("tr");
       interactionRow.innerHTML = `
-        <td>Interaction Subject</td>
         <td>${edge.subject}</td>
-        <td>Interacting Node</td>
-        <td>${edge.source === node.id ? edge.target : edge.source}</td>
+        <td>${edge.source}</td>
       `;
       interactionRow.style.cursor = "pointer";
       interactionRow.addEventListener("click", () => {
         showModal(`
-          <h3>Interaction Details</h3>
-          <p><strong>subject:</strong> ${edge.subject}</p>
+          <h3>Détails de l'interaction</h3>
+          <p><strong>Sujet:</strong> ${edge.subject}</p>
+          <p><strong>Expéditeur:</strong> ${edge.source}</p>
           <p><strong>Date:</strong> ${edge.date}</p>
-          <p><strong>Source:</strong> ${edge.source}</p>
-          <p><strong>Target:</strong> ${edge.target}</p>
-          <p><strong>Label:</strong> ${edge.label || "N/A"}</p>
-          <p><strong>Body:</strong> ${edge.body}</p>
+          <p><strong>Destinataire:</strong> ${edge.target}</p>
+          <p><strong>Corps du message:</strong> ${edge.body}</p>
         `);
       });
       tableBody.appendChild(interactionRow);
@@ -500,10 +492,6 @@ function displayEdgeData(edge) {
   function renderPage(page) {
     tableBody.innerHTML = "";
 
-    const edgeRow = document.createElement("tr");
-    edgeRow.innerHTML = `<td colspan="4"><strong>Edge:</strong> ${edge.source.name} ↔ ${edge.target.name}</td>`;
-    tableBody.appendChild(edgeRow);
-
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = interactions.slice(start, end);
@@ -511,21 +499,18 @@ function displayEdgeData(edge) {
     currentItems.forEach(inter => {
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>Interaction Subject</td>
         <td>${inter.subject}</td>
-        <td>Source</td>
         <td>${inter.source}</td>
       `;
       row.style.cursor = "pointer";
       row.addEventListener("click", () => {
         showModal(`
-          <h3>Interaction Details</h3>
-          <p><strong>Subject:</strong> ${inter.subject}</p>
+          <h3>Détails de l'interaction</h3>
+          <p><strong>Sujet:</strong> ${inter.subject}</p>
+          <p><strong>Expéditeur:</strong> ${inter.source}</p>
           <p><strong>Date:</strong> ${inter.date}</p>
-          <p><strong>Source:</strong> ${inter.source}</p>
-          <p><strong>Target:</strong> ${inter.target}</p>
-          <p><strong>Label:</strong> ${inter.label || "N/A"}</p>
-          <p><strong>Body:</strong> ${inter.body}</p>
+          <p><strong>Destinataire:</strong> ${inter.target}</p>
+          <p><strong>Corps du message:</strong> ${inter.body}</p>
         `);
       });
       tableBody.appendChild(row);
