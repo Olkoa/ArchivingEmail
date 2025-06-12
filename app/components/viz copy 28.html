@@ -7,28 +7,28 @@
   <style>
    /* Basic modal styling */
    #myModal {
-      display: none; 
-      position: fixed; 
+      display: none;
+      position: fixed;
       z-index: 1;
       left: 0;
       top: 0;
-      width: 100%; 
+      width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.4); 
+      background-color: rgba(0,0,0,0.4);
     }
 
     /* Modal content */
     #modal-content {
       position: absolute;
-      top: 50%; 
-      left: 50%; 
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       background-color: white;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      width: 400px; 
-      height: 400px; 
+      width: 400px;
+      height: 400px;
       max-height: 80vh;
       overflow: auto;
     }
@@ -81,7 +81,7 @@
   cursor: pointer;
 }
 
-    
+
 
     .node text {
       pointer-events: none;
@@ -214,7 +214,7 @@
   <div id="node-data-container" style="display: none;">
     <h2>Node Interaction Data</h2>
     <div style="max-height: 400px; overflow-y: auto;">
-      
+
 <div id="pagination-controls" style="margin-top: 10px;">
   <button id="prev-page" disabled>Previous</button>
   <span id="page-indicator" style="margin: 0 10px;">Page 1</span>
@@ -231,8 +231,8 @@
         <!-- Data will be inserted here dynamically -->
       </tbody>
     </table>
-    
-    
+
+
   </div>
   </div>
   <script>
@@ -270,7 +270,7 @@
 
       const nodeColorScale = d3.scaleLinear()
   .domain([0, d3.max(nodes, d => d.interactionCount)])
-  .range(["#cce5ff", "#004080"]); 
+  .range(["#cce5ff", "#004080"]);
 
     const simulation = d3.forceSimulation(nodes)
       .force("link", d3.forceLink(links).id(d => d.id).distance(100))
@@ -608,10 +608,10 @@ document.addEventListener("DOMContentLoaded", function () {
       <button id="resize-btn">Expand</button>
       <span id="close-modal" style="cursor: pointer;">&times;</span>
       <div id="modal-body"></div>
-      
+
     </div>
   </div>
-  
-  
+
+
 </body>
 </html>

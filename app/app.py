@@ -145,11 +145,12 @@ else:
     # Organize pages into categories for better navigation
     navigation_categories = {
         "Overview": ["Dashboard"],
-        "Exploration": ["Email Explorer"], 
-        "Visualization": ["Structure de la boîte mail"],
-        "Search": ["Recherche Sémantique"], 
+        "AI Assistants": ["Chat + RAG"], # "Colbert RAG"
+        "Topic": ["Topic"],
         "Graph": ["Graph"],
-        "AI Assistants": ["Chat + RAG", "Colbert RAG"]
+        "Visualization": ["Structure de la boîte mail"],
+        "Search": ["Recherche Sémantique"]
+        # "Exploration": ["Email Explorer"],
     }
 
     # Display navigation categories
@@ -163,14 +164,14 @@ else:
 
     # Essential data loading - keep mailbox selection in sidebar for now
     st.sidebar.title("Données essentielles")
-    
+
     with open(os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'project_config_file.json'), 'r', encoding='utf-8') as file:
         json_data = json.load(file)
 
     mailboxs_names = list(json_data[ACTIVE_PROJECT]["mailboxs"].keys())
     mailbox_options = ["All Mailboxes"] + mailboxs_names
     selected_mailbox = st.sidebar.selectbox("Select Mailbox:", mailbox_options)
-    
+
     # Store selected mailbox in session state for other pages to access
     st.session_state.selected_mailbox = selected_mailbox
 
@@ -214,7 +215,7 @@ else:
     # Initialize EmailFilters
     db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'Projet Demo.duckdb')
     email_filters = EmailFilters(db_path)
-    
+
     # Legacy filters for pages not yet converted - moved out of sidebar
     # Only keep essential ones in a collapsible section
     if page in ["Chat", "Colbert RAG", "Structure de la boîte mail"]:
@@ -222,7 +223,7 @@ else:
             st.markdown("*Filtres pour pages non converties*")
             # Get dynamic date range
             min_date, max_date = get_date_range_from_data(selected_mailbox)
-            
+
             # Timeframe selection
             date_range = st.date_input(
                 "Date Range:",
@@ -230,7 +231,7 @@ else:
                 min_value=min_date,
                 max_value=max_date
             )
-            
+
             # Additional filters
             additional_filters = create_sidebar_filters(email_filters, selected_mailbox)
     else:
@@ -549,10 +550,10 @@ else:
             mailbox_options=mailbox_options,
             email_filters=email_filters
         )
-        
+
         # Get filter values for data loading
         selected_mailbox_filter = enhanced_filters.get('mailbox', selected_mailbox)
-        
+
         # Convert enhanced filters to the format expected by load_data_with_filters
         filter_dict = {}
         if enhanced_filters.get('direction'):
@@ -563,7 +564,7 @@ else:
             filter_dict['recipient'] = enhanced_filters['recipient']
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
-        
+
         emails_df = load_data_with_filters(selected_mailbox_filter, filter_dict, use_agg_recipients=True)
 
         # Apply date range filter if specified in enhanced filters
@@ -1158,9 +1159,6 @@ else:
         import streamlit.components.v1 as components
         import os
 
-
-
-
         folder_path = os.path.dirname(__file__)
 
         import json
@@ -1180,6 +1178,29 @@ else:
 
             # Display in Streamlit
         components.html(html_content, height=1200,width=1200)
+    elif page == "Topic":
+        folder_path = os.path.dirname(__file__)
+
+        # Read JSON data
+        json_path = os.path.join(folder_path, "components/tree3.json")
+
+        with open(json_path, "r", encoding="utf-8") as f:
+            data_json = json.load(f)
+
+        # Read HTML and inject the JSON
+        html_path = os.path.join(folder_path, "components/topic_tree.html")
+        with open(html_path, "r", encoding="utf-8") as f:
+            html_template = f.read()
+
+        # Replace the placeholder with actual JSON data (as JS object)
+        json_js = json.dumps(data_json)
+        html_content = html_template.replace("__GRAPH_DATA__", json_js)
+
+        # Display in Streamlit
+
+        st.title("Topic Tree Visualization")
+
+        components.html(html_content, height=800, width=2200)
 
     elif page == "Email Explorer":
         # Load data with working dropdown filters
@@ -1189,10 +1210,10 @@ else:
             mailbox_options=mailbox_options,
             email_filters=email_filters
         )
-        
+
         # Get filter values for data loading
         selected_mailbox_filter = enhanced_filters.get('mailbox', selected_mailbox)
-        
+
         # Convert enhanced filters to the format expected by load_data_with_filters
         filter_dict = {}
         if enhanced_filters.get('direction'):
@@ -1203,7 +1224,7 @@ else:
             filter_dict['recipient'] = enhanced_filters['recipient']
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
-        
+
         emails_df = load_data_with_filters(selected_mailbox_filter, filter_dict)
 
         # Apply date range filter if specified in enhanced filters
@@ -1307,12 +1328,12 @@ else:
             mailbox_options=mailbox_options,
             email_filters=email_filters
         )
-        
+
         st.subheader("Recherche avancée")
 
         # Load emails data with filters
         selected_mailbox_filter = enhanced_filters.get('mailbox', selected_mailbox)
-        
+
         # Convert enhanced filters
         filter_dict = {}
         if enhanced_filters.get('direction'):
@@ -1324,7 +1345,7 @@ else:
             filter_dict['recipient'] = enhanced_filters['recipient']
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
-        
+
         emails_df = load_data(selected_mailbox_filter)
 
         # Apply date range filter if specified
@@ -1439,10 +1460,10 @@ else:
             mailbox_options=mailbox_options,
             email_filters=email_filters
         )
-        
+
         # Load emails data with filters
         selected_mailbox_filter = enhanced_filters.get('mailbox', selected_mailbox)
-        
+
         # Convert enhanced filters
         filter_dict = {}
         if enhanced_filters.get('direction'):
@@ -1454,7 +1475,7 @@ else:
             filter_dict['recipient'] = enhanced_filters['recipient']
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
-        
+
         emails_df = load_data(selected_mailbox_filter)
 
         # Apply date range filter if specified
@@ -1968,7 +1989,7 @@ else:
 
         # Apply date range filter
         emails_df = apply_date_filter(emails_df, date_range)
-        
+
         # Import and render the Chat + RAG component
         try:
             from components.chat_rag_component import render_chat_rag_component
