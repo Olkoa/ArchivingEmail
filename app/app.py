@@ -46,6 +46,7 @@ st.set_page_config(
 # Import application components - using relative import
 sys.path.append(os.path.dirname(__file__))
 from components.email_viewer import create_email_table_with_viewer, apply_contact_filter, clear_email_selection
+from components.working_dropdown_filters import create_working_dropdown_filters
 
 from src.data.loading import load_mailboxes
 from src.data.email_analyzer import EmailAnalyzer
@@ -138,18 +139,17 @@ else:
     #     the corpus, and extract insights using advanced natural language processing techniques.
     # """)
 
-    # Sidebar for navigation and controls
+    # Sidebar for navigation and controls - simplified
     st.sidebar.title("Navigation")
 
     # Organize pages into categories for better navigation
     navigation_categories = {
-
         "Overview": ["Dashboard"],
-        "Exploration": ["Email Explorer"], # "Network Analysis", "Timeline"
+        "Exploration": ["Email Explorer"], 
         "Visualization": ["Structure de la boîte mail"],
-        "Search": ["Recherche Sémantique"], # , "Recherche ElasticSearch"
+        "Search": ["Recherche Sémantique"], 
         "Graph": ["Graph"],
-        "AI Assistants": ["Chat + RAG", "Colbert RAG"] # , "Chat"
+        "AI Assistants": ["Chat + RAG", "Colbert RAG"]
     }
 
     # Display navigation categories
@@ -161,20 +161,18 @@ else:
         navigation_categories[selected_category]
     )
 
-    # Data loading section (in the sidebar)
-    st.sidebar.title("Data")
-
-    # This will have to be an accessible var from the project selection and forward
-
-    # get the mailboxes names from the project config file to allow separating mailboxs in the same project.
-    # with open(f"data/Projects/{ACTIVE_PROJECT}/project_config_file.json", 'r', encoding='utf-8') as file:
+    # Essential data loading - keep mailbox selection in sidebar for now
+    st.sidebar.title("Données essentielles")
+    
     with open(os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'project_config_file.json'), 'r', encoding='utf-8') as file:
         json_data = json.load(file)
 
     mailboxs_names = list(json_data[ACTIVE_PROJECT]["mailboxs"].keys())
-
     mailbox_options = ["All Mailboxes"] + mailboxs_names
     selected_mailbox = st.sidebar.selectbox("Select Mailbox:", mailbox_options)
+    
+    # Store selected mailbox in session state for other pages to access
+    st.session_state.selected_mailbox = selected_mailbox
 
     # Function to get date range from data
     @st.cache_data
@@ -213,27 +211,33 @@ else:
             # Fallback to default dates
             return pd.to_datetime("2020-01-01").date(), pd.to_datetime("2025-12-31").date()
 
-    # Get dynamic date range
-    min_date, max_date = get_date_range_from_data(selected_mailbox)
-
-    # Store selected mailbox in session state for other pages to access
-    st.session_state.selected_mailbox = selected_mailbox
-
     # Initialize EmailFilters
     db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'Projet Demo.duckdb')
     email_filters = EmailFilters(db_path)
-
-    # Timeframe selection
-    st.sidebar.title("Filters")
-    date_range = st.sidebar.date_input(
-        "Date Range:",
-        value=(min_date, max_date),
-        min_value=min_date,
-        max_value=max_date
-    )
-
-    # Additional filters
-    additional_filters = create_sidebar_filters(email_filters, selected_mailbox)
+    
+    # Legacy filters for pages not yet converted - moved out of sidebar
+    # Only keep essential ones in a collapsible section
+    if page in ["Chat", "Colbert RAG", "Structure de la boîte mail"]:
+        with st.sidebar.expander("Filtres hérités", expanded=False):
+            st.markdown("*Filtres pour pages non converties*")
+            # Get dynamic date range
+            min_date, max_date = get_date_range_from_data(selected_mailbox)
+            
+            # Timeframe selection
+            date_range = st.date_input(
+                "Date Range:",
+                value=(min_date, max_date),
+                min_value=min_date,
+                max_value=max_date
+            )
+            
+            # Additional filters
+            additional_filters = create_sidebar_filters(email_filters, selected_mailbox)
+    else:
+        # For pages using the new filter system, just get defaults
+        min_date, max_date = get_date_range_from_data(selected_mailbox)
+        date_range = (min_date, max_date)
+        additional_filters = {}
 
 
     # Sidebar for logging out
@@ -538,10 +542,35 @@ else:
 
     # Main content
     if page == "Dashboard":
-        emails_df = load_data_with_filters(selected_mailbox, additional_filters, use_agg_recipients=True)
+        # Load data with working dropdown filters
+        enhanced_filters, filters_changed = create_working_dropdown_filters(
+            page_name="Dashboard",
+            emails_df=None,  # Will be loaded after filters
+            mailbox_options=mailbox_options,
+            email_filters=email_filters
+        )
+        
+        # Get filter values for data loading
+        selected_mailbox_filter = enhanced_filters.get('mailbox', selected_mailbox)
+        
+        # Convert enhanced filters to the format expected by load_data_with_filters
+        filter_dict = {}
+        if enhanced_filters.get('direction'):
+            filter_dict['direction'] = enhanced_filters['direction']
+        if enhanced_filters.get('sender'):
+            filter_dict['sender'] = enhanced_filters['sender']
+        if enhanced_filters.get('recipient'):
+            filter_dict['recipient'] = enhanced_filters['recipient']
+        if enhanced_filters.get('has_attachments'):
+            filter_dict['has_attachments'] = True
+        
+        emails_df = load_data_with_filters(selected_mailbox_filter, filter_dict, use_agg_recipients=True)
 
-        # Apply date range filter
-        emails_df = apply_date_filter(emails_df, date_range)
+        # Apply date range filter if specified in enhanced filters
+        if enhanced_filters.get('date_range'):
+            emails_df = apply_date_filter(emails_df, enhanced_filters['date_range'])
+        else:
+            emails_df = apply_date_filter(emails_df, date_range)
 
         # Display key metrics
         col1, col2, col3, col4 = st.columns(4)
@@ -575,26 +604,29 @@ else:
             unique_contacts = len(all_contacts)
             st.metric("Unique Contacts", unique_contacts)
 
-        # Show table with filter status
         # Check if a contact filter is active
         contact_filter_key = "dashboard_contact_filter"
         if contact_filter_key not in st.session_state:
             st.session_state[contact_filter_key] = None
 
-        # Apply contact filter if one is active
+        # Apply contact filter if one is active (from enhanced filters or legacy)
         filtered_emails_df = emails_df
+        active_contact_filter = enhanced_filters.get('contact_filter') or st.session_state[contact_filter_key]
 
-        if st.session_state[contact_filter_key]:
-            filtered_emails_df = apply_contact_filter(emails_df, st.session_state[contact_filter_key])
+        if active_contact_filter:
+            filtered_emails_df = apply_contact_filter(emails_df, active_contact_filter)
 
             # Display active contact filter info
-            st.info(f"📧 Filtrage actif pour le contact: `{st.session_state[contact_filter_key]}` | {len(filtered_emails_df)} emails trouvés")
+            st.info(f"📧 Filtrage actif pour le contact: `{active_contact_filter}` | {len(filtered_emails_df)} emails trouvés")
 
             # Add button to clear contact filter
             col1, col2, col3 = st.columns([1, 2, 1])
             with col2:
                 if st.button("❌ Supprimer le filtre contact", key="clear_contact_filter"):
                     st.session_state[contact_filter_key] = None
+                    # Also clear from enhanced filters
+                    if f"filter_contact_Dashboard" in st.session_state:
+                        del st.session_state[f"filter_contact_Dashboard"]
                     clear_email_selection("dashboard")  # Clear any selected email
                     st.rerun()
 
@@ -1150,14 +1182,39 @@ else:
         components.html(html_content, height=1200,width=1200)
 
     elif page == "Email Explorer":
-        emails_df = load_data_with_filters(selected_mailbox, additional_filters)
+        # Load data with working dropdown filters
+        enhanced_filters, filters_changed = create_working_dropdown_filters(
+            page_name="Email Explorer",
+            emails_df=None,  # Will be loaded after filters
+            mailbox_options=mailbox_options,
+            email_filters=email_filters
+        )
+        
+        # Get filter values for data loading
+        selected_mailbox_filter = enhanced_filters.get('mailbox', selected_mailbox)
+        
+        # Convert enhanced filters to the format expected by load_data_with_filters
+        filter_dict = {}
+        if enhanced_filters.get('direction'):
+            filter_dict['direction'] = enhanced_filters['direction']
+        if enhanced_filters.get('sender'):
+            filter_dict['sender'] = enhanced_filters['sender']
+        if enhanced_filters.get('recipient'):
+            filter_dict['recipient'] = enhanced_filters['recipient']
+        if enhanced_filters.get('has_attachments'):
+            filter_dict['has_attachments'] = True
+        
+        emails_df = load_data_with_filters(selected_mailbox_filter, filter_dict)
 
-        # Apply date range filter
-        emails_df = apply_date_filter(emails_df, date_range)
+        # Apply date range filter if specified in enhanced filters
+        if enhanced_filters.get('date_range'):
+            emails_df = apply_date_filter(emails_df, enhanced_filters['date_range'])
+        else:
+            emails_df = apply_date_filter(emails_df, date_range)
 
         st.subheader("Email Explorer")
 
-        # Show comprehensive filter status
+        # Show comprehensive filter status (using legacy for now)
         show_comprehensive_filter_status(additional_filters, email_filters)
 
         # Email list with filter
@@ -1243,13 +1300,38 @@ else:
         st.plotly_chart(create_timeline(emails_df), use_container_width=True)
 
     elif page == "Recherche Sémantique":
+        # Add working dropdown filters to search page
+        enhanced_filters, filters_changed = create_working_dropdown_filters(
+            page_name="Recherche Sémantique",
+            emails_df=None,
+            mailbox_options=mailbox_options,
+            email_filters=email_filters
+        )
+        
         st.subheader("Recherche avancée")
 
-        # Load emails data
-        emails_df = load_data(selected_mailbox)
+        # Load emails data with filters
+        selected_mailbox_filter = enhanced_filters.get('mailbox', selected_mailbox)
+        
+        # Convert enhanced filters
+        filter_dict = {}
+        if enhanced_filters.get('direction'):
+            direction_map = {"Envoyés": "sent", "Reçus": "received"}
+            filter_dict['direction'] = direction_map.get(enhanced_filters['direction'], enhanced_filters['direction'])
+        if enhanced_filters.get('sender'):
+            filter_dict['sender'] = enhanced_filters['sender']
+        if enhanced_filters.get('recipient'):
+            filter_dict['recipient'] = enhanced_filters['recipient']
+        if enhanced_filters.get('has_attachments'):
+            filter_dict['has_attachments'] = True
+        
+        emails_df = load_data(selected_mailbox_filter)
 
-        # Apply date range filter
-        emails_df = apply_date_filter(emails_df, date_range)
+        # Apply date range filter if specified
+        if enhanced_filters.get('date_range'):
+            emails_df = apply_date_filter(emails_df, enhanced_filters['date_range'])
+        else:
+            emails_df = apply_date_filter(emails_df, date_range)
 
         # Initialize Elasticsearch (mock mode)
         st.write("Cette interface vous permet de rechercher dans vos archives d'emails avec des filtres avancés.")
@@ -1350,11 +1432,36 @@ else:
                 st.info("Aucun résultat trouvé. Essayez d'élargir vos critères de recherche.")
 
     elif page == "Recherche ElasticSearch":
-        # Load emails data to make it available in session state
-        emails_df = load_data(selected_mailbox)
+        # Add working dropdown filters to ElasticSearch page
+        enhanced_filters, filters_changed = create_working_dropdown_filters(
+            page_name="Recherche ElasticSearch",
+            emails_df=None,
+            mailbox_options=mailbox_options,
+            email_filters=email_filters
+        )
+        
+        # Load emails data with filters
+        selected_mailbox_filter = enhanced_filters.get('mailbox', selected_mailbox)
+        
+        # Convert enhanced filters
+        filter_dict = {}
+        if enhanced_filters.get('direction'):
+            direction_map = {"Envoyés": "sent", "Reçus": "received"}
+            filter_dict['direction'] = direction_map.get(enhanced_filters['direction'], enhanced_filters['direction'])
+        if enhanced_filters.get('sender'):
+            filter_dict['sender'] = enhanced_filters['sender']
+        if enhanced_filters.get('recipient'):
+            filter_dict['recipient'] = enhanced_filters['recipient']
+        if enhanced_filters.get('has_attachments'):
+            filter_dict['has_attachments'] = True
+        
+        emails_df = load_data(selected_mailbox_filter)
 
-        # Apply date range filter
-        emails_df = apply_date_filter(emails_df, date_range)
+        # Apply date range filter if specified
+        if enhanced_filters.get('date_range'):
+            emails_df = apply_date_filter(emails_df, enhanced_filters['date_range'])
+        else:
+            emails_df = apply_date_filter(emails_df, date_range)
 
         st.session_state.emails_df = emails_df
 
@@ -1856,16 +1963,15 @@ else:
         #         st.session_state.use_diagnostic_mail_structure = False
 
     elif page == "Chat + RAG":
+        # No filters for chat - load data directly
+        emails_df = load_data(selected_mailbox)
+
+        # Apply date range filter
+        emails_df = apply_date_filter(emails_df, date_range)
+        
         # Import and render the Chat + RAG component
         try:
             from components.chat_rag_component import render_chat_rag_component
-
-            # Render the component with the loaded email data
-            emails_df = load_data(selected_mailbox)
-
-            # Apply date range filter
-            emails_df = apply_date_filter(emails_df, date_range)
-
             render_chat_rag_component(emails_df)
         except ImportError as e:
             st.error(f"Erreur d'importation du composant Chat + RAG: {str(e)}")
