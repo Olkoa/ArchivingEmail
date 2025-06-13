@@ -26,7 +26,7 @@ df.replace("", "unknown", inplace=True)
 df.fillna("unknown", inplace=True)
 
 # Clean columns
-for col in ["sender", "receiver", "subject", "date", "body"]:
+for col in ["sender", "receiver"]:
     df[col] = df[col].astype(str)
 
 st.success(f"✅ Loaded {len(df)} emails from CSV.")
