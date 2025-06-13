@@ -1203,45 +1203,9 @@ else:
 
         components.html(html_content, height=800, width=2200)
     elif page == "Graph_Br":
-        st.title("📬 Email Data Analysis ")
-
-        # Load folder path
-        folder_path = os.path.dirname(__file__)
-
-        # Load the pre-parsed CSV
-        csv_path = os.path.join(folder_path, "components/temp_data_full.csv")
-
-        if not os.path.exists(csv_path):
-            st.error("❌ CSV file 'temp_data.csv' not found.")
-            st.stop()
-
-        df = pd.read_csv(csv_path)
-        df.replace("", "unknown", inplace=True)
-        df.fillna("unknown", inplace=True)
-
-        # Clean columns
-        for col in ["sender", "receiver", "subject", "date", "body"]:
-            df[col] = df[col].astype(str)
-
-        st.success(f"✅ Loaded {len(df)} emails from CSV.")
-
-        # Grouped contacts
-        df["contact_1"] = df[["sender", "receiver"]].min(axis=1)
-        df["contact_2"] = df[["sender", "receiver"]].max(axis=1)
-        result = (
-            df.groupby(["contact_1", "contact_2"])
-            .size()
-            .reset_index(name="email_count")
-            .sort_values(by="email_count", ascending=False)
-        )
-
-        # Display results
-        st.subheader("🔝 Top email pairs by count:")
-        st.dataframe(result)
+        st.title("📬 Email Data Analysis ")      
 
         st.subheader("📋 Full DataFrame:")
-
-
 
         @st.cache_data
         def load_html(filename):
@@ -1252,7 +1216,6 @@ else:
         def load_json(filename):
             with open(os.path.join(folder_path, filename), "r", encoding="utf-8") as f:
                 return json.load(f)
-
 
         # Show injected JSON graph visualization
         if st.button("🧠 Visualiser Graph JSON"):
