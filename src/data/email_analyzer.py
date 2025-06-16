@@ -260,6 +260,7 @@ class EmailAnalyzer:
                        re.body
                 FROM receiver_emails re
                 JOIN entities sender ON re.sender_id = sender.id
+                ORDER BY re.timestamp DESC
             """
             if limit:
                 sql += f" LIMIT {limit}"
@@ -369,6 +370,8 @@ class EmailAnalyzer:
             entities reply_to ON re.reply_to_id = reply_to.id
         LEFT JOIN
             mailing_lists ml ON re.mailing_list_id = ml.id
+        ORDER BY
+            re.timestamp DESC
         """
 
         if limit:
@@ -446,6 +449,8 @@ class EmailAnalyzer:
             entities reply_to ON re.reply_to_id = reply_to.id
         LEFT JOIN
             mailing_lists ml ON re.mailing_list_id = ml.id
+        ORDER BY
+            re.timestamp DESC
         """
 
         if limit:
@@ -577,6 +582,9 @@ class EmailAnalyzer:
         # Add mailbox filter if specified
         if mailbox:
             core_query += f" WHERE re.folder = '{mailbox}'"
+        
+        # Add ORDER BY to sort by date descending (newest first)
+        core_query += " ORDER BY re.timestamp DESC"
 
         # Add limit if specified
         if limit:
@@ -771,6 +779,9 @@ class EmailAnalyzer:
         # Add mailbox filter if specified
         if mailbox:
             query += f" WHERE re.folder = '{mailbox}'"
+        
+        # Add ORDER BY to sort by date descending (newest first)
+        query += " ORDER BY re.timestamp DESC"
 
         # Add limit if specified
         if limit:
@@ -890,6 +901,9 @@ class EmailAnalyzer:
         # Add filter conditions to query
         if filter_conditions:
             query += " AND " + " AND ".join(filter_conditions)
+        
+        # Add ORDER BY to sort by date descending (newest first)
+        query += " ORDER BY re.timestamp DESC"
 
         # Add limit if specified
         if limit:
@@ -999,6 +1013,8 @@ class EmailAnalyzer:
         SELECT *
         FROM
             receiver_emails
+        ORDER BY
+            timestamp DESC
         """
 
         if limit:
