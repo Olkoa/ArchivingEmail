@@ -158,6 +158,8 @@ Et pour compter le nombre de mails présents dans les boîtes:
 find output_path -type f -iname "*.eml" | wc -l       
 ```
 
+readpst -j 0 -e -o "data/Projects/Projet Demo/Boîte mail de Céline/processed/" "data/Projects/Projet Demo/Boîte mail de Céline/raw/celine.guyon.pst"     
+
 
 Version du système:
 ```cli

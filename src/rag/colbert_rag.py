@@ -306,7 +306,8 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
     try:
         # Initialize the RAG model with ColBERTv2.0
         print("Loading pretrained model...")
-        rag_model = RAGPretrainedModel.from_pretrained("jinaai/jina-colbert-v2")
+        # rag_model = RAGPretrainedModel.from_pretrained("jinaai/jina-colbert-v2")
+        rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0")
         print("Model loaded successfully")
 
         # Process in batches if we have too many emails

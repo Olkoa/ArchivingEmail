@@ -77,6 +77,7 @@ def initialize_colbert_rag_system(
     # The actual index is stored by RAGAtouille in the user's home directory
     # We just need to check if we've already saved metadata
     index_exists = os.path.exists(os.path.join(index_dir, "email_metadata.pkl"))
+    print(f"Index ewists: {index_exists}")
 
     # Create index if it doesn't exist or if forced rebuild
     if not index_exists or force_rebuild:
@@ -112,9 +113,6 @@ def initialize_colbert_rag_system(
         emails_data = prepare_email_for_rag(colbert_df)
         print("mails ready")
 
-        print("mails ready")
-
-        # print(emails_data)
 
         # print(f"Loaded {colbert_df.shape[0]} emails for indexing\nStarting Indexing...")
 
