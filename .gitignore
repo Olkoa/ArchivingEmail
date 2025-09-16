@@ -30,8 +30,7 @@ emails_with_embeddings_improved.pkl
 emails_with_embeddings_sample.pkl
 
 # embeddings files
-0.residuals.pt
-emails_with_embeddings.pkl
+# 0.residuals.pt
 
 *.db
 *.duckdb*
