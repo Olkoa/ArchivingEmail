@@ -14,6 +14,7 @@ import uuid
 from datetime import datetime
 import tempfile
 import re
+import subprocess
 
 from components.logins import make_hashed_password, verify_password, add_user, initialize_users_db
 
@@ -22,6 +23,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')
 
 # Get project root path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+
+from src.data.s3_utils import S3Handler
+from src.data.mbox_to_eml import convert_folder_mbox_to_eml
 
 # Page configuration
 # st.set_page_config(
@@ -493,7 +497,381 @@ else:
         # Update the project order when a project is saved
         update_project_order(project_name)
 
+        # Start data preparation pipeline for new projects
+        if form['mode'] == 'create':
+            mailbox_names = [mailbox['name'] for mailbox in form['mailboxes']]
+            pipeline_success = start_data_preparation_pipeline(project_name, project_path, mailbox_names)
+            if pipeline_success:
+                st.info("Data preparation pipeline started successfully. Processing will continue in the background.")
+            else:
+                st.warning("Project created but data preparation pipeline failed to start. You may need to process data manually.")
+
         return True
+
+    def start_data_preparation_pipeline(project_name, project_path, mailbox_names):
+        """
+        Start the complete data preparation pipeline for a newly created project.
+        This function is called after project folders are created and will orchestrate
+        the entire data processing workflow.
+
+        Args:
+            project_name (str): Name of the project
+            project_path (str): Full path to the project directory
+            mailbox_names (list): List of mailbox names in the project
+
+        Returns:
+            bool: True if pipeline started successfully, False otherwise
+        """
+        # TODO: Implement the data preparation pipeline
+        # This function will call other functions to:
+        # 1. Convert PST/MBOX files to EML
+        # 2. Process EML files into DuckDB
+        # 3. Generate embeddings and search indexes
+        # 4. Initialize RAG system
+        # 5. Create visualizations and analytics
+
+        try:
+            print(f"Starting data preparation pipeline for project: {project_name}")
+            print(f"Project path: {project_path}")
+            print(f"Mailboxes to process: {mailbox_names}")
+
+            # Upload raw data to S3 for each mailbox
+            upload_success = upload_project_raw_data_to_s3(project_name, project_path, mailbox_names)
+            if upload_success:
+                st.success("Raw data successfully uploaded to S3")
+            else:
+                st.warning("Failed to upload some data to S3, but pipeline will continue")
+
+            # Download and sync data from S3 (useful for backup verification or distributed processing)
+            st.info("Verifying S3 sync by downloading data...")
+            download_success = download_project_raw_data_from_s3(project_name, project_path, mailbox_names)
+            if download_success:
+                st.success("S3 data synchronization verified")
+            else:
+                st.warning("S3 sync verification failed, but pipeline will continue")
+
+            # Convert PST/MBOX files to EML format for each mailbox
+            conversion_success = convert_project_emails_to_eml(project_name, project_path, mailbox_names)
+            if conversion_success:
+                st.success("Email files successfully converted to EML format")
+            else:
+                st.warning("Some email conversions failed, but pipeline will continue")
+
+            # Placeholder for future implementation
+            # Will be populated with actual pipeline functions
+
+            return True
+
+        except Exception as e:
+            st.error(f"Error starting data preparation pipeline: {str(e)}")
+            return False
+
+    def upload_project_raw_data_to_s3(project_name, project_path, mailbox_names, bucket_name="olkoa-projects"):
+        """
+        Upload raw data for all mailboxes in a project to S3.
+
+        Args:
+            project_name (str): Name of the project
+            project_path (str): Full path to the project directory
+            mailbox_names (list): List of mailbox names to upload
+            bucket_name (str): S3 bucket name (default: "olkoa-projects")
+
+        Returns:
+            bool: True if all uploads successful, False otherwise
+        """
+        try:
+            # Initialize S3 handler
+            s3_handler = S3Handler()
+
+            # Ensure bucket exists (create if it doesn't)
+            try:
+                buckets = s3_handler.list_buckets()
+                if bucket_name not in buckets:
+                    s3_handler.create_bucket(bucket_name)
+                    st.info(f"Created S3 bucket: {bucket_name}")
+            except Exception as e:
+                st.error(f"Failed to check/create S3 bucket: {e}")
+                return False
+
+            upload_success = True
+
+            # Upload raw data for each mailbox
+            for mailbox_name in mailbox_names:
+                local_raw_data_dir = os.path.join(project_path, mailbox_name, "raw")
+                s3_prefix = f"olkoa/{project_name}/{mailbox_name}/raw"
+
+                # Check if raw data directory exists and has files
+                if not os.path.exists(local_raw_data_dir):
+                    st.warning(f"Raw data directory not found for mailbox '{mailbox_name}': {local_raw_data_dir}")
+                    continue
+
+                if not os.listdir(local_raw_data_dir):
+                    st.info(f"No files to upload for mailbox '{mailbox_name}'")
+                    continue
+
+                try:
+                    st.info(f"Uploading raw data for mailbox: {mailbox_name}")
+                    s3_handler.upload_directory(
+                        local_dir=local_raw_data_dir,
+                        bucket_name=bucket_name,
+                        s3_prefix=s3_prefix
+                    )
+                    st.success(f"Successfully uploaded raw data for mailbox '{mailbox_name}' to S3")
+
+                except Exception as e:
+                    st.error(f"Failed to upload raw data for mailbox '{mailbox_name}': {e}")
+                    upload_success = False
+
+            return upload_success
+
+        except Exception as e:
+            st.error(f"Error in S3 upload process: {e}")
+            return False
+
+    def download_project_raw_data_from_s3(project_name, project_path, mailbox_names, bucket_name="olkoa-projects"):
+        """
+        Download raw data for all mailboxes in a project from S3.
+
+        Args:
+            project_name (str): Name of the project
+            project_path (str): Full path to the project directory
+            mailbox_names (list): List of mailbox names to download
+            bucket_name (str): S3 bucket name (default: "olkoa-projects")
+
+        Returns:
+            bool: True if all downloads successful, False otherwise
+        """
+        try:
+            # Initialize S3 handler
+            s3_handler = S3Handler()
+
+            # Check if bucket exists
+            try:
+                buckets = s3_handler.list_buckets()
+                if bucket_name not in buckets:
+                    st.error(f"S3 bucket '{bucket_name}' not found")
+                    return False
+            except Exception as e:
+                st.error(f"Failed to check S3 bucket: {e}")
+                return False
+
+            download_success = True
+
+            # Download raw data for each mailbox
+            for mailbox_name in mailbox_names:
+                local_raw_data_dir = os.path.join(project_path, mailbox_name, "raw")
+                s3_prefix = f"olkoa/{project_name}/{mailbox_name}/raw"
+
+                try:
+                    st.info(f"Downloading raw data for mailbox: {mailbox_name}")
+
+                    # Download the directory
+                    stats = s3_handler.download_directory(
+                        bucket_name=bucket_name,
+                        s3_prefix=s3_prefix,
+                        local_dir=local_raw_data_dir
+                    )
+
+                    if stats['downloaded_files'] > 0:
+                        st.success(f"Successfully downloaded {stats['downloaded_files']} files for mailbox '{mailbox_name}' from S3")
+                        st.info(f"Total size: {stats['total_size']} bytes")
+                    else:
+                        st.warning(f"No files found in S3 for mailbox '{mailbox_name}' at prefix '{s3_prefix}'")
+
+                    if stats['failed_files'] > 0:
+                        st.warning(f"Failed to download {stats['failed_files']} files for mailbox '{mailbox_name}'")
+                        download_success = False
+
+                except Exception as e:
+                    st.error(f"Failed to download raw data for mailbox '{mailbox_name}': {e}")
+                    download_success = False
+
+            return download_success
+
+        except Exception as e:
+            st.error(f"Error in S3 download process: {e}")
+            return False
+
+    def convert_project_emails_to_eml(project_name, project_path, mailbox_names):
+        """
+        Convert PST/MBOX files to EML format for all mailboxes in a project.
+        Handles PST files first (using readpst), then MBOX files (using internal converter).
+
+        Args:
+            project_name (str): Name of the project
+            project_path (str): Full path to the project directory
+            mailbox_names (list): List of mailbox names to process
+
+        Returns:
+            bool: True if all conversions successful, False otherwise
+        """
+        try:
+            conversion_success = True
+
+            # Process each mailbox
+            for mailbox_name in mailbox_names:
+                raw_folder = os.path.join(project_path, mailbox_name, "raw")
+                processed_folder = os.path.join(project_path, mailbox_name, "processed")
+
+                # Check if raw folder exists
+                if not os.path.exists(raw_folder):
+                    st.warning(f"Raw data folder not found for mailbox '{mailbox_name}': {raw_folder}")
+                    continue
+
+                # First, convert PST files directly to processed folder (readpst creates natural structure)
+                pst_success = convert_pst_files(raw_folder, processed_folder, mailbox_name)
+                if not pst_success:
+                    conversion_success = False
+
+                # Then, convert MBOX files following the same natural structure
+                mbox_success = convert_mbox_files(raw_folder, processed_folder, mailbox_name)
+                if not mbox_success:
+                    conversion_success = False
+
+            return conversion_success
+
+        except Exception as e:
+            st.error(f"Error in email to EML conversion process: {e}")
+            return False
+
+    def convert_pst_files(raw_folder, processed_folder, mailbox_name):
+        """
+        Convert PST files to EML using readpst command.
+        Outputs directly to processed folder to create natural mailbox structure.
+
+        Args:
+            raw_folder (str): Path to raw data folder
+            processed_folder (str): Path to processed folder (where natural structure will be created)
+            mailbox_name (str): Name of the mailbox for logging
+
+        Returns:
+            bool: True if successful or no PST files, False if conversion failed
+        """
+        try:
+            # Find PST files
+            pst_files = []
+            for root, dirs, files in os.walk(raw_folder):
+                for file in files:
+                    if file.lower().endswith('.pst'):
+                        pst_files.append(os.path.join(root, file))
+
+            if not pst_files:
+                st.info(f"No PST files found for mailbox '{mailbox_name}'")
+                return True
+
+            # Check if readpst is available
+            try:
+                subprocess.run(["which", "readpst"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except (subprocess.CalledProcessError, FileNotFoundError):
+                st.error(f"'readpst' is not installed. Cannot convert PST files for mailbox '{mailbox_name}'")
+                st.info("Install readpst with: sudo apt-get install pst-utils (Linux) or brew install libpst (macOS)")
+                return False
+
+            st.info(f"Converting {len(pst_files)} PST files for mailbox: {mailbox_name}")
+
+            for pst_file in pst_files:
+                try:
+                    # Run readpst to convert PST → EML directly to processed folder
+                    # This creates the natural mailbox structure like:
+                    # processed/username/Boîte de réception/, processed/username/Archive/, etc.
+                    cmd = ["readpst", "-j", "0", "-e", "-o", processed_folder, pst_file]
+
+                    result = subprocess.run(cmd, check=True, capture_output=True, text=True)
+                    st.success(f"Successfully converted PST file: {os.path.basename(pst_file)}")
+                    st.info(f"Natural mailbox structure created in: {processed_folder}")
+
+                except subprocess.CalledProcessError as e:
+                    st.error(f"Failed to convert PST file {os.path.basename(pst_file)}: {e}")
+                    return False
+                except Exception as e:
+                    st.error(f"Error processing PST file {os.path.basename(pst_file)}: {e}")
+                    return False
+
+            return True
+
+        except Exception as e:
+            st.error(f"Error in PST conversion for mailbox '{mailbox_name}': {e}")
+            return False
+
+    def convert_mbox_files(raw_folder, processed_folder, mailbox_name):
+        """
+        Convert MBOX files to EML following the natural mailbox structure pattern.
+        Creates structure similar to readpst output for consistency.
+
+        Args:
+            raw_folder (str): Path to raw data folder
+            processed_folder (str): Path to processed folder (where natural structure will be created)
+            mailbox_name (str): Name of the mailbox for logging
+
+        Returns:
+            bool: True if successful or no MBOX files, False if conversion failed
+        """
+        try:
+            # Check if there are any MBOX files to convert
+            mbox_files = []
+            for root, dirs, files in os.walk(raw_folder):
+                for file in files:
+                    if file.endswith('.mbox') or file.endswith('.mbox.gz'):
+                        mbox_files.append(os.path.join(root, file))
+
+            if not mbox_files:
+                st.info(f"No MBOX files found for mailbox '{mailbox_name}'")
+                return True
+
+            st.info(f"Converting {len(mbox_files)} MBOX files for mailbox: {mailbox_name}")
+
+            # Create a natural mailbox structure for MBOX files
+            # Follow pattern similar to readpst: processed/username/folder_name/
+            from src.data.mbox_to_eml import mbox_to_eml
+
+            total_emails = 0
+            for mbox_file in mbox_files:
+                try:
+                    # Get MBOX filename without extension for folder name
+                    mbox_filename = os.path.splitext(os.path.basename(mbox_file))[0]
+
+                    # Create natural structure similar to readpst
+                    # If MBOX file is named like "inbox.mbox", create folder "Boîte de réception"
+                    # If MBOX file is named like "sent.mbox", create folder "Éléments envoyés"
+                    folder_mapping = {
+                        'inbox': 'Boîte de réception',
+                        'sent': 'Éléments envoyés',
+                        'archive': 'Archive',
+                        'drafts': 'Brouillons',
+                        'trash': 'Éléments supprimés',
+                        'spam': 'Courrier indésirable'
+                    }
+
+                    # Check if mbox filename matches known folder types
+                    folder_name = folder_mapping.get(mbox_filename.lower(), mbox_filename)
+
+                    # Create the user folder structure (like readpst does)
+                    user_folder = os.path.join(processed_folder, mailbox_name.lower())
+                    mailbox_folder = os.path.join(user_folder, folder_name)
+                    os.makedirs(mailbox_folder, exist_ok=True)
+
+                    # Convert this MBOX file to EML files in the appropriate folder
+                    email_count = mbox_to_eml(mbox_file, mailbox_folder)
+                    total_emails += email_count
+
+                    st.success(f"Converted {mbox_filename}.mbox: {email_count} emails → {folder_name}/")
+
+                except Exception as e:
+                    st.error(f"Failed to convert MBOX file {os.path.basename(mbox_file)}: {e}")
+                    return False
+
+            if total_emails > 0:
+                st.success(f"Mailbox '{mailbox_name}': Converted {len(mbox_files)} MBOX files")
+                st.info(f"Total emails extracted: {total_emails}")
+                st.info(f"Natural mailbox structure created in: {processed_folder}")
+                return True
+            else:
+                st.warning(f"No emails extracted from MBOX files for mailbox '{mailbox_name}'")
+                return True
+
+        except Exception as e:
+            st.error(f"Error in MBOX conversion for mailbox '{mailbox_name}': {e}")
+            return False
 
     # Function to handle adding a new mailbox
     def add_mailbox():

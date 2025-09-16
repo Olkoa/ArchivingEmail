@@ -39,7 +39,7 @@ def main():
 
     # generate colbert indexes
 
-    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True, test_mode=False)
+    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True, test_mode=True)
 
 if __name__ == "__main__":
     main()

@@ -49,14 +49,17 @@ def initialize_colbert_rag_system(
     project_root: Optional[str] = None,
     force_rebuild: bool = False,
     test_mode: bool = False,
+    rag_mode: str = "light",
 ) -> str:
     """
     Initialize the Colbert RAG system by processing emails and creating the index.
 
     Args:
-        emails_df: DataFrame containing email data (if None, all mailboxes will be loaded)
+        ids_series: DataFrame containing email data (if None, all mailboxes will be loaded)
         project_root: Project root directory (if None, auto-detect)
         force_rebuild: Whether to force rebuilding the index even if it exists
+        test_mode: Whether to use test mode (100 emails) or full mode (500,000 emails)
+        rag_mode: "light" for colbert-ir/colbertv2.0 or "heavy" for jinaai/jina-colbert-v2
 
     Returns:
         Path to the index directory
@@ -98,7 +101,7 @@ def initialize_colbert_rag_system(
 
         if test_mode:
             # Load and prepare emails from all mbox files
-            colbert_df = email_analyzer.get_rag_email_dataset(limit = 100)
+            colbert_df = email_analyzer.get_rag_email_dataset(limit = 1000)
         else:
             colbert_df = email_analyzer.get_rag_email_dataset(limit = 500000)
 
@@ -110,7 +113,7 @@ def initialize_colbert_rag_system(
         print(colbert_df.columns)
         print(colbert_df.shape[0])
         # Prepare for RAG (returns List[Tuple[str, Dict[str, Any]]])
-        emails_data = prepare_email_for_rag(colbert_df)
+        emails_data = prepare_email_for_rag(colbert_df, rag_mode=rag_mode)
         print("mails ready")
 
 
@@ -118,7 +121,7 @@ def initialize_colbert_rag_system(
 
         # Initialize the Colbert RAG system
         # initialize_colbert_rag(colbert_df, index_dir)
-        initialize_colbert_rag(emails_data, index_dir)
+        initialize_colbert_rag(emails_data, index_dir, rag_mode=rag_mode)
 
         end_time = time.time()
         print(f"Colbert RAG index built successfully at {index_dir}")
@@ -131,7 +134,7 @@ def initialize_colbert_rag_system(
 if __name__ == "__main__":
     # Test initialization
 
-    # Initialize Colbert RAG system
-    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True, test_mode=True)
+    # Initialize Colbert RAG system (using light mode by default)
+    index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True, test_mode=False, rag_mode="light")
 
     print(f"Colbert RAG system initialized with index at {index_dir}")

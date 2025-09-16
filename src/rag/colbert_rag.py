@@ -124,11 +124,23 @@ from constants import ACTIVE_PROJECT
 
 #     return formatted_email
 
-def prepare_email_for_rag(df) -> List[Tuple[str, Dict[str, Any]]]:
+def prepare_email_for_rag(df, rag_mode: str = "light") -> List[Tuple[str, Dict[str, Any]]]:
     """
     Format emails from DataFrame for indexing in the RAG system.
+
+    Args:
+        df: DataFrame containing email data
+        rag_mode: "light" for aggressive truncation (colbert-ir/colbertv2.0) or "heavy" for less truncation (jinaai/jina-colbert-v2)
     """
     emails_data = []
+
+    # Set character limits based on RAG mode - much more aggressive for light mode
+    if rag_mode == "light":
+        max_body_chars = 600   # Ultra conservative for 512 token limit
+        max_total_chars = 900  # Total must be well under 400 tokens (~2.5 chars per token)
+    else:  # heavy mode
+        max_body_chars = 3000  # More permissive for jinaai/jina-colbert-v2
+        max_total_chars = 4000
 
     for index, row in df.iterrows():
         # Format the email content
@@ -150,19 +162,15 @@ def prepare_email_for_rag(df) -> List[Tuple[str, Dict[str, Any]]]:
         formatted_email += f"Subject: {row.get('subject', '')}\n"
         formatted_email += f"Date: {row.get('date', '')}\n"
 
-        # Add body with aggressive truncation
+        # Add body with mode-specific truncation
         body = row.get('body', '')
         if body:
             last_message = extract_last_message(body)
-            # Truncate to reasonable length (aim for ~300-400 tokens max)
-            # Rough estimate: 1 token ≈ 4 characters
-            max_chars = 3000  # This should be safe for 512 token limit 1200
-            if len(last_message) > max_chars:
-                last_message = last_message[:max_chars] + "..."
+            if len(last_message) > max_body_chars:
+                last_message = last_message[:max_body_chars] + "..."
             formatted_email += f"\n{last_message}"
 
         # Final safety check - truncate entire email if too long
-        max_total_chars = 4000  # Conservative limit 1500
         if len(formatted_email) > max_total_chars:
             formatted_email = formatted_email[:max_total_chars] + "..."
 
@@ -280,13 +288,14 @@ def extract_last_message(body: str) -> str:
 
 #     return all_emails
 
-def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output_dir: str, batch_size: int = 5000) -> str:
+def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output_dir: str, rag_mode: str = "light", batch_size: int = 300) -> str:
     """
     Initialize the Colbert RAG system with email data.
 
     Args:
         emails_data: List of tuples with (formatted_email, metadata)
         output_dir: Path to save metadata (actual index is saved by RAGAtouille internally)
+        rag_mode: "light" for colbert-ir/colbertv2.0 or "heavy" for jinaai/jina-colbert-v2
         batch_size: Number of emails to process at once to manage memory
 
     Returns:
@@ -304,63 +313,28 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
     print(f"Total emails to index: {len(email_texts)}")
 
     try:
-        # Initialize the RAG model with ColBERTv2.0
-        print("Loading pretrained model...")
-        # rag_model = RAGPretrainedModel.from_pretrained("jinaai/jina-colbert-v2")
-        rag_model = RAGPretrainedModel.from_pretrained("colbert-ir/colbertv2.0")
+        # Initialize the RAG model based on mode
+        if rag_mode == "light":
+            model_name = "colbert-ir/colbertv2.0"
+        else:  # heavy mode
+            model_name = "jinaai/jina-colbert-v2"
+
+        print(f"Loading pretrained model: {model_name}...")
+        rag_model = RAGPretrainedModel.from_pretrained(model_name)
         print("Model loaded successfully")
 
-        # Process in batches if we have too many emails
-        if len(email_texts) > batch_size:
-            print(f"Processing {len(email_texts)} emails in batches of {batch_size}")
-
-            # Index first batch
-            batch_texts = email_texts[:batch_size]
-            batch_ids = email_ids[:batch_size]
-            batch_metadata = email_metadata[:batch_size]
-
-            print(f"Indexing first batch: {len(batch_texts)} emails...")
-            rag_model.index(
-                collection=batch_texts,
-                document_ids=batch_ids,
-                document_metadatas=batch_metadata,
-                index_name=f"{ACTIVE_PROJECT}_emails_index",
-                max_document_length=3000,
-                split_documents=True,
-                use_faiss=True,
-                # index_bsize=32,  # Even smaller batch size
-                # nbits=2,
-            )
-
-            # Add remaining batches
-            for i in range(batch_size, len(email_texts), batch_size):
-                end_idx = min(i + batch_size, len(email_texts))
-                batch_texts = email_texts[i:end_idx]
-                batch_ids = email_ids[i:end_idx]
-                batch_metadata = email_metadata[i:end_idx]
-
-                print(f"Adding batch {i//batch_size + 1}: emails {i} to {end_idx-1}...")
-                # rag_model.add_to_index(
-                #     collection=batch_texts,
-                #     document_ids=batch_ids,
-                #     document_metadatas=batch_metadata,
-                #     index_name=f"{ACTIVE_PROJECT}_emails_index"
-                # )
-                rag_model.add_to_index(batch_texts)
-        else:
-            # Index all at once if manageable size
-            print(f"Indexing all {len(email_texts)} emails...")
-            rag_model.index(
-                collection=email_texts,
-                document_ids=email_ids,
-                document_metadatas=email_metadata,
-                index_name=f"{ACTIVE_PROJECT}_emails_index",
-                max_document_length=3000,
-                split_documents=True,
-                use_faiss=True,
-                # index_bsize=32,
-                # nbits=2,
-            )
+        # Memory-efficient single indexing - avoid broken add_to_index method
+        print(f"Indexing all {len(email_texts)} emails in single operation...")
+        rag_model.index(
+            collection=email_texts,
+            document_ids=email_ids,
+            document_metadatas=email_metadata,
+            index_name=f"{ACTIVE_PROJECT}_emails_index",
+            max_document_length=3000,
+            split_documents=True,
+            use_faiss=False,
+            bsize=32,          # Smaller internal batches to manage memory efficiently
+        )
 
         print("Done indexing!")
 

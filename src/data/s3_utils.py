@@ -222,7 +222,7 @@ class S3Handler:
                 s3_key = os.path.join(s3_prefix, relative_path).replace("\\", "/")
 
                 # Upload the file
-                s3_handler.upload_file(
+                self.upload_file(
                     file_path=local_file_path,
                     bucket_name=bucket_name,
                     object_key=s3_key
@@ -253,6 +253,102 @@ class S3Handler:
         except ClientError as e:
             self.logger.error(f"Error uploading file object: {e}")
             return False
+
+    def download_directory(self, bucket_name: str, s3_prefix: str, local_dir: str,
+                          progress_callback: Optional[callable] = None) -> Dict[str, Any]:
+        """
+        Download all files from an S3 prefix (directory) to a local directory, preserving structure.
+
+        Args:
+            bucket_name: Name of the S3 bucket
+            s3_prefix: S3 prefix (directory path) to download from
+            local_dir: Local directory to download files to
+            progress_callback: Optional callback function for progress updates
+
+        Returns:
+            Dictionary with download statistics: {
+                'total_files': int,
+                'downloaded_files': int,
+                'failed_files': int,
+                'total_size': int,
+                'downloaded_paths': List[str],
+                'failed_paths': List[str]
+            }
+        """
+        # Ensure local directory exists
+        os.makedirs(local_dir, exist_ok=True)
+
+        # Remove trailing slash from prefix if present
+        s3_prefix = s3_prefix.rstrip('/')
+
+        stats = {
+            'total_files': 0,
+            'downloaded_files': 0,
+            'failed_files': 0,
+            'total_size': 0,
+            'downloaded_paths': [],
+            'failed_paths': []
+        }
+
+        try:
+            # List all objects with the prefix
+            objects = self.list_objects(bucket_name, s3_prefix)
+            stats['total_files'] = len(objects)
+
+            if stats['total_files'] == 0:
+                self.logger.warning(f"No files found in {bucket_name} with prefix '{s3_prefix}'")
+                return stats
+
+            self.logger.info(f"Starting download of {stats['total_files']} files from {bucket_name}/{s3_prefix} to {local_dir}")
+
+            for i, obj in enumerate(objects):
+                try:
+                    s3_key = obj['key']
+
+                    # Create local file path by removing the s3_prefix and joining with local_dir
+                    if s3_key.startswith(s3_prefix + '/'):
+                        relative_path = s3_key[len(s3_prefix) + 1:]
+                    elif s3_key == s3_prefix:
+                        relative_path = os.path.basename(s3_key)
+                    else:
+                        # Handle case where s3_key contains the prefix but not as expected
+                        relative_path = s3_key.replace(s3_prefix, '').lstrip('/')
+
+                    local_file_path = os.path.join(local_dir, relative_path)
+
+                    # Create directory for the file if it doesn't exist
+                    os.makedirs(os.path.dirname(local_file_path), exist_ok=True)
+
+                    # Download the file
+                    success = self.download_file(bucket_name, s3_key, local_file_path)
+
+                    if success:
+                        stats['downloaded_files'] += 1
+                        stats['total_size'] += obj['size']
+                        stats['downloaded_paths'].append(local_file_path)
+                        self.logger.debug(f"Downloaded {s3_key} to {local_file_path}")
+                    else:
+                        stats['failed_files'] += 1
+                        stats['failed_paths'].append(s3_key)
+
+                    # Progress callback
+                    if progress_callback:
+                        progress_callback(i + 1, stats['total_files'], s3_key)
+
+                except Exception as e:
+                    stats['failed_files'] += 1
+                    stats['failed_paths'].append(obj['key'])
+                    self.logger.error(f"Error downloading {obj['key']}: {e}")
+
+            self.logger.info(f"Download completed: {stats['downloaded_files']}/{stats['total_files']} files downloaded successfully")
+            if stats['failed_files'] > 0:
+                self.logger.warning(f"{stats['failed_files']} files failed to download")
+
+        except Exception as e:
+            self.logger.error(f"Error listing objects for download: {e}")
+            raise
+
+        return stats
 
     def download_file(self, bucket_name: str, object_key: str,
                      file_path: str) -> bool:
