@@ -23,7 +23,9 @@ def process_embeddings(batch_size=60, batch_delay=61, sample_mode=False):
     - DataFrame with embeddings and path where it was saved
     """
     # Load project settings
-    ACTIVE_PROJECT = "Projet Demo"  # Replace with your actual project ID
+    # ACTIVE_PROJECT = "Projet Demo"  # Replace with your actual project ID
+    load_dotenv()
+    ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
 
     # Load data
     db_path = os.path.join('data', "Projects", ACTIVE_PROJECT, 'célineETjoel.duckdb')

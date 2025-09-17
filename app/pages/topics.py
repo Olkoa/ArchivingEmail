@@ -7,6 +7,10 @@ import uuid
 from datetime import datetime
 import tempfile
 import re
+from dotenv import load_dotenv
+
+load_dotenv()
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
 
 from components.logins import make_hashed_password, verify_password, add_user, initialize_users_db
 
@@ -103,7 +107,7 @@ else:
     """)
 
     # Path to the HTML file
-    demo_dir = os.path.join(project_root, 'data', 'Projects', 'Projet Demo')
+    demo_dir = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT)
     topics_html_path = os.path.join(demo_dir, 'email_clusters_interactive.html')
 
     # Function to display the HTML graph

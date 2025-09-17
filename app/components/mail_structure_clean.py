@@ -3,6 +3,12 @@ Clean mail structure page that shows the graph by default with debug options hid
 """
 
 import streamlit as st
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
 
 def render_mail_structure_page():
     """Render a clean mail structure page with the graph shown by default."""
@@ -56,7 +62,7 @@ def render_mail_structure_page():
     """)
 
     # Get the active project name
-    project_name = "Projet Demo"
+    project_name = ACTIVE_PROJECT
 
     # Check if a Mermaid graph already exists
     existing_graph = load_existing_mermaid_graph(project_name, project_root)

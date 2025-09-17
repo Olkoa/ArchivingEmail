@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
@@ -106,8 +108,8 @@ def test_project_structure():
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 
     required_dirs = [
-        os.path.join(project_root, 'data', 'Projects', 'Projet Demo'),
-        os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'colbert_indexes'),
+        os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT),
+        os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes'),
         os.path.join(project_root, '.ragatouille')
     ]
 
@@ -135,7 +137,7 @@ def test_database_connection():
         from src.data.email_analyzer import EmailAnalyzer
 
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
-        db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'Projet Demo.duckdb')
+        db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
 
         if os.path.exists(db_path):
             print(f"✅ Database file exists: {db_path}")

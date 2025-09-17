@@ -16,8 +16,11 @@ from tqdm import tqdm
 from email import policy
 from bs4 import BeautifulSoup
 import json
-
 import pandas as pd
+from dotenv import load_dotenv
+
+load_dotenv()
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -414,7 +417,7 @@ def extract_recipients(message):
         "reply_to": reply_to_entity
     }
 
-def extract_message_data(message, folder_name, config_file, mailbox_name="Boîte mail de Céline", project_name="Projet Demo"):
+def extract_message_data(message, folder_name, config_file, mailbox_name="Boîte mail de Céline", project_name=ACTIVE_PROJECT):
     """Extract comprehensive email data to match Pydantic models"""
     # Generate a unique ID
     email_id = str(uuid.uuid4())
@@ -598,7 +601,7 @@ def extract_message_data(message, folder_name, config_file, mailbox_name="Boîte
 
 def collect_email_data(directory: Union[str, Path],
                        mailbox_name:str ="Boîte mail de Céline",
-                       project_name:str ="Projet Demo",
+                       project_name:str =ACTIVE_PROJECT,
                        include_attachments: bool = True) -> List[Dict[str, Any]]:
     """
     Recursively process all .eml files in the directory and its subdirectories
@@ -763,7 +766,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                           conn: 'duckdb.DuckDBPyConnection',
                           batch_size: int = 100,
                           mailbox_name: str = "Boîte mail de Céline",
-                          project_name: str = "Projet Demo",
+                          project_name: str = ACTIVE_PROJECT,
                           entity_cache: Optional[Dict[str, str]] = None) -> Dict[str, str]:
     """
     Recursively process all .eml files in a directory and its subdirectories directly to DuckDB in batches

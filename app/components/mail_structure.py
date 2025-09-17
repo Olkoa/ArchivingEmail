@@ -11,6 +11,10 @@ import os
 import sys
 import json
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -38,7 +42,7 @@ def render_mail_structure_page():
     
     # Get the active project name
     # For now, we'll use the same logic as in the main app
-    project_name = "Projet Demo"
+    project_name = ACTIVE_PROJECT
     
     # Check if a Mermaid graph already exists
     existing_graph = load_existing_mermaid_graph(project_name, project_root)

@@ -22,6 +22,11 @@ from email.policy import default
 import streamlit.components.v1 as components
 import duckdb
 from pathlib import Path
+from dotenv import load_dotenv
+
+
+load_dotenv()
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -182,7 +187,7 @@ else:
         """Get the min and max dates from the loaded data to set dynamic date range"""
         try:
             # Load a small sample to get date range without the full dataset
-            db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'Projet Demo.duckdb')
+            db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
             analyzer = EmailAnalyzer(db_path=db_path)
 
             # Get min and max dates from database
@@ -214,7 +219,7 @@ else:
             return pd.to_datetime("2020-01-01").date(), pd.to_datetime("2025-12-31").date()
 
     # Initialize EmailFilters
-    db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'Projet Demo.duckdb')
+    db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
     email_filters = EmailFilters(db_path)
 
     # Legacy filters for pages not yet converted - moved out of sidebar
@@ -387,7 +392,7 @@ else:
                                instead of get_app_DataFrame
         """
         try:
-            db_path = os.path.join(project_root, 'data', 'Projects', 'Projet Demo', 'Projet Demo.duckdb')
+            db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
             analyzer = EmailAnalyzer(db_path=db_path)
 
             # Use the enhanced method that supports filters
