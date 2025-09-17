@@ -478,6 +478,8 @@ else:
         form = st.session_state.project_form
         project_name = form['project_name']
 
+        set_active_project(project_name)
+
         # Generate config JSON
         config = generate_config_json()
 

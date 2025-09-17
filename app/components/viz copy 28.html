@@ -239,8 +239,8 @@
     // Replace this with your actual graph data
     const graphData = __GRAPH_DATA__;
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = window.innerWidth*5;
+    const height = window.innerHeight*5;
 
     const svg = d3.select("#main-graph");
     const tooltip = d3.select("#tooltip");
@@ -329,7 +329,8 @@
     node.append("text")
       .attr("dy", -15)
       .attr("text-anchor", "middle")
-      .text(d => d.name);
+      .text(d => d.name)
+      //.style("display","none");
 
     simulation.on("tick", () => {
       nodes.forEach(d => {

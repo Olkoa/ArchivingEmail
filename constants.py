@@ -14,8 +14,8 @@ ENABLE_ELASTICSEARCH = False  # Set to True to use real Elasticsearch instead of
 ENABLE_RAG = True  # Set to False to disable RAG features
 
 ###
-ACTIVE_PROJECT = "pst500"
+ACTIVE_PROJECT = "Projet Demo"
 
 # Project order - Most recently accessed projects will appear first
 # Format: List of project names in display order
-PROJECT_ORDER = ["pst500v2", "pst500", "Projet Demo", "brutasse", "Dans la vallée haha", "Poissonerie", "efzrgtrh"]
+PROJECT_ORDER = ["Projet Demo", "pst500v2", "pst500", "brutasse", "Dans la vallée haha", "Poissonerie", "efzrgtrh"]

@@ -18,8 +18,10 @@ from collections import Counter
 
 # imports for graph
 import email
+import email.utils
 from email.policy import default
 import streamlit.components.v1 as components
+import subprocess
 import duckdb
 from pathlib import Path
 from dotenv import load_dotenv
@@ -27,6 +29,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+DEVELOPER_MODE = os.getenv("DEVELOPER_MODE", "False").lower() == "true"
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -123,7 +126,11 @@ def show_login_form():
 
 # Page configuration is already set at the top of the file
 
-# Check if authenticated
+# Check if authenticated (bypass in developer mode)
+if DEVELOPER_MODE:
+    st.session_state.authenticated = True
+    st.session_state.username = "Developer"
+
 if not st.session_state.authenticated:
     show_login_form()
 else:
@@ -875,315 +882,175 @@ else:
 
 
     elif page == "Graph":
+        st.markdown(f"### 📊 Email Network Graph")
 
-        if st.button("🚀 Run Script with Archive"):
-            # Step 1: Define folder path
-            # Get the current script directory
-            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-            eml_folder = os.path.join(project_root, 'data','Projects' , ACTIVE_PROJECT, 'Boîte mail de Céline', 'processed', 'celine.guyon', 'Archive')
+        # Dynamic folder selection
+        def get_available_folders():
+            folders = []
+            project_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT)
 
+            if selected_mailbox == "All Mailboxes":
+                # Scan all mailboxes for folders
+                for mailbox in mailboxs_names:
+                    mailbox_path = os.path.join(project_path, mailbox, 'processed')
+                    if os.path.exists(mailbox_path):
+                        for user_dir in os.listdir(mailbox_path):
+                            user_path = os.path.join(mailbox_path, user_dir)
+                            if os.path.isdir(user_path):
+                                for folder in os.listdir(user_path):
+                                    folder_path = os.path.join(user_path, folder)
+                                    if os.path.isdir(folder_path):
+                                        eml_files = [f for f in os.listdir(folder_path) if f.endswith('.eml')]
+                                        if eml_files:
+                                            folders.append({
+                                                'display': f"{mailbox} → {user_dir}/{folder}",
+                                                'path': folder_path,
+                                                'mailbox': mailbox,
+                                                'eml_count': len(eml_files)
+                                            })
+            else:
+                # Scan selected mailbox only
+                mailbox_path = os.path.join(project_path, selected_mailbox, 'processed')
+                if os.path.exists(mailbox_path):
+                    for user_dir in os.listdir(mailbox_path):
+                        user_path = os.path.join(mailbox_path, user_dir)
+                        if os.path.isdir(user_path):
+                            for folder in os.listdir(user_path):
+                                folder_path = os.path.join(user_path, folder)
+                                if os.path.isdir(folder_path):
+                                    eml_files = [f for f in os.listdir(folder_path) if f.endswith('.eml')]
+                                    if eml_files:
+                                        folders.append({
+                                            'display': f"{user_dir}/{folder}",
+                                            'path': folder_path,
+                                            'mailbox': selected_mailbox,
+                                            'eml_count': len(eml_files)
+                                        })
 
+            return folders
 
-        # Optio
-            #eml_folder = "../data/processed/celine_readpst_with_s/celine.guyon/Archive"
-            emails_data = []
+        # Get available folders
+        available_folders = get_available_folders()
 
-            # Step 2: Parse .eml files
-            for filename in os.listdir(eml_folder):
-                if filename.endswith(".eml"):
-                    file_path = os.path.join(eml_folder, filename)
-                    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+        if not available_folders:
+            st.warning("No processed email folders found for the selected mailbox(es).")
+        else:
+            # Folder selection dropdown
+            folder_options = [f"{f['display']} ({f['eml_count']} emails)" for f in available_folders]
+            selected_folder_idx = st.selectbox(
+                "Select folder for graph generation:",
+                range(len(folder_options)),
+                format_func=lambda x: folder_options[x],
+                key="graph_folder_select"
+            )
+
+            selected_folder = available_folders[selected_folder_idx]
+
+            # Generate graph button
+            col1, col2, col3 = st.columns([1, 2, 1])
+            with col2:
+                if st.button(f"🎯 Generate Network Graph", use_container_width=True, key="generate_graph_btn"):
+                    eml_folder = selected_folder['path']
+
+                    with st.spinner(f"Processing {selected_folder['eml_count']} emails from {selected_folder['display']}..."):
                         try:
-                            msg = email.message_from_file(f, policy=default)
-                            sender = msg["From"]
-                            receivers = msg.get_all("To", [])
-                            subject = msg.get("Subject", "unknown")
-                            date = msg.get("Date", "unknown")
+                            emails_data = []
 
-                            # Clean sender
-                            sender = email.utils.parseaddr(sender)[1] if sender else "unknown"
+                            # Parse .eml files
+                            for filename in os.listdir(eml_folder):
+                                if filename.endswith(".eml"):
+                                    file_path = os.path.join(eml_folder, filename)
+                                    try:
+                                        with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                                            msg = email.message_from_file(f, policy=default)
+                                            sender = msg["From"]
+                                            receivers = msg.get_all("To", [])
 
-                            # Parse and flatten all receiver addresses
-                            receiver_list = email.utils.getaddresses(receivers)
-                            # Extract body
-                            try:
-                                html_body = getBody(msg)
-                                soup = BeautifulSoup(html_body, 'html.parser')
-                                body = soup.get_text()
-                                body = decode_unicode_escape(body)
-                            except Exception as e:
-                                body = "[Error reading body]"
+                                            # Clean sender
+                                            sender = email.utils.parseaddr(sender)[1] if sender else "unknown"
 
+                                            # Parse and flatten all receiver addresses
+                                            receiver_list = email.utils.getaddresses(receivers)
 
+                                            for name, addr in receiver_list:
+                                                addr = addr.strip()
+                                                if addr:
+                                                    emails_data.append({
+                                                        "sender": sender,
+                                                        "receiver": addr
+                                                    })
 
-                            for name, addr in receiver_list:
-                                addr = addr.strip()
-                                if addr:  # Only keep non-empty addresses
-                                    emails_data.append({
-                                        "sender": sender,
-                                        "receiver": addr,
-                                        "subject": subject,
-                                        "date": date,
-                                        "body": body
-                                    })
+                                    except Exception as e:
+                                        st.warning(f"Failed to parse {filename}: {e}")
 
+                            if emails_data:
+                                # Create DataFrame
+                                df = pd.DataFrame(emails_data)
+                                df.replace("", "unknown", inplace=True)
+                                df.fillna("unknown", inplace=True)
+
+                                # Save DataFrame to CSV for processing
+                                temp_csv_path = os.path.join(eml_folder, "temp_graph_data.csv")
+                                df.to_csv(temp_csv_path, index=False)
+
+                                # Run graph generation script
+                                result = subprocess.run(
+                                    ["python", "components/js2.py", temp_csv_path],
+                                    capture_output=True, text=True, check=True, cwd=os.path.dirname(__file__)
+                                )
+
+                                # Load and display the generated graph
+                                folder_path = os.path.dirname(__file__)
+                                json_path = os.path.join(folder_path, "components/email_network.json")
+                                html_path = os.path.join(folder_path, "components/viz copy 28.html")
+
+                                if os.path.exists(json_path) and os.path.exists(html_path):
+                                    with open(json_path, "r") as f:
+                                        data_json = json.load(f)
+
+                                    with open(html_path, "r", encoding="utf-8") as f:
+                                        html_content = f.read()
+
+                                    html_content = html_content.replace("__GRAPH_DATA__", json.dumps(data_json))
+
+                                    st.success(f"✅ Graph generated successfully for {selected_folder['display']}")
+                                    components.html(html_content, height=1200, width=1200)
+
+                                    # Clean up temp file
+                                    try:
+                                        os.remove(temp_csv_path)
+                                    except:
+                                        pass
+                                else:
+                                    st.error("Graph visualization files not found.")
+
+                            else:
+                                st.warning(f"No valid email data found in {selected_folder['display']}")
+
+                        except subprocess.CalledProcessError as e:
+                            st.error(f"Error generating graph: {e.stderr}")
                         except Exception as e:
-                            print(f"❌ Failed to parse {filename}: {e}")
+                            st.error(f"Error processing emails: {e}")
 
-            # Step 3: Create DataFrame
-            df = pd.DataFrame(emails_data)
-
-            # Optional: replace missing with placeholder
-            df.replace("", "unknown", inplace=True)
-            df.fillna("unknown", inplace=True)
-
-            # Step 4: Use DuckDB to store DataFrame
-            # Step 4: Use DuckDB to store DataFrame
-            con = duckdb.connect(database=':memory:', read_only=False)
-            for col in ["sender", "receiver", "subject", "date", "body"]:
-                df[col] = df[col].astype(str).apply(lambda x: x.encode('utf-8', errors='ignore').decode('utf-8', errors='ignore'))
-            # Register DataFrame as a DuckDB view
-            con.register("emails_df", df)
-
-            # Now create a table from that view (optional if you prefer to use the view directly)
-            con.execute("CREATE TABLE emails AS SELECT * FROM emails_df")
-
-
-            # Step 5: Query Data from DuckDB (Example query)
-            query = "SELECT sender, receiver, COUNT(*) AS email_count FROM emails GROUP BY sender, receiver ORDER BY email_count DESC LIMIT 10"
-            result = con.execute(query).fetchdf()
-
-            # Step 6: Display data with Streamlit
-            st.title('Email Data Graph')
-
-            import subprocess
-
-            # Save DataFrame to CSV (or Parquet if you prefer)
-            df.to_csv(f"{eml_folder}/temp_data.csv", index=False)
-
-            # Button to run script and pass data
-
-            with st.spinner("Running script..."):
-                try:
-                    result = subprocess.run(["python", "components/js2.py", f"{eml_folder}/temp_data.csv"],
-                                            capture_output=True, text=True, check=True)
-                    st.success("✅ Script executed successfully!")
-
-                except subprocess.CalledProcessError as e:
-                    st.error("❌ Failed to run the script.")
-                    st.text(e.stderr)
-            from pathlib import Path
-            import shutil
-            import streamlit as st
-            # Folder path where the files are located
-            folder_path = os.path.dirname(__file__)
-
-        if st.button("🚀 Run Script with Envoyé"):
-            # Step 1: Define folder path
-            # Get the current script directory
-            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-            eml_folder = os.path.join(project_root, 'data','Projects' , ACTIVE_PROJECT, 'Boîte mail de Céline', 'processed', 'celine.guyon', 'Éléments envoyés')
-
-        # Optio
-            #eml_folder = "../data/processed/celine_readpst_with_s/celine.guyon/Archive"
-            emails_data = []
-
-            # Step 2: Parse .eml files
-            for filename in os.listdir(eml_folder):
-                if filename.endswith(".eml"):
-                    file_path = os.path.join(eml_folder, filename)
-                    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-                        try:
-                            msg = email.message_from_file(f, policy=default)
-                            sender = msg["From"]
-                            receivers = msg.get_all("To", [])
-
-                            # Clean sender
-                            sender = email.utils.parseaddr(sender)[1] if sender else "unknown"
-
-                            # Parse and flatten all receiver addresses
-                            receiver_list = email.utils.getaddresses(receivers)
-
-                            for name, addr in receiver_list:
-                                addr = addr.strip()
-                                if addr:  # Only keep non-empty addresses
-                                    emails_data.append({
-                                        "sender": sender,
-                                        "receiver": addr
-                                    })
-
-                        except Exception as e:
-                            print(f"❌ Failed to parse {filename}: {e}")
-
-            # Step 3: Create DataFrame
-            df = pd.DataFrame(emails_data)
-
-            # Optional: replace missing with placeholder
-            df.replace("", "unknown", inplace=True)
-            df.fillna("unknown", inplace=True)
-
-            # Step 4: Use DuckDB to store DataFrame
-            # Step 4: Use DuckDB to store DataFrame
-            con = duckdb.connect(database=':memory:', read_only=False)
-
-            # Register DataFrame as a DuckDB view
-            con.register("emails_df", df)
-
-            # Now create a table from that view (optional if you prefer to use the view directly)
-            con.execute("CREATE TABLE emails AS SELECT * FROM emails_df")
-
-
-            # Step 5: Query Data from DuckDB (Example query)
-            query = "SELECT sender, receiver, COUNT(*) AS email_count FROM emails GROUP BY sender, receiver ORDER BY email_count DESC LIMIT 10"
-            result = con.execute(query).fetchdf()
-
-            # Step 6: Display data with Streamlit
-            st.title('Email Data Graph')
-
-            import subprocess
-
-            # Save DataFrame to CSV (or Parquet if you prefer)
-            df.to_csv(f"{eml_folder}/temp_data.csv", index=False)
-
-            # Button to run script and pass data
-
-            with st.spinner("Running script..."):
-                try:
-                    result = subprocess.run(["python", "components/js.py", f"{eml_folder}/temp_data.csv"],
-                                            capture_output=True, text=True, check=True)
-                    st.success("✅ Script executed successfully!")
-
-                except subprocess.CalledProcessError as e:
-                    st.error("❌ Failed to run the script.")
-                    st.text(e.stderr)
-            from pathlib import Path
-            import shutil
-            import streamlit as st
-            # Folder path where the files are located
-            folder_path = os.path.dirname(__file__)
-        if st.button("🚀 Run Script with Test"):
-            folder_path = os.path.dirname(__file__)
-            json_path = os.path.join(folder_path, "components/email_network4.json")
-            with open(json_path, "r") as f:
-                data_json = json.load(f)
-
-        # Read HTML and inject the JSON directly
-            html_path = os.path.join(folder_path, "components/viz copy 28.html")
-            with open(html_path, "r", encoding="utf-8") as f:
-                html_content = f.read()
-
-        # For example, replace a placeholder in HTML like {{DATA_JSON}}
-            html_content = html_content.replace("__GRAPH_DATA__", json.dumps(data_json))
-
-            # Display in Streamlit
-            components.html(html_content, height=1200,width=1200)
-        if st.button("🚀 Run Script with Indesirable"):
-            # Step 1: Define folder path
-            # Get the current script directory
-            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-            eml_folder = os.path.join(project_root, 'data','Projects' , ACTIVE_PROJECT, 'Boîte mail de Céline', 'processed', 'celine.guyon' , 'Courrier indésirable')
-
-
-        # Optio
-
-            emails_data = []
-
-            # Step 2: Parse .eml files
-            for filename in os.listdir(eml_folder):
-                if filename.endswith(".eml"):
-                    file_path = os.path.join(eml_folder, filename)
-                    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-                        try:
-                            msg = email.message_from_file(f, policy=default)
-                            sender = msg["From"]
-                            receivers = msg.get_all("To", [])
-
-                            # Clean sender
-                            sender = email.utils.parseaddr(sender)[1] if sender else "unknown"
-
-                            # Parse and flatten all receiver addresses
-                            receiver_list = email.utils.getaddresses(receivers)
-
-                            for name, addr in receiver_list:
-                                addr = addr.strip()
-                                if addr:  # Only keep non-empty addresses
-                                    emails_data.append({
-                                        "sender": sender,
-                                        "receiver": addr
-                                    })
-
-                        except Exception as e:
-                            print(f"❌ Failed to parse {filename}: {e}")
-
-            # Step 3: Create DataFrame
-            df = pd.DataFrame(emails_data)
-
-            # Optional: replace missing with placeholder
-            df.replace("", "unknown", inplace=True)
-            df.fillna("unknown", inplace=True)
-
-            # Step 4: Use DuckDB to store DataFrame
-            # Step 4: Use DuckDB to store DataFrame
-            con = duckdb.connect(database=':memory:', read_only=False)
-
-            # Register DataFrame as a DuckDB view
-            con.register("emails_df", df)
-
-            # Now create a table from that view (optional if you prefer to use the view directly)
-            con.execute("CREATE TABLE emails AS SELECT * FROM emails_df")
-
-
-            # Step 5: Query Data from DuckDB (Example query)
-            query = "SELECT sender, receiver, COUNT(*) AS email_count FROM emails GROUP BY sender, receiver ORDER BY email_count DESC LIMIT 10"
-            result = con.execute(query).fetchdf()
-
-            # Step 6: Display data with Streamlit
-            st.title('Email Data Graph')
-
-            import subprocess
-
-            # Save DataFrame to CSV (or Parquet if you prefer)
-            df.to_csv(f"{eml_folder}/temp_data.csv", index=False)
-
-            # Button to run script and pass data
-
-            with st.spinner("Running script..."):
-                try:
-                    result = subprocess.run(["python", "components/js.py", f"{eml_folder}/temp_data.csv"],
-                                            capture_output=True, text=True, check=True)
-                    st.success("✅ Script executed successfully!")
-
-                except subprocess.CalledProcessError as e:
-                    st.error("❌ Failed to run the script.")
-                    st.text(e.stderr)
-            from pathlib import Path
-            import shutil
-            import streamlit as st
-            # Folder path where the files are located
-            folder_path = os.path.dirname(__file__)
-        import streamlit as st
-        import streamlit.components.v1 as components
-        import os
-
+        # Display existing graph if available
         folder_path = os.path.dirname(__file__)
-
-        import json
-
-        # Read JSON data
         json_path = os.path.join(folder_path, "components/email_network.json")
-        with open(json_path, "r") as f:
-            data_json = json.load(f)
-
-        # Read HTML and inject the JSON directly
         html_path = os.path.join(folder_path, "components/viz copy 28.html")
-        with open(html_path, "r", encoding="utf-8") as f:
-            html_content = f.read()
 
-        # For example, replace a placeholder in HTML like {{DATA_JSON}}
-        html_content = html_content.replace("__GRAPH_DATA__", json.dumps(data_json))
+        if os.path.exists(json_path) and os.path.exists(html_path) and 'graph_data' not in st.session_state:
+            st.markdown("---")
+            st.markdown("### Current Network Graph")
+            try:
+                with open(json_path, "r") as f:
+                    data_json = json.load(f)
 
-            # Display in Streamlit
-        components.html(html_content, height=1200,width=1200)
+                with open(html_path, "r", encoding="utf-8") as f:
+                    html_content = f.read()
+
+                html_content = html_content.replace("__GRAPH_DATA__", json.dumps(data_json))
+                components.html(html_content, height=1200, width=1200)
+            except Exception as e:
+                st.error(f"Error loading existing graph: {e}")
     elif page == "Topic":
         folder_path = os.path.dirname(__file__)
 

@@ -2,40 +2,56 @@ import json
 import sys
 import pandas as pd
 
-# Get filename from args
-if len(sys.argv) > 1:
-    filename = sys.argv[1]
-    df = pd.read_csv(filename)
-    print("✅ Data received:")
-    print(df.head())
-else:
+# -----------------------
+# Load data
+# -----------------------
+if len(sys.argv) <= 1:
     print("❌ No data file provided.")
+    sys.exit(1)
 
+filename = sys.argv[1]
+df = pd.read_csv(filename)
+print("✅ Data received:")
+print(df.head())
 
-# Step 1: Get unique nodes (email addresses)
+# -----------------------
+# Step 1: Unique Nodes
+# -----------------------
 unique_emails = pd.unique(df[["sender", "receiver"]].values.ravel())
-
-# Create node objects
 nodes = [{"id": email, "name": email} for email in unique_emails]
 
-# Step 2: Create edges
-edges = []
-for i, row in df.iterrows():
-    edges.append({
-        "id": f"e{i}",
-        "source": row["sender"],
-        "target": row["receiver"],
-        "label": f"{row['sender']} → {row['receiver']}"
-    })
+# --- Aggregate interactions for Envoyé ---
+edge_map = {}
+for _, row in df.iterrows():
+    src = str(row["sender"]).strip()
+    tgt = str(row["receiver"]).strip()
+    if not src or not tgt:
+        continue
+    pair = tuple(sorted((src, tgt)))
+    interaction = {
+        "sender": src,
+        "receiver": tgt,
+        # Include any metadata available for Envoyé (if only sender/receiver, just keep that)
+    }
+    if pair not in edge_map:
+        edge_map[pair] = {
+            "id": f"{pair[0]}->{pair[1]}",
+            "source": pair[0],
+            "target": pair[1],
+            "label": f"{pair[0]} ↔ {pair[1]}",
+            "count": 1,
+            "interactions": [interaction]
+        }
+    else:
+        edge_map[pair]["count"] += 1
+        edge_map[pair]["interactions"].append(interaction)
 
-# Combine into Sigma.js format
-graph_data = {
-    "nodes": nodes,
-    "edges": edges
-}
+# Nodes are still unique emails
+unique_emails = pd.unique(df[["sender", "receiver"]].values.ravel())
+nodes = [{"id": email, "name": email} for email in unique_emails]
 
-# Step 3: Export to JSON
-with open("components/email_network.json", "w") as f:
+graph_data = {"nodes": nodes, "edges": list(edge_map.values())}
+
+# Save aggregated graph to JSON directly
+with open("components/email_network.json", "w", encoding="utf-8") as f:
     json.dump(graph_data, f, indent=4)
-
-print("✅ Exported to email_network.json")

@@ -4,6 +4,8 @@
 
 ## Urgent
 
+- gérer nom existant à la création de projet ?
+
 - faire cette requête claude
 
 olkoa/src/rag/colbert_rag.py
