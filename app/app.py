@@ -965,6 +965,22 @@ else:
                                             msg = email.message_from_file(f, policy=default)
                                             sender = msg["From"]
                                             receivers = msg.get_all("To", [])
+                                            subject = msg.get("Subject", "No Subject")
+                                            date = msg.get("Date", "Unknown Date")
+
+                                            # Extract body
+                                            try:
+                                                if msg.is_multipart():
+                                                    body = ""
+                                                    for part in msg.walk():
+                                                        if part.get_content_type() == "text/plain":
+                                                            body = part.get_payload(decode=True).decode('utf-8', errors='ignore')
+                                                            break
+                                                else:
+                                                    body = msg.get_payload(decode=True).decode('utf-8', errors='ignore')
+                                                body = body[:500] if body else "No Content"  # Limit body length
+                                            except Exception:
+                                                body = "Error reading body"
 
                                             # Clean sender
                                             sender = email.utils.parseaddr(sender)[1] if sender else "unknown"
@@ -977,7 +993,10 @@ else:
                                                 if addr:
                                                     emails_data.append({
                                                         "sender": sender,
-                                                        "receiver": addr
+                                                        "receiver": addr,
+                                                        "subject": subject,
+                                                        "date": date,
+                                                        "body": body
                                                     })
 
                                     except Exception as e:

@@ -1,280 +1,490 @@
 {
     "nodes": [
         {
-            "id": "coordination@archivistes.be",
-            "name": "coordination@archivistes.be"
+            "id": "MAILER-DAEMON",
+            "name": "MAILER-DAEMON"
         },
         {
-            "id": "louis.germain@archivistes.qc.ca",
-            "name": "louis.germain@archivistes.qc.ca"
+            "id": "presidence@aaf.org",
+            "name": "presidence@aaf.org"
         },
         {
-            "id": "celine.guyon@archivistes.org",
-            "name": "celine.guyon@archivistes.org"
+            "id": "GUEIT-MONTCHAL Lydiane",
+            "name": "GUEIT-MONTCHAL Lydiane"
         },
         {
-            "id": "mldubois@valorescence.be",
-            "name": "mldubois@valorescence.be"
+            "id": "Claire Miot",
+            "name": "Claire Miot"
         },
         {
-            "id": "taik.bourhis@umontreal.ca",
-            "name": "taik.bourhis@umontreal.ca"
+            "id": "Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "name": "Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale"
         },
         {
-            "id": "yves.lapointe@mcgill.ca",
-            "name": "yves.lapointe@mcgill.ca"
+            "id": "Koline MACHADO",
+            "name": "Koline MACHADO"
         },
         {
-            "id": "Alain.DUBOIS@admin.vs.ch",
-            "name": "Alain.DUBOIS@admin.vs.ch"
+            "id": "Laurent",
+            "name": "Laurent"
         },
         {
-            "id": "foisykarine@gmail.com",
-            "name": "foisykarine@gmail.com"
+            "id": "AAF vie associative - Nicolas Didon",
+            "name": "AAF vie associative - Nicolas Didon"
         },
         {
-            "id": "tizian.zumthurm@uni.lu",
-            "name": "tizian.zumthurm@uni.lu"
+            "id": "j",
+            "name": "j"
         },
         {
-            "id": "vincent.taillandier@coomic.coop",
-            "name": "vincent.taillandier@coomic.coop"
+            "id": "Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale; SCHIRR Lucile (ARC); NAUD Dominique",
+            "name": "Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale; SCHIRR Lucile (ARC); NAUD Dominique"
         },
         {
-            "id": "delegation_generale@archivistes.org",
-            "name": "delegation_generale@archivistes.org"
+            "id": "aaf_ca2019@listes.archivistes.org",
+            "name": "aaf_ca2019@listes.archivistes.org"
         },
         {
-            "id": "myriam.favreau@nouvelle-aquitaine.fr",
-            "name": "myriam.favreau@nouvelle-aquitaine.fr"
+            "id": "BANAT-BERGER Fran\u00e7oise",
+            "name": "BANAT-BERGER Fran\u00e7oise"
         },
         {
-            "id": "a.vatican@free.fr",
-            "name": "a.vatican@free.fr"
+            "id": "Grace BOGLO; Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "name": "Grace BOGLO; Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale"
+        },
+        {
+            "id": "Claire Larrieux - AAF formation",
+            "name": "Claire Larrieux - AAF formation"
+        },
+        {
+            "id": "v",
+            "name": "v"
+        },
+        {
+            "id": "frederic.rolin@yahoo.fr",
+            "name": "frederic.rolin@yahoo.fr"
+        },
+        {
+            "id": "a.canayer@senat.fr",
+            "name": "a.canayer@senat.fr"
+        },
+        {
+            "id": "Thierry BERTRAND",
+            "name": "Thierry BERTRAND"
+        },
+        {
+            "id": "eric",
+            "name": "eric"
+        },
+        {
+            "id": "NAUD Dominique",
+            "name": "NAUD Dominique"
+        },
+        {
+            "id": "Catherine Bernard",
+            "name": "Catherine Bernard"
+        },
+        {
+            "id": "m.coeur-joly@clb.senat.fr",
+            "name": "m.coeur-joly@clb.senat.fr"
+        },
+        {
+            "id": "m",
+            "name": "m"
+        },
+        {
+            "id": "Eric L",
+            "name": "Eric L"
+        },
+        {
+            "id": "fran",
+            "name": "fran"
+        },
+        {
+            "id": "servicearchives@grandlyon.com",
+            "name": "servicearchives@grandlyon.com"
+        },
+        {
+            "id": "nico",
+            "name": "nico"
+        },
+        {
+            "id": "violette.levy@culture.gouv.fr",
+            "name": "violette.levy@culture.gouv.fr"
+        },
+        {
+            "id": "thierr",
+            "name": "thierr"
+        },
+        {
+            "id": "delegation",
+            "name": "delegation"
+        },
+        {
+            "id": "delegation_generale@archivistes.orh",
+            "name": "delegation_generale@archivistes.orh"
         }
     ],
     "edges": [
         {
-            "id": "coordination@archivistes.be->louis.germain@archivistes.qc.ca",
-            "source": "coordination@archivistes.be",
-            "target": "louis.germain@archivistes.qc.ca",
-            "label": "coordination@archivistes.be \u2194 louis.germain@archivistes.qc.ca",
-            "count": 2,
-            "interactions": [
-                {
-                    "sender": "coordination@archivistes.be",
-                    "receiver": "louis.germain@archivistes.qc.ca"
-                },
-                {
-                    "sender": "louis.germain@archivistes.qc.ca",
-                    "receiver": "coordination@archivistes.be"
-                }
-            ]
+            "id": "e0",
+            "source": "MAILER-DAEMON",
+            "target": "presidence@aaf.org",
+            "label": "MAILER-DAEMON \u2192 presidence@aaf.org",
+            "date": "Mon, 04 Jul 2022 16:28:55 +0100",
+            "body": "No Content",
+            "subject": "unknown"
         },
         {
-            "id": "celine.guyon@archivistes.org->louis.germain@archivistes.qc.ca",
-            "source": "celine.guyon@archivistes.org",
-            "target": "louis.germain@archivistes.qc.ca",
-            "label": "celine.guyon@archivistes.org \u2194 louis.germain@archivistes.qc.ca",
-            "count": 2,
-            "interactions": [
-                {
-                    "sender": "louis.germain@archivistes.qc.ca",
-                    "receiver": "celine.guyon@archivistes.org"
-                },
-                {
-                    "sender": "louis.germain@archivistes.qc.ca",
-                    "receiver": "celine.guyon@archivistes.org"
-                }
-            ]
+            "id": "e1",
+            "source": "MAILER-DAEMON",
+            "target": "GUEIT-MONTCHAL Lydiane",
+            "label": "MAILER-DAEMON \u2192 GUEIT-MONTCHAL Lydiane",
+            "date": "Thu, 30 Jun 2022 11:43:48 +0100",
+            "body": "No Content",
+            "subject": "unknown"
         },
         {
-            "id": "louis.germain@archivistes.qc.ca->mldubois@valorescence.be",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "mldubois@valorescence.be",
-            "label": "louis.germain@archivistes.qc.ca \u2194 mldubois@valorescence.be",
-            "count": 1,
-            "interactions": [
-                {
-                    "sender": "louis.germain@archivistes.qc.ca",
-                    "receiver": "mldubois@valorescence.be"
-                }
-            ]
+            "id": "e2",
+            "source": "MAILER-DAEMON",
+            "target": "Claire Miot",
+            "label": "MAILER-DAEMON \u2192 Claire Miot",
+            "date": "Fri, 15 Apr 2022 07:49:52 +0100",
+            "body": "No Content",
+            "subject": "unknown"
         },
         {
-            "id": "louis.germain@archivistes.qc.ca->taik.bourhis@umontreal.ca",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "taik.bourhis@umontreal.ca",
-            "label": "louis.germain@archivistes.qc.ca \u2194 taik.bourhis@umontreal.ca",
-            "count": 1,
-            "interactions": [
-                {
-                    "sender": "louis.germain@archivistes.qc.ca",
-                    "receiver": "taik.bourhis@umontreal.ca"
-                }
-            ]
+            "id": "e3",
+            "source": "MAILER-DAEMON",
+            "target": "Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "label": "MAILER-DAEMON \u2192 Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "date": "Tue, 01 Mar 2022 11:23:48 +0100",
+            "body": "No Content",
+            "subject": "Rapport moral"
         },
         {
-            "id": "louis.germain@archivistes.qc.ca->yves.lapointe@mcgill.ca",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "yves.lapointe@mcgill.ca",
-            "label": "louis.germain@archivistes.qc.ca \u2194 yves.lapointe@mcgill.ca",
-            "count": 1,
-            "interactions": [
-                {
-                    "sender": "louis.germain@archivistes.qc.ca",
-                    "receiver": "yves.lapointe@mcgill.ca"
-                }
-            ]
+            "id": "e4",
+            "source": "MAILER-DAEMON",
+            "target": "Koline MACHADO",
+            "label": "MAILER-DAEMON \u2192 Koline MACHADO",
+            "date": "Wed, 02 Jun 2021 05:24:55 +0100",
+            "body": "No Content",
+            "subject": "RE: Maladie CLERC Anne"
         },
         {
-            "id": "Alain.DUBOIS@admin.vs.ch->louis.germain@archivistes.qc.ca",
-            "source": "Alain.DUBOIS@admin.vs.ch",
-            "target": "louis.germain@archivistes.qc.ca",
-            "label": "Alain.DUBOIS@admin.vs.ch \u2194 louis.germain@archivistes.qc.ca",
-            "count": 1,
-            "interactions": [
-                {
-                    "sender": "louis.germain@archivistes.qc.ca",
-                    "receiver": "Alain.DUBOIS@admin.vs.ch"
-                }
-            ]
+            "id": "e5",
+            "source": "MAILER-DAEMON",
+            "target": "Laurent",
+            "label": "MAILER-DAEMON \u2192 Laurent",
+            "date": "Wed, 02 Jun 2021 05:24:55 +0100",
+            "body": "No Content",
+            "subject": "RE: Maladie CLERC Anne"
         },
         {
-            "id": "foisykarine@gmail.com->louis.germain@archivistes.qc.ca",
-            "source": "foisykarine@gmail.com",
-            "target": "louis.germain@archivistes.qc.ca",
-            "label": "foisykarine@gmail.com \u2194 louis.germain@archivistes.qc.ca",
-            "count": 1,
-            "interactions": [
-                {
-                    "sender": "louis.germain@archivistes.qc.ca",
-                    "receiver": "foisykarine@gmail.com"
-                }
-            ]
+            "id": "e6",
+            "source": "MAILER-DAEMON",
+            "target": "AAF vie associative - Nicolas Didon",
+            "label": "MAILER-DAEMON \u2192 AAF vie associative - Nicolas Didon",
+            "date": "Wed, 02 Jun 2021 20:07:46 +0100",
+            "body": "No Content",
+            "subject": "pbme adresse messagerie"
         },
         {
-            "id": "louis.germain@archivistes.qc.ca->tizian.zumthurm@uni.lu",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "tizian.zumthurm@uni.lu",
-            "label": "louis.germain@archivistes.qc.ca \u2194 tizian.zumthurm@uni.lu",
-            "count": 1,
-            "interactions": [
-                {
-                    "sender": "louis.germain@archivistes.qc.ca",
-                    "receiver": "tizian.zumthurm@uni.lu"
-                }
-            ]
+            "id": "e7",
+            "source": "MAILER-DAEMON",
+            "target": "j",
+            "label": "MAILER-DAEMON \u2192 j",
+            "date": "Thu, 03 Mar 2022 17:09:27 +0100",
+            "body": "No Content",
+            "subject": "unknown"
         },
         {
-            "id": "delegation_generale@archivistes.org->vincent.taillandier@coomic.coop",
-            "source": "delegation_generale@archivistes.org",
-            "target": "vincent.taillandier@coomic.coop",
-            "label": "delegation_generale@archivistes.org \u2194 vincent.taillandier@coomic.coop",
-            "count": 4,
-            "interactions": [
-                {
-                    "sender": "vincent.taillandier@coomic.coop",
-                    "receiver": "delegation_generale@archivistes.org"
-                },
-                {
-                    "sender": "delegation_generale@archivistes.org",
-                    "receiver": "vincent.taillandier@coomic.coop"
-                },
-                {
-                    "sender": "delegation_generale@archivistes.org",
-                    "receiver": "vincent.taillandier@coomic.coop"
-                },
-                {
-                    "sender": "vincent.taillandier@coomic.coop",
-                    "receiver": "delegation_generale@archivistes.org"
-                }
-            ]
+            "id": "e8",
+            "source": "MAILER-DAEMON",
+            "target": "Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "label": "MAILER-DAEMON \u2192 Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "date": "Thu, 07 Apr 2022 11:55:11 +0100",
+            "body": "No Content",
+            "subject": "Communiqu\u00e9 de presse"
         },
         {
-            "id": "myriam.favreau@nouvelle-aquitaine.fr->vincent.taillandier@coomic.coop",
-            "source": "myriam.favreau@nouvelle-aquitaine.fr",
-            "target": "vincent.taillandier@coomic.coop",
-            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2194 vincent.taillandier@coomic.coop",
-            "count": 2,
-            "interactions": [
-                {
-                    "sender": "vincent.taillandier@coomic.coop",
-                    "receiver": "myriam.favreau@nouvelle-aquitaine.fr"
-                },
-                {
-                    "sender": "vincent.taillandier@coomic.coop",
-                    "receiver": "myriam.favreau@nouvelle-aquitaine.fr"
-                }
-            ]
+            "id": "e9",
+            "source": "MAILER-DAEMON",
+            "target": "Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale; SCHIRR Lucile (ARC); NAUD Dominique",
+            "label": "MAILER-DAEMON \u2192 Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale; SCHIRR Lucile (ARC); NAUD Dominique",
+            "date": "Sun, 27 Mar 2022 13:27:49 +0100",
+            "body": "No Content",
+            "subject": "RE: Journ\u00e9e d'\u00e9tudes"
         },
         {
-            "id": "celine.guyon@archivistes.org->vincent.taillandier@coomic.coop",
-            "source": "celine.guyon@archivistes.org",
-            "target": "vincent.taillandier@coomic.coop",
-            "label": "celine.guyon@archivistes.org \u2194 vincent.taillandier@coomic.coop",
-            "count": 2,
-            "interactions": [
-                {
-                    "sender": "vincent.taillandier@coomic.coop",
-                    "receiver": "celine.guyon@archivistes.org"
-                },
-                {
-                    "sender": "vincent.taillandier@coomic.coop",
-                    "receiver": "celine.guyon@archivistes.org"
-                }
-            ]
+            "id": "e10",
+            "source": "MAILER-DAEMON",
+            "target": "AAF vie associative - Nicolas Didon",
+            "label": "MAILER-DAEMON \u2192 AAF vie associative - Nicolas Didon",
+            "date": "Thu, 09 Sep 2021 16:26:41 +0100",
+            "body": "No Content",
+            "subject": "unknown"
         },
         {
-            "id": "delegation_generale@archivistes.org->myriam.favreau@nouvelle-aquitaine.fr",
-            "source": "delegation_generale@archivistes.org",
-            "target": "myriam.favreau@nouvelle-aquitaine.fr",
-            "label": "delegation_generale@archivistes.org \u2194 myriam.favreau@nouvelle-aquitaine.fr",
-            "count": 4,
-            "interactions": [
-                {
-                    "sender": "myriam.favreau@nouvelle-aquitaine.fr",
-                    "receiver": "delegation_generale@archivistes.org"
-                },
-                {
-                    "sender": "delegation_generale@archivistes.org",
-                    "receiver": "myriam.favreau@nouvelle-aquitaine.fr"
-                },
-                {
-                    "sender": "delegation_generale@archivistes.org",
-                    "receiver": "myriam.favreau@nouvelle-aquitaine.fr"
-                },
-                {
-                    "sender": "delegation_generale@archivistes.org",
-                    "receiver": "myriam.favreau@nouvelle-aquitaine.fr"
-                }
-            ]
+            "id": "e11",
+            "source": "MAILER-DAEMON",
+            "target": "aaf_ca2019@listes.archivistes.org",
+            "label": "MAILER-DAEMON \u2192 aaf_ca2019@listes.archivistes.org",
+            "date": "Thu, 24 Jun 2021 09:12:16 +0100",
+            "body": "No Content",
+            "subject": "unknown"
         },
         {
-            "id": "a.vatican@free.fr->celine.guyon@archivistes.org",
-            "source": "a.vatican@free.fr",
-            "target": "celine.guyon@archivistes.org",
-            "label": "a.vatican@free.fr \u2194 celine.guyon@archivistes.org",
-            "count": 1,
-            "interactions": [
-                {
-                    "sender": "a.vatican@free.fr",
-                    "receiver": "celine.guyon@archivistes.org"
-                }
-            ]
+            "id": "e12",
+            "source": "MAILER-DAEMON",
+            "target": "BANAT-BERGER Fran\u00e7oise",
+            "label": "MAILER-DAEMON \u2192 BANAT-BERGER Fran\u00e7oise",
+            "date": "Fri, 17 Dec 2021 07:20:23 +0100",
+            "body": "No Content",
+            "subject": "INSP"
         },
         {
-            "id": "celine.guyon@archivistes.org->delegation_generale@archivistes.org",
-            "source": "celine.guyon@archivistes.org",
-            "target": "delegation_generale@archivistes.org",
-            "label": "celine.guyon@archivistes.org \u2194 delegation_generale@archivistes.org",
-            "count": 1,
-            "interactions": [
-                {
-                    "sender": "delegation_generale@archivistes.org",
-                    "receiver": "celine.guyon@archivistes.org"
-                }
-            ]
+            "id": "e13",
+            "source": "MAILER-DAEMON",
+            "target": "Grace BOGLO; Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "label": "MAILER-DAEMON \u2192 Grace BOGLO; Claire Larrieux - D\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "date": "Tue, 23 Nov 2021 06:19:15 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e14",
+            "source": "MAILER-DAEMON",
+            "target": "AAF vie associative - Nicolas Didon",
+            "label": "MAILER-DAEMON \u2192 AAF vie associative - Nicolas Didon",
+            "date": "Tue, 22 Jun 2021 14:54:25 +0100",
+            "body": "No Content",
+            "subject": "RE: Au sujet du plan France Relance"
+        },
+        {
+            "id": "e15",
+            "source": "MAILER-DAEMON",
+            "target": "Claire Larrieux - AAF formation",
+            "label": "MAILER-DAEMON \u2192 Claire Larrieux - AAF formation",
+            "date": "Wed, 08 Sep 2021 08:28:53 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e16",
+            "source": "MAILER-DAEMON",
+            "target": "aaf_ca2019@listes.archivistes.org",
+            "label": "MAILER-DAEMON \u2192 aaf_ca2019@listes.archivistes.org",
+            "date": "Wed, 16 Jun 2021 10:27:06 +0100",
+            "body": "No Content",
+            "subject": "RE: [AAF_CA2019-2022] TR: Tweet de Les archiveilleurs (@archiveilleurs)"
+        },
+        {
+            "id": "e17",
+            "source": "MAILER-DAEMON",
+            "target": "v",
+            "label": "MAILER-DAEMON \u2192 v",
+            "date": "Fri, 16 Jul 2021 07:48:19 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e18",
+            "source": "MAILER-DAEMON",
+            "target": "Claire Larrieux - AAF formation",
+            "label": "MAILER-DAEMON \u2192 Claire Larrieux - AAF formation",
+            "date": "Fri, 16 Jul 2021 08:07:01 +0100",
+            "body": "No Content",
+            "subject": "CA"
+        },
+        {
+            "id": "e19",
+            "source": "MAILER-DAEMON",
+            "target": "frederic.rolin@yahoo.fr",
+            "label": "MAILER-DAEMON \u2192 frederic.rolin@yahoo.fr",
+            "date": "Thu, 17 Jun 2021 17:56:01 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e20",
+            "source": "MAILER-DAEMON",
+            "target": "a.canayer@senat.fr",
+            "label": "MAILER-DAEMON \u2192 a.canayer@senat.fr",
+            "date": "Fri, 11 Jun 2021 11:48:07 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e21",
+            "source": "MAILER-DAEMON",
+            "target": "Thierry BERTRAND",
+            "label": "MAILER-DAEMON \u2192 Thierry BERTRAND",
+            "date": "Fri, 01 Oct 2021 08:34:56 +0100",
+            "body": "No Content",
+            "subject": "RE: document de pr\u00e9figuration du futur Centre d'archives"
+        },
+        {
+            "id": "e22",
+            "source": "MAILER-DAEMON",
+            "target": "eric",
+            "label": "MAILER-DAEMON \u2192 eric",
+            "date": "Tue, 28 Sep 2021 06:44:02 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e23",
+            "source": "MAILER-DAEMON",
+            "target": "NAUD Dominique",
+            "label": "MAILER-DAEMON \u2192 NAUD Dominique",
+            "date": "Fri, 05 Nov 2021 17:08:23 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e24",
+            "source": "MAILER-DAEMON",
+            "target": "GUEIT-MONTCHAL Lydiane",
+            "label": "MAILER-DAEMON \u2192 GUEIT-MONTCHAL Lydiane",
+            "date": "Fri, 11 Jun 2021 18:49:11 +0100",
+            "body": "No Content",
+            "subject": "RE: Note DGPAT"
+        },
+        {
+            "id": "e25",
+            "source": "MAILER-DAEMON",
+            "target": "aaf_ca2019@listes.archivistes.org",
+            "label": "MAILER-DAEMON \u2192 aaf_ca2019@listes.archivistes.org",
+            "date": "Mon, 14 Jun 2021 12:32:13 +0100",
+            "body": "No Content",
+            "subject": "Recours CE"
+        },
+        {
+            "id": "e26",
+            "source": "MAILER-DAEMON",
+            "target": "Catherine Bernard",
+            "label": "MAILER-DAEMON \u2192 Catherine Bernard",
+            "date": "Sat, 06 Nov 2021 12:42:30 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e27",
+            "source": "MAILER-DAEMON",
+            "target": "m.coeur-joly@clb.senat.fr",
+            "label": "MAILER-DAEMON \u2192 m.coeur-joly@clb.senat.fr",
+            "date": "Sun, 27 Feb 2022 16:37:51 +0100",
+            "body": "No Content",
+            "subject": "Proposition participation journ\u00e9e d'\u00e9tudes \"archiver, un acte engag\u00e9\""
+        },
+        {
+            "id": "e28",
+            "source": "MAILER-DAEMON",
+            "target": "m",
+            "label": "MAILER-DAEMON \u2192 m",
+            "date": "Tue, 08 Jun 2021 08:36:45 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e29",
+            "source": "MAILER-DAEMON",
+            "target": "Eric L",
+            "label": "MAILER-DAEMON \u2192 Eric L",
+            "date": "Tue, 08 Jun 2021 09:51:20 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e30",
+            "source": "MAILER-DAEMON",
+            "target": "fran",
+            "label": "MAILER-DAEMON \u2192 fran",
+            "date": "Wed, 16 Feb 2022 12:40:34 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e31",
+            "source": "MAILER-DAEMON",
+            "target": "servicearchives@grandlyon.com",
+            "label": "MAILER-DAEMON \u2192 servicearchives@grandlyon.com",
+            "date": "Tue, 08 Feb 2022 17:33:48 +0100",
+            "body": "No Content",
+            "subject": "Contact"
+        },
+        {
+            "id": "e32",
+            "source": "MAILER-DAEMON",
+            "target": "nico",
+            "label": "MAILER-DAEMON \u2192 nico",
+            "date": "Thu, 06 Jan 2022 15:42:31 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e33",
+            "source": "MAILER-DAEMON",
+            "target": "violette.levy@culture.gouv.fr",
+            "label": "MAILER-DAEMON \u2192 violette.levy@culture.gouv.fr",
+            "date": "Wed, 19 Jan 2022 11:30:10 +0100",
+            "body": "No Content",
+            "subject": "Archivistes !"
+        },
+        {
+            "id": "e34",
+            "source": "MAILER-DAEMON",
+            "target": "aaf_ca2019@listes.archivistes.org",
+            "label": "MAILER-DAEMON \u2192 aaf_ca2019@listes.archivistes.org",
+            "date": "Tue, 06 Jul 2021 12:53:51 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e35",
+            "source": "MAILER-DAEMON",
+            "target": "thierr",
+            "label": "MAILER-DAEMON \u2192 thierr",
+            "date": "Mon, 07 Feb 2022 10:49:22 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e36",
+            "source": "MAILER-DAEMON",
+            "target": "thierr",
+            "label": "MAILER-DAEMON \u2192 thierr",
+            "date": "Wed, 26 Jan 2022 16:42:15 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e37",
+            "source": "MAILER-DAEMON",
+            "target": "AAF vie associative - Nicolas Didon",
+            "label": "MAILER-DAEMON \u2192 AAF vie associative - Nicolas Didon",
+            "date": "Fri, 25 Jun 2021 13:50:23 +0100",
+            "body": "No Content",
+            "subject": "RE: Avis de la Commission Nationale Consultative des Droits de l\u2019Homme (CNCDH) sur le droit \u00e0 l'acc\u00e8s aux archives publiques"
+        },
+        {
+            "id": "e38",
+            "source": "MAILER-DAEMON",
+            "target": "delegation",
+            "label": "MAILER-DAEMON \u2192 delegation",
+            "date": "Tue, 01 Mar 2022 11:22:29 +0100",
+            "body": "No Content",
+            "subject": "unknown"
+        },
+        {
+            "id": "e39",
+            "source": "MAILER-DAEMON",
+            "target": "delegation_generale@archivistes.orh",
+            "label": "MAILER-DAEMON \u2192 delegation_generale@archivistes.orh",
+            "date": "Tue, 01 Mar 2022 10:39:13 +0100",
+            "body": "No Content",
+            "subject": "unknown"
         }
     ]
 }
