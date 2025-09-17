@@ -15,6 +15,7 @@ from datetime import datetime
 import tempfile
 import re
 import subprocess
+import zipfile
 
 from components.logins import make_hashed_password, verify_password, add_user, initialize_users_db
 
@@ -25,7 +26,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 
 from src.data.s3_utils import S3Handler
-from src.data.mbox_to_eml import convert_folder_mbox_to_eml
+from src.data.mbox_to_eml import convert_folder_mbox_to_eml, mbox_to_eml
+from src.rag.colbert_initialization import initialize_colbert_rag_system
+
 
 # Page configuration
 # st.set_page_config(
@@ -499,8 +502,16 @@ else:
 
         # Start data preparation pipeline for new projects
         if form['mode'] == 'create':
-            mailbox_names = [mailbox['name'] for mailbox in form['mailboxes']]
-            pipeline_success = start_data_preparation_pipeline(project_name, project_path, mailbox_names)
+            # Collect mailbox info including data sources
+            mailbox_info = []
+            for mailbox in form['mailboxes']:
+                mailbox_info.append({
+                    'name': mailbox['name'],
+                    'data_source': mailbox.get('data_source', 'upload'),
+                    's3_project_name': mailbox.get('s3_project_name', '')
+                })
+
+            pipeline_success = start_data_preparation_pipeline(project_name, project_path, mailbox_info)
             if pipeline_success:
                 st.info("Data preparation pipeline started successfully. Processing will continue in the background.")
             else:
@@ -508,7 +519,7 @@ else:
 
         return True
 
-    def start_data_preparation_pipeline(project_name, project_path, mailbox_names):
+    def start_data_preparation_pipeline(project_name, project_path, mailbox_info):
         """
         Start the complete data preparation pipeline for a newly created project.
         This function is called after project folders are created and will orchestrate
@@ -517,7 +528,7 @@ else:
         Args:
             project_name (str): Name of the project
             project_path (str): Full path to the project directory
-            mailbox_names (list): List of mailbox names in the project
+            mailbox_info (list): List of mailbox dictionaries with name, data_source, s3_project_name
 
         Returns:
             bool: True if pipeline started successfully, False otherwise
@@ -533,22 +544,52 @@ else:
         try:
             print(f"Starting data preparation pipeline for project: {project_name}")
             print(f"Project path: {project_path}")
-            print(f"Mailboxes to process: {mailbox_names}")
+            print(f"Mailboxes to process: {[mb['name'] for mb in mailbox_info]}")
 
-            # Upload raw data to S3 for each mailbox
-            upload_success = upload_project_raw_data_to_s3(project_name, project_path, mailbox_names)
-            if upload_success:
-                st.success("Raw data successfully uploaded to S3")
-            else:
-                st.warning("Failed to upload some data to S3, but pipeline will continue")
+            mailbox_names = [mb['name'] for mb in mailbox_info]
 
-            # Download and sync data from S3 (useful for backup verification or distributed processing)
-            st.info("Verifying S3 sync by downloading data...")
-            download_success = download_project_raw_data_from_s3(project_name, project_path, mailbox_names)
-            if download_success:
-                st.success("S3 data synchronization verified")
+            # Separate mailboxes by data source
+            upload_mailboxes = [mb['name'] for mb in mailbox_info if mb['data_source'] == 'upload']
+            s3_mailboxes = [mb for mb in mailbox_info if mb['data_source'] == 's3' and mb['s3_project_name']]
+
+            # For uploaded files: upload to S3 then download back to verify
+            if upload_mailboxes:
+                st.info("📤 Processing uploaded files...")
+                upload_success = upload_project_raw_data_to_s3(project_name, project_path, upload_mailboxes)
+                if upload_success:
+                    st.success("Raw data successfully uploaded to S3")
+
+                    # Download back to verify
+                    st.info("Verifying S3 sync by downloading data...")
+                    download_success = download_project_raw_data_from_s3(project_name, project_path, upload_mailboxes)
+                    if download_success:
+                        st.success("S3 data synchronization verified")
+                    else:
+                        st.warning("S3 sync verification failed, but pipeline will continue")
+                else:
+                    st.warning("Failed to upload some data to S3, but pipeline will continue")
+
+            # For S3 sources: just download from selected projects
+            if s3_mailboxes:
+                st.info("📥 Downloading data from selected S3 projects...")
+                for mailbox in s3_mailboxes:
+                    # Download from the selected S3 project to this mailbox
+                    download_success = download_project_raw_data_from_s3(
+                        project_name=mailbox['s3_project_name'],  # Source project
+                        project_path=project_path,
+                        mailbox_names=[mailbox['name']]
+                    )
+                    if download_success:
+                        st.success(f"✅ Downloaded data for mailbox '{mailbox['name']}' from S3 project '{mailbox['s3_project_name']}'")
+                    else:
+                        st.error(f"❌ Failed to download data for mailbox '{mailbox['name']}')")
+
+            # Extract ZIP files if present before conversion
+            unzip_success = extract_project_zip_files(project_name, project_path, mailbox_names)
+            if unzip_success:
+                st.success("ZIP files extracted successfully")
             else:
-                st.warning("S3 sync verification failed, but pipeline will continue")
+                st.warning("Some ZIP extraction failed, but pipeline will continue")
 
             # Convert PST/MBOX files to EML format for each mailbox
             conversion_success = convert_project_emails_to_eml(project_name, project_path, mailbox_names)
@@ -557,9 +598,18 @@ else:
             else:
                 st.warning("Some email conversions failed, but pipeline will continue")
 
+            # Announce RAG construction start
+            st.info("🚀 Starting RAG (Retrieval-Augmented Generation) system construction...")
+            st.info("📊 This will build ColBERT indexes for semantic search and AI-powered email analysis")
+            with st.spinner("Building RAG system - this may take several minutes..."):
+                index_dir = initialize_colbert_rag_system(project_root=project_root, \
+                            force_rebuild=True, test_mode=False, rag_mode="light")
+            print(f"Colbert RAG system initialized with index at {index_dir}")
+
+
             # Placeholder for future implementation
             # Will be populated with actual pipeline functions
-
+            print("Data preparation pipeline completed successfully")
             return True
 
         except Exception as e:
@@ -598,7 +648,7 @@ else:
             # Upload raw data for each mailbox
             for mailbox_name in mailbox_names:
                 local_raw_data_dir = os.path.join(project_path, mailbox_name, "raw")
-                s3_prefix = f"olkoa/{project_name}/{mailbox_name}/raw"
+                s3_prefix = f"{project_name}/{mailbox_name}/raw"
 
                 # Check if raw data directory exists and has files
                 if not os.path.exists(local_raw_data_dir):
@@ -656,40 +706,161 @@ else:
                 return False
 
             download_success = True
+            total_downloaded_files = 0
+            total_downloaded_size = 0
+            total_mailboxes = len(mailbox_names)
 
             # Download raw data for each mailbox
-            for mailbox_name in mailbox_names:
+            for mailbox_idx, mailbox_name in enumerate(mailbox_names, 1):
                 local_raw_data_dir = os.path.join(project_path, mailbox_name, "raw")
-                s3_prefix = f"olkoa/{project_name}/{mailbox_name}/raw"
+                s3_prefix = f"{project_name}/{mailbox_name}/raw"
 
                 try:
-                    st.info(f"Downloading raw data for mailbox: {mailbox_name}")
+                    st.info(f"📦 Downloading raw data for mailbox {mailbox_idx}/{total_mailboxes}: {mailbox_name}")
 
-                    # Download the directory
+                    # Create a progress callback for individual file tracking
+                    progress_placeholder = st.empty()
+
+                    def progress_callback(current_file, total_files, current_filename):
+                        file_progress = (current_file / total_files) * 100
+                        progress_placeholder.info(f"📄 File {current_file}/{total_files} ({file_progress:.1f}%): {os.path.basename(current_filename)}")
+
+                    # Download the directory with progress tracking
                     stats = s3_handler.download_directory(
                         bucket_name=bucket_name,
                         s3_prefix=s3_prefix,
-                        local_dir=local_raw_data_dir
+                        local_dir=local_raw_data_dir,
+                        progress_callback=progress_callback
                     )
 
+                    # Clear progress placeholder
+                    progress_placeholder.empty()
+
                     if stats['downloaded_files'] > 0:
-                        st.success(f"Successfully downloaded {stats['downloaded_files']} files for mailbox '{mailbox_name}' from S3")
-                        st.info(f"Total size: {stats['total_size']} bytes")
+                        # Format file size for better readability
+                        size_mb = stats['total_size'] / (1024 * 1024)
+                        size_display = f"{size_mb:.2f} MB" if size_mb >= 1 else f"{stats['total_size'] / 1024:.2f} KB"
+
+                        st.success(f"✅ Successfully downloaded {stats['downloaded_files']} files for mailbox '{mailbox_name}'")
+                        st.info(f"📊 Size: {size_display} | 📁 Downloaded to: {local_raw_data_dir}")
+
+                        # Update totals
+                        total_downloaded_files += stats['downloaded_files']
+                        total_downloaded_size += stats['total_size']
+
+                        # Print path information
+                        print(f"✅ Downloaded mailbox '{mailbox_name}' to: {local_raw_data_dir}")
+                        print(f"   Files: {stats['downloaded_files']}, Size: {size_display}")
                     else:
-                        st.warning(f"No files found in S3 for mailbox '{mailbox_name}' at prefix '{s3_prefix}'")
+                        st.warning(f"⚠️ No files found in S3 for mailbox '{mailbox_name}' at prefix '{s3_prefix}'")
 
                     if stats['failed_files'] > 0:
-                        st.warning(f"Failed to download {stats['failed_files']} files for mailbox '{mailbox_name}'")
+                        st.warning(f"❌ Failed to download {stats['failed_files']} files for mailbox '{mailbox_name}'")
                         download_success = False
 
+                    # Show overall progress across mailboxes
+                    overall_progress = (mailbox_idx / total_mailboxes) * 100
+                    st.progress(overall_progress / 100, text=f"Overall progress: {mailbox_idx}/{total_mailboxes} mailboxes ({overall_progress:.1f}%)")
+
                 except Exception as e:
-                    st.error(f"Failed to download raw data for mailbox '{mailbox_name}': {e}")
+                    st.error(f"❌ Failed to download raw data for mailbox '{mailbox_name}': {e}")
+                    print(f"❌ Error downloading mailbox '{mailbox_name}': {e}")
                     download_success = False
+
+            # Final completion summary
+            if total_downloaded_files > 0:
+                total_size_mb = total_downloaded_size / (1024 * 1024)
+                total_size_display = f"{total_size_mb:.2f} MB" if total_size_mb >= 1 else f"{total_downloaded_size / 1024:.2f} KB"
+
+                st.success(f"🎉 Download completed! Total: {total_downloaded_files} files ({total_size_display}) across {total_mailboxes} mailboxes")
+                st.info(f"📁 All files downloaded to project directory: {project_path}")
+
+                # Print completion info to console
+                print(f"\n🎉 DOWNLOAD COMPLETION SUMMARY:")
+                print(f"   Project: {project_name}")
+                print(f"   Total Files: {total_downloaded_files}")
+                print(f"   Total Size: {total_size_display}")
+                print(f"   Mailboxes: {total_mailboxes}")
+                print(f"   Root Path: {project_path}")
+                print(f"   Success: {'✅ YES' if download_success else '❌ PARTIAL'}")
 
             return download_success
 
         except Exception as e:
             st.error(f"Error in S3 download process: {e}")
+            return False
+
+    def extract_project_zip_files(project_name, project_path, mailbox_names):
+        """
+        Extract ZIP files found in raw folders for all mailboxes in a project.
+
+        Args:
+            project_name (str): Name of the project
+            project_path (str): Full path to the project directory
+            mailbox_names (list): List of mailbox names to process
+
+        Returns:
+            bool: True if all extractions successful, False otherwise
+        """
+        try:
+            extraction_success = True
+
+            # Process each mailbox
+            for mailbox_name in mailbox_names:
+                raw_folder = os.path.join(project_path, mailbox_name, "raw")
+
+                # Check if raw folder exists
+                if not os.path.exists(raw_folder):
+                    st.warning(f"Raw data folder not found for mailbox '{mailbox_name}': {raw_folder}")
+                    continue
+
+                # Find ZIP files
+                zip_files = []
+                for root, dirs, files in os.walk(raw_folder):
+                    for file in files:
+                        if file.lower().endswith('.zip'):
+                            zip_files.append(os.path.join(root, file))
+
+                if not zip_files:
+                    st.info(f"No ZIP files found for mailbox '{mailbox_name}'")
+                    continue
+
+                st.info(f"Found {len(zip_files)} ZIP files for mailbox: {mailbox_name}")
+
+                # Extract each ZIP file
+                for zip_file_path in zip_files:
+                    try:
+                        zip_filename = os.path.basename(zip_file_path)
+                        extract_dir = os.path.join(raw_folder, f"extracted_{os.path.splitext(zip_filename)[0]}")
+
+                        # Create extraction directory if it doesn't exist
+                        os.makedirs(extract_dir, exist_ok=True)
+
+                        with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+                            # Check if ZIP file is valid and not corrupted
+                            zip_ref.testzip()
+
+                            # Extract all contents
+                            zip_ref.extractall(extract_dir)
+
+                        st.success(f"Successfully extracted: {zip_filename}")
+                        st.info(f"Extracted to: {extract_dir}")
+
+                        # Optionally, remove the original ZIP file after successful extraction
+                        # os.remove(zip_file_path)
+                        # st.info(f"Removed original ZIP file: {zip_filename}")
+
+                    except zipfile.BadZipFile:
+                        st.error(f"Bad ZIP file (corrupted or invalid): {zip_filename}")
+                        extraction_success = False
+                    except Exception as e:
+                        st.error(f"Failed to extract ZIP file '{zip_filename}': {e}")
+                        extraction_success = False
+
+            return extraction_success
+
+        except Exception as e:
+            st.error(f"Error in ZIP extraction process: {e}")
             return False
 
     def convert_project_emails_to_eml(project_name, project_path, mailbox_names):
@@ -822,7 +993,6 @@ else:
 
             # Create a natural mailbox structure for MBOX files
             # Follow pattern similar to readpst: processed/username/folder_name/
-            from src.data.mbox_to_eml import mbox_to_eml
 
             total_emails = 0
             for mbox_file in mbox_files:
@@ -894,7 +1064,9 @@ else:
                     'description': ''
                 }
             ],
-            'files': []
+            'files': [],
+            'data_source': 'upload',  # 'upload' or 's3'
+            's3_project_name': ''  # Selected S3 project to download from
         })
 
     # Function to handle adding a new position
@@ -1113,25 +1285,78 @@ else:
                     )
                     st.session_state.project_form['mailboxes'][i]['organization_description'] = org_desc
 
-                    # File upload section (only in create mode)
+                    # Data source selection (only in create mode)
                     if form['mode'] == 'create':
-                        st.markdown("##### Email Data Files")
-                        st.write("Upload mailbox data files (.pst, .eml, .mbox)")
+                        st.markdown("##### Email Data Source")
 
-                        uploaded_files = st.file_uploader(
-                            "Drag and drop files here",
-                            accept_multiple_files=True,
-                            type=['pst', 'eml', 'mbox'],
-                            key=f"files_{mailbox['id']}",
-                            help="Upload email archive files for this mailbox"
+                        # Data source selection
+                        data_source = st.selectbox(
+                            "Choose data source",
+                            ["upload", "s3"],
+                            index=0 if mailbox.get('data_source', 'upload') == 'upload' else 1,
+                            key=f"data_source_{mailbox['id']}",
+                            format_func=lambda x: "📁 Upload local files" if x == "upload" else "☁️ Download from S3",
+                            help="Choose whether to upload new files or download from existing S3 projects"
                         )
+                        st.session_state.project_form['mailboxes'][i]['data_source'] = data_source
 
-                        if uploaded_files:
-                            st.session_state.project_form['mailboxes'][i]['files'] = uploaded_files
-                            # Show list of uploaded files
-                            st.write("Uploaded files:")
-                            for file in uploaded_files:
-                                st.text(f"- {file.name} ({round(file.size/1024, 2)} KB)")
+                        if data_source == 'upload':
+                            # Local file upload
+                            st.write("Upload mailbox data files (.pst, .eml, .mbox, .zip)")
+                            uploaded_files = st.file_uploader(
+                                "Drag and drop files here",
+                                accept_multiple_files=True,
+                                type=['pst', 'eml', 'mbox', 'zip'],
+                                key=f"files_{mailbox['id']}",
+                                help="Upload email archive files for this mailbox"
+                            )
+
+                            if uploaded_files:
+                                st.session_state.project_form['mailboxes'][i]['files'] = uploaded_files
+                                # Show list of uploaded files
+                                st.write("📁 Uploaded files:")
+                                for file in uploaded_files:
+                                    file_size = round(file.size/1024/1024, 2) if file.size > 1024*1024 else round(file.size/1024, 2)
+                                    size_unit = "MB" if file.size > 1024*1024 else "KB"
+                                    st.text(f"- {file.name} ({file_size} {size_unit})")
+                            else:
+                                st.session_state.project_form['mailboxes'][i]['files'] = []
+
+                        else:  # S3 source
+                            # S3 project selection
+                            try:
+                                with st.spinner("Loading S3 projects..."):
+                                    s3_handler = S3Handler()
+                                    available_projects = s3_handler.list_directories(
+                                        bucket_name="olkoa-projects"
+                                    )
+
+                                if available_projects:
+                                    selected_project = st.selectbox(
+                                        "Select S3 project to download from",
+                                        [""] + available_projects,
+                                        index=0 if not mailbox.get('s3_project_name') else available_projects.index(mailbox.get('s3_project_name', '')) + 1 if mailbox.get('s3_project_name') in available_projects else 0,
+                                        key=f"s3_project_{mailbox['id']}",
+                                        help="Choose which existing S3 project to download data from"
+                                    )
+                                    st.session_state.project_form['mailboxes'][i]['s3_project_name'] = selected_project
+
+                                    if selected_project:
+                                        st.success(f"☁️ Will download data from S3 project: {selected_project}")
+                                        st.info(f"📁 Data will be downloaded to: {mailbox_name}/raw/")
+                                    else:
+                                        st.warning("Please select an S3 project to download from")
+                                else:
+                                    st.warning("No S3 projects found in 'olkoa-projects' bucket")
+                                    st.info("💡 Upload files first using the upload mode to create S3 projects")
+
+                            except Exception as e:
+                                st.error(f"Failed to load S3 projects: {e}")
+                                st.info("💡 Make sure S3 credentials are configured and the bucket exists")
+
+                            # Clear files since we're using S3
+                            st.session_state.project_form['mailboxes'][i]['files'] = []
+
                     else:
                         st.markdown("##### Email Data Files")
                         st.info("Files cannot be uploaded when editing a project. Use the file system to add files directly to the project's raw folder.")

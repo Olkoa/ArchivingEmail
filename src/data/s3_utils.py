@@ -166,6 +166,47 @@ class S3Handler:
             self.logger.error(f"Error listing objects in bucket {bucket_name}: {e}")
             raise
 
+    def list_directories(self, bucket_name: str, prefix: str = '') -> List[str]:
+        """
+        List directories (common prefixes) in a bucket under a specific prefix.
+
+        Args:
+            bucket_name: Name of the bucket
+            prefix: Prefix to filter directories by (e.g., "olkoa-projects/")
+
+        Returns:
+            List of directory names (without the base prefix)
+        """
+        try:
+            # Ensure prefix ends with '/' for proper directory listing
+            if prefix and not prefix.endswith('/'):
+                prefix += '/'
+
+            # Use list_objects_v2 with delimiter to get common prefixes (directories)
+            response = self.client.list_objects_v2(
+                Bucket=bucket_name,
+                Prefix=prefix,
+                Delimiter='/'
+            )
+
+            directories = []
+
+            # Extract directory names from CommonPrefixes
+            if 'CommonPrefixes' in response:
+                for prefix_info in response['CommonPrefixes']:
+                    dir_path = prefix_info['Prefix']
+                    # Remove the base prefix and trailing slash to get just the directory name
+                    dir_name = dir_path[len(prefix):].rstrip('/')
+                    if dir_name:  # Only add non-empty directory names
+                        directories.append(dir_name)
+
+            self.logger.info(f"Found {len(directories)} directories in {bucket_name}/{prefix}")
+            return directories
+
+        except ClientError as e:
+            self.logger.error(f"Error listing directories in bucket {bucket_name} with prefix {prefix}: {e}")
+            raise
+
     def upload_file(self, file_path: str, bucket_name: str,
                    object_key: Optional[str] = None,
                    extra_args: Optional[Dict[str, Any]] = None) -> bool:

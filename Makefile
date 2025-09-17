@@ -42,7 +42,7 @@ data:
 # Run the app in stable mode (no file watcher)
 .PHONY: run
 run:
-	cd $(APP_DIR) && streamlit run app.py --server.maxUploadSize 50000 --server.fileWatcherType none
+	cd $(APP_DIR) && streamlit run app.py --server.maxUploadSize 50000 --server.fileWatcherType none --theme.base light
 
 # Run the app with debug flag
 .PHONY: run-debug
@@ -71,12 +71,6 @@ all: setup data run
 
 # Default target
 .DEFAULT_GOAL := help
-
-# Transform .pst files in raw in eml in processed
-.PHONY: pst_transform
-pst_transform:
-	readpst -j 0 -e -o "data/Projects/Projet Demo/Boîte mail de Céline/processed" "data/Projects/Projet Demo/Boîte mail de Céline/raw/celine.guyon.pst"
-
 
 # Transform .pst files in raw in eml in processed
 # python ${MCP_PATH}/olkoa/src/features/chatbot.py

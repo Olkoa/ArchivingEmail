@@ -3,3 +3,6 @@ fileWatcherType = "none"
 
 [global]
 disableWatchdogWarning = true
+
+[theme]
+base="light"

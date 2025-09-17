@@ -1,0 +1,20 @@
+{
+  "pst500v2": {
+    "mailboxs": {
+      "pst500v2": {
+        "Positions": {},
+        "Entity": {
+          "name": "pst500v2",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "pst500v2@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "pst500v2",
+          "description": "pst500v2pst500v2pst500v2pst500v2pst500v2"
+        }
+      }
+    }
+  }
+}
