@@ -25,8 +25,8 @@
             "name": "yves.lapointe@mcgill.ca"
         },
         {
-            "id": "Alain.DUBOIS@admin.vs.ch",
-            "name": "Alain.DUBOIS@admin.vs.ch"
+            "id": "alain.dubois@admin.vs.ch",
+            "name": "alain.dubois@admin.vs.ch"
         },
         {
             "id": "foisykarine@gmail.com",
@@ -138,10 +138,10 @@
             ]
         },
         {
-            "id": "louis.germain@archivistes.qc.ca->Alain.DUBOIS@admin.vs.ch",
+            "id": "louis.germain@archivistes.qc.ca->alain.dubois@admin.vs.ch",
             "source": "louis.germain@archivistes.qc.ca",
-            "target": "Alain.DUBOIS@admin.vs.ch",
-            "label": "louis.germain@archivistes.qc.ca \u2192 Alain.DUBOIS@admin.vs.ch",
+            "target": "alain.dubois@admin.vs.ch",
+            "label": "louis.germain@archivistes.qc.ca \u2192 alain.dubois@admin.vs.ch",
             "interactions": [
                 {
                     "date": "Tue, 02 Feb 2021 11:23:16 -0500",
@@ -226,6 +226,45 @@
                 {
                     "date": "Mon, 30 Nov 2020 18:44:10 +0100",
                     "subject": "Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "myriam.favreau@nouvelle-aquitaine.fr->delegation_generale@archivistes.org",
+            "source": "myriam.favreau@nouvelle-aquitaine.fr",
+            "target": "delegation_generale@archivistes.org",
+            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2192 delegation_generale@archivistes.org",
+            "interactions": [
+                {
+                    "date": "Tue, 01 Dec 2020 09:53:54 +0000",
+                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "myriam.favreau@nouvelle-aquitaine.fr->delegation_generale@archivistes.org",
+            "source": "myriam.favreau@nouvelle-aquitaine.fr",
+            "target": "delegation_generale@archivistes.org",
+            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2192 delegation_generale@archivistes.org",
+            "interactions": [
+                {
+                    "date": "Tue, 01 Dec 2020 09:53:54 +0000",
+                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "myriam.favreau@nouvelle-aquitaine.fr->delegation_generale@archivistes.org",
+            "source": "myriam.favreau@nouvelle-aquitaine.fr",
+            "target": "delegation_generale@archivistes.org",
+            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2192 delegation_generale@archivistes.org",
+            "interactions": [
+                {
+                    "date": "Tue, 01 Dec 2020 09:53:54 +0000",
+                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
                     "body": "No Content"
                 }
             ]

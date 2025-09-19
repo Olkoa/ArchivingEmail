@@ -1,0 +1,12 @@
+*
+!.ragatouille
+!.ragatouille/**
+!app
+!app/**
+!data
+!data/**
+!src
+!src/**
+!constants.py
+!Makefile
+!requirements.txt

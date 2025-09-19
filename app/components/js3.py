@@ -2,49 +2,57 @@ import json
 import sys
 import pandas as pd
 
-# Get filename from args
-if len(sys.argv) > 1:
-    filename = sys.argv[1]
-    df = pd.read_csv(filename)
-    print("✅ Data received:")
-    print(df.head())
-else:
+# --- Load CSV ---
+if len(sys.argv) <= 1:
     print("❌ No data file provided.")
     sys.exit()
 
-# Step 1: Get unique nodes (email addresses)
-unique_emails = pd.unique(df[["sender", "receiver"]].values.ravel())
-nodes = [{"id": email, "name": email} for email in unique_emails]
+filename = sys.argv[1]
+df = pd.read_csv(filename)
+print("✅ Data received:")
+print(df.head())
 
-# Step 2: Aggregate edges (group interactions by sender-receiver pair)
+# --- Normalize all emails ---
+def normalize_email(x):
+    return str(x).strip().lower() if pd.notna(x) else ""
+
+df["sender"] = df["sender"].apply(normalize_email)
+df["receiver"] = df["receiver"].apply(normalize_email)
+
+# Step 1: Unique nodes
+unique_emails = pd.unique(df[["sender", "receiver"]].values.ravel())
+nodes = [{"id": email, "name": email} for email in unique_emails if email]
+
+# Step 2: Aggregate edges
 edge_map = {}
 
 for _, row in df.iterrows():
-    key = (row["sender"], row["receiver"])
+    sender, receiver = row["sender"], row["receiver"]
+    if not sender or not receiver:
+        continue  # skip invalid rows
+    key = (sender, receiver)
     if key not in edge_map:
         edge_map[key] = {
-            "id": f"{row['sender']}->{row['receiver']}",
-            "source": row["sender"],
-            "target": row["receiver"],
-            "label": f"{row['sender']} → {row['receiver']}",
-            "interactions": []  # store all interactions here
+            "id": f"{sender}->{receiver}",
+            "source": sender,
+            "target": receiver,
+            "label": f"{sender} → {receiver}",
+            "interactions": []
         }
     edge_map[key]["interactions"].append({
-        "date": row["date"],
-        "subject": row["subject"],
-        "body": row["body"]
+        "date": row.get("date", ""),
+        "subject": row.get("subject", ""),
+        "body": row.get("body", "")
     })
 
-# Convert edge_map to list
 edges = list(edge_map.values())
 
-# Step 3: Combine into Sigma.js format
-graph_data = {
-    "nodes": nodes,
-    "edges": edges
-}
+# --- Debug: print interaction counts ---
+for e in edges[:5]:
+    print(f"{e['id']} → {len(e['interactions'])} interactions")
 
-# Step 4: Export to JSON
+# Step 3: Export
+graph_data = {"nodes": nodes, "edges": edges}
 with open("components/email_network.json", "w") as f:
     json.dump(graph_data, f, indent=4)
 

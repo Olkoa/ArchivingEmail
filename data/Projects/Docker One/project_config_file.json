@@ -1,0 +1,40 @@
+{
+  "Docker One": {
+    "mailboxs": {
+      "docky docky": {
+        "Positions": {
+          "pedrolita": {
+            "start_date": "2022-02-01",
+            "end_date": "2025-02-09",
+            "description": "beaugosse"
+          }
+        },
+        "Entity": {
+          "name": "docky docky",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "docky@laplateforme.io",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "docky docky",
+          "description": "docky docky"
+        }
+      },
+      "helloworld": {
+        "Positions": {},
+        "Entity": {
+          "name": "helloworld",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "helloworld@laplateforme.io",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "helloworld",
+          "description": "helloworldhelloworldhelloworldhelloworld"
+        }
+      }
+    }
+  }
+}
