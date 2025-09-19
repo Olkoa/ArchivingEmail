@@ -1014,7 +1014,7 @@ else:
 
                                 # Run graph generation script
                                 result = subprocess.run(
-                                    ["python", "components/js2.py", temp_csv_path],
+                                    ["python", "components/js3.py", temp_csv_path],
                                     capture_output=True, text=True, check=True, cwd=os.path.dirname(__file__)
                                 )
 
