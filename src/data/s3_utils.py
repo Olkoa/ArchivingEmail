@@ -523,6 +523,78 @@ class S3Handler:
             self.logger.error(f"Error copying object: {e}")
             return False
 
+    def move_bucket_content(
+        self,
+        source_bucket: str,
+        dest_bucket: str,
+        source_prefix: str = '',
+        dest_prefix: str = '',
+        delete_source: bool = True,
+    ) -> Dict[str, Any]:
+        """
+        Copy all objects from one bucket/prefix to another and delete the originals.
+
+        Args:
+            source_bucket: Bucket holding the objects to move.
+            dest_bucket: Bucket that will receive the copied objects.
+            source_prefix: Optional prefix filter for the source objects.
+            dest_prefix: Optional prefix prepended to each destination key.
+
+        Returns:
+            Summary dictionary with counts of copied/deleted files and any errors.
+        """
+        objects = self.list_objects(source_bucket, prefix=source_prefix)
+
+        if not objects:
+            self.logger.info(
+                f"No objects found to move from {source_bucket}/{source_prefix or ''}"
+            )
+            return {
+                'copied': 0,
+                'deleted': 0,
+                'errors': [],
+            }
+
+        copied = 0
+        errors: List[str] = []
+        keys_to_delete: List[str] = []
+
+        # Normalise prefixes to avoid duplicate slashes
+        dest_prefix = dest_prefix.strip('/')
+        source_prefix = source_prefix.strip('/')
+
+        for obj in objects:
+            key = obj['key']
+            if not key:
+                continue
+
+            # Skip pseudo-directory markers
+            if key.endswith('/'):
+                continue
+
+            relative_key = key[len(source_prefix) + 1:] if source_prefix and key.startswith(source_prefix + '/') else key
+            dest_key = f"{dest_prefix}/{relative_key}" if dest_prefix else relative_key
+
+            if self.copy_object(source_bucket, key, dest_bucket, dest_key):
+                copied += 1
+                if delete_source:
+                    keys_to_delete.append(key)
+            else:
+                errors.append(f"Failed to copy {source_bucket}/{key} to {dest_bucket}/{dest_key}")
+
+        deleted = 0
+        if delete_source and keys_to_delete:
+            delete_result = self.delete_objects(source_bucket, keys_to_delete)
+            deleted = len(delete_result.get('Deleted', []))
+            if delete_result.get('Errors'):
+                errors.extend(delete_result['Errors'])
+
+        return {
+            'copied': copied,
+            'deleted': deleted,
+            'errors': errors,
+        }
+
     def generate_presigned_url(self, bucket_name: str, object_key: str,
                               expiration: int = 3600, http_method: str = 'GET') -> Optional[str]:
         """

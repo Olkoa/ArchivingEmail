@@ -5,40 +5,60 @@ This is the entry point for the Okloa application, providing an interface
 for exploring and analyzing archived email data.
 """
 
-import streamlit as st
-import pandas as pd
+import json
 import os
 import sys
 import time
-from bs4 import BeautifulSoup
-import json
-
-import plotly.express as px
 from collections import Counter
+from pathlib import Path
 
-# imports for graph
+import duckdb
 import email
 import email.utils
-from email.policy import default
+import pandas as pd
+import plotly.express as px
+import streamlit as st
 import streamlit.components.v1 as components
-import subprocess
-import duckdb
-from pathlib import Path
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+from email.policy import default
+import subprocess
 
 
 load_dotenv()
-ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
-DEVELOPER_MODE = os.getenv("DEVELOPER_MODE", "False").lower() == "true"
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
+# Import constants module so we can refresh values when configuration changes
+import constants
+
+def resolve_active_project() -> str:
+    """Determine the active project using session state, env, or fallback constant."""
+    if "active_project" in st.session_state:
+        return st.session_state["active_project"]
+
+    env_project = os.getenv("ACTIVE_PROJECT")
+    if env_project:
+        return env_project
+
+    return getattr(constants, "ACTIVE_PROJECT", "")
+
+
+ACTIVE_PROJECT = resolve_active_project()
+os.environ["ACTIVE_PROJECT"] = ACTIVE_PROJECT
+DEVELOPER_MODE = os.getenv("DEVELOPER_MODE", "False").lower() == "true"
+
+if "active_project" not in st.session_state:
+    st.session_state.active_project = ACTIVE_PROJECT
+
+
 
 # Import project constants and elasticsearch enhanced search functionality
-from constants import EMAIL_DISPLAY_TYPE, SIDEBAR_STATE, ACTIVE_PROJECT
+EMAIL_DISPLAY_TYPE = constants.EMAIL_DISPLAY_TYPE
+SIDEBAR_STATE = constants.SIDEBAR_STATE
 from src.features.elasticsearch_enhanced import enhanced_search_emails
 from src.features.decodeml import decode_unicode_escape , getBody
 from components.logins import make_hashed_password, verify_password, add_user, initialize_users_db

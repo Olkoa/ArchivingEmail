@@ -1,350 +1,567 @@
 {
     "nodes": [
         {
-            "id": "coordination@archivistes.be",
-            "name": "coordination@archivistes.be"
+            "id": "mailer-daemon",
+            "name": "mailer-daemon"
         },
         {
-            "id": "louis.germain@archivistes.qc.ca",
-            "name": "louis.germain@archivistes.qc.ca"
+            "id": "presidence@aaf.org",
+            "name": "presidence@aaf.org"
         },
         {
-            "id": "celine.guyon@archivistes.org",
-            "name": "celine.guyon@archivistes.org"
+            "id": "gueit-montchal lydiane",
+            "name": "gueit-montchal lydiane"
         },
         {
-            "id": "mldubois@valorescence.be",
-            "name": "mldubois@valorescence.be"
+            "id": "claire miot",
+            "name": "claire miot"
         },
         {
-            "id": "taik.bourhis@umontreal.ca",
-            "name": "taik.bourhis@umontreal.ca"
+            "id": "claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "name": "claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale"
         },
         {
-            "id": "yves.lapointe@mcgill.ca",
-            "name": "yves.lapointe@mcgill.ca"
+            "id": "koline machado",
+            "name": "koline machado"
         },
         {
-            "id": "alain.dubois@admin.vs.ch",
-            "name": "alain.dubois@admin.vs.ch"
+            "id": "laurent",
+            "name": "laurent"
         },
         {
-            "id": "foisykarine@gmail.com",
-            "name": "foisykarine@gmail.com"
+            "id": "aaf vie associative - nicolas didon",
+            "name": "aaf vie associative - nicolas didon"
         },
         {
-            "id": "tizian.zumthurm@uni.lu",
-            "name": "tizian.zumthurm@uni.lu"
+            "id": "j",
+            "name": "j"
         },
         {
-            "id": "vincent.taillandier@coomic.coop",
-            "name": "vincent.taillandier@coomic.coop"
+            "id": "claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale; schirr lucile (arc); naud dominique",
+            "name": "claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale; schirr lucile (arc); naud dominique"
         },
         {
-            "id": "delegation_generale@archivistes.org",
-            "name": "delegation_generale@archivistes.org"
+            "id": "aaf_ca2019@listes.archivistes.org",
+            "name": "aaf_ca2019@listes.archivistes.org"
         },
         {
-            "id": "myriam.favreau@nouvelle-aquitaine.fr",
-            "name": "myriam.favreau@nouvelle-aquitaine.fr"
+            "id": "banat-berger fran\u00e7oise",
+            "name": "banat-berger fran\u00e7oise"
         },
         {
-            "id": "a.vatican@free.fr",
-            "name": "a.vatican@free.fr"
+            "id": "grace boglo; claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "name": "grace boglo; claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale"
+        },
+        {
+            "id": "claire larrieux - aaf formation",
+            "name": "claire larrieux - aaf formation"
+        },
+        {
+            "id": "v",
+            "name": "v"
+        },
+        {
+            "id": "frederic.rolin@yahoo.fr",
+            "name": "frederic.rolin@yahoo.fr"
+        },
+        {
+            "id": "a.canayer@senat.fr",
+            "name": "a.canayer@senat.fr"
+        },
+        {
+            "id": "thierry bertrand",
+            "name": "thierry bertrand"
+        },
+        {
+            "id": "eric",
+            "name": "eric"
+        },
+        {
+            "id": "naud dominique",
+            "name": "naud dominique"
+        },
+        {
+            "id": "catherine bernard",
+            "name": "catherine bernard"
+        },
+        {
+            "id": "m.coeur-joly@clb.senat.fr",
+            "name": "m.coeur-joly@clb.senat.fr"
+        },
+        {
+            "id": "m",
+            "name": "m"
+        },
+        {
+            "id": "eric l",
+            "name": "eric l"
+        },
+        {
+            "id": "fran",
+            "name": "fran"
+        },
+        {
+            "id": "servicearchives@grandlyon.com",
+            "name": "servicearchives@grandlyon.com"
+        },
+        {
+            "id": "nico",
+            "name": "nico"
+        },
+        {
+            "id": "violette.levy@culture.gouv.fr",
+            "name": "violette.levy@culture.gouv.fr"
+        },
+        {
+            "id": "thierr",
+            "name": "thierr"
+        },
+        {
+            "id": "delegation",
+            "name": "delegation"
+        },
+        {
+            "id": "delegation_generale@archivistes.orh",
+            "name": "delegation_generale@archivistes.orh"
         }
     ],
     "edges": [
         {
-            "id": "coordination@archivistes.be->louis.germain@archivistes.qc.ca",
-            "source": "coordination@archivistes.be",
-            "target": "louis.germain@archivistes.qc.ca",
-            "label": "coordination@archivistes.be \u2192 louis.germain@archivistes.qc.ca",
+            "id": "mailer-daemon->presidence@aaf.org",
+            "source": "mailer-daemon",
+            "target": "presidence@aaf.org",
+            "label": "mailer-daemon \u2192 presidence@aaf.org",
             "interactions": [
                 {
-                    "date": "Fri, 12 Feb 2021 12:33:13 +0100",
-                    "subject": "Re: Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine",
+                    "date": "Mon, 04 Jul 2022 16:28:55 +0100",
+                    "subject": "unknown",
                     "body": "No Content"
                 }
             ]
         },
         {
-            "id": "louis.germain@archivistes.qc.ca->celine.guyon@archivistes.org",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "celine.guyon@archivistes.org",
-            "label": "louis.germain@archivistes.qc.ca \u2192 celine.guyon@archivistes.org",
+            "id": "mailer-daemon->gueit-montchal lydiane",
+            "source": "mailer-daemon",
+            "target": "gueit-montchal lydiane",
+            "label": "mailer-daemon \u2192 gueit-montchal lydiane",
             "interactions": [
                 {
-                    "date": "Thu, 11 Feb 2021 16:23:29 -0500",
-                    "subject": "RE: Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine",
+                    "date": "Thu, 30 Jun 2022 11:43:48 +0100",
+                    "subject": "unknown",
                     "body": "No Content"
                 },
                 {
-                    "date": "Tue, 02 Feb 2021 11:23:16 -0500",
-                    "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine",
+                    "date": "Fri, 11 Jun 2021 18:49:11 +0100",
+                    "subject": "RE: Note DGPAT",
                     "body": "No Content"
                 }
             ]
         },
         {
-            "id": "louis.germain@archivistes.qc.ca->mldubois@valorescence.be",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "mldubois@valorescence.be",
-            "label": "louis.germain@archivistes.qc.ca \u2192 mldubois@valorescence.be",
+            "id": "mailer-daemon->claire miot",
+            "source": "mailer-daemon",
+            "target": "claire miot",
+            "label": "mailer-daemon \u2192 claire miot",
             "interactions": [
                 {
-                    "date": "Tue, 02 Feb 2021 11:23:16 -0500",
-                    "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine",
+                    "date": "Fri, 15 Apr 2022 07:49:52 +0100",
+                    "subject": "unknown",
                     "body": "No Content"
                 }
             ]
         },
         {
-            "id": "louis.germain@archivistes.qc.ca->coordination@archivistes.be",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "coordination@archivistes.be",
-            "label": "louis.germain@archivistes.qc.ca \u2192 coordination@archivistes.be",
+            "id": "mailer-daemon->claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "source": "mailer-daemon",
+            "target": "claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "label": "mailer-daemon \u2192 claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
             "interactions": [
                 {
-                    "date": "Tue, 02 Feb 2021 11:23:16 -0500",
-                    "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "louis.germain@archivistes.qc.ca->taik.bourhis@umontreal.ca",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "taik.bourhis@umontreal.ca",
-            "label": "louis.germain@archivistes.qc.ca \u2192 taik.bourhis@umontreal.ca",
-            "interactions": [
-                {
-                    "date": "Tue, 02 Feb 2021 11:23:16 -0500",
-                    "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "louis.germain@archivistes.qc.ca->yves.lapointe@mcgill.ca",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "yves.lapointe@mcgill.ca",
-            "label": "louis.germain@archivistes.qc.ca \u2192 yves.lapointe@mcgill.ca",
-            "interactions": [
-                {
-                    "date": "Tue, 02 Feb 2021 11:23:16 -0500",
-                    "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "louis.germain@archivistes.qc.ca->alain.dubois@admin.vs.ch",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "alain.dubois@admin.vs.ch",
-            "label": "louis.germain@archivistes.qc.ca \u2192 alain.dubois@admin.vs.ch",
-            "interactions": [
-                {
-                    "date": "Tue, 02 Feb 2021 11:23:16 -0500",
-                    "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "louis.germain@archivistes.qc.ca->foisykarine@gmail.com",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "foisykarine@gmail.com",
-            "label": "louis.germain@archivistes.qc.ca \u2192 foisykarine@gmail.com",
-            "interactions": [
-                {
-                    "date": "Tue, 02 Feb 2021 11:23:16 -0500",
-                    "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "louis.germain@archivistes.qc.ca->tizian.zumthurm@uni.lu",
-            "source": "louis.germain@archivistes.qc.ca",
-            "target": "tizian.zumthurm@uni.lu",
-            "label": "louis.germain@archivistes.qc.ca \u2192 tizian.zumthurm@uni.lu",
-            "interactions": [
-                {
-                    "date": "Tue, 02 Feb 2021 11:23:16 -0500",
-                    "subject": "Table-ronde Congr\u00e8s AAQ 2021 : Archives de la quarantaine",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "vincent.taillandier@coomic.coop->delegation_generale@archivistes.org",
-            "source": "vincent.taillandier@coomic.coop",
-            "target": "delegation_generale@archivistes.org",
-            "label": "vincent.taillandier@coomic.coop \u2192 delegation_generale@archivistes.org",
-            "interactions": [
-                {
-                    "date": "Tue, 01 Dec 2020 10:28:45 +0100",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "date": "Tue, 01 Mar 2022 11:23:48 +0100",
+                    "subject": "Rapport moral",
                     "body": "No Content"
                 },
                 {
-                    "date": "Mon, 30 Nov 2020 18:44:10 +0100",
-                    "subject": "Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "date": "Thu, 07 Apr 2022 11:55:11 +0100",
+                    "subject": "Communiqu\u00e9 de presse",
                     "body": "No Content"
                 }
             ]
         },
         {
-            "id": "vincent.taillandier@coomic.coop->myriam.favreau@nouvelle-aquitaine.fr",
-            "source": "vincent.taillandier@coomic.coop",
-            "target": "myriam.favreau@nouvelle-aquitaine.fr",
-            "label": "vincent.taillandier@coomic.coop \u2192 myriam.favreau@nouvelle-aquitaine.fr",
+            "id": "mailer-daemon->koline machado",
+            "source": "mailer-daemon",
+            "target": "koline machado",
+            "label": "mailer-daemon \u2192 koline machado",
             "interactions": [
                 {
-                    "date": "Tue, 01 Dec 2020 10:28:45 +0100",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "date": "Wed, 02 Jun 2021 05:24:55 +0100",
+                    "subject": "RE: Maladie CLERC Anne",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->laurent",
+            "source": "mailer-daemon",
+            "target": "laurent",
+            "label": "mailer-daemon \u2192 laurent",
+            "interactions": [
+                {
+                    "date": "Wed, 02 Jun 2021 05:24:55 +0100",
+                    "subject": "RE: Maladie CLERC Anne",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->aaf vie associative - nicolas didon",
+            "source": "mailer-daemon",
+            "target": "aaf vie associative - nicolas didon",
+            "label": "mailer-daemon \u2192 aaf vie associative - nicolas didon",
+            "interactions": [
+                {
+                    "date": "Wed, 02 Jun 2021 20:07:46 +0100",
+                    "subject": "pbme adresse messagerie",
                     "body": "No Content"
                 },
                 {
-                    "date": "Mon, 30 Nov 2020 18:44:10 +0100",
-                    "subject": "Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "vincent.taillandier@coomic.coop->celine.guyon@archivistes.org",
-            "source": "vincent.taillandier@coomic.coop",
-            "target": "celine.guyon@archivistes.org",
-            "label": "vincent.taillandier@coomic.coop \u2192 celine.guyon@archivistes.org",
-            "interactions": [
-                {
-                    "date": "Tue, 01 Dec 2020 10:28:45 +0100",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "date": "Thu, 09 Sep 2021 16:26:41 +0100",
+                    "subject": "unknown",
                     "body": "No Content"
                 },
                 {
-                    "date": "Mon, 30 Nov 2020 18:44:10 +0100",
-                    "subject": "Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "myriam.favreau@nouvelle-aquitaine.fr->delegation_generale@archivistes.org",
-            "source": "myriam.favreau@nouvelle-aquitaine.fr",
-            "target": "delegation_generale@archivistes.org",
-            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2192 delegation_generale@archivistes.org",
-            "interactions": [
-                {
-                    "date": "Tue, 01 Dec 2020 09:53:54 +0000",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "myriam.favreau@nouvelle-aquitaine.fr->delegation_generale@archivistes.org",
-            "source": "myriam.favreau@nouvelle-aquitaine.fr",
-            "target": "delegation_generale@archivistes.org",
-            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2192 delegation_generale@archivistes.org",
-            "interactions": [
-                {
-                    "date": "Tue, 01 Dec 2020 09:53:54 +0000",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "myriam.favreau@nouvelle-aquitaine.fr->delegation_generale@archivistes.org",
-            "source": "myriam.favreau@nouvelle-aquitaine.fr",
-            "target": "delegation_generale@archivistes.org",
-            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2192 delegation_generale@archivistes.org",
-            "interactions": [
-                {
-                    "date": "Tue, 01 Dec 2020 09:53:54 +0000",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "myriam.favreau@nouvelle-aquitaine.fr->delegation_generale@archivistes.org",
-            "source": "myriam.favreau@nouvelle-aquitaine.fr",
-            "target": "delegation_generale@archivistes.org",
-            "label": "myriam.favreau@nouvelle-aquitaine.fr \u2192 delegation_generale@archivistes.org",
-            "interactions": [
-                {
-                    "date": "Tue, 01 Dec 2020 09:53:54 +0000",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
-                    "body": "No Content"
-                }
-            ]
-        },
-        {
-            "id": "delegation_generale@archivistes.org->vincent.taillandier@coomic.coop",
-            "source": "delegation_generale@archivistes.org",
-            "target": "vincent.taillandier@coomic.coop",
-            "label": "delegation_generale@archivistes.org \u2192 vincent.taillandier@coomic.coop",
-            "interactions": [
-                {
-                    "date": "Tue, 01 Dec 2020 13:23:54 +0100",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "date": "Tue, 22 Jun 2021 14:54:25 +0100",
+                    "subject": "RE: Au sujet du plan France Relance",
                     "body": "No Content"
                 },
                 {
-                    "date": "Tue, 01 Dec 2020 08:51:55 +0100",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "date": "Fri, 25 Jun 2021 13:50:23 +0100",
+                    "subject": "RE: Avis de la Commission Nationale Consultative des Droits de l\u2019Homme (CNCDH) sur le droit \u00e0 l'acc\u00e8s aux archives publiques",
                     "body": "No Content"
                 }
             ]
         },
         {
-            "id": "delegation_generale@archivistes.org->myriam.favreau@nouvelle-aquitaine.fr",
-            "source": "delegation_generale@archivistes.org",
-            "target": "myriam.favreau@nouvelle-aquitaine.fr",
-            "label": "delegation_generale@archivistes.org \u2192 myriam.favreau@nouvelle-aquitaine.fr",
+            "id": "mailer-daemon->j",
+            "source": "mailer-daemon",
+            "target": "j",
+            "label": "mailer-daemon \u2192 j",
             "interactions": [
                 {
-                    "date": "Tue, 01 Dec 2020 13:23:54 +0100",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "date": "Thu, 03 Mar 2022 17:09:27 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale; schirr lucile (arc); naud dominique",
+            "source": "mailer-daemon",
+            "target": "claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale; schirr lucile (arc); naud dominique",
+            "label": "mailer-daemon \u2192 claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale; schirr lucile (arc); naud dominique",
+            "interactions": [
+                {
+                    "date": "Sun, 27 Mar 2022 13:27:49 +0100",
+                    "subject": "RE: Journ\u00e9e d'\u00e9tudes",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->aaf_ca2019@listes.archivistes.org",
+            "source": "mailer-daemon",
+            "target": "aaf_ca2019@listes.archivistes.org",
+            "label": "mailer-daemon \u2192 aaf_ca2019@listes.archivistes.org",
+            "interactions": [
+                {
+                    "date": "Thu, 24 Jun 2021 09:12:16 +0100",
+                    "subject": "unknown",
                     "body": "No Content"
                 },
                 {
-                    "date": "Tue, 01 Dec 2020 11:46:05 +0100",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "date": "Wed, 16 Jun 2021 10:27:06 +0100",
+                    "subject": "RE: [AAF_CA2019-2022] TR: Tweet de Les archiveilleurs (@archiveilleurs)",
                     "body": "No Content"
                 },
                 {
-                    "date": "Tue, 01 Dec 2020 08:51:55 +0100",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "date": "Mon, 14 Jun 2021 12:32:13 +0100",
+                    "subject": "Recours CE",
+                    "body": "No Content"
+                },
+                {
+                    "date": "Tue, 06 Jul 2021 12:53:51 +0100",
+                    "subject": "unknown",
                     "body": "No Content"
                 }
             ]
         },
         {
-            "id": "a.vatican@free.fr->celine.guyon@archivistes.org",
-            "source": "a.vatican@free.fr",
-            "target": "celine.guyon@archivistes.org",
-            "label": "a.vatican@free.fr \u2192 celine.guyon@archivistes.org",
+            "id": "mailer-daemon->banat-berger fran\u00e7oise",
+            "source": "mailer-daemon",
+            "target": "banat-berger fran\u00e7oise",
+            "label": "mailer-daemon \u2192 banat-berger fran\u00e7oise",
             "interactions": [
                 {
-                    "date": "Sun, 18 Oct 2020 12:18:49 +0200",
-                    "subject": "Communiqu\u00e9",
-                    "body": "Bonjour Cline, l\\u2019AAF a-t-elle prvu de faire un communiqu de presse sur l\\u2019attentat de vendredi ?\nAmicalement\nAgns \n"
+                    "date": "Fri, 17 Dec 2021 07:20:23 +0100",
+                    "subject": "INSP",
+                    "body": "No Content"
                 }
             ]
         },
         {
-            "id": "delegation_generale@archivistes.org->celine.guyon@archivistes.org",
-            "source": "delegation_generale@archivistes.org",
-            "target": "celine.guyon@archivistes.org",
-            "label": "delegation_generale@archivistes.org \u2192 celine.guyon@archivistes.org",
+            "id": "mailer-daemon->grace boglo; claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "source": "mailer-daemon",
+            "target": "grace boglo; claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
+            "label": "mailer-daemon \u2192 grace boglo; claire larrieux - d\u00e9l\u00e9gu\u00e9e g\u00e9n\u00e9rale",
             "interactions": [
                 {
-                    "date": "Tue, 01 Dec 2020 08:51:55 +0100",
-                    "subject": "RE: Facture MIC - facilitation Groupe de travail Relance du plaidoyer",
+                    "date": "Tue, 23 Nov 2021 06:19:15 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->claire larrieux - aaf formation",
+            "source": "mailer-daemon",
+            "target": "claire larrieux - aaf formation",
+            "label": "mailer-daemon \u2192 claire larrieux - aaf formation",
+            "interactions": [
+                {
+                    "date": "Wed, 08 Sep 2021 08:28:53 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                },
+                {
+                    "date": "Fri, 16 Jul 2021 08:07:01 +0100",
+                    "subject": "CA",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->v",
+            "source": "mailer-daemon",
+            "target": "v",
+            "label": "mailer-daemon \u2192 v",
+            "interactions": [
+                {
+                    "date": "Fri, 16 Jul 2021 07:48:19 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->frederic.rolin@yahoo.fr",
+            "source": "mailer-daemon",
+            "target": "frederic.rolin@yahoo.fr",
+            "label": "mailer-daemon \u2192 frederic.rolin@yahoo.fr",
+            "interactions": [
+                {
+                    "date": "Thu, 17 Jun 2021 17:56:01 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->a.canayer@senat.fr",
+            "source": "mailer-daemon",
+            "target": "a.canayer@senat.fr",
+            "label": "mailer-daemon \u2192 a.canayer@senat.fr",
+            "interactions": [
+                {
+                    "date": "Fri, 11 Jun 2021 11:48:07 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->thierry bertrand",
+            "source": "mailer-daemon",
+            "target": "thierry bertrand",
+            "label": "mailer-daemon \u2192 thierry bertrand",
+            "interactions": [
+                {
+                    "date": "Fri, 01 Oct 2021 08:34:56 +0100",
+                    "subject": "RE: document de pr\u00e9figuration du futur Centre d'archives",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->eric",
+            "source": "mailer-daemon",
+            "target": "eric",
+            "label": "mailer-daemon \u2192 eric",
+            "interactions": [
+                {
+                    "date": "Tue, 28 Sep 2021 06:44:02 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->naud dominique",
+            "source": "mailer-daemon",
+            "target": "naud dominique",
+            "label": "mailer-daemon \u2192 naud dominique",
+            "interactions": [
+                {
+                    "date": "Fri, 05 Nov 2021 17:08:23 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->catherine bernard",
+            "source": "mailer-daemon",
+            "target": "catherine bernard",
+            "label": "mailer-daemon \u2192 catherine bernard",
+            "interactions": [
+                {
+                    "date": "Sat, 06 Nov 2021 12:42:30 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->m.coeur-joly@clb.senat.fr",
+            "source": "mailer-daemon",
+            "target": "m.coeur-joly@clb.senat.fr",
+            "label": "mailer-daemon \u2192 m.coeur-joly@clb.senat.fr",
+            "interactions": [
+                {
+                    "date": "Sun, 27 Feb 2022 16:37:51 +0100",
+                    "subject": "Proposition participation journ\u00e9e d'\u00e9tudes \"archiver, un acte engag\u00e9\"",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->m",
+            "source": "mailer-daemon",
+            "target": "m",
+            "label": "mailer-daemon \u2192 m",
+            "interactions": [
+                {
+                    "date": "Tue, 08 Jun 2021 08:36:45 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->eric l",
+            "source": "mailer-daemon",
+            "target": "eric l",
+            "label": "mailer-daemon \u2192 eric l",
+            "interactions": [
+                {
+                    "date": "Tue, 08 Jun 2021 09:51:20 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->fran",
+            "source": "mailer-daemon",
+            "target": "fran",
+            "label": "mailer-daemon \u2192 fran",
+            "interactions": [
+                {
+                    "date": "Wed, 16 Feb 2022 12:40:34 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->servicearchives@grandlyon.com",
+            "source": "mailer-daemon",
+            "target": "servicearchives@grandlyon.com",
+            "label": "mailer-daemon \u2192 servicearchives@grandlyon.com",
+            "interactions": [
+                {
+                    "date": "Tue, 08 Feb 2022 17:33:48 +0100",
+                    "subject": "Contact",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->nico",
+            "source": "mailer-daemon",
+            "target": "nico",
+            "label": "mailer-daemon \u2192 nico",
+            "interactions": [
+                {
+                    "date": "Thu, 06 Jan 2022 15:42:31 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->violette.levy@culture.gouv.fr",
+            "source": "mailer-daemon",
+            "target": "violette.levy@culture.gouv.fr",
+            "label": "mailer-daemon \u2192 violette.levy@culture.gouv.fr",
+            "interactions": [
+                {
+                    "date": "Wed, 19 Jan 2022 11:30:10 +0100",
+                    "subject": "Archivistes !",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->thierr",
+            "source": "mailer-daemon",
+            "target": "thierr",
+            "label": "mailer-daemon \u2192 thierr",
+            "interactions": [
+                {
+                    "date": "Mon, 07 Feb 2022 10:49:22 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                },
+                {
+                    "date": "Wed, 26 Jan 2022 16:42:15 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->delegation",
+            "source": "mailer-daemon",
+            "target": "delegation",
+            "label": "mailer-daemon \u2192 delegation",
+            "interactions": [
+                {
+                    "date": "Tue, 01 Mar 2022 11:22:29 +0100",
+                    "subject": "unknown",
+                    "body": "No Content"
+                }
+            ]
+        },
+        {
+            "id": "mailer-daemon->delegation_generale@archivistes.orh",
+            "source": "mailer-daemon",
+            "target": "delegation_generale@archivistes.orh",
+            "label": "mailer-daemon \u2192 delegation_generale@archivistes.orh",
+            "interactions": [
+                {
+                    "date": "Tue, 01 Mar 2022 10:39:13 +0100",
+                    "subject": "unknown",
                     "body": "No Content"
                 }
             ]

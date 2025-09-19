@@ -5,17 +5,18 @@ Créez, modifiez et gérez vos projets d’archivage d’e-mails.
 Chaque projet peut contenir plusieurs boîtes mail avec des métadonnées sur les personnes et les organisations impliquées.
 """
 
-import streamlit as st
+import importlib
 import os
-import sys
+import re
 import json
 import shutil
-import uuid
-from datetime import datetime
-import tempfile
-import re
+import streamlit as st
 import subprocess
+import sys
+import tempfile
+import uuid
 import zipfile
+from datetime import datetime
 
 from components.logins import make_hashed_password, verify_password, add_user, initialize_users_db
 
@@ -25,6 +26,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')
 # Get project root path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 
+from dotenv import load_dotenv
+
+import constants
 from src.data.s3_utils import S3Handler
 from src.data.mbox_to_eml import convert_folder_mbox_to_eml, mbox_to_eml
 from src.rag.colbert_initialization import initialize_colbert_rag_system
@@ -424,6 +428,7 @@ else:
     # Function to set active project
     def set_active_project(project_name):
         constants_path = os.path.join(project_root, 'constants.py')
+        env_path = os.path.join(project_root, '.env')
         try:
             with open(constants_path, 'r', encoding='utf-8') as file:
                 content = file.read()
@@ -433,6 +438,31 @@ else:
 
             with open(constants_path, 'w', encoding='utf-8') as file:
                 file.write(new_content)
+
+            # Keep .env in sync so environment loads the same project
+            try:
+                if os.path.exists(env_path):
+                    with open(env_path, 'r', encoding='utf-8') as env_file:
+                        env_content = env_file.read()
+
+                    env_pattern = r'^ACTIVE_PROJECT\s*=.*$'
+                    if re.search(env_pattern, env_content, flags=re.MULTILINE):
+                        updated_env = re.sub(env_pattern, f'ACTIVE_PROJECT = "{project_name}"', env_content, flags=re.MULTILINE)
+                    else:
+                        updated_env = env_content.rstrip() + f'\nACTIVE_PROJECT = "{project_name}"\n'
+                else:
+                    updated_env = f'ACTIVE_PROJECT = "{project_name}"\n'
+
+                with open(env_path, 'w', encoding='utf-8') as env_file:
+                    env_file.write(updated_env)
+            except Exception as env_error:
+                st.warning(f"Active project updated but .env sync failed: {env_error}")
+
+            # Refresh in-memory configuration for current Streamlit session
+            os.environ["ACTIVE_PROJECT"] = project_name
+            load_dotenv(override=True)
+            importlib.reload(constants)
+            st.session_state.active_project = project_name
 
             # Update project order
             update_project_order(project_name)
