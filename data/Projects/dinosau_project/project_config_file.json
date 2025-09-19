@@ -1,0 +1,26 @@
+{
+  "dinosau_project": {
+    "mailboxs": {
+      "dinosau_mail": {
+        "Positions": {
+          "dinosau": {
+            "start_date": "2020-01-01",
+            "end_date": "2025-01-01",
+            "description": "dinosaudinosaudinosaudinosaudinosau"
+          }
+        },
+        "Entity": {
+          "name": "dinosau",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "dinosau@lapalteforme.io",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "dinosau",
+          "description": "dinosaudinosaudinosau"
+        }
+      }
+    }
+  }
+}

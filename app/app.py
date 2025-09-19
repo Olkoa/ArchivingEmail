@@ -210,11 +210,11 @@ else:
 
     # Function to get date range from data
     @st.cache_data
-    def get_date_range_from_data(mailbox_selection):
+    def get_date_range_from_data(project_name, mailbox_selection):
         """Get the min and max dates from the loaded data to set dynamic date range"""
         try:
             # Load a small sample to get date range without the full dataset
-            db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
+            db_path = os.path.join(project_root, 'data', 'Projects', project_name, f"{project_name}.duckdb")
             analyzer = EmailAnalyzer(db_path=db_path)
 
             # Get min and max dates from database
@@ -255,7 +255,7 @@ else:
         with st.sidebar.expander("Filtres hérités", expanded=False):
             st.markdown("*Filtres pour pages non converties*")
             # Get dynamic date range
-            min_date, max_date = get_date_range_from_data(selected_mailbox)
+            min_date, max_date = get_date_range_from_data(ACTIVE_PROJECT, selected_mailbox)
 
             # Timeframe selection
             date_range = st.date_input(
@@ -269,7 +269,7 @@ else:
             additional_filters = create_sidebar_filters(email_filters, selected_mailbox)
     else:
         # For pages using the new filter system, just get defaults
-        min_date, max_date = get_date_range_from_data(selected_mailbox)
+        min_date, max_date = get_date_range_from_data(ACTIVE_PROJECT, selected_mailbox)
         date_range = (min_date, max_date)
         additional_filters = {}
 
@@ -409,7 +409,7 @@ else:
 
     # Load data based on selection from DuckDB with enhanced filtering
     @st.cache_data
-    def load_data_with_filters(mailbox_selection, additional_filters, use_agg_recipients=False):
+    def load_data_with_filters(project_name, mailbox_selection, additional_filters, use_agg_recipients=False):
         """Load and cache the selected mailbox data from DuckDB with additional filters applied at database level
 
         Args:
@@ -419,7 +419,7 @@ else:
                                instead of get_app_DataFrame
         """
         try:
-            db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
+            db_path = os.path.join(project_root, 'data', 'Projects', project_name, f"{project_name}.duckdb")
             analyzer = EmailAnalyzer(db_path=db_path)
 
             # Use the enhanced method that supports filters
@@ -526,7 +526,7 @@ else:
 
     # Load data based on selection from DuckDB
     @st.cache_data
-    def load_data(mailbox_selection, use_agg_recipients=False):
+    def load_data(project_name, mailbox_selection, use_agg_recipients=False):
         """Load and cache the selected mailbox data from DuckDB
 
         Args:
@@ -536,7 +536,7 @@ else:
         """
         try:
 
-            db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
+            db_path = os.path.join(project_root, 'data', 'Projects', project_name, f"{project_name}.duckdb")
 
             # Get data from DuckDB using EmailAnalyzer
             analyzer = EmailAnalyzer(db_path=db_path)
@@ -598,7 +598,7 @@ else:
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
 
-        emails_df = load_data_with_filters(selected_mailbox_filter, filter_dict, use_agg_recipients=True)
+        emails_df = load_data_with_filters(ACTIVE_PROJECT, selected_mailbox_filter, filter_dict, use_agg_recipients=True)
 
         # Apply date range filter if specified in enhanced filters
         if enhanced_filters.get('date_range'):
@@ -1199,7 +1199,7 @@ else:
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
 
-        emails_df = load_data_with_filters(selected_mailbox_filter, filter_dict)
+        emails_df = load_data_with_filters(ACTIVE_PROJECT, selected_mailbox_filter, filter_dict)
 
         # Apply date range filter if specified in enhanced filters
         if enhanced_filters.get('date_range'):
@@ -1228,7 +1228,7 @@ else:
         create_email_table_with_viewer(filtered_df, key_prefix="explorer")
 
     elif page == "Network Analysis":
-        emails_df = load_data_with_filters(selected_mailbox, additional_filters)
+        emails_df = load_data_with_filters(ACTIVE_PROJECT, selected_mailbox, additional_filters)
 
         # Apply date range filter
         emails_df = apply_date_filter(emails_df, date_range)
@@ -1253,7 +1253,7 @@ else:
 
     # Debugging timeline temporary page
     elif page == "Timeline":
-        emails_df = load_data_with_filters(selected_mailbox, additional_filters, use_agg_recipients=True)
+        emails_df = load_data_with_filters(ACTIVE_PROJECT, selected_mailbox, additional_filters, use_agg_recipients=True)
 
         # Apply date range filter
         emails_df = apply_date_filter(emails_df, date_range)
@@ -1320,7 +1320,7 @@ else:
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
 
-        emails_df = load_data(selected_mailbox_filter)
+        emails_df = load_data(ACTIVE_PROJECT, selected_mailbox_filter)
 
         # Apply date range filter if specified
         if enhanced_filters.get('date_range'):
@@ -1450,7 +1450,7 @@ else:
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
 
-        emails_df = load_data(selected_mailbox_filter)
+        emails_df = load_data(ACTIVE_PROJECT, selected_mailbox_filter)
 
         # Apply date range filter if specified
         if enhanced_filters.get('date_range'):
@@ -1782,7 +1782,7 @@ else:
         """)
 
         # First, ensure we have emails loaded
-        emails_df = load_data(selected_mailbox)
+        emails_df = load_data(ACTIVE_PROJECT, selected_mailbox)
 
         # Apply date range filter
         emails_df = apply_date_filter(emails_df, date_range)
@@ -1885,7 +1885,7 @@ else:
             from components.colbert_rag_component import render_colbert_rag_component
 
             # Render the component with the loaded email data
-            emails_df = load_data(selected_mailbox)
+            emails_df = load_data(ACTIVE_PROJECT, selected_mailbox)
 
             # Apply date range filter
             emails_df = apply_date_filter(emails_df, date_range)
@@ -1959,7 +1959,7 @@ else:
 
     elif page == "Chat + RAG":
         # No filters for chat - load data directly
-        emails_df = load_data(selected_mailbox)
+        emails_df = load_data(ACTIVE_PROJECT, selected_mailbox)
 
         # Apply date range filter
         emails_df = apply_date_filter(emails_df, date_range)

@@ -5,6 +5,7 @@ Créez, modifiez et gérez vos projets d’archivage d’e-mails.
 Chaque projet peut contenir plusieurs boîtes mail avec des métadonnées sur les personnes et les organisations impliquées.
 """
 
+import ast
 import importlib
 import os
 import re
@@ -25,6 +26,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')
 
 # Get project root path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+DEFAULT_PROJECT_NAME = "Projet Demo"
 
 from dotenv import load_dotenv
 
@@ -50,6 +52,9 @@ if "username" not in st.session_state:
 
 if "users_db" not in st.session_state:
     st.session_state.users_db = initialize_users_db()
+
+if 'project_creation_error' not in st.session_state:
+    st.session_state.project_creation_error = None
 
 # Login form
 def show_login_form():
@@ -463,6 +468,7 @@ else:
             load_dotenv(override=True)
             importlib.reload(constants)
             st.session_state.active_project = project_name
+            st.cache_data.clear()
 
             # Update project order
             update_project_order(project_name)
@@ -471,6 +477,91 @@ else:
         except Exception as e:
             st.error(f"Error setting active project: {str(e)}")
             return False
+
+    def remove_project_from_constants(project_name):
+        """Remove a project from the PROJECT_ORDER list in constants.py."""
+        constants_path = os.path.join(project_root, 'constants.py')
+        try:
+            with open(constants_path, 'r', encoding='utf-8') as file:
+                content = file.read()
+
+            match = re.search(r'PROJECT_ORDER\s*=\s*\[(.*?)\]', content, flags=re.DOTALL)
+            if not match:
+                return
+
+            order_str = match.group(0).split('=', 1)[1].strip()
+            try:
+                project_order = ast.literal_eval(order_str)
+            except (SyntaxError, ValueError):
+                return
+
+            filtered_order = [name for name in project_order if name != project_name]
+            order_repr = ', '.join(f'"{name}"' for name in filtered_order)
+            new_order_block = f'PROJECT_ORDER = [{order_repr}]'
+            content = re.sub(r'PROJECT_ORDER\s*=\s*\[.*?\]', new_order_block, content, flags=re.DOTALL)
+
+            with open(constants_path, 'w', encoding='utf-8') as file:
+                file.write(content)
+        except Exception as e:
+            st.warning(f"Failed to update project order in constants.py: {e}")
+
+    def handle_project_creation_failure(project_name, project_path, reason, fallback_project=None):
+        """Clean up partial project data and prepare an error message for the overview."""
+        cleanup_notes = []
+
+        if project_path and os.path.exists(project_path):
+            try:
+                shutil.rmtree(project_path)
+            except Exception as cleanup_error:
+                cleanup_notes.append(f"Impossible de supprimer le dossier du projet ({cleanup_error})")
+
+        remove_project_from_constants(project_name)
+
+        fallback = fallback_project or DEFAULT_PROJECT_NAME
+        if fallback:
+            set_active_project(fallback)
+
+        message_parts = [f"❌ La création du projet '{project_name}' a échoué."]
+        if reason:
+            message_parts.append(reason)
+        if cleanup_notes:
+            message_parts.extend(cleanup_notes)
+
+        st.session_state.project_creation_error = " ".join(message_parts)
+        reset_form()
+
+    def mailboxes_missing_files(project_path, mailbox_names, subfolder, required_extensions=None):
+        missing = []
+        extensions = None
+        if required_extensions:
+            if isinstance(required_extensions, str):
+                extensions = (required_extensions.lower(),)
+            else:
+                extensions = tuple(ext.lower() for ext in required_extensions)
+
+        for mailbox_name in mailbox_names:
+            target_dir = os.path.join(project_path, mailbox_name, subfolder)
+            if not os.path.isdir(target_dir):
+                missing.append(mailbox_name)
+                continue
+
+            has_files = False
+            for _, _, files in os.walk(target_dir):
+                if not files:
+                    continue
+
+                if extensions:
+                    if any(file.lower().endswith(extensions) for file in files):
+                        has_files = True
+                        break
+                else:
+                    has_files = True
+                    break
+
+            if not has_files:
+                missing.append(mailbox_name)
+
+        return missing
 
     # Function to validate form data
     def validate_form():
@@ -508,6 +599,8 @@ else:
         form = st.session_state.project_form
         project_name = form['project_name']
 
+        previous_project = st.session_state.get('active_project', DEFAULT_PROJECT_NAME)
+
         set_active_project(project_name)
 
         # Generate config JSON
@@ -543,13 +636,17 @@ else:
                     's3_project_name': mailbox.get('s3_project_name', '')
                 })
 
-            pipeline_success = start_data_preparation_pipeline(project_name, project_path, mailbox_info)
+            pipeline_success, pipeline_message = start_data_preparation_pipeline(project_name, project_path, mailbox_info)
             if pipeline_success:
                 st.info("Data preparation pipeline started successfully. Processing will continue in the background.")
             else:
-                st.warning("Project created but data preparation pipeline failed to start. You may need to process data manually.")
+                handle_project_creation_failure(project_name, project_path, pipeline_message, fallback_project=previous_project)
+                return False
 
         return True
+
+    class PipelineError(Exception):
+        """Custom exception for pipeline failures."""
 
     def start_data_preparation_pipeline(project_name, project_path, mailbox_info):
         """
@@ -563,7 +660,7 @@ else:
             mailbox_info (list): List of mailbox dictionaries with name, data_source, s3_project_name
 
         Returns:
-            bool: True if pipeline started successfully, False otherwise
+            tuple: (success: bool, message: Optional[str])
         """
         # TODO: Implement the data preparation pipeline
         # This function will call other functions to:
@@ -580,73 +677,91 @@ else:
 
             mailbox_names = [mb['name'] for mb in mailbox_info]
 
+            if not mailbox_names:
+                raise PipelineError("Aucune boîte mail n'a été fournie pour la création du projet.")
+
             # Separate mailboxes by data source
             upload_mailboxes = [mb['name'] for mb in mailbox_info if mb['data_source'] == 'upload']
             s3_mailboxes = [mb for mb in mailbox_info if mb['data_source'] == 's3' and mb['s3_project_name']]
 
             # For uploaded files: upload to S3 then download back to verify
             if upload_mailboxes:
-                st.info("📤 Processing uploaded files...")
+                st.info("📤 Téléversement des fichiers fournis...")
                 upload_success = upload_project_raw_data_to_s3(project_name, project_path, upload_mailboxes)
-                if upload_success:
-                    st.success("Raw data successfully uploaded to S3")
+                if not upload_success:
+                    raise PipelineError("Échec du téléversement des données brutes vers S3 pour au moins une boîte mail.")
 
-                    # Download back to verify
-                    st.info("Verifying S3 sync by downloading data...")
-                    download_success = download_project_raw_data_from_s3(project_name, project_path, upload_mailboxes)
-                    if download_success:
-                        st.success("S3 data synchronization verified")
-                    else:
-                        st.warning("S3 sync verification failed, but pipeline will continue")
-                else:
-                    st.warning("Failed to upload some data to S3, but pipeline will continue")
+                st.info("Vérification de la synchronisation S3...")
+                download_success = download_project_raw_data_from_s3(project_name, project_path, upload_mailboxes)
+                if not download_success:
+                    raise PipelineError("La vérification de la synchronisation S3 a échoué pour les boîtes mail téléversées.")
 
             # For S3 sources: just download from selected projects
             if s3_mailboxes:
-                st.info("📥 Downloading data from selected S3 projects...")
+                st.info("📥 Téléchargement des données depuis les projets S3 sélectionnés...")
                 for mailbox in s3_mailboxes:
-                    # Download from the selected S3 project to this mailbox
                     download_success = download_project_raw_data_from_s3(
-                        project_name=mailbox['s3_project_name'],  # Source project
+                        project_name=mailbox['s3_project_name'],
                         project_path=project_path,
                         mailbox_names=[mailbox['name']]
                     )
-                    if download_success:
-                        st.success(f"✅ Downloaded data for mailbox '{mailbox['name']}' from S3 project '{mailbox['s3_project_name']}'")
-                    else:
-                        st.error(f"❌ Failed to download data for mailbox '{mailbox['name']}')")
+                    if not download_success:
+                        raise PipelineError(
+                            f"Échec du téléchargement des données S3 pour la boîte mail '{mailbox['name']}'."
+                        )
 
-            # Extract ZIP files if present before conversion
+            missing_raw = mailboxes_missing_files(project_path, mailbox_names, 'raw')
+            if missing_raw:
+                raise PipelineError(
+                    "Aucune donnée brute n'a été trouvée pour les boîtes mail suivantes : " +
+                    ", ".join(missing_raw)
+                )
+
             unzip_success = extract_project_zip_files(project_name, project_path, mailbox_names)
-            if unzip_success:
-                st.success("ZIP files extracted successfully")
-            else:
-                st.warning("Some ZIP extraction failed, but pipeline will continue")
+            if not unzip_success:
+                raise PipelineError("L'extraction des archives ZIP a échoué.")
 
-            # Convert PST/MBOX files to EML format for each mailbox
             conversion_success = convert_project_emails_to_eml(project_name, project_path, mailbox_names)
-            if conversion_success:
-                st.success("Email files successfully converted to EML format")
-            else:
-                st.warning("Some email conversions failed, but pipeline will continue")
+            if not conversion_success:
+                raise PipelineError("La conversion des emails en EML a échoué.")
 
-            # Announce RAG construction start
-            st.info("🚀 Starting RAG (Retrieval-Augmented Generation) system construction...")
-            st.info("📊 This will build ColBERT indexes for semantic search and AI-powered email analysis")
-            with st.spinner("Building RAG system - this may take several minutes..."):
-                index_dir = initialize_colbert_rag_system(project_root=project_root, \
-                            force_rebuild=True, test_mode=False, rag_mode="light")
-            print(f"Colbert RAG system initialized with index at {index_dir}")
+            missing_processed = mailboxes_missing_files(
+                project_path,
+                mailbox_names,
+                'processed',
+                required_extensions=('.eml',)
+            )
+            if missing_processed:
+                raise PipelineError(
+                    "Aucun email converti (.eml) n'a été trouvé pour les boîtes mail suivantes : " +
+                    ", ".join(missing_processed)
+                )
 
+            st.info("🚀 Initialisation du système RAG (ColBERT)...")
+            st.info("📊 Construction des index sémantiques pour la recherche avancée")
+            try:
+                with st.spinner("Construction du système RAG - cela peut prendre quelques minutes..."):
+                    index_dir = initialize_colbert_rag_system(
+                        project_root=project_root,
+                        force_rebuild=True,
+                        test_mode=False,
+                        rag_mode="light"
+                    )
+                print(f"Colbert RAG system initialized with index at {index_dir}")
+            except Exception as rag_error:
+                raise PipelineError(f"La construction du système RAG a échoué: {rag_error}")
 
-            # Placeholder for future implementation
-            # Will be populated with actual pipeline functions
             print("Data preparation pipeline completed successfully")
-            return True
+            return True, None
 
+        except PipelineError as pipeline_error:
+            error_message = str(pipeline_error)
+            st.error(error_message)
+            return False, error_message
         except Exception as e:
-            st.error(f"Error starting data preparation pipeline: {str(e)}")
-            return False
+            error_message = f"Erreur inattendue dans le pipeline: {e}"
+            st.error(error_message)
+            return False, error_message
 
     def upload_project_raw_data_to_s3(project_name, project_path, mailbox_names, bucket_name="olkoa-projects"):
         """
@@ -676,6 +791,8 @@ else:
                 return False
 
             upload_success = True
+            uploaded_any = False
+            missing_mailboxes = []
 
             # Upload raw data for each mailbox
             for mailbox_name in mailbox_names:
@@ -685,10 +802,14 @@ else:
                 # Check if raw data directory exists and has files
                 if not os.path.exists(local_raw_data_dir):
                     st.warning(f"Raw data directory not found for mailbox '{mailbox_name}': {local_raw_data_dir}")
+                    missing_mailboxes.append(mailbox_name)
+                    upload_success = False
                     continue
 
                 if not os.listdir(local_raw_data_dir):
-                    st.info(f"No files to upload for mailbox '{mailbox_name}'")
+                    st.warning(f"No files found to upload for mailbox '{mailbox_name}'")
+                    missing_mailboxes.append(mailbox_name)
+                    upload_success = False
                     continue
 
                 try:
@@ -699,10 +820,17 @@ else:
                         s3_prefix=s3_prefix
                     )
                     st.success(f"Successfully uploaded raw data for mailbox '{mailbox_name}' to S3")
+                    uploaded_any = True
 
                 except Exception as e:
                     st.error(f"Failed to upload raw data for mailbox '{mailbox_name}': {e}")
                     upload_success = False
+
+            if missing_mailboxes:
+                st.warning("Les boîtes mail suivantes n'ont fourni aucun fichier brut : " + ", ".join(missing_mailboxes))
+
+            if not uploaded_any:
+                return False
 
             return upload_success
 
@@ -723,6 +851,9 @@ else:
         Returns:
             bool: True if all downloads successful, False otherwise
         """
+        if not mailbox_names:
+            return True
+
         try:
             # Initialize S3 handler
             s3_handler = S3Handler()
@@ -745,7 +876,37 @@ else:
             # Download raw data for each mailbox
             for mailbox_idx, mailbox_name in enumerate(mailbox_names, 1):
                 local_raw_data_dir = os.path.join(project_path, mailbox_name, "raw")
-                s3_prefix = f"{project_name}/{mailbox_name}/raw"
+
+                candidate_prefixes = []
+                if mailbox_name:
+                    candidate_prefixes.extend([
+                        f"{project_name}/{mailbox_name}/raw",
+                        f"{project_name}/{mailbox_name}"
+                    ])
+                candidate_prefixes.extend([
+                    f"{project_name}/raw",
+                    f"{project_name}"
+                ])
+
+                objects_found = []
+                selected_prefix = None
+                for prefix in candidate_prefixes:
+                    try:
+                        objects_found = s3_handler.list_objects(bucket_name=bucket_name, prefix=prefix)
+                    except Exception:
+                        objects_found = []
+
+                    if objects_found:
+                        selected_prefix = prefix.rstrip('/')
+                        break
+
+                if not selected_prefix:
+                    st.error(
+                        "❌ Aucun fichier trouvé sur S3 pour la boîte mail "
+                        f"'{mailbox_name}'. Préfixes testés: " + ", ".join(candidate_prefixes)
+                    )
+                    download_success = False
+                    continue
 
                 try:
                     st.info(f"📦 Downloading raw data for mailbox {mailbox_idx}/{total_mailboxes}: {mailbox_name}")
@@ -760,7 +921,7 @@ else:
                     # Download the directory with progress tracking
                     stats = s3_handler.download_directory(
                         bucket_name=bucket_name,
-                        s3_prefix=s3_prefix,
+                        s3_prefix=selected_prefix,
                         local_dir=local_raw_data_dir,
                         progress_callback=progress_callback
                     )
@@ -784,7 +945,11 @@ else:
                         print(f"✅ Downloaded mailbox '{mailbox_name}' to: {local_raw_data_dir}")
                         print(f"   Files: {stats['downloaded_files']}, Size: {size_display}")
                     else:
-                        st.warning(f"⚠️ No files found in S3 for mailbox '{mailbox_name}' at prefix '{s3_prefix}'")
+                        st.warning(
+                            "⚠️ Aucun fichier téléchargé depuis S3 pour la boîte mail "
+                            f"'{mailbox_name}' (préfixe '{selected_prefix}')."
+                        )
+                        download_success = False
 
                     if stats['failed_files'] > 0:
                         st.warning(f"❌ Failed to download {stats['failed_files']} files for mailbox '{mailbox_name}'")
@@ -815,6 +980,10 @@ else:
                 print(f"   Mailboxes: {total_mailboxes}")
                 print(f"   Root Path: {project_path}")
                 print(f"   Success: {'✅ YES' if download_success else '❌ PARTIAL'}")
+
+            if total_downloaded_files == 0:
+                st.warning("⚠️ Aucun fichier n'a été téléchargé depuis S3 pour ce projet.")
+                return False
 
             return download_success
 
@@ -1130,6 +1299,10 @@ else:
     # Main interface logic
     # First, check if we're in project list view or form view
     if st.session_state.project_form['mode'] is None:
+        if st.session_state.project_creation_error:
+            st.error(st.session_state.project_creation_error)
+            st.session_state.project_creation_error = None
+
         # We're in project list view - show all projects
         projects = find_projects()
 
