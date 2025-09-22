@@ -140,21 +140,40 @@
       stroke: red !important;
       stroke-width: 2px;
     }
-    #node-data-table {
-      margin-top: 20px;
-      font-family: Arial, sans-serif;
+   #node-data-table {
       border-collapse: collapse;
       width: 100%;
+      font-family: "Source Sans Pro", Arial, sans-serif;
+      font-size: 14px;
+      background-color: #fff;
+      border: 1px solid #e6e6e6;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
 
-    #node-data-table th, #node-data-table td {
-      padding: 10px;
+    #node-data-table thead {
+      background-color: #f9f9f9;
+    }
+
+    #node-data-table th, 
+    #node-data-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #e6e6e6;
       text-align: left;
-      border: 1px solid #ddd;
+    }
+
+    #node-data-table tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    #node-data-table tr:hover td {
+      background-color: #f1f3f6;
+      transition: background-color 0.25s ease;
     }
 
     #node-data-table th {
-      background-color: #f2f2f2;
+      font-weight: 600;
     }
     #back-to-graph-btn {
       margin-top: 20px;
@@ -407,9 +426,13 @@
       }
     });
     function displayNodeData(node) {
-  const interactions = graphData.edges.filter(edge =>
-    edge.source === node.id || edge.target === node.id
-  );
+  const interactions = graphData.edges
+  .filter(edge => edge.source === node.id || edge.target === node.id)
+  .flatMap(edge => edge.interactions.map(msg => ({
+      ...msg,
+      source: typeof edge.source === "object" ? edge.source.id : edge.source,
+      target: typeof edge.target === "object" ? edge.target.id : edge.target
+  })));
 
   let currentPage = 1;
   const itemsPerPage = 5;
@@ -473,10 +496,16 @@
 }
 
 function displayEdgeData(edge) {
-  const interactions = graphData.edges.filter(e =>
+  const interactions = graphData.edges
+  .filter(e =>
     (e.source === edge.source.id && e.target === edge.target.id) ||
     (e.source === edge.target.id && e.target === edge.source.id)
-  );
+  )
+  .flatMap(e => e.interactions.map(msg => ({
+      ...msg,
+      source: typeof e.source === "object" ? e.source.id : e.source,
+      target: typeof e.target === "object" ? e.target.id : e.target
+  })));
 
   let currentPage = 1;
   const itemsPerPage = 5;

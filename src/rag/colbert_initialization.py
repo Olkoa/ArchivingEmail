@@ -26,7 +26,7 @@ from src.rag.colbert_rag import (
 
 from src.data.email_analyzer import EmailAnalyzer
 
-from constants import ACTIVE_PROJECT
+import constants
 
 # from src.data.loading import load_mailboxes
 # Check if RAGAtouille is available
@@ -44,12 +44,19 @@ from constants import ACTIVE_PROJECT
 #         raise ImportError("RAGAtouille not installed")
 
 
+def _resolve_active_project(explicit: Optional[str] = None) -> str:
+    if explicit:
+        return explicit
+    return os.getenv("ACTIVE_PROJECT") or getattr(constants, "ACTIVE_PROJECT", "Projet Demo")
+
+
 def initialize_colbert_rag_system(
     ids_series: Optional[pd.DataFrame] = None,
     project_root: Optional[str] = None,
     force_rebuild: bool = False,
     test_mode: bool = False,
     rag_mode: str = "light",
+    project_name: Optional[str] = None,
 ) -> str:
     """
     Initialize the Colbert RAG system by processing emails and creating the index.
@@ -73,8 +80,15 @@ def initialize_colbert_rag_system(
     if project_root is None:
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
-    # Set index directory - using a different name to avoid conflicts
-    index_dir = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes')
+    active_project = _resolve_active_project(project_name)
+
+    # Ensure RAGAtouille stores artifacts inside repository-level .ragatouille
+    rag_home = os.path.join(project_root, '.ragatouille')
+    os.makedirs(rag_home, exist_ok=True)
+    os.environ["RAGATOUILLE_HOME"] = rag_home
+
+    # Set index directory - metadata lives alongside the project data folder
+    index_dir = os.path.join(project_root, 'data', 'Projects', active_project, 'colbert_indexes')
 
     # Check if index already exists
     # The actual index is stored by RAGAtouille in the user's home directory
@@ -96,7 +110,7 @@ def initialize_colbert_rag_system(
         #     raise ValueError(f"No mbox files found in {base_dir}")
         # print(f"Found {len(mbox_paths)} mbox files")
 
-        db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
+        db_path = os.path.join(project_root, 'data', 'Projects', active_project, f"{active_project}.duckdb")
         email_analyzer = EmailAnalyzer(db_path)
 
         if test_mode:

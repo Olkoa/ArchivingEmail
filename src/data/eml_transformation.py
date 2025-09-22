@@ -20,7 +20,7 @@ import pandas as pd
 from dotenv import load_dotenv
 
 load_dotenv()
-ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT") or "Projet Demo"
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -30,7 +30,7 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..
 from src.models.models import EmailAddress, MailingList, Entity, Attachment, ReceiverEmail, SenderEmail
 from src.data.duckdb_utils import setup_database
 
-from constants import ACTIVE_PROJECT
+import constants
 
 
 def clean_html(html_string):
@@ -417,7 +417,9 @@ def extract_recipients(message):
         "reply_to": reply_to_entity
     }
 
-def extract_message_data(message, folder_name, config_file, mailbox_name="Boîte mail de Céline", project_name=ACTIVE_PROJECT):
+def extract_message_data(message, folder_name, config_file, mailbox_name="Boîte mail de Céline", project_name: Optional[str] = None):
+    if project_name is None:
+        project_name = os.getenv("ACTIVE_PROJECT") or getattr(constants, "ACTIVE_PROJECT", "Projet Demo")
     """Extract comprehensive email data to match Pydantic models"""
     # Generate a unique ID
     email_id = str(uuid.uuid4())
@@ -601,7 +603,7 @@ def extract_message_data(message, folder_name, config_file, mailbox_name="Boîte
 
 def collect_email_data(directory: Union[str, Path],
                        mailbox_name:str ="Boîte mail de Céline",
-                       project_name:str =ACTIVE_PROJECT,
+                       project_name: Optional[str] = None,
                        include_attachments: bool = True) -> List[Dict[str, Any]]:
     """
     Recursively process all .eml files in the directory and its subdirectories
@@ -616,7 +618,10 @@ def collect_email_data(directory: Union[str, Path],
         List of dictionaries containing extracted email data
     """
 
-    with open(f"data/Projects/{project_name}/project_config_file.json", "r", encoding="utf-8") as f:
+    project_name = project_name or os.getenv("ACTIVE_PROJECT") or getattr(constants, "ACTIVE_PROJECT", "Projet Demo")
+
+    config_path = Path(project_root) / "data" / "Projects" / project_name / "project_config_file.json"
+    with open(config_path, "r", encoding="utf-8") as f:
         config_file = json.load(f)
 
     all_emails = []
@@ -766,7 +771,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                           conn: 'duckdb.DuckDBPyConnection',
                           batch_size: int = 100,
                           mailbox_name: str = "Boîte mail de Céline",
-                          project_name: str = ACTIVE_PROJECT,
+                          project_name: Optional[str] = None,
                           entity_cache: Optional[Dict[str, str]] = None) -> Dict[str, str]:
     """
     Recursively process all .eml files in a directory and its subdirectories directly to DuckDB in batches
@@ -781,7 +786,10 @@ def process_eml_to_duckdb(directory: Union[str, Path],
         Updated entity cache after processing
     """
 
-    with open(f"data/Projects/{project_name}/project_config_file.json", "r", encoding="utf-8") as f:
+    project_name = project_name or os.getenv("ACTIVE_PROJECT") or getattr(constants, "ACTIVE_PROJECT", "Projet Demo")
+
+    config_path = Path(project_root) / "data" / "Projects" / project_name / "project_config_file.json"
+    with open(config_path, "r", encoding="utf-8") as f:
         config_file = json.load(f)
 
     if entity_cache is None:
@@ -1183,18 +1191,19 @@ def process_eml_files(directory: Union[str, Path],
 
     print(f"DuckDB database saved to {output_path}")
 
-def generate_duck_db() -> bool:
-    db_path = f"data/Projects/{ACTIVE_PROJECT}/{ACTIVE_PROJECT}.duckdb"
-    eml_folder_path = f"data/Projects/{ACTIVE_PROJECT}/"
+def generate_duck_db() -> str | bool:
+    active_project = os.getenv("ACTIVE_PROJECT") or getattr(constants, "ACTIVE_PROJECT", "Projet Demo")
+    db_path = os.path.join(project_root, "data", "Projects", active_project, f"{active_project}.duckdb")
+    eml_folder_path = os.path.join(project_root, "data", "Projects", active_project)
 
     try:
         setup_database(db_path) # duckdb_conn =
         process_eml_files(eml_folder_path, db_path)
-        return True
+        return db_path
     except Exception as e:
         print(f"Error generating DuckDB: {e}")
         return False
-    pass
+
 
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ Chaque projet peut contenir plusieurs boîtes mail avec des métadonnées sur le
 """
 
 import ast
+import duckdb
 import importlib
 import os
 import re
@@ -34,6 +35,7 @@ import constants
 from src.data.s3_utils import S3Handler
 from src.data.mbox_to_eml import convert_folder_mbox_to_eml, mbox_to_eml
 from src.rag.colbert_initialization import initialize_colbert_rag_system
+from src.data.eml_transformation import generate_duck_db
 
 
 # Page configuration
@@ -664,7 +666,7 @@ else:
         """
         # TODO: Implement the data preparation pipeline
         # This function will call other functions to:
-        # 1. Convert PST/MBOX files to EML
+        # 1. 
         # 2. Process EML files into DuckDB
         # 3. Generate embeddings and search indexes
         # 4. Initialize RAG system
@@ -710,6 +712,7 @@ else:
                             f"Échec du téléchargement des données S3 pour la boîte mail '{mailbox['name']}'."
                         )
 
+            # Verify raw data presence
             missing_raw = mailboxes_missing_files(project_path, mailbox_names, 'raw')
             if missing_raw:
                 raise PipelineError(
@@ -717,13 +720,54 @@ else:
                     ", ".join(missing_raw)
                 )
 
+
+            # Convert PST/MBOX (included if they are in a zip) files to EML
+            # Unzip if needed
             unzip_success = extract_project_zip_files(project_name, project_path, mailbox_names)
             if not unzip_success:
                 raise PipelineError("L'extraction des archives ZIP a échoué.")
 
+            # process files into .eml (s)
             conversion_success = convert_project_emails_to_eml(project_name, project_path, mailbox_names)
             if not conversion_success:
                 raise PipelineError("La conversion des emails en EML a échoué.")
+            
+            # Process EML files into DuckDB
+            db_path = generate_duck_db()
+            if not db_path or not os.path.exists(db_path):
+                raise PipelineError(
+                    "La base de données DuckDB attendue n'a pas été générée "
+                    f"(fichier manquant : {project_name}.duckdb)."
+                )
+
+            try:
+                db_conn = duckdb.connect(db_path, read_only=True)
+                existing_tables = {
+                    row[0]
+                    for row in db_conn.execute(
+                        "SELECT table_name FROM information_schema.tables WHERE table_schema = 'main'"
+                    ).fetchall()
+                }
+
+                if "receiver_emails" not in existing_tables:
+                    raise PipelineError(
+                        "La base de données DuckDB est incomplète : la table 'receiver_emails' est absente."
+                    )
+
+                email_count = db_conn.execute("SELECT COUNT(*) FROM receiver_emails").fetchone()[0]
+                if email_count == 0:
+                    raise PipelineError(
+                        "La base de données DuckDB a été créée mais ne contient aucun email."
+                    )
+            except PipelineError:
+                raise
+            except Exception as db_error:
+                raise PipelineError(f"La vérification de la base DuckDB a échoué : {db_error}")
+            finally:
+                try:
+                    db_conn.close()
+                except Exception:
+                    pass
 
             missing_processed = mailboxes_missing_files(
                 project_path,
@@ -745,7 +789,8 @@ else:
                         project_root=project_root,
                         force_rebuild=True,
                         test_mode=False,
-                        rag_mode="light"
+                        rag_mode="light",
+                        project_name=project_name
                     )
                 print(f"Colbert RAG system initialized with index at {index_dir}")
             except Exception as rag_error:

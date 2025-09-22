@@ -988,26 +988,22 @@ else:
                                             subject = msg.get("Subject", "No Subject")
                                             date = msg.get("Date", "Unknown Date")
 
-                                            # Extract body
-                                            try:
-                                                if msg.is_multipart():
-                                                    body = ""
-                                                    for part in msg.walk():
-                                                        if part.get_content_type() == "text/plain":
-                                                            body = part.get_payload(decode=True).decode('utf-8', errors='ignore')
-                                                            break
-                                                else:
-                                                    body = msg.get_payload(decode=True).decode('utf-8', errors='ignore')
-                                                body = body[:500] if body else "No Content"  # Limit body length
-                                            except Exception:
-                                                body = "Error reading body"
-
                                             # Clean sender
                                             sender = email.utils.parseaddr(sender)[1] if sender else "unknown"
 
-                                            # Parse and flatten all receiver addresses
+                                            # Parse receivers
                                             receiver_list = email.utils.getaddresses(receivers)
 
+                                            # ✅ Extract body using your preferred method
+                                            try:
+                                                html_body = getBody(msg)
+                                                soup = BeautifulSoup(html_body, 'html.parser')
+                                                body = soup.get_text()
+                                                body = decode_unicode_escape(body)
+                                            except Exception:
+                                                body = "[Error reading body]"
+
+                                            # Append emails
                                             for name, addr in receiver_list:
                                                 addr = addr.strip()
                                                 if addr:
@@ -1018,9 +1014,8 @@ else:
                                                         "date": date,
                                                         "body": body
                                                     })
-
                                     except Exception as e:
-                                        st.warning(f"Failed to parse {filename}: {e}")
+                                        st.warning(f"❌ Failed to parse {filename}: {e}")
 
                             if emails_data:
                                 # Create DataFrame
@@ -1030,6 +1025,7 @@ else:
 
                                 # Save DataFrame to CSV for processing
                                 temp_csv_path = os.path.join(eml_folder, "temp_graph_data.csv")
+                                print("test", temp_csv_path)
                                 df.to_csv(temp_csv_path, index=False)
 
                                 # Run graph generation script
@@ -1076,20 +1072,7 @@ else:
         json_path = os.path.join(folder_path, "components/email_network.json")
         html_path = os.path.join(folder_path, "components/viz copy 28.html")
 
-        if os.path.exists(json_path) and os.path.exists(html_path) and 'graph_data' not in st.session_state:
-            st.markdown("---")
-            st.markdown("### Current Network Graph")
-            try:
-                with open(json_path, "r") as f:
-                    data_json = json.load(f)
-
-                with open(html_path, "r", encoding="utf-8") as f:
-                    html_content = f.read()
-
-                html_content = html_content.replace("__GRAPH_DATA__", json.dumps(data_json))
-                components.html(html_content, height=1200, width=1200)
-            except Exception as e:
-                st.error(f"Error loading existing graph: {e}")
+        
     elif page == "Topic":
         folder_path = os.path.dirname(__file__)
 
