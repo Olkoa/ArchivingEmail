@@ -26,6 +26,10 @@ import subprocess
 
 
 load_dotenv()
+os.environ.setdefault(
+    "RAGATOUILLE_HOME",
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '.ragatouille')),
+)
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

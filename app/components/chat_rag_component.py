@@ -24,7 +24,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')
 from src.rag.colbert_rag import search_with_colbert, format_result_preview
 from src.llm.openrouter import openrouter_llm_api_call
 from src.llm.agents import RAGOrchestrator, get_rag_parameters
-from constants import ACTIVE_PROJECT
+import constants
 
 # Check if RAGAtouille is available
 RAGATOUILLE_AVAILABLE = True
@@ -124,8 +124,10 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
 
     # Set up paths for the indexes
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
-    path_to_metadata = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes')
-    ragatouille_index_path = os.path.join(project_root, '.ragatouille', 'colbert', 'indexes', f'{ACTIVE_PROJECT}_emails_index')
+    active_project = os.getenv("ACTIVE_PROJECT") or getattr(constants, "ACTIVE_PROJECT", "Projet Demo")
+
+    path_to_metadata = os.path.join(project_root, 'data', 'Projects', active_project, 'colbert_indexes')
+    ragatouille_index_path = os.path.join(project_root, 'app', '.ragatouille', 'colbert', 'indexes', f'{active_project}_emails_index')
 
     # Check if index exists
     index_exists = os.path.exists(os.path.join(path_to_metadata, 'email_metadata.pkl'))

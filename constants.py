@@ -14,8 +14,8 @@ ENABLE_ELASTICSEARCH = False  # Set to True to use real Elasticsearch instead of
 ENABLE_RAG = True  # Set to False to disable RAG features
 
 ###
-ACTIVE_PROJECT = "dinofiable_proj"
+ACTIVE_PROJECT = "dinodelanight"
 
 # Project order - Most recently accessed projects will appear first
 # Format: List of project names in display order
-PROJECT_ORDER = ["dinofiable_proj", "Projet Demo", "diplodocus_proj", "din_proj", "dinosur_proj", "dinosisi", "ccccccc"]
+PROJECT_ORDER = ["dinodelanight", "Projet Demo", "ledinovivra_proj", "newdino_proj", "dinofiable_proj", "diplodocus_proj", "din_proj", "dinosur_proj", "dinosisi", "ccccccc"]

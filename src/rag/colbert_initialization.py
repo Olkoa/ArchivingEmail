@@ -83,7 +83,7 @@ def initialize_colbert_rag_system(
     active_project = _resolve_active_project(project_name)
 
     # Ensure RAGAtouille stores artifacts inside repository-level .ragatouille
-    rag_home = os.path.join(project_root, '.ragatouille')
+    rag_home = os.path.join(project_root, 'app', '.ragatouille')
     os.makedirs(rag_home, exist_ok=True)
     os.environ["RAGATOUILLE_HOME"] = rag_home
 

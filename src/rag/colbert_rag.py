@@ -37,6 +37,10 @@ from ragatouille import RAGPretrainedModel
 # Import RAGAtouille library
 RAGATOUILLE_AVAILABLE = True
 
+
+def _active_project() -> str:
+    return os.getenv("ACTIVE_PROJECT") or getattr(constants, "ACTIVE_PROJECT", "Projet Demo")
+
 # try:
 #     from ragatouille import RAGPretrainedModel
 # except ImportError:
@@ -49,7 +53,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 
-from constants import ACTIVE_PROJECT
+import constants
 
 # Parse email functionality from the loading module
 # from src.data.loading import parse_email_message, load_mbox_file
@@ -325,11 +329,13 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
 
         # Memory-efficient single indexing - avoid broken add_to_index method
         print(f"Indexing all {len(email_texts)} emails in single operation...")
+        index_name = f"{_active_project()}_emails_index"
+
         rag_model.index(
             collection=email_texts,
             document_ids=email_ids,
             document_metadatas=email_metadata,
-            index_name=f"{ACTIVE_PROJECT}_emails_index",
+            index_name=index_name,
             max_document_length=3000,
             split_documents=True,
             use_faiss=False,
@@ -394,7 +400,7 @@ def search_with_colbert(query: str, path_to_metadata: str, ragatouille_index_pat
         # Search with timing
         print("🔍 Executing search...")
         search_start = time.time()
-        results = rag_model.search(query=query, k=top_k, index_name=f"{ACTIVE_PROJECT}_emails_index")
+        results = rag_model.search(query=query, k=top_k, index_name=f"{_active_project()}_emails_index")
         search_time = time.time() - search_start
         print(f"✅ Search completed in {search_time:.2f} seconds")
 
@@ -625,7 +631,8 @@ def colbert_rag_answer(query: str, path_to_metadata: str, ragatouille_index_path
 
 if __name__ == "__main__":
     # Set path to the index of the active project
-    path_to_metadata = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, 'colbert_indexes')
-    ragatouille_index_path = os.path.join(project_root, '.ragatouille', 'colbert', 'indexes', f"{ACTIVE_PROJECT}_emails_index")
+    project = _active_project()
+    path_to_metadata = os.path.join(project_root, 'data', 'Projects', project, 'colbert_indexes')
+    ragatouille_index_path = os.path.join(project_root, 'app', '.ragatouille', 'colbert', 'indexes', f"{project}_emails_index")
 
     colbert_rag_answer(query = "Quel mail parle d'Olkoa ?", path_to_metadata = path_to_metadata, ragatouille_index_path = ragatouille_index_path)
