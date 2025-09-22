@@ -356,7 +356,28 @@
         d.x = Math.max(10, Math.min(width - 10, d.x));
         d.y = Math.max(10, Math.min(height - 10, d.y));
       });
+      simulation.on("end", () => {
+  const bbox = container.node().getBBox(); // bounding box of all nodes/links
+  const svgWidth = window.innerWidth;
+  const svgHeight = window.innerHeight;
 
+  // Calculate scale and translation
+  const scale = Math.min(
+    svgWidth / bbox.width,
+    svgHeight / bbox.height
+  ) * 0.9; // 0.9 = padding
+
+  const translateX = svgWidth / 2 - scale * (bbox.x + bbox.width / 2);
+  const translateY = svgHeight / 2 - scale * (bbox.y + bbox.height / 2);
+
+  // Smooth transition to center the graph
+  svg.transition()
+    .duration(750)
+    .call(
+      zoom.transform,
+      d3.zoomIdentity.translate(translateX, translateY).scale(scale)
+    );
+});
       link
         .attr("x1", d => d.source.x)
         .attr("y1", d => d.source.y)
