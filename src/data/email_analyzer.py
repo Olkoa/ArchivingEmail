@@ -768,7 +768,7 @@ class EmailAnalyzer:
              FROM attachments a
              WHERE a.email_id = re.id) AS has_attachments,
             re.direction,
-            re.folder AS mailbox,
+            COALESCE(re.mailbox_name, re.folder) AS mailbox,
             re.mailbox_name
         FROM
             receiver_emails re
@@ -778,7 +778,7 @@ class EmailAnalyzer:
 
         # Add mailbox filter if specified
         if mailbox:
-            query += f" WHERE re.folder = '{mailbox}'"
+            query += f" WHERE COALESCE(re.mailbox_name, re.folder) = '{mailbox}'"
         
         # Add ORDER BY to sort by date descending (newest first)
         query += " ORDER BY re.timestamp DESC"
@@ -861,7 +861,7 @@ class EmailAnalyzer:
              FROM attachments a
              WHERE a.email_id = re.id) AS has_attachments,
             re.direction,
-            re.folder AS mailbox,
+            COALESCE(re.mailbox_name, re.folder) AS mailbox,
             re.mailbox_name,
             ml.email_address AS mailing_list_email
         FROM
@@ -878,7 +878,7 @@ class EmailAnalyzer:
 
         # Mailbox filter
         if mailbox and mailbox != "All Mailboxes":
-            filter_conditions.append(f"re.folder = '{mailbox}'")
+            filter_conditions.append(f"COALESCE(re.mailbox_name, re.folder) = '{mailbox}'")
 
         # Additional filters
         if filters:
@@ -896,7 +896,7 @@ class EmailAnalyzer:
 
             # Folder filter (additional to mailbox)
             if filters.get('folder') and filters['folder'] != 'All':
-                filter_conditions.append(f"re.folder = '{filters['folder']}'")
+                filter_conditions.append(f"COALESCE(re.mailbox_name, re.folder) = '{filters['folder']}'")
 
         # Add filter conditions to query
         if filter_conditions:

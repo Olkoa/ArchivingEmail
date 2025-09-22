@@ -1,0 +1,26 @@
+{
+  "eldino_proj": {
+    "mailboxs": {
+      "eldinobox": {
+        "Positions": {
+          "eldino": {
+            "start_date": "2020-01-01",
+            "end_date": "2025-01-01",
+            "description": "eldino"
+          }
+        },
+        "Entity": {
+          "name": "eldino",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "eldino@lapalteforme.io",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "eldino",
+          "description": "eldinoeldinoeldinoeldinoeldino"
+        }
+      }
+    }
+  }
+}

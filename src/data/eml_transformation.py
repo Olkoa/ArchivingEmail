@@ -647,7 +647,13 @@ def collect_email_data(directory: Union[str, Path],
             with open(eml_path, 'rb') as f:
                 message = email.message_from_binary_file(f, policy=policy.default)
 
-            email_data = extract_message_data(message, folder_name, config_file, mailbox_name, project_name)
+            email_data, _ = extract_message_data(
+                message,
+                folder_name,
+                config_file,
+                mailbox_name=mailbox_name,
+                project_name=project_name,
+            )
 
             # Add the file path for reference
             email_data['file_path'] = str(eml_path)
@@ -818,16 +824,57 @@ def process_eml_to_duckdb(directory: Union[str, Path],
     attachments_batch = []
 
     # Process each .eml file
+    mailbox_configs = {}
+    try:
+        mailbox_configs = config_file[project_name]["mailboxs"]
+    except Exception:
+        mailbox_configs = {}
+
     for i, eml_path in enumerate(tqdm(eml_files, desc="Processing emails")):
         # Determine folder structure relative to the root directory
         rel_path = eml_path.relative_to(directory)
-        folder_name = str(rel_path.parent) if rel_path.parent != Path('.') else 'root'
+        parts = list(rel_path.parts)
+
+        inferred_mailbox = mailbox_name
+        if inferred_mailbox == "Boîte mail de Céline":
+            inferred_mailbox = None
+
+        if parts:
+            for part in parts:
+                if part in mailbox_configs:
+                    inferred_mailbox = part
+                    break
+
+        if inferred_mailbox is None:
+            if mailbox_configs:
+                inferred_mailbox = next(iter(mailbox_configs.keys()))
+            else:
+                inferred_mailbox = mailbox_name or 'default_mailbox'
+
+        folder_parts = list(parts)
+        if inferred_mailbox in folder_parts:
+            idx = folder_parts.index(inferred_mailbox)
+            folder_parts = folder_parts[idx + 1:]
+
+        if folder_parts and folder_parts[0].lower() == inferred_mailbox.lower():
+            folder_parts = folder_parts[1:]
+
+        if folder_parts and folder_parts[0].lower() in {"processed", "raw"}:
+            folder_parts = folder_parts[1:]
+
+        folder_name = str(Path(*folder_parts)) if folder_parts else 'root'
 
         try:
             # Parse the email file
             with open(eml_path, 'rb') as f:
                 message = email.message_from_binary_file(f, policy=policy.default)
-            email_data, receiver_email = extract_message_data(message, folder_name, config_file, mailbox_name, project_name)
+            email_data, receiver_email = extract_message_data(
+                message,
+                folder_name,
+                config_file,
+                mailbox_name=inferred_mailbox,
+                project_name=project_name,
+            )
 
             # Process sender entity
             sender = receiver_email.sender
@@ -903,7 +950,7 @@ def process_eml_to_duckdb(directory: Union[str, Path],
                 'sender_email_id': sender_email.id,
                 'sender_id': entity_id,
                 'reply_to_id': reply_to_id,
-                'mailbox_name': mailbox_name,
+                'mailbox_name': inferred_mailbox,
                 'direction': receiver_email.direction,
                 'timestamp':receiver_email.timestamp.strftime('%Y-%m-%d %H:%M:%S'), # 'timestamp': receiver_email.timestamp,
                 'subject': receiver_email.subject,
