@@ -883,20 +883,32 @@ class EmailAnalyzer:
         # Additional filters
         if filters:
             # Mailing list filter
-            if filters.get('mailing_list_email'):
-                if filters['mailing_list_email'] == 'None':
+            mailing_list_value = filters.get('mailing_list_email')
+            if mailing_list_value:
+                if mailing_list_value == 'None':
                     filter_conditions.append("ml.email_address IS NULL")
-                elif filters['mailing_list_email'] != 'All':
-                    filter_conditions.append(f"ml.email_address = '{filters['mailing_list_email']}'")
+                elif mailing_list_value != 'All':
+                    filter_conditions.append(f"ml.email_address = '{mailing_list_value}'")
 
             # Direction filter
-            if filters.get('direction') and filters['direction'] != 'All':
-                direction_value = 'sent' if filters['direction'] == 'Envoyé' else 'received'
-                filter_conditions.append(f"re.direction = '{direction_value}'")
+            direction_value = filters.get('direction')
+            if direction_value:
+                direction_str = str(direction_value)
+                normalized_direction = direction_str.strip().casefold()
+                # Treat "All"/"Tous" (and similar) as no filter
+                if normalized_direction not in {'all', 'tous', 'toutes'}:
+                    if normalized_direction in {'envoyé', 'envoyes', 'envoyés', 'envoye', 'sent'}:
+                        resolved_direction = 'sent'
+                    elif normalized_direction in {'reçu', 'reçus', 'recus', 'recu', 'received'}:
+                        resolved_direction = 'received'
+                    else:
+                        resolved_direction = direction_str  # fall back to raw value
+                    filter_conditions.append(f"re.direction = '{resolved_direction}'")
 
             # Folder filter (additional to mailbox)
-            if filters.get('folder') and filters['folder'] != 'All':
-                filter_conditions.append(f"COALESCE(re.mailbox_name, re.folder) = '{filters['folder']}'")
+            folder_value = filters.get('folder')
+            if folder_value and folder_value != 'All':
+                filter_conditions.append(f"COALESCE(re.mailbox_name, re.folder) = '{folder_value}'")
 
         # Add filter conditions to query
         if filter_conditions:
