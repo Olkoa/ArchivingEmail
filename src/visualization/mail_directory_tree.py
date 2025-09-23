@@ -10,6 +10,8 @@ import os
 import sys
 import json
 from pathlib import Path
+from collections import defaultdict
+from typing import Optional
 
 
 def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None,
@@ -36,10 +38,17 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
         Mermaid diagram code
     """
     # Get folder counts
+    if folder_column not in df.columns:
+        raise ValueError(f"Column '{folder_column}' not found in DataFrame")
+
     if count_column is None:
-        folder_counts = df[folder_column].value_counts()
+        folder_series = df[folder_column].value_counts()
     else:
-        folder_counts = df.groupby(folder_column)[count_column].sum()
+        if count_column not in df.columns:
+            raise ValueError(f"Column '{count_column}' not found in DataFrame")
+        folder_series = df.set_index(folder_column)[count_column]
+
+    folder_counts = {str(path): int(count) for path, count in folder_series.items()}
 
     # Set graph direction based on orientation
     graph_direction = "graph TD" if orientation == 'vertical' else "graph LR"
@@ -84,8 +93,10 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
         return safe_id
 
     # Helper function to determine node class
-    def determine_node_class(folder_name):
+    def determine_node_class(folder_name, depth):
         folder_name_lower = folder_name.lower()
+        if depth == 0:
+            return 'root'
         if 'boîte de réception' in folder_name_lower or 'inbox' in folder_name_lower:
             return 'inbox'
         elif 'éléments envoyés' in folder_name_lower or 'sent' in folder_name_lower:
@@ -98,8 +109,6 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
             return 'drafts'
         elif 'archive' in folder_name_lower:
             return 'archive'
-        elif folder_name_lower == 'root' or 'celine.guyon' in folder_name_lower:
-            return 'root'
         else:
             return 'subFolder'
 
@@ -123,17 +132,15 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
 
             # Only add node if not already added
             if current_id not in nodes:
-                # Get count for this exact path
-                node_count = count if current_path == path else ""
+                node_count = folder_counts.get(current_path)
 
-                # Format count if present
                 count_str = f" ({node_count})" if node_count else ""
 
                 # Create node
                 nodes[current_id] = f'    {current_id}["{current_name}{count_str}"]'
 
                 # Determine node class
-                node_class = determine_node_class(current_name)
+                node_class = determine_node_class(current_name, i)
                 node_classes[current_id] = node_class
 
     # Add nodes to diagram
@@ -151,7 +158,7 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
     return "\n".join(mermaid_code)
 
 
-def get_folder_data_from_db(db_path):
+def get_folder_data_from_db(db_path: str, mailbox_filter: Optional[str]) -> pd.DataFrame:
     """
     Extract folder structure data from DuckDB.
 
@@ -180,15 +187,27 @@ def get_folder_data_from_db(db_path):
         # Get folder structure query
         folder_query = """
         SELECT
-            folder_path as folders,
-            COUNT(*) as count
-        FROM emails
-        WHERE folder_path IS NOT NULL
-        GROUP BY folder_path
+            CASE
+                WHEN mailbox_name IS NOT NULL AND mailbox_name <> '' THEN
+                    CASE
+                        WHEN folder IS NOT NULL AND folder <> '' THEN mailbox_name || '/' || folder
+                        ELSE mailbox_name
+                    END
+                ELSE COALESCE(folder, 'root')
+            END AS folders,
+            COUNT(*) AS count
+        FROM receiver_emails
+        GROUP BY 1
         ORDER BY count DESC
         """
 
         df = analyzer.execute_query(folder_query)
+        if df.empty:
+            return df
+
+        if mailbox_filter:
+            df = df[df['folders'].str.startswith(mailbox_filter)]
+
         return df
 
     except Exception as e:
@@ -297,7 +316,73 @@ def load_existing_mermaid_graph(project_name, project_root):
         return None
 
 
-def get_folder_structure_from_project(project_name, project_root):
+def build_folder_structure_from_filesystem(project_path: Path, mailbox_filter: Optional[str] = None) -> pd.DataFrame:
+    """Traverse the project directory to build folder counts based on .eml files."""
+
+    if not project_path.exists():
+        return pd.DataFrame(columns=['folders', 'count'])
+
+    counts = defaultdict(int)
+
+    skip_dirs = {
+        'colbert_indexes',
+        'colbert_indexes_backup',
+        '.ragatouille'
+    }
+    skip_segments = {'processed', 'raw', 'converted'}
+
+    for mailbox_dir in project_path.iterdir():
+        if not mailbox_dir.is_dir() or mailbox_dir.name.startswith('.'):
+            continue
+        if mailbox_dir.name in skip_dirs:
+            continue
+
+        mailbox_name = mailbox_dir.name
+        if mailbox_filter and mailbox_name != mailbox_filter:
+            continue
+        base_parts = [mailbox_name]
+
+        has_emails = False
+        processed_dir = mailbox_dir / 'processed'
+        search_root = processed_dir if processed_dir.exists() else mailbox_dir
+
+        for eml_path in search_root.rglob('*.eml'):
+            has_emails = True
+            rel_path = eml_path.relative_to(mailbox_dir)
+            folder_parts = base_parts.copy()
+            parent = rel_path.parent
+            if parent != Path('.'):
+                cleaned_parts = list(parent.parts)
+                while cleaned_parts and cleaned_parts[0].lower() in skip_segments:
+                    cleaned_parts.pop(0)
+                folder_parts.extend(cleaned_parts)
+            folder_key = '/'.join(folder_parts)
+            counts[folder_key] += 1
+
+        if has_emails and '/'.join(base_parts) not in counts:
+            counts['/'.join(base_parts)] = 0
+
+    if not counts:
+        return pd.DataFrame(columns=['folders', 'count'])
+
+    aggregated = defaultdict(int)
+    for folder_path, count in counts.items():
+        parts = folder_path.split('/')
+        for i in range(1, len(parts) + 1):
+            key = '/'.join(parts[:i])
+            aggregated[key] += count if count else 0
+
+    data = {
+        'folders': list(aggregated.keys()),
+        'count': list(aggregated.values())
+    }
+
+    df = pd.DataFrame(data)
+    df = df.drop_duplicates(subset=['folders']).sort_values('folders').reset_index(drop=True)
+    return df
+
+
+def get_folder_structure_from_project(project_name, project_root, mailbox=None):
     """
     Get folder structure data for a specific project.
 
@@ -315,13 +400,19 @@ def get_folder_structure_from_project(project_name, project_root):
     """
     try:
         # Try to get data from DuckDB first
-        db_path = Path(project_root) / "data" / "Projects" / project_name / f"{project_name}.duckdb"
+        project_path = Path(project_root) / "data" / "Projects" / project_name
 
+        fs_df = build_folder_structure_from_filesystem(project_path, mailbox_filter=mailbox)
+        if not fs_df.empty:
+            return fs_df
+
+        db_path = project_path / f"{project_name}.duckdb"
         if db_path.exists():
-            return get_folder_data_from_db(str(db_path))
-        else:
-            print(f"Database not found at {db_path}, using sample data")
-            return get_sample_folder_data()
+            db_df = get_folder_data_from_db(str(db_path), mailbox)
+            if not db_df.empty:
+                return db_df
+
+        return get_sample_folder_data()
 
     except Exception as e:
         print(f"Error getting folder structure from project: {e}")

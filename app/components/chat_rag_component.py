@@ -26,6 +26,8 @@ from src.llm.openrouter import openrouter_llm_api_call
 from src.llm.agents import RAGOrchestrator, get_rag_parameters
 import constants
 
+ALLOW_UNRELATED = getattr(constants, "ALLOW_LLM_UNRELATED_REQUESTS", False)
+
 # Check if RAGAtouille is available
 RAGATOUILLE_AVAILABLE = True
 try:
@@ -260,10 +262,39 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                     print(f"🤖 Agent decision: {rag_params}")
                     
                     if not rag_params["needs_rag"]:
+                        status_placeholder.info("🤖 Les agents ont déterminé que cette question ne nécessite pas de recherche RAG")
+
+                        if not ALLOW_UNRELATED:
+                            status_placeholder.empty()
+                            fallback_message = "Désolé, cette requête ne semble pas concerner l'exploration des boîtes mails."
+                            st.write(fallback_message)
+
+                            with st.expander("🤖 Décision des agents"):
+                                st.write("**RAG nécessaire:** Non")
+                                st.write(f"**Raisonnement:** {rag_params['reasoning']}")
+                                st.write(f"**Confiance:** {rag_params['confidence']:.2f}")
+
+                            total_time = time.time() - start_time
+                            st.caption(f"⏱️ Temps total: {total_time:.2f}s (Agents: {agent_decision_time:.2f}s)")
+
+                            st.session_state.chat_rag_history.append({
+                                "role": "assistant",
+                                "content": fallback_message,
+                                "sources": [],
+                                "metadata": {
+                                    "agent_decision": rag_params,
+                                    "used_rag": False,
+                                    "agent_time": agent_decision_time,
+                                    "total_time": total_time,
+                                    "model": selected_model
+                                }
+                            })
+                            return
+
                         # Question doesn't need RAG - answer directly with LLM
                         status_placeholder.info("🤖 Les agents ont déterminé que cette question ne nécessite pas de recherche RAG")
                         print("🤖 Agent > LLM: Direct LLM response (no RAG needed)")
-                        
+
                         llm_start_time = time.time()
                         llm_response = openrouter_llm_api_call(
                             system_prompt="Vous êtes un assistant IA utile et informatif. Répondez de manière claire et précise.",
@@ -271,24 +302,19 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                             model=selected_model
                         )
                         llm_time = time.time() - llm_start_time
-                        
-                        # Clear status and show response
+
                         status_placeholder.empty()
-                        
+
                         st.write(llm_response)
-                        
-                        # Show agent decision info
+
                         with st.expander("🤖 Décision des agents"):
-                            st.write(f"**RAG nécessaire:** Non")
+                            st.write("**RAG nécessaire:** Non")
                             st.write(f"**Raisonnement:** {rag_params['reasoning']}")
                             st.write(f"**Confiance:** {rag_params['confidence']:.2f}")
-                        
+
                         total_time = time.time() - start_time
                         st.caption(f"⏱️ Temps total: {total_time:.2f}s (Agents: {agent_decision_time:.2f}s, LLM: {llm_time:.2f}s)")
-                        
-                        print(f"🤖 Agent > LLM: Complete. Total time: {total_time:.2f}s")
-                        
-                        # Add to conversation history
+
                         st.session_state.chat_rag_history.append({
                             "role": "assistant",
                             "content": llm_response,

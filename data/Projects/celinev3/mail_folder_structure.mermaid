@@ -1,0 +1,68 @@
+graph LR
+    classDef inbox fill:#4285F4,color:white,stroke:#fff,stroke-width:1px,font-size:14px
+    classDef sent fill:#34A853,color:white,stroke:#fff,stroke-width:1px,font-size:14px
+    classDef trash fill:#EA4335,color:white,stroke:#fff,stroke-width:1px,font-size:14px
+    classDef spam fill:#8E24AA,color:white,stroke:#fff,stroke-width:1px,font-size:14px
+    classDef drafts fill:#FBBC05,color:black,stroke:#fff,stroke-width:1px,font-size:14px
+    classDef archive fill:#0097A7,color:white,stroke:#fff,stroke-width:1px,font-size:14px
+    classDef root fill:#757575,color:white,stroke:#fff,stroke-width:1px,font-size:14px
+    classDef subFolder fill:#78909C,color:white,stroke:#fff,stroke-width:1px,font-size:14px
+
+    celine_Guyon["celine Guyon (19137)"]
+    celine_Guyon_celine.guyon["celine.guyon (19137)"]
+    celine_Guyon_celine.guyon_Archive["Archive (10)"]
+    celine_Guyon_celine.guyon_Boite_de_reception["Boîte de réception (13205)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_AG["AG (6)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_Archives_calssifiees["Archives calssifiees (423)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_Conflit["Conflit (6)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_Formation_a_distance["Formation à distance (2)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_Gazette["Gazette (10)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_Idees["Idees (18)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_Instances["Instances (60)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_Plaidoyer["Plaidoyer (38)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_RH["RH (40)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_gestioncrise["gestioncrise (103)"]
+    celine_Guyon_celine.guyon_Boite_de_reception_gestioncrise_Ateliers["Ateliers (28)"]
+    celine_Guyon_celine.guyon_Brouillons["Brouillons (41)"]
+    celine_Guyon_celine.guyon_Courrier_indesirable["Courrier indésirable (45)"]
+    celine_Guyon_celine.guyon_Élements_envoyes["Éléments envoyés (5559)"]
+    celine_Guyon_celine.guyon_Élements_supprimes["Éléments supprimés (277)"]
+
+    celine_Guyon --> celine_Guyon_celine.guyon
+    celine_Guyon_celine.guyon --> celine_Guyon_celine.guyon_Archive
+    celine_Guyon_celine.guyon --> celine_Guyon_celine.guyon_Boite_de_reception
+    celine_Guyon_celine.guyon --> celine_Guyon_celine.guyon_Brouillons
+    celine_Guyon_celine.guyon --> celine_Guyon_celine.guyon_Courrier_indesirable
+    celine_Guyon_celine.guyon --> celine_Guyon_celine.guyon_Élements_envoyes
+    celine_Guyon_celine.guyon --> celine_Guyon_celine.guyon_Élements_supprimes
+    celine_Guyon_celine.guyon_Boite_de_reception --> celine_Guyon_celine.guyon_Boite_de_reception_AG
+    celine_Guyon_celine.guyon_Boite_de_reception --> celine_Guyon_celine.guyon_Boite_de_reception_Archives_calssifiees
+    celine_Guyon_celine.guyon_Boite_de_reception --> celine_Guyon_celine.guyon_Boite_de_reception_Conflit
+    celine_Guyon_celine.guyon_Boite_de_reception --> celine_Guyon_celine.guyon_Boite_de_reception_Formation_a_distance
+    celine_Guyon_celine.guyon_Boite_de_reception --> celine_Guyon_celine.guyon_Boite_de_reception_Gazette
+    celine_Guyon_celine.guyon_Boite_de_reception --> celine_Guyon_celine.guyon_Boite_de_reception_Idees
+    celine_Guyon_celine.guyon_Boite_de_reception --> celine_Guyon_celine.guyon_Boite_de_reception_Instances
+    celine_Guyon_celine.guyon_Boite_de_reception --> celine_Guyon_celine.guyon_Boite_de_reception_Plaidoyer
+    celine_Guyon_celine.guyon_Boite_de_reception --> celine_Guyon_celine.guyon_Boite_de_reception_RH
+    celine_Guyon_celine.guyon_Boite_de_reception --> celine_Guyon_celine.guyon_Boite_de_reception_gestioncrise
+    celine_Guyon_celine.guyon_Boite_de_reception_gestioncrise --> celine_Guyon_celine.guyon_Boite_de_reception_gestioncrise_Ateliers
+
+    celine_Guyon:::root
+    celine_Guyon_celine.guyon:::subFolder
+    celine_Guyon_celine.guyon_Archive:::archive
+    celine_Guyon_celine.guyon_Boite_de_reception:::inbox
+    celine_Guyon_celine.guyon_Boite_de_reception_AG:::subFolder
+    celine_Guyon_celine.guyon_Boite_de_reception_Archives_calssifiees:::archive
+    celine_Guyon_celine.guyon_Boite_de_reception_Conflit:::subFolder
+    celine_Guyon_celine.guyon_Boite_de_reception_Formation_a_distance:::subFolder
+    celine_Guyon_celine.guyon_Boite_de_reception_Gazette:::subFolder
+    celine_Guyon_celine.guyon_Boite_de_reception_Idees:::subFolder
+    celine_Guyon_celine.guyon_Boite_de_reception_Instances:::subFolder
+    celine_Guyon_celine.guyon_Boite_de_reception_Plaidoyer:::subFolder
+    celine_Guyon_celine.guyon_Boite_de_reception_RH:::subFolder
+    celine_Guyon_celine.guyon_Boite_de_reception_gestioncrise:::subFolder
+    celine_Guyon_celine.guyon_Boite_de_reception_gestioncrise_Ateliers:::subFolder
+    celine_Guyon_celine.guyon_Brouillons:::drafts
+    celine_Guyon_celine.guyon_Courrier_indesirable:::spam
+    celine_Guyon_celine.guyon_Élements_envoyes:::sent
+    celine_Guyon_celine.guyon_Élements_supprimes:::trash

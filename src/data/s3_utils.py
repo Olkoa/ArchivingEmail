@@ -724,3 +724,36 @@ if __name__ == "__main__":
 
     except Exception as e:
         print(f"Error: {e}")
+
+
+def upload_raw_data_to_s3(local_raw_data_dir, mailbox_name):
+    import os
+    from src.data.s3_utils import S3Handler
+
+    # Initialize S3 handler
+    s3_handler = S3Handler()
+
+    # List existing buckets
+    buckets = s3_handler.list_buckets()
+    print("Existing buckets:", buckets)
+
+    # Define your project bucket name
+    project_bucket = "olkoa-projects"
+
+    # Create the bucket if it doesn't exist
+    if project_bucket not in buckets:
+        s3_handler.create_bucket(project_bucket)
+        print(f"Bucket '{project_bucket}' created.")
+    else:
+        print(f"Bucket '{project_bucket}' already exists.")
+
+    # Upload raw data directory to S3
+    local_raw_data_dir = "data/Projects/Projet Demo/Boîte mail de Céline/raw/"
+    s3_prefix = f"{mailbox_name}/raw/"
+
+    s3_handler.upload_directory(
+        local_dir=local_raw_data_dir,
+        bucket_name=project_bucket,
+        s3_prefix=s3_prefix
+    )
+    print(f"Uploaded contents of '{local_raw_data_dir}' to 's3://{project_bucket}/{s3_prefix}'")
