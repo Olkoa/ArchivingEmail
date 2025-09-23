@@ -11,6 +11,11 @@ import pandas as pd
 from typing import Optional
 import time
 
+try:
+    import torch
+except ImportError:  # pragma: no cover - torch should be available, but stay defensive
+    torch = None
+
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
@@ -86,6 +91,7 @@ def initialize_colbert_rag_system(
     rag_home = os.path.join(project_root, 'app', '.ragatouille')
     os.makedirs(rag_home, exist_ok=True)
     os.environ["RAGATOUILLE_HOME"] = rag_home
+    _configure_rag_runtime()
 
     # Set index directory - metadata lives alongside the project data folder
     index_dir = os.path.join(project_root, 'data', 'Projects', active_project, 'colbert_indexes')
@@ -152,3 +158,20 @@ if __name__ == "__main__":
     index_dir = initialize_colbert_rag_system(project_root=project_root, force_rebuild=True, test_mode=False, rag_mode="light")
 
     print(f"Colbert RAG system initialized with index at {index_dir}")
+def _configure_rag_runtime(max_threads: int = 8) -> None:
+    """Configure environment/thread limits to keep RAG indexing stable on macOS."""
+
+    available = os.cpu_count() or max_threads
+    safe_threads = max(1, min(max_threads, available))
+
+    os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+    os.environ.setdefault("RAYON_NUM_THREADS", str(safe_threads))
+    os.environ.setdefault("OMP_NUM_THREADS", str(safe_threads))
+    os.environ.setdefault("MKL_NUM_THREADS", str(safe_threads))
+
+    if torch is not None:
+        try:
+            torch.set_num_threads(safe_threads)
+            torch.set_num_interop_threads(max(1, safe_threads // 2))
+        except Exception as exc:  # pragma: no cover - informational only
+            print(f"Warning: unable to adjust torch thread settings ({exc})")

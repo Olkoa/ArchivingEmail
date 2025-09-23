@@ -1,0 +1,26 @@
+{
+  "celinev3": {
+    "mailboxs": {
+      "celine Guyon": {
+        "Positions": {
+          "responsable archives": {
+            "start_date": "2020-01-02",
+            "end_date": "2025-01-02",
+            "description": "responsable archives"
+          }
+        },
+        "Entity": {
+          "name": "celinev3",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "celine.guyon@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "olkoa",
+          "description": "archivist company"
+        }
+      }
+    }
+  }
+}

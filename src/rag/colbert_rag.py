@@ -20,7 +20,23 @@ import transformers
 from torch.optim import AdamW
 transformers.AdamW = AdamW
 
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+if "RAYON_NUM_THREADS" not in os.environ:
+    available = os.cpu_count() or 8
+    os.environ["RAYON_NUM_THREADS"] = str(max(1, min(8, available)))
+
 from ragatouille import RAGPretrainedModel
+
+
+_MODEL_CACHE: Dict[str, RAGPretrainedModel] = {}
+
+
+def _get_pretrained_model(model_name: str) -> RAGPretrainedModel:
+    model = _MODEL_CACHE.get(model_name)
+    if model is None:
+        model = RAGPretrainedModel.from_pretrained(model_name)
+        _MODEL_CACHE[model_name] = model
+    return model
 
 
 
@@ -324,7 +340,7 @@ def initialize_colbert_rag(emails_data: List[Tuple[str, Dict[str, Any]]], output
             model_name = "jinaai/jina-colbert-v2"
 
         print(f"Loading pretrained model: {model_name}...")
-        rag_model = RAGPretrainedModel.from_pretrained(model_name)
+        rag_model = _get_pretrained_model(model_name)
         print("Model loaded successfully")
 
         # Memory-efficient single indexing - avoid broken add_to_index method
