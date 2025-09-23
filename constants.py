@@ -14,7 +14,7 @@ ENABLE_ELASTICSEARCH = False  # Set to True to use real Elasticsearch instead of
 ENABLE_RAG = True  # Set to False to disable RAG features
 
 # RAG/LLM behaviour
-ALLOW_LLM_UNRELATED_REQUESTS = True
+ALLOW_LLM_UNRELATED_REQUESTS = False
 
 ###
 ACTIVE_PROJECT = "celinev3"
