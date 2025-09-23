@@ -9,6 +9,8 @@ import pandas as pd
 import os
 import sys
 import json
+import re
+import unicodedata
 from pathlib import Path
 from collections import defaultdict
 from typing import Optional
@@ -86,10 +88,16 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
 
     # Helper function to create safe node IDs
     def create_node_id(path):
-        # Replace characters that might cause issues in Mermaid
-        safe_id = path.replace('/', '_').replace(' ', '_').replace('-', '_')
-        safe_id = safe_id.replace('à', 'a').replace('é', 'e').replace('è', 'e')
-        safe_id = safe_id.replace('ç', 'c').replace('ô', 'o').replace('î', 'i')
+        """Return a Mermaid-safe node identifier for the given path."""
+        normalized = unicodedata.normalize('NFKD', path)
+        normalized = normalized.encode('ascii', 'ignore').decode('ascii')
+        normalized = normalized.replace('/', '_')
+        safe_id = re.sub(r'[^0-9A-Za-z_]', '_', normalized)
+        safe_id = re.sub(r'_+', '_', safe_id).strip('_')
+        if not safe_id:
+            safe_id = 'node'
+        if safe_id[0].isdigit():
+            safe_id = f'node_{safe_id}'
         return safe_id
 
     # Helper function to determine node class
@@ -136,8 +144,8 @@ def generate_mermaid_folder_graph(df, folder_column='folders', count_column=None
 
                 count_str = f" ({node_count})" if node_count else ""
 
-                # Create node
-                nodes[current_id] = f'    {current_id}["{current_name}{count_str}"]'
+                label_text = current_name.replace('"', '\\"')
+                nodes[current_id] = f'    {current_id}["{label_text}{count_str}"]'
 
                 # Determine node class
                 node_class = determine_node_class(current_name, i)

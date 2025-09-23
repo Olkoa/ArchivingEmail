@@ -1,0 +1,35 @@
+graph TD
+    classDef inbox fill:#4285F4,color:white,stroke:#fff,stroke-width:1px,font-size:28px
+    classDef sent fill:#34A853,color:white,stroke:#fff,stroke-width:1px,font-size:28px
+    classDef trash fill:#EA4335,color:white,stroke:#fff,stroke-width:1px,font-size:28px
+    classDef spam fill:#8E24AA,color:white,stroke:#fff,stroke-width:1px,font-size:28px
+    classDef drafts fill:#FBBC05,color:black,stroke:#fff,stroke-width:1px,font-size:28px
+    classDef archive fill:#0097A7,color:white,stroke:#fff,stroke-width:1px,font-size:28px
+    classDef root fill:#757575,color:white,stroke:#fff,stroke-width:1px,font-size:28px
+    classDef subFolder fill:#78909C,color:white,stroke:#fff,stroke-width:1px,font-size:28px
+
+    pst["pst (71)"]
+    pst_Personal_folders["Personal folders (71)"]
+    pst_Personal_folders_lokay_m["lokay-m (71)"]
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged["MLOKAY (Non-Privileged) (71)"]
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_Personal["Personal (47)"]
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_Sent_Items["Sent Items (2)"]
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_Systems["Systems (7)"]
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_TW_Commercial_Group["TW-Commercial Group (14)"]
+
+    pst --> pst_Personal_folders
+    pst_Personal_folders --> pst_Personal_folders_lokay_m
+    pst_Personal_folders_lokay_m --> pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged --> pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_Personal
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged --> pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_Sent_Items
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged --> pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_Systems
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged --> pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_TW_Commercial_Group
+
+    pst:::root
+    pst_Personal_folders:::subFolder
+    pst_Personal_folders_lokay_m:::subFolder
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged:::subFolder
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_Personal:::subFolder
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_Sent_Items:::sent
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_Systems:::subFolder
+    pst_Personal_folders_lokay_m_MLOKAY_Non_Privileged_TW_Commercial_Group:::subFolder

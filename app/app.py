@@ -911,46 +911,43 @@ else:
         # Dynamic folder selection
         def get_available_folders():
             folders = []
-            project_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT)
+            project_path = Path(project_root) / 'data' / 'Projects' / ACTIVE_PROJECT
+
+            def collect_mailbox_folders(mailbox_name: str) -> None:
+                mailbox_processed = project_path / mailbox_name / 'processed'
+                if not mailbox_processed.exists():
+                    return
+
+                for dirpath, _, filenames in os.walk(mailbox_processed):
+                    eml_count = sum(1 for f in filenames if f.lower().endswith('.eml'))
+                    if not eml_count:
+                        continue
+
+                    current_dir = Path(dirpath)
+                    relative_path = current_dir.relative_to(mailbox_processed)
+                    relative_display = str(relative_path).replace('\\', '/')
+                    if relative_display == '.' or relative_display == '':
+                        relative_display = ''
+
+                    if selected_mailbox == "All Mailboxes":
+                        display_name = f"{mailbox_name} → {relative_display}" if relative_display else mailbox_name
+                    else:
+                        display_name = relative_display if relative_display else mailbox_name
+
+                    folders.append({
+                        'display': display_name,
+                        'path': str(current_dir),
+                        'mailbox': mailbox_name,
+                        'eml_count': eml_count
+                    })
 
             if selected_mailbox == "All Mailboxes":
-                # Scan all mailboxes for folders
                 for mailbox in mailboxs_names:
-                    mailbox_path = os.path.join(project_path, mailbox, 'processed')
-                    if os.path.exists(mailbox_path):
-                        for user_dir in os.listdir(mailbox_path):
-                            user_path = os.path.join(mailbox_path, user_dir)
-                            if os.path.isdir(user_path):
-                                for folder in os.listdir(user_path):
-                                    folder_path = os.path.join(user_path, folder)
-                                    if os.path.isdir(folder_path):
-                                        eml_files = [f for f in os.listdir(folder_path) if f.endswith('.eml')]
-                                        if eml_files:
-                                            folders.append({
-                                                'display': f"{mailbox} → {user_dir}/{folder}",
-                                                'path': folder_path,
-                                                'mailbox': mailbox,
-                                                'eml_count': len(eml_files)
-                                            })
+                    collect_mailbox_folders(mailbox)
             else:
-                # Scan selected mailbox only
-                mailbox_path = os.path.join(project_path, selected_mailbox, 'processed')
-                if os.path.exists(mailbox_path):
-                    for user_dir in os.listdir(mailbox_path):
-                        user_path = os.path.join(mailbox_path, user_dir)
-                        if os.path.isdir(user_path):
-                            for folder in os.listdir(user_path):
-                                folder_path = os.path.join(user_path, folder)
-                                if os.path.isdir(folder_path):
-                                    eml_files = [f for f in os.listdir(folder_path) if f.endswith('.eml')]
-                                    if eml_files:
-                                        folders.append({
-                                            'display': f"{user_dir}/{folder}",
-                                            'path': folder_path,
-                                            'mailbox': selected_mailbox,
-                                            'eml_count': len(eml_files)
-                                        })
+                collect_mailbox_folders(selected_mailbox)
 
+            folders.sort(key=lambda item: item['display'].lower())
             return folders
 
         # Get available folders
