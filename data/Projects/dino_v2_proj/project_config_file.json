@@ -1,0 +1,26 @@
+{
+  "dino_v2_proj": {
+    "mailboxs": {
+      "dino_v2": {
+        "Positions": {
+          "dino_v2": {
+            "start_date": "2020-01-01",
+            "end_date": "2025-01-01",
+            "description": "dino_v2"
+          }
+        },
+        "Entity": {
+          "name": "dino_v2",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "dino_v2@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "dino_v2",
+          "description": "dino_v2dino_v2dino_v2dino_v2dino_v2dino_v2"
+        }
+      }
+    }
+  }
+}
