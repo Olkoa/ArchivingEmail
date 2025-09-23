@@ -175,13 +175,15 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
     # LLM parameters
     st.sidebar.subheader("Paramètres LLM")
     model_options = [
+        "google/gemini-2.5-flash"
         "openai/gpt-4.1-mini",
         # "openai/gpt-4o",
-        # "openai/gpt-4o-mini",
-        "anthropic/claude-3.5-sonnet",
-        "anthropic/claude-3-haiku",
-        "meta-llama/llama-3.1-8b-instruct"
+        "openai/gpt-4o-mini",
+        # "anthropic/claude-sonnet-4",
+        "google/gemini-2.5-flash-lite",
+        # "meta-llama/llama-3.1-8b-instruct"
     ]
+    
     selected_model = st.sidebar.selectbox(
         "Modèle LLM",
         options=model_options,
