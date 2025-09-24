@@ -1,0 +1,26 @@
+{
+  "single_eml_proj": {
+    "mailboxs": {
+      "single_eml": {
+        "Positions": {
+          "single_eml": {
+            "start_date": "2020-01-01",
+            "end_date": "2024-01-01",
+            "description": "single_eml"
+          }
+        },
+        "Entity": {
+          "name": "single_eml",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "single_eml@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "single_eml",
+          "description": "single_emlsingle_emlsingle_emlsingle_emlsingle_eml"
+        }
+      }
+    }
+  }
+}

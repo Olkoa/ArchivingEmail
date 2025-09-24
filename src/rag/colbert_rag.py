@@ -156,8 +156,8 @@ def prepare_email_for_rag(df, rag_mode: str = "light") -> List[Tuple[str, Dict[s
 
     # Set character limits based on RAG mode - much more aggressive for light mode
     if rag_mode == "light":
-        max_body_chars = 600   # Ultra conservative for 512 token limit
-        max_total_chars = 900  # Total must be well under 400 tokens (~2.5 chars per token)
+        max_body_chars = 500   # Ultra conservative for 512 token limit
+        max_total_chars = 700   # Total must be well under 400 tokens (~2.5 chars per token)
     else:  # heavy mode
         max_body_chars = 3000  # More permissive for jinaai/jina-colbert-v2
         max_total_chars = 4000

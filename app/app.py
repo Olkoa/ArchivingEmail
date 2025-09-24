@@ -77,7 +77,12 @@ st.set_page_config(
 
 # Import application components - using relative import
 sys.path.append(os.path.dirname(__file__))
-from components.email_viewer import create_email_table_with_viewer, apply_contact_filter, clear_email_selection
+from components.email_viewer import (
+    create_email_table_with_viewer,
+    apply_contact_filter,
+    clear_email_selection,
+    decode_email_text,
+)
 from components.working_dropdown_filters import create_working_dropdown_filters
 
 from src.data.loading import load_mailboxes

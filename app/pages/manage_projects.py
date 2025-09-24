@@ -1135,6 +1135,8 @@ else:
                     st.warning(f"Raw data folder not found for mailbox '{mailbox_name}': {raw_folder}")
                     continue
 
+                os.makedirs(processed_folder, exist_ok=True)
+
                 # First, convert PST files directly to processed folder (readpst creates natural structure)
                 pst_success = convert_pst_files(raw_folder, processed_folder, mailbox_name)
                 if not pst_success:
@@ -1144,6 +1146,37 @@ else:
                 mbox_success = convert_mbox_files(raw_folder, processed_folder, mailbox_name)
                 if not mbox_success:
                     conversion_success = False
+
+                # Finally, ensure standalone EML files are available in processed
+                raw_eml_files = []
+                for root, _, files in os.walk(raw_folder):
+                    for file in files:
+                        if file.lower().endswith('.eml'):
+                            raw_eml_files.append(os.path.join(root, file))
+
+                processed_eml_exists = False
+                for root, _, files in os.walk(processed_folder):
+                    if any(file.lower().endswith('.eml') for file in files):
+                        processed_eml_exists = True
+                        break
+
+                if raw_eml_files and not processed_eml_exists:
+                    copied = 0
+                    for src_path in raw_eml_files:
+                        rel_path = os.path.relpath(src_path, raw_folder)
+                        dest_path = os.path.join(processed_folder, rel_path)
+                        os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+                        try:
+                            shutil.copy2(src_path, dest_path)
+                            copied += 1
+                        except Exception as copy_error:
+                            st.warning(f"Impossible de copier le fichier EML '{src_path}': {copy_error}")
+                            conversion_success = False
+
+                    if copied:
+                        st.success(
+                            f"Mailbox '{mailbox_name}': copied {copied} fichiers EML existants vers le dossier processed"
+                        )
 
             return conversion_success
 

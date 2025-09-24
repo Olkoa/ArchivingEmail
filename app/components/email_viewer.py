@@ -204,6 +204,13 @@ def decode_email_text(text, encoding='utf-8'):
         except Exception as e:
             print(f"Error decoding base64: {e}")
 
+    if isinstance(text, str):
+        try:
+            text = text.encode('utf-8', 'replace').decode('utf-8')
+        except Exception:
+            # Fallback: replace surrogates manually
+            text = text.encode('utf-8', 'ignore').decode('utf-8', 'ignore')
+
     return text
 
 def clear_email_selection(key_prefix: str) -> None:
