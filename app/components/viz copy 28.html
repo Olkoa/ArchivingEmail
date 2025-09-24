@@ -351,40 +351,8 @@
       .text(d => d.name)
       //.style("display","none");
 
-    simulation.on("tick", () => {
-      nodes.forEach(d => {
-        d.x = Math.max(10, Math.min(width - 10, d.x));
-        d.y = Math.max(10, Math.min(height - 10, d.y));
-      });
-      
-      link
-        .attr("x1", d => d.source.x)
-        .attr("y1", d => d.source.y)
-        .attr("x2", d => d.target.x)
-        .attr("y2", d => d.target.y);
-
-      node.attr("transform", d => `translate(${d.x},${d.y})`);
-
-      miniContainer.selectAll("*").remove();
-      miniContainer.selectAll("line")
-        .data(links)
-        .enter().append("line")
-        .attr("x1", d => d.source.x / 6)
-        .attr("y1", d => d.source.y / 6)
-        .attr("x2", d => d.target.x / 6)
-        .attr("y2", d => d.target.y / 6)
-        .attr("stroke", "#aaa");
-
-      miniContainer.selectAll("circle")
-        .data(nodes)
-        .enter().append("circle")
-        .attr("r", 2.5)
-        .attr("cx", d => d.x / 6)
-        .attr("cy", d => d.y / 6)
-        .attr("fill", "steelblue");
-    });
-
-    simulation.on("end", () => {
+    
+      simulation.on("end", () => {
   const bbox = container.node().getBBox(); // bounding box of all nodes/links
   const svgWidth = window.innerWidth;
   const svgHeight = window.innerHeight;
@@ -406,6 +374,68 @@
       d3.zoomIdentity.translate(translateX, translateY).scale(scale)
     );
 });
+simulation.on("tick", () => {
+  // Contraintes de position
+  nodes.forEach(d => {
+    d.x = Math.max(10, Math.min(width - 10, d.x));
+    d.y = Math.max(10, Math.min(height - 10, d.y));
+  });
+
+  // Mise à jour des liens et nœuds
+  link
+    .attr("x1", d => d.source.x)
+    .attr("y1", d => d.source.y)
+    .attr("x2", d => d.target.x)
+    .attr("y2", d => d.target.y);
+
+  node.attr("transform", d => `translate(${d.x},${d.y})`);
+
+  // === 🔎 Mise à jour dynamique de la minimap ===
+  miniContainer.selectAll("*").remove();
+
+  // Récupère le bounding box du graphe
+  const bbox = container.node().getBBox();
+  const miniW = +minimap.attr("width");
+  const miniH = +minimap.attr("height");
+
+  // Calcul du facteur d’échelle
+  const scale = Math.min(
+    miniW / bbox.width,
+    miniH / bbox.height
+  ) * 0.9; // marge de 10 %
+
+  // Décalage pour centrer le graphe dans la minimap
+  const offsetX = (miniW - bbox.width * scale) / 2 - bbox.x * scale;
+  const offsetY = (miniH - bbox.height * scale) / 2 - bbox.y * scale;
+
+  // Fond de minimap
+  miniContainer.append("rect")
+    .attr("x", 0).attr("y", 0)
+    .attr("width", miniW)
+    .attr("height", miniH)
+    .attr("fill", "#fff")
+    .attr("stroke", "#ccc");
+
+  // Liens
+  miniContainer.selectAll("line")
+    .data(links)
+    .enter().append("line")
+    .attr("x1", d => d.source.x * scale + offsetX)
+    .attr("y1", d => d.source.y * scale + offsetY)
+    .attr("x2", d => d.target.x * scale + offsetX)
+    .attr("y2", d => d.target.y * scale + offsetY)
+    .attr("stroke", "#aaa");
+
+  // Nœuds
+  miniContainer.selectAll("circle")
+    .data(nodes)
+    .enter().append("circle")
+    .attr("r", 2.5)
+    .attr("cx", d => d.x * scale + offsetX)
+    .attr("cy", d => d.y * scale + offsetY)
+    .attr("fill", "steelblue");
+});
+
 
     const zoom = d3.zoom()
       .scaleExtent([0.1, 8])
