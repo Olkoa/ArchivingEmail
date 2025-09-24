@@ -996,6 +996,7 @@ else:
 
                                             # Clean sender
                                             sender = email.utils.parseaddr(sender)[1] if sender else "unknown"
+                                            sender = decode_email_text(sender)
 
                                             # Parse receivers
                                             receiver_list = email.utils.getaddresses(receivers)
@@ -1006,13 +1007,18 @@ else:
                                                 soup = BeautifulSoup(html_body, 'html.parser')
                                                 body = soup.get_text()
                                                 body = decode_unicode_escape(body)
+                                                body = decode_email_text(body)
+                                                subject = decode_email_text(subject)
                                             except Exception:
                                                 body = "[Error reading body]"
+                                                body = decode_email_text(body)
+                                                subject = decode_email_text(subject)
 
                                             # Append emails
                                             for name, addr in receiver_list:
                                                 addr = addr.strip()
                                                 if addr:
+                                                    addr = decode_email_text(addr)
                                                     emails_data.append({
                                                         "sender": sender,
                                                         "receiver": addr,
