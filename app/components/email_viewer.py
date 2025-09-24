@@ -211,6 +211,16 @@ def decode_email_text(text, encoding='utf-8'):
             # Fallback: replace surrogates manually
             text = text.encode('utf-8', 'ignore').decode('utf-8', 'ignore')
 
+        # Heal common mojibake patterns (e.g., 'Ã©', 'Â ') caused by double-decoding
+        suspicious_sequences = ('Ã', 'Â', 'â€™', 'â€œ', 'â€', 'â€“', 'â€”', 'â€¢', 'â€˜', 'â€¢')
+        if any(seq in text for seq in suspicious_sequences):
+            try:
+                recovered = text.encode('latin-1', 'ignore').decode('utf-8', 'ignore')
+                if recovered:
+                    text = recovered
+            except Exception:
+                pass
+
     return text
 
 def clear_email_selection(key_prefix: str) -> None:
