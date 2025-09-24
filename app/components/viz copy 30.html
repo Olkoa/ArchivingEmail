@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interactive Graph</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+   /* Basic modal styling */
+   #myModal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    /* Modal content */
+    #modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      height: 400px;
+      max-height: 80vh;
+      overflow: auto;
+    }
+
+    /* Resize button styling */
+    #resize-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 8px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #resize-btn:hover {
+      background-color: #45a049;
+    }
+
+
+
+#close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+    body {
+      background-color: #ffffff;
+      color: #000;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #graph-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .node circle {
+  stroke: #ffffff;
+  stroke-width: 1.5px;
+  cursor: pointer;
+}
+
+
+
+    .node text {
+      pointer-events: none;
+      font-size: 10px;
+      fill: #333;
+    }
+
+    .node:hover circle {
+      fill: orange;
+    }
+
+    .link {
+      stroke: rgb(176, 215, 222);
+      stroke-opacity: 0.6;
+    }
+
+    .tooltip {
+      position: absolute;
+      text-align: center;
+      padding: 6px;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      border-radius: 4px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    #minimap {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      width: 160px;
+      height: 120px;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+
+    #search-box {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+    }
+
+    #search-input {
+      padding: 5px;
+      font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .highlighted {
+      fill: orange !important;
+      stroke: red !important;
+      stroke-width: 2px;
+    }
+   #node-data-table {
+      border-collapse: collapse;
+      width: 100%;
+      font-family: "Source Sans Pro", Arial, sans-serif;
+      font-size: 14px;
+      background-color: #fff;
+      border: 1px solid #e6e6e6;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    #node-data-table thead {
+      background-color: #f9f9f9;
+    }
+
+    #node-data-table th, 
+    #node-data-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #e6e6e6;
+      text-align: left;
+    }
+
+    #node-data-table tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    #node-data-table tr:hover td {
+      background-color: #f1f3f6;
+      transition: background-color 0.25s ease;
+    }
+
+    #node-data-table th {
+      font-weight: 600;
+    }
+    #back-to-graph-btn {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #back-to-graph-btn:hover {
+      background-color: #45a049;
+    }
+    #pagination-controls button {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  /* Change color on hover */
+  #pagination-controls button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slight scale effect */
+  }
+
+  /* Style for the disabled button */
+  #pagination-controls button:disabled {
+    background-color: #ddd; /* Light grey for disabled */
+    color: #888; /* Grey text for disabled */
+    cursor: not-allowed;
+  }
+
+  /* Styling for the page indicator */
+  #page-indicator {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  </style>
+</head>
+<body>
+
+  <div id="graph-container">
+    <div id="search-box">
+      <input type="text" id="search-input" placeholder="Search node..." />
+    </div>
+    <svg id="main-graph" width="100%" height="100%"></svg>
+    <div id="tooltip" class="tooltip"></div>
+    <svg id="minimap"></svg>
+  </div>
+  <button id="back-to-graph-btn">Back to Graph</button>
+  <div id="node-data-container" style="display: none;">
+    <h2>Node Interaction Data</h2>
+    <div style="max-height: 400px; overflow-y: auto;">
+
+<div id="pagination-controls" style="margin-top: 10px;">
+  <button id="prev-page" disabled>Previous</button>
+  <span id="page-indicator" style="margin: 0 10px;">Page 1</span>
+  <button id="next-page">Next</button>
+</div>
+    <table id="node-data-table">
+      <thead>
+        <tr>
+          <th>Sujet</th>
+          <th>Expéditeur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be inserted here dynamically -->
+      </tbody>
+    </table>
+
+
+  </div>
+  </div>
+  <script>
+    // Replace this with your actual graph data
+    const graphData = __GRAPH_DATA__;
+
+    const width = window.innerWidth*10;
+    const height = window.innerHeight*10;
+
+    const svg = d3.select("#main-graph");
+    const tooltip = d3.select("#tooltip");
+    const minimap = d3.select("#minimap").attr("width", 160).attr("height", 120);
+    const searchInput = document.getElementById("search-input");
+
+    const container = svg.append("g");
+    const miniContainer = minimap.append("g");
+
+    const nodes = graphData.nodes;
+    const links = graphData.edges.map(edge => ({
+      source: nodes.find(n => n.id === edge.source),
+      target: nodes.find(n => n.id === edge.target)
+    }));
+
+    // Add interaction count to each node
+    nodes.forEach(node => {
+      node.interactionCount = links.filter(link =>
+        link.source.id === node.id || link.target.id === node.id
+      ).length;
+    });
+
+    // Radius scale based on interaction count
+    const radiusScale = d3.scaleLinear()
+      .domain([0, d3.max(nodes, d => d.interactionCount)])
+      .range([5, 25]);
+
+      const nodeColorScale = d3.scaleLinear()
+  .domain([0, d3.max(nodes, d => d.interactionCount)])
+  .range(["#cce5ff", "#004080"]);
+
+    const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+      .force("charge", d3.forceManyBody().strength(-200))
+      .force("center", d3.forceCenter(width / 2, height / 2));
+
+    const colorScale = d3.scaleLinear()
+      .domain([1, d3.max(links, d => countEdges(d.source, d.target))])
+      .range(["#ffcccc", "#ff0000"]);
+
+    const link = container.selectAll(".link")
+      .data(links)
+      .enter().append("line")
+      .attr("class", "link")
+      .attr("stroke-width", d => Math.min(5, countEdges(d.source, d.target)))
+      .attr("stroke", d => colorScale(countEdges(d.source, d.target)))
+      .on("mouseover", function (event, d) {
+        tooltip.style("opacity", 1)
+          .html(`<strong>${d.source.name}</strong> → <strong>${d.target.name}</strong><br/>Interaction Count: ${countEdges(d.source, d.target)}`)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 20) + "px");
+      })
+      .on("mousemove", event => {
+        tooltip.style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 20) + "px");
+      })
+      .on("mouseout", () => tooltip.style("opacity", 0))
+      .on("click", (event, d) => displayEdgeData(d));
+
+    const node = container.selectAll(".node")
+      .data(nodes)
+      .enter().append("g")
+      .attr("class", "node")
+      .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
+
+    node.append("circle")
+      .attr("r", d => radiusScale(d.interactionCount))
+      .attr("fill", d => nodeColorScale(d.interactionCount)) // 👈 Add this line
+
+      .on("mouseover", (event, d) => {
+        tooltip.style("opacity", 1)
+          .html(`<strong>${d.name}</strong><br/>Interactions: ${d.interactionCount}`)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 20) + "px");
+      })
+      .on("mousemove", event => {
+        tooltip.style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 20) + "px");
+      })
+      .on("mouseout", () => tooltip.style("opacity", 0))
+      .on("click", (event, d) => displayNodeData(d));
+
+    node.append("text")
+      .attr("dy", -15)
+      .attr("text-anchor", "middle")
+      .text(d => d.name)
+      //.style("display","none");
+
+    
+      simulation.on("end", () => {
+  const bbox = container.node().getBBox(); // bounding box of all nodes/links
+  const svgWidth = window.innerWidth;
+  const svgHeight = window.innerHeight;
+
+  // Calculate scale and translation
+  const scale = Math.min(
+    svgWidth / bbox.width,
+    svgHeight / bbox.height
+  ) * 0.9; // 0.9 = padding
+
+  const translateX = svgWidth / 2 - scale * (bbox.x + bbox.width / 2);
+  const translateY = svgHeight / 2 - scale * (bbox.y + bbox.height / 2);
+
+  // Smooth transition to center the graph
+  svg.transition()
+    .duration(0)
+    .call(
+      zoom.transform,
+      d3.zoomIdentity.translate(translateX, translateY).scale(scale)
+    );
+});
+simulation.on("tick", () => {
+  // Contraintes de position
+  nodes.forEach(d => {
+    d.x = Math.max(10, Math.min(width - 10, d.x));
+    d.y = Math.max(10, Math.min(height - 10, d.y));
+  });
+
+  // Mise à jour des liens et nœuds
+  link
+    .attr("x1", d => d.source.x)
+    .attr("y1", d => d.source.y)
+    .attr("x2", d => d.target.x)
+    .attr("y2", d => d.target.y);
+
+  node.attr("transform", d => `translate(${d.x},${d.y})`);
+
+  // === 🔎 Mise à jour dynamique de la minimap ===
+  miniContainer.selectAll("*").remove();
+
+  // Récupère le bounding box du graphe
+  const bbox = container.node().getBBox();
+  const miniW = +minimap.attr("width");
+  const miniH = +minimap.attr("height");
+
+  // Calcul du facteur d’échelle
+  const scale = Math.min(
+    miniW / bbox.width,
+    miniH / bbox.height
+  ) * 0.9; // marge de 10 %
+
+  // Décalage pour centrer le graphe dans la minimap
+  const offsetX = (miniW - bbox.width * scale) / 2 - bbox.x * scale;
+  const offsetY = (miniH - bbox.height * scale) / 2 - bbox.y * scale;
+
+  // Fond de minimap
+  miniContainer.append("rect")
+    .attr("x", 0).attr("y", 0)
+    .attr("width", miniW)
+    .attr("height", miniH)
+    .attr("fill", "#fff")
+    .attr("stroke", "#ccc");
+
+  // Liens
+  miniContainer.selectAll("line")
+    .data(links)
+    .enter().append("line")
+    .attr("x1", d => d.source.x * scale + offsetX)
+    .attr("y1", d => d.source.y * scale + offsetY)
+    .attr("x2", d => d.target.x * scale + offsetX)
+    .attr("y2", d => d.target.y * scale + offsetY)
+    .attr("stroke", "#aaa");
+
+  // Nœuds
+  miniContainer.selectAll("circle")
+    .data(nodes)
+    .enter().append("circle")
+    .attr("r", 2.5)
+    .attr("cx", d => d.x * scale + offsetX)
+    .attr("cy", d => d.y * scale + offsetY)
+    .attr("fill", "steelblue");
+});
+
+
+    const zoom = d3.zoom()
+      .scaleExtent([0.1, 8])
+      .on("zoom", (event) => {
+        container.attr("transform", event.transform);
+      });
+
+    svg.call(zoom);
+
+    function dragstarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+
+    function dragended(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+
+    function countEdges(source, target) {
+      return links.filter(edge =>
+        (edge.source === source && edge.target === target) ||
+        (edge.source === target && edge.target === source)
+      ).length;
+    }
+
+    searchInput.addEventListener("input", function () {
+      const value = this.value.toLowerCase();
+      node.select("circle").classed("highlighted", false);
+      if (value) {
+        node.filter(d => d.name.toLowerCase().includes(value))
+          .select("circle")
+          .classed("highlighted", true);
+      }
+    });
+    function displayNodeData(node) {
+  const interactions = graphData.edges
+  .filter(edge => edge.source === node.id || edge.target === node.id)
+  .flatMap(edge => edge.interactions.map(msg => ({
+      ...msg,
+      source: typeof edge.source === "object" ? edge.source.id : edge.source,
+      target: typeof edge.target === "object" ? edge.target.id : edge.target
+  })));
+
+  let currentPage = 1;
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(interactions.length / itemsPerPage);
+
+  const tableBody = document.querySelector("#node-data-table tbody");
+  const pageIndicator = document.getElementById("page-indicator");
+  const prevBtn = document.getElementById("prev-page");
+  const nextBtn = document.getElementById("next-page");
+
+  document.getElementById("graph-container").style.display = "none";
+  document.getElementById("node-data-container").style.display = "block";
+
+  function renderPage(page) {
+    tableBody.innerHTML = "";
+
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const currentItems = interactions.slice(start, end);
+
+    currentItems.forEach(edge => {
+      const interactionRow = document.createElement("tr");
+      interactionRow.innerHTML = `
+        <td>${edge.subject}</td>
+        <td>${edge.source}</td>
+      `;
+      interactionRow.style.cursor = "pointer";
+      interactionRow.addEventListener("click", () => {
+        showModal(`
+          <h3>Détails de l'interaction</h3>
+          <p><strong>Sujet:</strong> ${edge.subject}</p>
+          <p><strong>Expéditeur:</strong> ${edge.source}</p>
+          <p><strong>Date:</strong> ${edge.date}</p>
+          <p><strong>Destinataire:</strong> ${edge.target}</p>
+          <p><strong>Corps du message:</strong> ${edge.body}</p>
+        `);
+      });
+      tableBody.appendChild(interactionRow);
+    });
+
+    pageIndicator.textContent = `Page ${page}`;
+    prevBtn.disabled = page === 1;
+    nextBtn.disabled = page === totalPages;
+  }
+
+  // Button events
+  prevBtn.onclick = () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderPage(currentPage);
+    }
+  };
+  nextBtn.onclick = () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderPage(currentPage);
+    }
+  };
+
+  renderPage(currentPage);
+}
+
+function displayEdgeData(edge) {
+  const interactions = graphData.edges
+  .filter(e =>
+    (e.source === edge.source.id && e.target === edge.target.id) ||
+    (e.source === edge.target.id && e.target === edge.source.id)
+  )
+  .flatMap(e => e.interactions.map(msg => ({
+      ...msg,
+      source: typeof e.source === "object" ? e.source.id : e.source,
+      target: typeof e.target === "object" ? e.target.id : e.target
+  })));
+
+  let currentPage = 1;
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(interactions.length / itemsPerPage);
+
+  const tableBody = document.querySelector("#node-data-table tbody");
+  const pageIndicator = document.getElementById("page-indicator");
+  const prevBtn = document.getElementById("prev-page");
+  const nextBtn = document.getElementById("next-page");
+
+  document.getElementById("graph-container").style.display = "none";
+  document.getElementById("node-data-container").style.display = "block";
+
+  function renderPage(page) {
+    tableBody.innerHTML = "";
+
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const currentItems = interactions.slice(start, end);
+
+    currentItems.forEach(inter => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${inter.subject}</td>
+        <td>${inter.source}</td>
+      `;
+      row.style.cursor = "pointer";
+      row.addEventListener("click", () => {
+        showModal(`
+          <h3>Détails de l'interaction</h3>
+          <p><strong>Sujet:</strong> ${inter.subject}</p>
+          <p><strong>Expéditeur:</strong> ${inter.source}</p>
+          <p><strong>Date:</strong> ${inter.date}</p>
+          <p><strong>Destinataire:</strong> ${inter.target}</p>
+          <p><strong>Corps du message:</strong> ${inter.body}</p>
+        `);
+      });
+      tableBody.appendChild(row);
+    });
+
+    pageIndicator.textContent = `Page ${page}`;
+    prevBtn.disabled = page === 1;
+    nextBtn.disabled = page === totalPages;
+  }
+
+  prevBtn.onclick = () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderPage(currentPage);
+    }
+  };
+
+  nextBtn.onclick = () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderPage(currentPage);
+    }
+  };
+
+  renderPage(currentPage);
+}
+
+    function showModal(contentHTML) {
+  const modal = document.getElementById("detail-modal");
+  const modalBody = document.getElementById("modal-body");
+  modalBody.innerHTML = contentHTML;
+  modal.style.display = "flex";
+}
+
+// Handle closing modal
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("close-modal").addEventListener("click", () => {
+    document.getElementById("detail-modal").style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    const modal = document.getElementById("detail-modal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+
+
+
+    // Back to graph button
+    document.getElementById("back-to-graph-btn").addEventListener("click", () => {
+      document.getElementById("graph-container").style.display = "block";
+      document.getElementById("node-data-container").style.display = "none";
+      // Optionally reset the graph here if needed
+    });
+    // Handle resizing of the modal
+    let isExpanded = false;
+
+    document.addEventListener("DOMContentLoaded", function () {
+  // Setup event listener for the resize button after the DOM has fully loaded
+  document.getElementById("resize-btn").addEventListener("click", function () {
+    const modalContent = document.getElementById("modal-content");
+    const statusMessage = document.getElementById("status-message");
+
+    if (isExpanded) {
+      // Reset to original size
+      modalContent.style.width = '400px';
+      modalContent.style.height = '400px';
+      modalContent.style.maxHeight = '80vh';
+      document.getElementById("resize-btn").textContent = 'Expand';
+      statusMessage.textContent = "Modal is now shrunk."; // Update status text
+    } else {
+      // Expand the modal
+      modalContent.style.width = '80%'; // Set a larger width
+      modalContent.style.height = '80vh'; // Set a larger height
+      modalContent.style.maxHeight = 'none'; // Remove max-height
+      document.getElementById("resize-btn").textContent = 'Shrink';
+      statusMessage.textContent = "Modal is now expanded."; // Update status text
+    }
+
+    // Toggle the expanded state
+    isExpanded = !isExpanded;
+  });
+});
+
+
+
+
+  </script>
+  <div id="detail-modal" style="display: none;">
+    <div id="modal-content">
+      <!-- Resize button -->
+      <div id="status-message"></div>
+      <button id="resize-btn">Expand</button>
+      <span id="close-modal" style="cursor: pointer;">&times;</span>
+      <div id="modal-body"></div>
+
+    </div>
+  </div>
+
+
+</body>
+</html>
