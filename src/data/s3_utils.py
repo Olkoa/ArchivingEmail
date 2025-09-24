@@ -1,5 +1,6 @@
 import os
 import boto3
+from boto3.s3.transfer import TransferConfig
 from dotenv import load_dotenv
 from botocore.exceptions import ClientError
 import logging
@@ -8,7 +9,42 @@ import mimetypes
 
 import json
 import io
+import math
+import sys
+import threading
+import time
 
+
+
+class UploadProgress:
+    """Console progress reporter for S3 uploads."""
+
+    def __init__(self, filename: str):
+        self.filename = filename
+        self.filesize = float(os.path.getsize(filename)) if os.path.exists(filename) else 0.0
+        self._seen_so_far = 0
+        self._lock = threading.Lock()
+        self._start_time = time.time()
+
+    def __call__(self, bytes_amount: int) -> None:
+        if not self.filesize:
+            return
+        with self._lock:
+            self._seen_so_far += bytes_amount
+            elapsed = max(time.time() - self._start_time, 1e-6)
+            speed = self._seen_so_far / elapsed
+            remaining = max(self.filesize - self._seen_so_far, 0)
+            eta = remaining / speed if speed else float('inf')
+            percentage = self._seen_so_far / self.filesize * 100
+            sys.stdout.write(
+                f"
+[{self.filename}] {self._seen_so_far/1e6:8.1f} / {self.filesize/1e6:8.1f} MB "
+                f"({percentage:5.1f}%) speed: {speed/1e6:5.1f} MB/s ETA: {eta:6.1f}s"
+            )
+            sys.stdout.flush()
+            if self._seen_so_far >= self.filesize:
+                sys.stdout.write('
+')
 class S3Handler:
     """
     A class to handle common S3 operations using boto3.
@@ -65,6 +101,12 @@ class S3Handler:
             region_name=self.region_name,
             aws_access_key_id=self.access_key_id,
             aws_secret_access_key=self.secret_access_key
+        )
+
+        # Configure multipart uploads to stay within S3 limits
+        self.transfer_config = TransferConfig(
+            multipart_threshold=8 * 1024 * 1024,
+            multipart_chunksize=128 * 1024 * 1024
         )
 
         # Set up logging
@@ -209,7 +251,8 @@ class S3Handler:
 
     def upload_file(self, file_path: str, bucket_name: str,
                    object_key: Optional[str] = None,
-                   extra_args: Optional[Dict[str, Any]] = None) -> bool:
+                   extra_args: Optional[Dict[str, Any]] = None,
+                   show_progress: bool = True) -> bool:
         """
         Upload a file to S3.
 
@@ -235,8 +278,29 @@ class S3Handler:
                 extra_args['ContentType'] = content_type
 
         try:
+            file_size = os.path.getsize(file_path)
+            max_parts = 1000
+            min_chunk_size = 8 * 1024 * 1024
+            suggested_chunk = max(min_chunk_size, math.ceil(file_size / max_parts))
+            max_chunk_size = 5 * 1024 * 1024 * 1024
+            chunk_size = min(suggested_chunk, max_chunk_size)
+
+            if chunk_size != self.transfer_config.multipart_chunksize:
+                transfer_config = TransferConfig(
+                    multipart_threshold=self.transfer_config.multipart_threshold,
+                    multipart_chunksize=chunk_size,
+                )
+            else:
+                transfer_config = self.transfer_config
+
+            callback = UploadProgress(file_path) if show_progress else None
             self.s3.meta.client.upload_file(
-                file_path, bucket_name, object_key, ExtraArgs=extra_args
+                file_path,
+                bucket_name,
+                object_key,
+                ExtraArgs=extra_args,
+                Config=transfer_config,
+                Callback=callback
             )
             self.logger.info(f"File {file_path} uploaded to {bucket_name}/{object_key}")
             return True
@@ -244,7 +308,24 @@ class S3Handler:
             self.logger.error(f"Error uploading file {file_path}: {e}")
             return False
 
-    def upload_directory(self, local_dir, bucket_name, s3_prefix):
+    def upload_mailbox_raw(self, local_raw_data_dir: str, mailbox_name: str, project_bucket: str = "olkoa-projects", show_progress: bool = True) -> None:
+        """Upload a mailbox raw directory to the configured project bucket."""
+        buckets = self.list_buckets()
+        if project_bucket not in buckets:
+            self.create_bucket(project_bucket)
+            self.logger.info("Bucket '%s' created.", project_bucket)
+        else:
+            self.logger.info("Bucket '%s' already exists.", project_bucket)
+
+        s3_prefix = f"{mailbox_name}/raw/"
+        self.upload_directory(
+            local_dir=local_raw_data_dir,
+            bucket_name=project_bucket,
+            s3_prefix=s3_prefix,
+            show_progress=show_progress,
+        )
+
+    def upload_directory(self, local_dir, bucket_name, s3_prefix, show_progress: bool = True):
         """
         Upload a directory and all its contents to S3, preserving the folder structure.
 
@@ -266,7 +347,8 @@ class S3Handler:
                 self.upload_file(
                     file_path=local_file_path,
                     bucket_name=bucket_name,
-                    object_key=s3_key
+                    object_key=s3_key,
+                    show_progress=show_progress
                 )
                 print(f"Uploaded {local_file_path} to {bucket_name}/{s3_key}")
 
