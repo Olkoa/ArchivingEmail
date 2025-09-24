@@ -272,14 +272,19 @@
     const nodes = graphData.nodes;
     const links = graphData.edges.map(edge => ({
       source: nodes.find(n => n.id === edge.source),
-      target: nodes.find(n => n.id === edge.target)
+      target: nodes.find(n => n.id === edge.target),
+      interactions: edge.interactions || [],
+      sourceId: edge.source,
+      targetId: edge.target,
+      id: edge.id,
+      label: edge.label || `${edge.source} → ${edge.target}`
     }));
 
     // Add interaction count to each node
     nodes.forEach(node => {
-      node.interactionCount = links.filter(link =>
-        link.source.id === node.id || link.target.id === node.id
-      ).length;
+      node.interactionCount = links
+        .filter(link => link.source.id === node.id || link.target.id === node.id)
+        .reduce((total, link) => total + (link.interactions ? link.interactions.length : 0), 0);
     });
 
     // Radius scale based on interaction count
@@ -304,11 +309,14 @@
       .data(links)
       .enter().append("line")
       .attr("class", "link")
-      .attr("stroke-width", d => Math.min(5, countEdges(d.source, d.target)))
+      .attr("stroke-width", d => {
+        const count = countEdges(d.source, d.target);
+        return Math.min(8, Math.max(1, count / 5));
+      })
       .attr("stroke", d => colorScale(countEdges(d.source, d.target)))
       .on("mouseover", function (event, d) {
         tooltip.style("opacity", 1)
-          .html(`<strong>${d.source.name}</strong> → <strong>${d.target.name}</strong><br/>Interaction Count: ${countEdges(d.source, d.target)}`)
+          .html(`<strong>${d.source.name}</strong> → <strong>${d.target.name}</strong><br/>Emails échangés: ${countEdges(d.source, d.target)}`)
           .style("left", (event.pageX + 10) + "px")
           .style("top", (event.pageY - 20) + "px");
       })
@@ -463,10 +471,12 @@ simulation.on("tick", () => {
     }
 
     function countEdges(source, target) {
-      return links.filter(edge =>
-        (edge.source === source && edge.target === target) ||
-        (edge.source === target && edge.target === source)
-      ).length;
+      return links
+        .filter(edge =>
+          (edge.source === source && edge.target === target) ||
+          (edge.source === target && edge.target === source)
+        )
+        .reduce((total, edge) => total + (edge.interactions ? edge.interactions.length : 0), 0);
     }
 
     searchInput.addEventListener("input", function () {
