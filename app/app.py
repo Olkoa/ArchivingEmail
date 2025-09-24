@@ -973,12 +973,10 @@ else:
             selected_folder = available_folders[selected_folder_idx]
 
             # Generate graph button
-            col1, col2, col3 = st.columns([1, 2, 1])
-            with col2:
-                if st.button(f"🎯 Generate Network Graph", use_container_width=True, key="generate_graph_btn"):
-                    eml_folder = selected_folder['path']
+            if st.button(f"🎯 Generate Network Graph", use_container_width=True, key="generate_graph_btn"):
+                eml_folder = selected_folder['path']
 
-                    with st.spinner(f"Processing {selected_folder['eml_count']} emails from {selected_folder['display']}..."):
+                with st.spinner(f"Processing {selected_folder['eml_count']} emails from {selected_folder['display']}..."):
                         try:
                             emails_data = []
 
