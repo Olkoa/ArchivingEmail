@@ -42,7 +42,7 @@ data:
 # Run the app in stable mode (no file watcher)
 .PHONY: run
 run:
-	cd $(APP_DIR) && streamlit run app.py --server.maxUploadSize 50000 --server.fileWatcherType none --theme.base light
+	cd $(APP_DIR) && streamlit run app.py --server.maxUploadSize 5000 --server.fileWatcherType none --theme.base light
 
 # Run the app with debug flag
 .PHONY: run-debug
