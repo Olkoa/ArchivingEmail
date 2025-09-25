@@ -683,12 +683,9 @@ else:
             # st.subheader("Email Activity Over Time")
             st.plotly_chart(create_timeline(emails_df), use_container_width=True)
 
-            # Top contacts
-            st.subheader("Top Contacts")
-
-
         if not emails_df.empty:
             with contacts_col2:
+                st.subheader("Top Contacts")
                 # Collect all contacts with their details
                 all_contacts = []
 
