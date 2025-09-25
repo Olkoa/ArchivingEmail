@@ -5,60 +5,88 @@
   <title>Interactive Graph</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
-   /* Basic modal styling */
-   #myModal {
+   /* Modal overlay styling aligned with Streamlit email viewer */
+   #myModal,
+   #detail-modal {
       display: none;
       position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.4);
-    }
+      inset: 0;
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 32px;
+      background-color: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(2px);
+   }
 
-    /* Modal content */
     #modal-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      width: 400px;
-      height: 400px;
-      max-height: 80vh;
-      overflow: auto;
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      width: min(920px, 95vw);
+      max-height: 90vh;
+      background-color: #ffffff;
+      border-radius: 18px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 28px 50px rgba(15, 23, 42, 0.25);
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Resize button styling */
-    #resize-btn {
+    #modal-body {
+      padding: 28px 32px 32px;
+      overflow-y: auto;
+      font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+      flex: 1;
+    }
+
+    #modal-body h3 {
+      margin: 0 0 12px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    #modal-body p {
+      margin: 14px 0;
+      font-size: 0.95rem;
+      color: #334155;
+      white-space: pre-wrap;
+    }
+
+    #modal-body p strong {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    #close-modal {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      padding: 8px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
+      top: 18px;
+      right: 22px;
+      font-size: 26px;
+      font-weight: 400;
+      color: #64748b;
       cursor: pointer;
-      border-radius: 5px;
+      transition: color 0.2s ease;
     }
 
-    #resize-btn:hover {
-      background-color: #45a049;
+    #close-modal:hover {
+      color: #1e293b;
     }
 
-
-
-#close-modal {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 24px;
-  font-weight: bold;
-}
+    #status-message,
+    #resize-btn {
+      display: none !important;
+    }
 
 
     body {
