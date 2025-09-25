@@ -204,6 +204,14 @@ else:
         navigation_categories[selected_category]
     )
 
+    previous_page = st.session_state.get("previous_page")
+    if previous_page != page:
+        if previous_page == "Dashboard":
+            clear_email_selection("dashboard")
+        if page == "Dashboard":
+            clear_email_selection("dashboard")
+        st.session_state["previous_page"] = page
+
     # Essential data loading - keep mailbox selection in sidebar for now
     st.sidebar.title("Données essentielles")
 
@@ -730,7 +738,7 @@ else:
                     }).rename(columns={'direction': 'email_count'})
 
                     # Sort by email count and get top 8
-                    top_contacts = contact_stats.sort_values('email_count', ascending=False).head(6)
+                    top_contacts = contact_stats.sort_values('email_count', ascending=False).head(8)
 
                     # Create display with symbols
                     contact_list = []
