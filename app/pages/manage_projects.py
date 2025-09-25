@@ -11,6 +11,7 @@ import importlib
 import os
 import re
 import json
+from pathlib import Path
 import shutil
 import streamlit as st
 import subprocess
@@ -36,6 +37,7 @@ from src.data.s3_utils import S3Handler
 from src.data.mbox_to_eml import convert_folder_mbox_to_eml, mbox_to_eml
 from src.rag.colbert_initialization import initialize_colbert_rag_system
 from src.data.eml_transformation import generate_duck_db
+from src.data.graph_generation import generate_graphs_for_project
 
 
 # Page configuration
@@ -739,6 +741,20 @@ else:
             conversion_success = convert_project_emails_to_eml(project_name, project_path, mailbox_names)
             if not conversion_success:
                 raise PipelineError("La conversion des emails en EML a échoué.")
+
+            st.info("📈 Préparation des graphes de réseau...")
+            try:
+                graph_index = generate_graphs_for_project(
+                    project_name=project_name,
+                    project_path=Path(project_path),
+                    mailbox_names=mailbox_names,
+                )
+                st.info(
+                    "📊 Graphes générés : "
+                    f"{len(graph_index.get('graphs', []))} graphes disponibles dans Graphs/."
+                )
+            except Exception as graph_error:
+                raise PipelineError(f"La génération des graphes a échoué : {graph_error}")
             
             # Process EML files into DuckDB
             db_path = generate_duck_db()

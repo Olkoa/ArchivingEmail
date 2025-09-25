@@ -13,16 +13,11 @@ from collections import Counter
 from pathlib import Path
 
 import duckdb
-import email
-import email.utils
 import pandas as pd
 import plotly.express as px
 import streamlit as st
 import streamlit.components.v1 as components
-from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from email.policy import default
-import subprocess
 
 
 load_dotenv()
@@ -64,7 +59,6 @@ if "active_project" not in st.session_state:
 EMAIL_DISPLAY_TYPE = constants.EMAIL_DISPLAY_TYPE
 SIDEBAR_STATE = constants.SIDEBAR_STATE
 from src.features.elasticsearch_enhanced import enhanced_search_emails
-from src.features.decodeml import decode_unicode_escape , getBody
 from components.logins import make_hashed_password, verify_password, add_user, initialize_users_db
 
 # Set page configuration - MUST BE FIRST STREAMLIT COMMAND
@@ -916,178 +910,72 @@ else:
 
 
     elif page == "Graph":
-        st.markdown(f"### 📊 Email Network Graph")
+        st.markdown("### 📊 Email Network Graph")
 
-        # Dynamic folder selection
-        def get_available_folders():
-            folders = []
-            project_path = Path(project_root) / 'data' / 'Projects' / ACTIVE_PROJECT
+        graphs_root = Path(project_root) / 'data' / 'Projects' / ACTIVE_PROJECT / 'Graphs'
+        index_path = graphs_root / 'index.json'
 
-            def collect_mailbox_folders(mailbox_name: str) -> None:
-                mailbox_processed = project_path / mailbox_name / 'processed'
-                if not mailbox_processed.exists():
-                    return
-
-                for dirpath, _, filenames in os.walk(mailbox_processed):
-                    eml_count = sum(1 for f in filenames if f.lower().endswith('.eml'))
-                    if not eml_count:
-                        continue
-
-                    current_dir = Path(dirpath)
-                    relative_path = current_dir.relative_to(mailbox_processed)
-                    relative_display = str(relative_path).replace('\\', '/')
-                    if relative_display == '.' or relative_display == '':
-                        relative_display = ''
-
-                    if selected_mailbox == "All Mailboxes":
-                        display_name = f"{mailbox_name} → {relative_display}" if relative_display else mailbox_name
-                    else:
-                        display_name = relative_display if relative_display else mailbox_name
-
-                    folders.append({
-                        'display': display_name,
-                        'path': str(current_dir),
-                        'mailbox': mailbox_name,
-                        'eml_count': eml_count
-                    })
-
-            if selected_mailbox == "All Mailboxes":
-                for mailbox in mailboxs_names:
-                    collect_mailbox_folders(mailbox)
-            else:
-                collect_mailbox_folders(selected_mailbox)
-
-            folders.sort(key=lambda item: item['display'].lower())
-            return folders
-
-        # Get available folders
-        available_folders = get_available_folders()
-
-        if not available_folders:
-            st.warning("No processed email folders found for the selected mailbox(es).")
+        if not index_path.exists():
+            st.info("Aucun graphe pré-calculé disponible. Lancez le pipeline de préparation des données pour générer les graphes.")
         else:
-            # Folder selection dropdown
-            folder_options = [f"{f['display']} ({f['eml_count']} emails)" for f in available_folders]
-            selected_folder_idx = st.selectbox(
-                "Select folder for graph generation:",
-                range(len(folder_options)),
-                format_func=lambda x: folder_options[x],
-                key="graph_folder_select"
-            )
+            try:
+                with index_path.open('r', encoding='utf-8') as handle:
+                    index_data = json.load(handle)
+            except Exception as load_error:
+                st.error(f"Impossible de charger l'index des graphes : {load_error}")
+                index_data = {"graphs": []}
 
-            selected_folder = available_folders[selected_folder_idx]
+            graphs = index_data.get('graphs', [])
 
-            # Generate graph button
-            if st.button(f"🎯 Generate Network Graph", use_container_width=True, key="generate_graph_btn"):
-                eml_folder = selected_folder['path']
+            if selected_mailbox != "All Mailboxes":
+                graphs = [g for g in graphs if g.get('mailbox') == selected_mailbox]
 
-                with st.spinner(f"Processing {selected_folder['eml_count']} emails from {selected_folder['display']}..."):
-                        try:
-                            emails_data = []
+            if not graphs:
+                st.warning("Aucun graphe disponible pour la sélection actuelle.")
+            else:
+                def format_graph_option(entry: dict) -> str:
+                    relative_display = entry.get('relative_display') or ''
+                    mailbox_name = entry.get('mailbox', '')
+                    if selected_mailbox == "All Mailboxes":
+                        return f"{mailbox_name} → {relative_display}" if relative_display else mailbox_name
+                    return relative_display or mailbox_name
 
-                            # Parse .eml files
-                            for filename in os.listdir(eml_folder):
-                                if filename.endswith(".eml"):
-                                    file_path = os.path.join(eml_folder, filename)
-                                    try:
-                                        with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-                                            msg = email.message_from_file(f, policy=default)
-                                            sender = msg["From"]
-                                            receivers = msg.get_all("To", [])
-                                            subject = msg.get("Subject", "No Subject")
-                                            date = msg.get("Date", "Unknown Date")
+                option_labels = [format_graph_option(entry) for entry in graphs]
+                selected_graph_idx = st.selectbox(
+                    "Choisissez un graphe à afficher :",
+                    range(len(graphs)),
+                    format_func=lambda i: option_labels[i],
+                    key="graph_folder_select"
+                )
 
-                                            # Clean sender
-                                            sender = email.utils.parseaddr(sender)[1] if sender else "unknown"
-                                            sender = decode_email_text(sender)
+                selected_graph = graphs[selected_graph_idx]
+                st.caption(
+                    f"📁 Mailbox : {selected_graph.get('mailbox', 'N/A')}"
+                    f" | 📄 Dossier : {selected_graph.get('relative_display') or 'Racine'}"
+                    f" | ✉️ Emails : {selected_graph.get('eml_count', 'N/A')}"
+                )
 
-                                            # Parse receivers
-                                            receiver_list = email.utils.getaddresses(receivers)
+                if st.button("Charger le graphe", use_container_width=True, key="load_graph_btn"):
+                    graph_json_rel = selected_graph.get('graph_json')
+                    if not graph_json_rel:
+                        st.error("Chemin du graphe non défini.")
+                    else:
+                        graph_json_path = graphs_root / graph_json_rel
+                        if not graph_json_path.exists():
+                            st.error(f"Fichier de graphe introuvable : {graph_json_path}")
+                        else:
+                            try:
+                                with graph_json_path.open('r', encoding='utf-8') as handle:
+                                    graph_data = json.load(handle)
 
-                                            # ✅ Extract body using your preferred method
-                                            try:
-                                                html_body = getBody(msg)
-                                                soup = BeautifulSoup(html_body, 'html.parser')
-                                                body = soup.get_text()
-                                                body = decode_unicode_escape(body)
-                                                body = decode_email_text(body)
-                                                subject = decode_email_text(subject)
-                                            except Exception:
-                                                body = "[Error reading body]"
-                                                body = decode_email_text(body)
-                                                subject = decode_email_text(subject)
+                                template_path = Path(__file__).resolve().parent / 'components' / 'viz copy 28.html'
+                                template_html = template_path.read_text(encoding='utf-8')
+                                html_content = template_html.replace("__GRAPH_DATA__", json.dumps(graph_data))
 
-                                            # Append emails
-                                            for name, addr in receiver_list:
-                                                addr = addr.strip()
-                                                if addr:
-                                                    addr = decode_email_text(addr)
-                                                    emails_data.append({
-                                                        "sender": sender,
-                                                        "receiver": addr,
-                                                        "subject": subject,
-                                                        "date": date,
-                                                        "body": body
-                                                    })
-                                    except Exception as e:
-                                        st.warning(f"❌ Failed to parse {filename}: {e}")
-
-                            if emails_data:
-                                # Create DataFrame
-                                df = pd.DataFrame(emails_data)
-                                df.replace("", "unknown", inplace=True)
-                                df.fillna("unknown", inplace=True)
-
-                                # Save DataFrame to CSV for processing
-                                temp_csv_path = os.path.join(eml_folder, "temp_graph_data.csv")
-                                print("test", temp_csv_path)
-                                df.to_csv(temp_csv_path, index=False)
-
-                                # Run graph generation script
-                                result = subprocess.run(
-                                    ["python", "components/js3.py", temp_csv_path],
-                                    capture_output=True, text=True, check=True, cwd=os.path.dirname(__file__)
-                                )
-
-                                # Load and display the generated graph
-                                folder_path = os.path.dirname(__file__)
-                                json_path = os.path.join(folder_path, "components/email_network.json")
-                                html_path = os.path.join(folder_path, "components/viz copy 28.html")
-
-                                if os.path.exists(json_path) and os.path.exists(html_path):
-                                    with open(json_path, "r") as f:
-                                        data_json = json.load(f)
-
-                                    with open(html_path, "r", encoding="utf-8") as f:
-                                        html_content = f.read()
-
-                                    html_content = html_content.replace("__GRAPH_DATA__", json.dumps(data_json))
-
-                                    st.success(f"✅ Graph generated successfully for {selected_folder['display']}")
-                                    components.html(html_content, height=1200, width=1200)
-
-                                    # Clean up temp file
-                                    try:
-                                        os.remove(temp_csv_path)
-                                    except:
-                                        pass
-                                else:
-                                    st.error("Graph visualization files not found.")
-
-                            else:
-                                st.warning(f"No valid email data found in {selected_folder['display']}")
-
-                        except subprocess.CalledProcessError as e:
-                            st.error(f"Error generating graph: {e.stderr}")
-                        except Exception as e:
-                            st.error(f"Error processing emails: {e}")
-
-        # Display existing graph if available
-        folder_path = os.path.dirname(__file__)
-        json_path = os.path.join(folder_path, "components/email_network.json")
-        html_path = os.path.join(folder_path, "components/viz copy 28.html")
-
-        
+                                st.success("✅ Graphe chargé")
+                                components.html(html_content, height=1200, width=1200)
+                            except Exception as graph_error:
+                                st.error(f"Impossible d'afficher le graphe : {graph_error}")
     elif page == "Topic":
         folder_path = os.path.dirname(__file__)
 

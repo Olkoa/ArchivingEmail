@@ -17,8 +17,8 @@ ENABLE_RAG = True  # Set to False to disable RAG features
 ALLOW_LLM_UNRELATED_REQUESTS = False
 
 ###
-ACTIVE_PROJECT = "celinev3"
+ACTIVE_PROJECT = "pst_test_graph"
 
 # Project order - Most recently accessed projects will appear first
 # Format: List of project names in display order
-PROJECT_ORDER = ["celinev3", "dino_v2_proj", "pst_proj", "single_eml_proj", "dinodelanight", "joel_zip_full_proj", "joel_sample_v1", "Projet Demo", "eldino_proj", "dodo", "doni", "celinev2", "ledinovivra_proj", "newdino_proj", "dinofiable_proj", "diplodocus_proj", "din_proj", "dinosur_proj", "dinosisi", "ccccccc"]
+PROJECT_ORDER = ["pst_test_graph", "Dino test", "celinev3", "dino_v2_proj", "pst_proj", "single_eml_proj", "dinodelanight", "joel_zip_full_proj", "joel_sample_v1", "Projet Demo", "eldino_proj", "dodo", "doni", "celinev2", "ledinovivra_proj", "newdino_proj", "dinofiable_proj", "diplodocus_proj", "din_proj", "dinosur_proj", "dinosisi", "ccccccc"]

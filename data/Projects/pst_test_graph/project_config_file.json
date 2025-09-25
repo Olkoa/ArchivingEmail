@@ -1,0 +1,26 @@
+{
+  "pst_test_graph": {
+    "mailboxs": {
+      "pst_test_graph": {
+        "Positions": {
+          "pst_test_graph": {
+            "start_date": "2020-01-01",
+            "end_date": "2024-01-01",
+            "description": "pst_test_graph"
+          }
+        },
+        "Entity": {
+          "name": "pst_test_graph",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "pst_test_graph@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "pst_test_graph",
+          "description": "pst_test_graph"
+        }
+      }
+    }
+  }
+}
