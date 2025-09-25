@@ -712,7 +712,7 @@ class EmailAnalyzer:
         return merged_df
 
 
-    def get_app_dataframe_agg_recipients(self, mailbox=None, limit=None):
+    def get_app_dataframe_agg_recipients(self, mailbox=None, limit=50000):
         """
         Get a dataframe with specific columns needed for the application,
         creating one row per email with aggregated recipient information.
@@ -808,7 +808,7 @@ class EmailAnalyzer:
 
         return df
 
-    def get_app_dataframe_with_filters(self, mailbox=None, filters=None, limit=None):
+    def get_app_dataframe_with_filters(self, mailbox=None, filters=None, limit=50000):
         """
         Get a dataframe with specific columns needed for the application,
         with support for additional filters including mailing lists.

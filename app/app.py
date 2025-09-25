@@ -732,8 +732,8 @@ else:
                         'direction': 'count'       # Count total occurrences
                     }).rename(columns={'direction': 'email_count'})
 
-                    # Sort by email count and get top 20
-                    top_contacts = contact_stats.sort_values('email_count', ascending=False).head(20)
+                    # Sort by email count and get top 8
+                    top_contacts = contact_stats.sort_values('email_count', ascending=False).head(6)
 
                     # Create display with symbols
                     contact_list = []

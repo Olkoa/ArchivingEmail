@@ -16,6 +16,12 @@ import time
 
 
 
+import os
+import sys
+import time
+import math
+import threading
+
 class UploadProgress:
     """Console progress reporter for S3 uploads."""
 
@@ -27,24 +33,29 @@ class UploadProgress:
         self._start_time = time.time()
 
     def __call__(self, bytes_amount: int) -> None:
-        if not self.filesize:
+        if self.filesize <= 0:
             return
         with self._lock:
             self._seen_so_far += bytes_amount
             elapsed = max(time.time() - self._start_time, 1e-6)
-            speed = self._seen_so_far / elapsed
-            remaining = max(self.filesize - self._seen_so_far, 0)
-            eta = remaining / speed if speed else float('inf')
-            percentage = self._seen_so_far / self.filesize * 100
-            sys.stdout.write(
-                f"
-[{self.filename}] {self._seen_so_far/1e6:8.1f} / {self.filesize/1e6:8.1f} MB "
-                f"({percentage:5.1f}%) speed: {speed/1e6:5.1f} MB/s ETA: {eta:6.1f}s"
+            speed = self._seen_so_far / elapsed  # bytes/sec
+            remaining = max(self.filesize - self._seen_so_far, 0.0)
+            eta = remaining / speed if speed > 0 else float("inf")
+            percentage = (self._seen_so_far / self.filesize) * 100.0
+
+            eta_str = f"{eta:6.1f}s" if math.isfinite(eta) else "--.-s"
+
+            line = (
+                f"\r[{os.path.basename(self.filename)}] "
+                f"{self._seen_so_far/1e6:8.1f} / {self.filesize/1e6:8.1f} MB "
+                f"({percentage:5.1f}%)  speed: {speed/1e6:5.1f} MB/s  ETA: {eta_str}"
             )
+            sys.stdout.write(line)
             sys.stdout.flush()
+
             if self._seen_so_far >= self.filesize:
-                sys.stdout.write('
-')
+                sys.stdout.write("\n")
+
 class S3Handler:
     """
     A class to handle common S3 operations using boto3.

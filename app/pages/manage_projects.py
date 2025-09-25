@@ -727,6 +727,14 @@ else:
             if not unzip_success:
                 raise PipelineError("L'extraction des archives ZIP a échoué.")
 
+            cleanup_stats = cleanup_mailbox_raw_artifacts(project_path, mailbox_names)
+            if cleanup_stats["removed_directories"] or cleanup_stats["removed_files"]:
+                st.info(
+                    "Nettoyage des artefacts macOS : suppression de "
+                    f"{len(cleanup_stats['removed_directories'])} dossiers et "
+                    f"{len(cleanup_stats['removed_files'])} fichiers."
+                )
+
             # process files into .eml (s)
             conversion_success = convert_project_emails_to_eml(project_name, project_path, mailbox_names)
             if not conversion_success:
@@ -1108,6 +1116,56 @@ else:
         except Exception as e:
             st.error(f"Error in ZIP extraction process: {e}")
             return False
+
+
+    def cleanup_mailbox_raw_artifacts(project_path, mailbox_names):
+        """Remove macOS-specific artifacts from raw mailbox folders."""
+        removed_dirs = []
+        removed_files = []
+
+        for mailbox_name in mailbox_names:
+            raw_folder = os.path.join(project_path, mailbox_name, "raw")
+            if not os.path.isdir(raw_folder):
+                continue
+
+            # We clean both the raw root and any extracted_* subdirectories
+            candidate_roots = [raw_folder]
+            candidate_roots.extend(
+                os.path.join(raw_folder, entry)
+                for entry in os.listdir(raw_folder)
+                if entry.startswith("extracted_")
+                and os.path.isdir(os.path.join(raw_folder, entry))
+            )
+
+            for candidate_root in candidate_roots:
+                for root, dirs, files in os.walk(candidate_root, topdown=True):
+                    # Remove __MACOSX directories produced by macOS zipping
+                    for dirname in list(dirs):
+                        if dirname == "__MACOSX":
+                            dir_path = os.path.join(root, dirname)
+                            try:
+                                shutil.rmtree(dir_path)
+                                removed_dirs.append(dir_path)
+                            except Exception as cleanup_error:
+                                st.warning(f"Impossible de supprimer {dir_path}: {cleanup_error}")
+                            dirs.remove(dirname)
+
+                    # Remove AppleDouble resource fork files and other trivial artefacts
+                    for filename in files:
+                        if filename.startswith("._") or filename in {".DS_Store"}:
+                            file_path = os.path.join(root, filename)
+                            try:
+                                os.remove(file_path)
+                                removed_files.append(file_path)
+                            except FileNotFoundError:
+                                continue
+                            except Exception as cleanup_error:
+                                st.warning(f"Impossible de supprimer {file_path}: {cleanup_error}")
+
+        return {
+            "removed_directories": removed_dirs,
+            "removed_files": removed_files,
+        }
 
     def convert_project_emails_to_eml(project_name, project_path, mailbox_names):
         """
