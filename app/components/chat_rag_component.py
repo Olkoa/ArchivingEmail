@@ -212,7 +212,7 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
     # LLM parameters
     st.sidebar.subheader("Paramètres LLM")
     model_options = [
-        "google/gemini-2.5-flash"
+        "google/gemini-2.5-flash",
         "openai/gpt-4.1-mini",
         # "openai/gpt-4o",
         "openai/gpt-4o-mini",

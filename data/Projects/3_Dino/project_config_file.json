@@ -1,0 +1,26 @@
+{
+  "3_Dino": {
+    "mailboxs": {
+      "dino33": {
+        "Positions": {
+          "dino33": {
+            "start_date": "2020-01-01",
+            "end_date": "2025-01-01",
+            "description": "dino33"
+          }
+        },
+        "Entity": {
+          "name": "dino33",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "dino33@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "dino33",
+          "description": "dino33dino33dino33dino33"
+        }
+      }
+    }
+  }
+}
