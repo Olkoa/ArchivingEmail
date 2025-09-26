@@ -1,0 +1,26 @@
+{
+  "3_3pst": {
+    "mailboxs": {
+      "3pst": {
+        "Positions": {
+          "3pst": {
+            "start_date": "2020-01-01",
+            "end_date": "2025-01-01",
+            "description": "3pst"
+          }
+        },
+        "Entity": {
+          "name": "3pst",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "3pst@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "3pst",
+          "description": ""
+        }
+      }
+    }
+  }
+}
