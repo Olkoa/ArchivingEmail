@@ -14,14 +14,6 @@ import sys
 import threading
 import time
 
-
-
-import os
-import sys
-import time
-import math
-import threading
-
 class UploadProgress:
     """Console progress reporter for S3 uploads."""
 
