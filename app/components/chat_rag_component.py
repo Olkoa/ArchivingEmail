@@ -11,10 +11,14 @@ Enhanced with agentic components that determine:
 """
 
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import os
 import sys
 import time
+import tempfile
+import uuid
+from pathlib import Path
 from typing import List, Dict, Any, Tuple, Optional
 
 # Add the necessary paths
@@ -25,6 +29,12 @@ from src.rag.colbert_rag import search_with_colbert, format_result_preview
 from src.llm.openrouter import openrouter_llm_api_call
 from src.llm.agents import RAGOrchestrator, get_rag_parameters
 import constants
+
+KG_MODULE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..', 'src', 'knowledge-graph-llms'))
+if KG_MODULE_DIR not in sys.path:
+    sys.path.append(KG_MODULE_DIR)
+
+from generate_knowledge_graph import generate_knowledge_graph
 
 ALLOW_UNRELATED = getattr(constants, "ALLOW_LLM_UNRELATED_REQUESTS", False)
 
@@ -84,6 +94,33 @@ Si les informations ne permettent pas de répondre complètement, indiquez-le cl
 
     return system_prompt, user_prompt
 
+
+
+
+def render_knowledge_graph_section(answer_text: str) -> Optional[str]:
+    """Generate and render a knowledge graph from the assistant's answer."""
+    if not answer_text or not answer_text.strip():
+        return None
+
+    tmp_file: Optional[Path] = None
+    try:
+        with st.spinner("🧠 Génération du graphe de connaissances..."):
+            tmp_file = Path(tempfile.gettempdir()) / f"knowledge_graph_{uuid.uuid4().hex}.html"
+            _, output_file = generate_knowledge_graph(answer_text, output_path=tmp_file)
+            graph_html = output_file.read_text(encoding='utf-8')
+
+        st.markdown("#### 🧠 Graphe de connaissances de la réponse")
+        components.html(graph_html, height=700, scrolling=True)
+        return graph_html
+    except Exception as exc:
+        st.warning(f"Impossible de générer le graphe de connaissances : {exc}")
+        return None
+    finally:
+        if tmp_file and tmp_file.exists():
+            try:
+                tmp_file.unlink()
+            except OSError:
+                pass
 
 def render_chat_rag_component(emails_df: pd.DataFrame):
     """
@@ -215,13 +252,12 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                         st.write(f"**Raisonnement:** {agent_data['reasoning']}")
                         st.write(f"**Confiance:** {agent_data['confidence']:.2f}")
                 
+                knowledge_graph_html = message.get("metadata", {}).get("knowledge_graph_html") if message.get("metadata") else None
+                if knowledge_graph_html:
+                    st.markdown("#### 🧠 Graphe de connaissances de la réponse")
+                    components.html(knowledge_graph_html, height=700, scrolling=True)
+
                 # Display sources if available
-                if "sources" in message and message["sources"]:
-                    with st.expander("📧 Voir les emails sources"):
-                        for i, source in enumerate(message["sources"], 1):
-                            st.markdown(f"**Email {i}:**")
-                            st.markdown(source)
-                            st.markdown("---")
 
     # Chat input
     user_question = st.chat_input("Posez votre question sur vos emails...")
@@ -309,6 +345,8 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
 
                         st.write(llm_response)
 
+                        kg_html = render_knowledge_graph_section(llm_response)
+
                         with st.expander("🤖 Décision des agents"):
                             st.write("**RAG nécessaire:** Non")
                             st.write(f"**Raisonnement:** {rag_params['reasoning']}")
@@ -327,7 +365,8 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                                 "agent_time": agent_decision_time,
                                 "llm_time": llm_time,
                                 "total_time": total_time,
-                                "model": selected_model
+                                "model": selected_model,
+                                "knowledge_graph_html": kg_html
                             }
                         })
                         return
@@ -417,7 +456,9 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                     st.caption(f"⏱️ Temps total: {total_time:.2f}s (Recherche: {search_time:.2f}s, LLM: {llm_time:.2f}s)")
                 
                 print(f"🧠 LLM processing: Complete. Total time: {total_time:.2f}s")
-                
+
+                knowledge_graph_html = render_knowledge_graph_section(llm_response)
+
                 # Prepare source previews
                 source_previews = [format_result_preview(email) for email in retrieved_emails]
                 
@@ -442,7 +483,8 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                         "llm_time": llm_time,
                         "total_time": total_time,
                         "num_sources": len(retrieved_emails),
-                        "model": selected_model
+                        "model": selected_model,
+                        "knowledge_graph_html": knowledge_graph_html
                     }
                 })
 

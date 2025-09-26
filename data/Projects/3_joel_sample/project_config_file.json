@@ -1,0 +1,26 @@
+{
+  "3_joel_sample": {
+    "mailboxs": {
+      "joel_mailbox": {
+        "Positions": {
+          "joel_mailbox": {
+            "start_date": "2020-01-01",
+            "end_date": "2025-01-01",
+            "description": "chef Lab IA"
+          }
+        },
+        "Entity": {
+          "name": "joel",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "joel@laplateforme.io",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "plateforme",
+          "description": ""
+        }
+      }
+    }
+  }
+}
