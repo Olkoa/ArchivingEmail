@@ -213,7 +213,7 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
     st.sidebar.subheader("Paramètres LLM")
     model_options = [
         "google/gemini-2.5-flash",
-        "openai/gpt-4.1-mini",
+        # "openai/gpt-4.1-mini",
         # "openai/gpt-4o",
         "openai/gpt-4o-mini",
         # "anthropic/claude-sonnet-4",
@@ -224,7 +224,7 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
     selected_model = st.sidebar.selectbox(
         "Modèle LLM",
         options=model_options,
-        index=1,  # Default to gpt-4o-mini for agents
+        index=0,  # Default to gpt-4o-mini for agents
         help="Modèle de langage à utiliser pour les agents et la génération de réponses"
     )
 

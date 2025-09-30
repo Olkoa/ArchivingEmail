@@ -1,3 +1,4 @@
 # ColBERT residuals files - use Git LFS for large binary files
 0.residuals.pt filter=lfs diff=lfs merge=lfs -text
+graph.json filter=lfs diff=lfs merge=lfs -text
 temp_graph_data.csv filter=lfs diff=lfs merge=lfs -text
