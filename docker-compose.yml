@@ -33,5 +33,6 @@ services:
       retries: 5
       start_period: 30s
     volumes:
-      - ./.ragatouille:/app/.ragatouille
       - ./data:/app/data
+      # - ./.ragatouille:/app/.ragatouille
+      

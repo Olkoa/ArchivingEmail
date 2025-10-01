@@ -34,7 +34,7 @@ COPY .ragatouille ./.ragatouille
 COPY app ./app
 COPY data ./data
 COPY src ./src
-COPY .env .env
+# COPY .env .env
 
 # Ensure entrypoint script is executable
 RUN chmod +x app/entrypoint.sh

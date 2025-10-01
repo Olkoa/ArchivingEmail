@@ -5,6 +5,8 @@
 !app/**
 !data
 !data/**
+data/**/raw
+data/**/raw/**
 !src
 !src/**
 !constants.py
