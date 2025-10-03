@@ -1,4 +1,4 @@
-# Okloa: Email Archive Analytics Platform
+# Olkoa: Email Archive Analytics Platform
 
 On local for host dev **without any REAL data** from mails
 
@@ -8,7 +8,7 @@ now changed path but command still look close to this
 
 ## Overview
 
-Okloa is an R&D project focused on making archived email data valuable and accessible through advanced analytics, visualization, and conversational interfaces. The project aims to valorize archived emails from the Departmental Archives of Vaucluse by making them searchable, analyzable, and queryable.
+Olkoa is an R&D project focused on making archived email data valuable and accessible through advanced analytics, visualization, and conversational interfaces. The project aims to valorize archived emails from the Departmental Archives of Vaucluse by making them searchable, analyzable, and queryable.
 
 ## Objectives
 
@@ -46,8 +46,8 @@ Okloa is an R&D project focused on making archived email data valuable and acces
 
 ```bash
 # Clone the repository (if using Git)
-# git clone https://github.com/your-organization/okloa.git
-# cd okloa
+# git clone https://github.com/laplateformeio/olkoa.git
+# cd olkoa
 
 # Create a virtual environment
 python -m venv venv
@@ -85,7 +85,7 @@ The application will open in your default web browser at http://localhost:8501.
 
 ### Email Exploration and Visualization
 
-Okloa provides multiple visualizations to explore your email archive:
+Olkoa provides multiple visualizations to explore your email archive:
 
 - **Dashboard**: Overview of key metrics and email activity
 - **Email Explorer**: Browse and search through individual emails
