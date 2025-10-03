@@ -1,7 +1,7 @@
 """
-Okloa - Main Streamlit Application
+Olkoa - Main Streamlit Application
 
-This is the entry point for the Okloa application, providing an interface
+This is the entry point for the Olkoa application, providing an interface
 for exploring and analyzing archived email data.
 """
 
@@ -32,7 +32,7 @@ from components.logins import make_hashed_password, verify_password, add_user, i
 
 # Set page configuration - MUST BE FIRST STREAMLIT COMMAND
 st.set_page_config(
-    page_title="Okloa - Email Archive Analytics",
+    page_title="Olkoa - Email Archive Analytics",
     page_icon="📧",
     layout="wide",
     initial_sidebar_state=SIDEBAR_STATE,
