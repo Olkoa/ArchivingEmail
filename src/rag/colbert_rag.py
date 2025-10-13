@@ -1,5 +1,5 @@
 """
-Colbert RAG implementation for the Okloa project.
+Colbert RAG implementation for the Olkoa project.
 
 This module provides functionality for creating a RAG system using the
 RAGAtouille library with ColBERTv2.0 retriever for email data.

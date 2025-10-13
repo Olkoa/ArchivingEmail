@@ -1,5 +1,5 @@
 """
-Chat + RAG Component for Okloa.
+Chat + RAG Component for Olkoa.
 
 This component combines the Chat interface with RAG functionality,
 providing a question-answer interface that uses Colbert RAG to retrieve

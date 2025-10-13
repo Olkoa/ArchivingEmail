@@ -1,0 +1,18 @@
+services:
+  olkoa:
+    image: julienrm/olkoa:latest
+    env_file:
+      - .env
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+
+# docker compose -f pull_docker_compose.yml pull
+# docker compose -f pull_docker_compose.yml up -d

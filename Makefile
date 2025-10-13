@@ -1,4 +1,4 @@
-# Okloa Project Makefile
+# Olkoa Project Makefile
 # Simple commands for setting up and running the project
 
 # Default Python interpreter
@@ -19,7 +19,7 @@ MCP_COMMAND = npx -y @modelcontextprotocol/server-filesystem
 # Help command - displays available commands
 .PHONY: help
 help:
-	@echo "Okloa Project Commands:"
+	@echo "Olkoa Project Commands:"
 	@echo "  make setup         - Install dependencies"
 	@echo "  make data          - Generate sample data"
 	@echo "  make run           - Run Streamlit app (stable mode)"

@@ -1,5 +1,5 @@
 """
-Example demonstration of the Okloa agentic components.
+Example demonstration of the Olkoa agentic components.
 
 This script shows how to use the agents in your own applications
 and demonstrates the decision-making process.
@@ -17,7 +17,7 @@ from src.llm.agents import RAGOrchestrator, get_rag_parameters, should_use_rag
 def demonstrate_agents():
     """Demonstrate the agentic components with example questions."""
     
-    print("🎯 Okloa Agentic Components Demonstration")
+    print("🎯 Olkoa Agentic Components Demonstration")
     print("=" * 50)
     
     # Example questions

@@ -40,7 +40,7 @@ if "users_db" not in st.session_state:
 
 # Login form
 def show_login_form():
-    st.title("Okloa - Email Archive Analytics")
+    st.title("Olkoa - Email Archive Analytics")
     st.subheader("Login")
 
     with st.form("login_form"):

@@ -1,6 +1,6 @@
-# Colbert RAG Implementation for Okloa
+# Colbert RAG Implementation for Olkoa
 
-This directory contains the implementation of a RAG (Retrieval-Augmented Generation) system using ColBERT for the Okloa email analytics platform.
+This directory contains the implementation of a RAG (Retrieval-Augmented Generation) system using ColBERT for the Olkoa email analytics platform.
 
 ## Overview
 
@@ -36,7 +36,7 @@ The implementation consists of three main files:
 
 ## Usage
 
-The Colbert RAG system can be accessed through the "Colbert RAG" option in the main navigation of the Okloa application. The interface provides tabs for:
+The Colbert RAG system can be accessed through the "Colbert RAG" option in the main navigation of the Olkoa application. The interface provides tabs for:
 
 1. **Semantic Search**: Search for emails using natural language queries
 2. **Question-Answering**: Ask questions about your email archives
@@ -48,7 +48,7 @@ This implementation is based on the workflow outlined in the RAG_process.ipynb n
 
 1. Processing of .mbox files instead of PDFs or markdown files
 2. Email-specific document structure (from, to, subject, body)
-3. Integration with the existing Okloa email analytics platform
+3. Integration with the existing Olkoa email analytics platform
 4. User interface adapted for email search and question answering
 
 ## Credit

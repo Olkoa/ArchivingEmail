@@ -1,5 +1,5 @@
 """
-Initialization script for the Okloa RAG system.
+Initialization script for the Olkoa RAG system.
 
 This script builds the initial index from email data for the RAG system.
 """

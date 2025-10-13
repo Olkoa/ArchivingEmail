@@ -1,5 +1,5 @@
 """
-Okloa - ElasticSearch Search Page (Standalone Version)
+Olkoa - ElasticSearch Search Page (Standalone Version)
 
 Ce fichier est une version autonome de la page de recherche ElasticSearch qui peut être
 exécutée directement via streamlit run pour des tests.
@@ -15,7 +15,7 @@ from datetime import datetime
 
 # Set page configuration
 st.set_page_config(
-    page_title="Okloa - ElasticSearch Search",
+    page_title="Olkoa - ElasticSearch Search",
     page_icon="📧",
     layout="wide",
 )
@@ -358,4 +358,4 @@ with search_tabs[2]:  # Options
 
 # Footer
 st.markdown("---")
-st.info("Okloa - ElasticSearch Search Module")
+st.info("Olkoa - ElasticSearch Search Module")

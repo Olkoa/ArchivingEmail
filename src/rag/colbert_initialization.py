@@ -1,5 +1,5 @@
 """
-Initialization script for the Colbert RAG system in Okloa.
+Initialization script for the Colbert RAG system in Olkoa.
 
 This module handles the initial setup and loading of the Colbert RAG system,
 including processing mbox files and creating the necessary indexes.

@@ -15,4 +15,4 @@
    ```
 
 
-Once the script finishes, the uploaded data appears automatically inside the Okloa app for the matching mailbox.
+Once the script finishes, the uploaded data appears automatically inside the Olkoa app for the matching mailbox.

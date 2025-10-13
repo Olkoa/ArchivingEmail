@@ -1,5 +1,5 @@
 """
-Filter utilities for the Okloa project.
+Filter utilities for the Olkoa project.
 
 This module provides functions to get filter options and apply filters to email data.
 """

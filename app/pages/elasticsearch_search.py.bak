@@ -1,7 +1,7 @@
 """
-Okloa - ElasticSearch Search Page
+Olkoa - ElasticSearch Search Page
 
-This page provides an enhanced ElasticSearch-based search interface for the Okloa application.
+This page provides an enhanced ElasticSearch-based search interface for the Olkoa application.
 """
 
 import streamlit as st
@@ -357,7 +357,7 @@ def render_search_page():
 if __name__ == "__main__":
     # Set up Streamlit configuration for testing
     st.set_page_config(
-        page_title="Okloa - ElasticSearch Search",
+        page_title="Olkoa - ElasticSearch Search",
         page_icon="📧",
         layout="wide",
     )

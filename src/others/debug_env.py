@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Debug environment for the Okloa project.
+Debug environment for the Olkoa project.
 """
 
 import os
@@ -39,7 +39,7 @@ def check_directory(path):
 
 def main():
     """Main function to debug the environment."""
-    print("\n=== OKLOA ENVIRONMENT DEBUGGER ===\n")
+    print("\n=== OLKOA ENVIRONMENT DEBUGGER ===\n")
     
     # Python Version
     print(f"Python version: {sys.version}")

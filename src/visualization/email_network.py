@@ -1,5 +1,5 @@
 """
-Email network visualization for the Okloa project.
+Email network visualization for the Olkoa project.
 
 This module provides functions for creating network graphs of email communications.
 """
