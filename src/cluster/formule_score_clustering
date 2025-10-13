@@ -1,0 +1,8 @@
+Score entre deux clusters :
+score = cos_sim(centroid1, centroid2) + 2 * Jaccard(words1, words2)
+
+où :
+- centroid1, centroid2 : vecteurs moyens (embeddings) des clusters
+- cos_sim : similarité cosinus entre les centroids
+- words1, words2 : ensembles de mots-clés des clusters
+- Jaccard(words1, words2) = |words1 ∩ words2| / |words1 ∪ words2|
