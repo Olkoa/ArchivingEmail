@@ -1,5 +1,5 @@
 """
-Test script for the agentic components in Okloa.
+Test script for the agentic components in Olkoa.
 
 This script tests the RAG decision agent and K-value agent to ensure
 they work correctly with the OpenRouter LLM API.
@@ -18,7 +18,7 @@ import time
 def test_agents():
     """Test the agentic components with various question types."""
     
-    print("🧪 Testing Okloa Agentic Components")
+    print("🧪 Testing Olkoa Agentic Components")
     print("=" * 60)
     
     # Test questions of different types

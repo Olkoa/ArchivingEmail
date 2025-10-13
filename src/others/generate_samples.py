@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Generate sample mailboxes for the Okloa project.
+Generate sample mailboxes for the Olkoa project.
 
 This script creates three sample mailboxes, each containing 5 sent and 5 received emails.
 The emails are formatted as mbox files and saved in the data/raw directory.
@@ -17,7 +17,7 @@ from src.data.sample_generator import generate_test_mailboxes
 
 def main():
     """Main function to generate sample mailboxes."""
-    print("Generating sample mailboxes for the Okloa project...")
+    print("Generating sample mailboxes for the Olkoa project...")
     
     # Set output directory
     project_root = os.path.abspath(os.path.dirname(__file__))

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Okloa is an R&D platform for making archived email data valuable and accessible through advanced analytics, visualization, and conversational interfaces. The project transforms static email archives into searchable, analyzable resources using AI/ML techniques.
+Olkoa is an R&D platform for making archived email data valuable and accessible through advanced analytics, visualization, and conversational interfaces. The project transforms static email archives into searchable, analyzable resources using AI/ML techniques.
 
 **Current Development Status**: Sprint 2 - Retrieval-Augmented Generation (RAG) implementation with ColBERT
 

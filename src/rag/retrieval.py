@@ -1,5 +1,5 @@
 """
-Retrieval functionality for the Okloa RAG system.
+Retrieval functionality for the Olkoa RAG system.
 
 This module provides functions for retrieving relevant documents from the email index
 and generating responses based on retrieved content.

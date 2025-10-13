@@ -1,7 +1,7 @@
-# Okloa Email Archive Analytics — README v2
+# Olkoa Email Archive Analytics — README v2
 
 ## Overview
-Okloa is a Streamlit application that archives, normalizes, and explores historical mailboxes. The default UI (`app/app.py`) authenticates users, keeps the active project in sync with `constants.py`, and exposes analytics ranging from timeline plots to RAG-assisted question answering. This README documents how to operate the tool locally, with Docker, and from the command line when synchronizing mailboxes to object storage.
+Olkoa is a Streamlit application that archives, normalizes, and explores historical mailboxes. The default UI (`app/app.py`) authenticates users, keeps the active project in sync with `constants.py`, and exposes analytics ranging from timeline plots to RAG-assisted question answering. This README documents how to operate the tool locally, with Docker, and from the command line when synchronizing mailboxes to object storage.
 
 ## Repository Layout
 - `app/`: Streamlit code, including `app.py`, the `pages/` directory (e.g. `pages/manage_projects.py`), reusable `components/`, and static assets.
@@ -57,7 +57,7 @@ Once the pipeline succeeds, the dashboard pages immediately reflect the new corp
 **Getting started with Docker Compose**
 1. Provide the required environment variables (either via `.env` file at repo root or inline `export`).
 2. Build and run: `docker compose up --build`. The service health check polls `/_stcore/health` until Streamlit is ready.
-3. To rebuild embeddings or DuckDB artifacts inside the container, shell into it (`docker compose exec okloa bash`) and reuse the same Makefile / Python commands.
+3. To rebuild embeddings or DuckDB artifacts inside the container, shell into it (`docker compose exec olkoa bash`) and reuse the same Makefile / Python commands.
 
 ## Command-line Mailbox Upload to S3
 `src/data/s3_utils.py` centralizes object-storage interactions and now includes the `upload_raw_data_to_s3` helper (see `src/data/s3_utils.py:729`). This function encapsulates the steps needed to push a mailbox's `raw/` folder to the `olkoa-projects` bucket.

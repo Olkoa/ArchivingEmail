@@ -1,5 +1,5 @@
 """
-Global constants for the Okloa project.
+Global constants for the Olkoa project.
 """
 
 # Email display options: "MODAL" or "POPOVER"

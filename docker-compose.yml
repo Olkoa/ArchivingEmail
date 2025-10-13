@@ -1,11 +1,11 @@
 version: "3.9"
 
 services:
-  okloa:
+  olkoa:
     build:
       context: .
       dockerfile: Dockerfile
-    image: okloa/app:latest
+    image: olkoa/app:latest
     ports:
       - "8501:8501"
     environment:

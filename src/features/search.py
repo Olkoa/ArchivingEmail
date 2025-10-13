@@ -1,5 +1,5 @@
 """
-Elasticsearch integration for the Okloa project.
+Elasticsearch integration for the Olkoa project.
 
 This module provides functions for indexing email data in Elasticsearch
 and performing advanced searches.
@@ -18,7 +18,7 @@ import re
 # Default Elasticsearch settings
 ES_HOST = os.environ.get('ES_HOST', 'localhost')
 ES_PORT = int(os.environ.get('ES_PORT', 9200))
-ES_INDEX = os.environ.get('ES_INDEX', 'okloa-emails')
+ES_INDEX = os.environ.get('ES_INDEX', 'olkoa-emails')
 
 class ESSearchEngine:
     """Elasticsearch search engine for email data."""

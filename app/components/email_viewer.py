@@ -1,5 +1,5 @@
 """
-Email viewer component for the Okloa project.
+Email viewer component for the Olkoa project.
 
 This module provides functions for displaying email content in different formats.
 """

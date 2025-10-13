@@ -1,5 +1,5 @@
 """
-Agentic components for the Okloa RAG system.
+Agentic components for the Olkoa RAG system.
 
 This module implements intelligent agents that determine:
 1. Whether RAG is needed to answer a user question

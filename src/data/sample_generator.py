@@ -1,5 +1,5 @@
 """
-Sample email generator for the Okloa project.
+Sample email generator for the Olkoa project.
 
 This script generates realistic sample mailboxes for development and testing purposes.
 It creates three mailboxes, each containing sent and received emails with realistic content.

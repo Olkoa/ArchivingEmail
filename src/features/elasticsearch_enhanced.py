@@ -1,5 +1,5 @@
 """
-Enhanced Elasticsearch integration for the Okloa project.
+Enhanced Elasticsearch integration for the Olkoa project.
 
 This module extends the existing Elasticsearch functionality with more advanced
 search capabilities, including different search modes and configurable fuzziness.
@@ -21,7 +21,7 @@ from .search import ESSearchEngine, format_search_results, basic_search
 # Default Elasticsearch settings
 ES_HOST = os.environ.get('ES_HOST', 'localhost')
 ES_PORT = int(os.environ.get('ES_PORT', 9200))
-ES_INDEX = os.environ.get('ES_INDEX', 'okloa-emails')
+ES_INDEX = os.environ.get('ES_INDEX', 'olkoa-emails')
 
 class EnhancedESSearchEngine(ESSearchEngine):
     """Enhanced Elasticsearch search engine for email data."""

@@ -1,5 +1,5 @@
 """
-Email timeline visualization for the Okloa project.
+Email timeline visualization for the OlKoa project.
 
 This module provides functions for creating timeline visualizations of email activity.
 """

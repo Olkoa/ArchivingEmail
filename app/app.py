@@ -1,7 +1,7 @@
 """
-Okloa - Main Streamlit Application
+Olkoa - Main Streamlit Application
 
-This is the entry point for the Okloa application, providing an interface
+This is the entry point for the Olkoa application, providing an interface
 for exploring and analyzing archived email data.
 """
 
@@ -63,7 +63,7 @@ from components.logins import make_hashed_password, verify_password, add_user, i
 
 # Set page configuration - MUST BE FIRST STREAMLIT COMMAND
 st.set_page_config(
-    page_title="Okloa - Email Archive Analytics",
+    page_title="Olkoa - Email Archive Analytics",
     page_icon="📧",
     layout="wide",
     initial_sidebar_state=SIDEBAR_STATE,
@@ -103,7 +103,7 @@ if "users_db" not in st.session_state:
 
 # Login form
 def show_login_form():
-    st.title("Okloa - Email Archive Analytics")
+    st.title("Olkoa - Email Archive Analytics")
     st.subheader("Login")
 
     with st.form("login_form"):
@@ -158,18 +158,18 @@ if not st.session_state.authenticated:
     show_login_form()
 else:
     # Application title and description
-    # st.title(f"Okloa - Email Archive Analytics (Logged in as: {st.session_state.username})")
+    # st.title(f"Olkoa - Email Archive Analytics (Logged in as: {st.session_state.username})")
     # st.markdown("""
-    # Welcome to Okloa, a platform for exploring and analyzing archived email data.
+    # Welcome to Olkoa, a platform for exploring and analyzing archived email data.
     # This application helps you visualize email communication patterns, search through
     # the corpus, and extract insights using advanced natural language processing techniques.
     # """)
     st.title("Dashboard")
 
     # Application title and description
-    # st.title("Okloa - Email Archive Analytics")
+    # st.title("Olkoa - Email Archive Analytics")
     # st.markdown("""
-    #     Welcome to Okloa, a platform for exploring and analyzing archived email data.
+    #     Welcome to Olkoa, a platform for exploring and analyzing archived email data.
     #     This application helps you visualize email communication patterns, search through
     #     the corpus, and extract insights using advanced natural language processing techniques.
     # """)
@@ -1866,4 +1866,4 @@ else:
 
     # Footer
     st.sidebar.markdown("---")
-    st.sidebar.info("Okloa - Email Archive Analytics Platform")
+    st.sidebar.info("Olkoa - Email Archive Analytics Platform")

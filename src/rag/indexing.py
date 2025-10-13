@@ -1,5 +1,5 @@
 """
-Indexing functionality for the Okloa RAG system.
+Indexing functionality for the Olkoa RAG system.
 
 This module provides functions for creating and maintaining indexes
 from email content, which can then be used for retrieval in the RAG system.

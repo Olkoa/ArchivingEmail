@@ -1,5 +1,5 @@
 """
-Email embedding generation for the Okloa project.
+Email embedding generation for the Olkoa project.
 
 This module provides functions for generating embeddings from email content,
 which can be used for search, clustering, and other NLP tasks.

@@ -1,5 +1,5 @@
 """
-Colbert RAG Component for Okloa.
+Colbert RAG Component for Olkoa.
 
 This component provides the user interface for interacting with emails using the Colbert RAG system.
 It is designed to be imported and used directly in app.py to avoid circular imports.

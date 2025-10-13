@@ -1,5 +1,5 @@
 """
-Email loading utilities for the Okloa project. (App in particular)
+Email loading utilities for the Olkoa project. (App in particular)
 
 This module provides functions for loading email data from various formats
 and converting them to a standardized DataFrame format for further processing.

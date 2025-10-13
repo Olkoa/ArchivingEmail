@@ -1,6 +1,6 @@
-# Retrieval-Augmented Generation (RAG) for Okloa
+# Retrieval-Augmented Generation (RAG) for Olkoa
 
-This module implements a Retrieval-Augmented Generation (RAG) system for the Okloa project, enabling a conversational interface to query the email corpus.
+This module implements a Retrieval-Augmented Generation (RAG) system for the Olkoa project, enabling a conversational interface to query the email corpus.
 
 ## Architecture
 
