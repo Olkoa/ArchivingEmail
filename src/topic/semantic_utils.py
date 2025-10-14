@@ -68,17 +68,31 @@ def highlight_query_terms(text, query):
 
 
 
-def make_figure(filtered_df):
+def make_figure(df):
     """
-    Crée la figure Plotly des clusters t-SNE.
+    Crée une figure Plotly t-SNE à partir du DataFrame.
     """
+    if "x" not in df.columns or "y" not in df.columns:
+        raise ValueError("Les colonnes 'x' et 'y' doivent exister dans le DataFrame pour afficher le t-SNE.")
+
     fig = px.scatter(
-        filtered_df, x="x", y="y", color="cluster",
-        hover_name="hover",
-        title="t-SNE clusters (pré-calculés)",
-        color_discrete_sequence=px.colors.qualitative.Plotly
+        df,
+        x="x",
+        y="y",
+        color="cluster",
+        hover_data=["hover"],
+        title="Visualisation t-SNE des chunks",
+        opacity=0.8
     )
-    fig.update_traces(marker=dict(size=8))
+
+    fig.update_traces(marker=dict(size=6))
+    fig.update_layout(
+        dragmode='lasso',
+        margin=dict(l=10, r=10, t=40, b=10),
+        height=700,
+        showlegend=True
+    )
+
     return fig
 
 
