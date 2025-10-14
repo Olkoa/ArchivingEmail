@@ -339,7 +339,7 @@
       .attr("class", "link")
       .attr("stroke-width", d => {
         const count = countEdges(d.source, d.target);
-        return Math.min(8, Math.max(1, count / 5));
+        return Math.min(10, Math.max(3, count / 5));
       })
       .attr("stroke", d => colorScale(countEdges(d.source, d.target)))
       .on("mouseover", function (event, d) {
