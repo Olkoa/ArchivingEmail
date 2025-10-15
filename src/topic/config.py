@@ -12,7 +12,7 @@ VIS_EMB_2D = PROJECT_ROOT / "src/data/semantic/cluster/emb_2d.npy"
 VIS_LABELS = PROJECT_ROOT / "src/data/semantic/cluster/labels.npy"
 VIS_CHUNKS = PROJECT_ROOT / "src/data/semantic/cluster/chunks.pkl"
 
-# --------------------------
+# --------------------------    
 # Répertoire de sauvegarde des résultats de recherche sémantique
 # --------------------------
 SEMANTIC_RESULTS_DIR = PROJECT_ROOT / "src/data/semantic/return_app"
