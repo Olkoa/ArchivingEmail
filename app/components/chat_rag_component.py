@@ -242,6 +242,11 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
         else:
             with st.chat_message("assistant"):
                 st.write(message["content"])
+
+                knowledge_graph_html = message.get("metadata", {}).get("knowledge_graph_html") if message.get("metadata") else None
+                if knowledge_graph_html:
+                    st.markdown("#### 🧠 Graphe de connaissances de la réponse")
+                    components.html(knowledge_graph_html, height=700, scrolling=True)
                 
                 # Display agent decision if available
                 if "metadata" in message and "agent_decision" in message["metadata"]:
@@ -253,10 +258,7 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                         st.write(f"**Raisonnement:** {agent_data['reasoning']}")
                         st.write(f"**Confiance:** {agent_data['confidence']:.2f}")
                 
-                knowledge_graph_html = message.get("metadata", {}).get("knowledge_graph_html") if message.get("metadata") else None
-                if knowledge_graph_html:
-                    st.markdown("#### 🧠 Graphe de connaissances de la réponse")
-                    components.html(knowledge_graph_html, height=700, scrolling=True)
+
 
                 # Display sources if available
 
@@ -462,8 +464,6 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                 
                 print(f"🧠 LLM processing: Complete. Total time: {total_time:.2f}s")
 
-                knowledge_graph_html = render_knowledge_graph_section(llm_response)
-
                 # Prepare source previews
                 source_previews = [format_result_preview(email) for email in retrieved_emails]
                 
@@ -474,6 +474,8 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                         st.markdown(preview)
                         if i < len(source_previews):
                             st.markdown("---")
+
+                knowledge_graph_html = render_knowledge_graph_section(llm_response)
                 
                 # Add to conversation history
                 st.session_state.chat_rag_history.append({
