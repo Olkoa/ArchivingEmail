@@ -29,6 +29,10 @@ COPY requirements.txt Makefile constants.py ./
 RUN pip install --upgrade pip setuptools wheel \
     && pip install -r requirements.txt
 
+# Download required spaCy language models
+RUN python -m spacy download fr_core_news_sm \
+    && python -m spacy download de_core_news_sm
+
 # Copy application code (limited by .dockerignore)
 COPY .ragatouille ./.ragatouille
 COPY app ./app

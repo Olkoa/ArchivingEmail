@@ -10,8 +10,9 @@ import pickle
 from pathlib import Path
 from tqdm import tqdm
 import pickle
-base_dir = Path(__file__).parent
-output_folder = base_dir.parent / "data" / "processed" / "clustering"
+
+base_dir = Path(__file__).parent.parent
+output_folder = base_dir.parent / "data" / "Projects" / ACTIVE_PROJECT / "semantic_search" / "clustering"
 output_folder.mkdir(parents=True, exist_ok=True)
 
 output_file_1 = output_folder / "hdbscan" / "silhouette_score.pkl"

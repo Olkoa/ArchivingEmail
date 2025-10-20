@@ -10,9 +10,14 @@ import dash
 from dash import dcc, html, Input, Output, State
 import plotly.express as px
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+
 # --- Paths ---
-base_dir = Path(__file__).parent
-output_folder = base_dir.parent / "data/processed/clustering/topic/optimize_dbscan"
+base_dir = Path(__file__).parent.parent
+output_folder = base_dir / "data" / "Projects" / ACTIVE_PROJECT / "clustering" / "topic" / "optimize_dbscan"
 embeddings_path = output_folder.parent / "topics_embeddings.npy"
 chunks_path = output_folder.parent / "topics_chunks.npy"
 

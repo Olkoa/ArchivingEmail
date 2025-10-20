@@ -465,3 +465,6 @@ zstandard==0.23.0
 langchain_experimental
 langchain_openai
 pyvis
+trafilatura
+mail-parser
+clean-text[gpl]

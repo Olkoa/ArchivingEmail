@@ -6,10 +6,15 @@ from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 import pickle
 
-base_dir = Path(__file__).parent
-embeddings_path = base_dir.parent / "data" / "processed" / "clustering" / "topic" / "topics_embeddings.npy"
-chunks_path = base_dir.parent / "data" / "processed" / "clustering" / "topic" / "topics_chunks.npy"
-dbscan_results_file = base_dir.parent / "data" / "processed" / "clustering" / "topic" / "optimize_dbscan" / "topics_dbscan_results.pkl"
+import os
+from dotenv import load_dotenv
+load_dotenv()
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+
+base_dir = Path(__file__).parent.parent
+embeddings_path = base_dir / "data" / "Projects" / ACTIVE_PROJECT / "semantic_search" / "topic" / "topics_embeddings.npy"
+chunks_path = base_dir / "data" / "Projects" / ACTIVE_PROJECT / "semantic_search" / "topic" / "topics_chunks.npy"
+dbscan_results_file = base_dir / "data" / "Projects" / ACTIVE_PROJECT / "semantic_search" / "topic" / "optimize_dbscan" / "topics_dbscan_results.pkl"
 
 target_eps = [0.2, 0.3, 0.4]
 target_min_samples = [3, 5, 10]

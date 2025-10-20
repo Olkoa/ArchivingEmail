@@ -1,18 +1,30 @@
 import numpy as np
 import pickle
 import pandas as pd
-from config import EMBEDDINGS_PATH, CHUNKS_PATH, VIS_EMB_2D, VIS_LABELS, VIS_CHUNKS
 
-def load_data():
-    # embeddings et chunks
-    embeddings_all = np.load(EMBEDDINGS_PATH)
-    chunks_all = np.load(CHUNKS_PATH, allow_pickle=True).tolist()
+from src.topic.config import (
+    chunks_path,
+    embeddings_path,
+    vis_chunks_path,
+    vis_emb_2d_path,
+    vis_labels_path,
+)
 
-    # visu
-    emb_2d = np.load(VIS_EMB_2D)
-    labels = np.load(VIS_LABELS)
-    with open(VIS_CHUNKS, "rb") as f:
-        chunks_vis = pickle.load(f)
+
+def load_data(project: str | None = None):
+    embeddings_file = embeddings_path(project)
+    chunks_file = chunks_path(project)
+    emb_2d_file = vis_emb_2d_path(project)
+    labels_file = vis_labels_path(project)
+    vis_chunks_file = vis_chunks_path(project)
+
+    embeddings_all = np.load(embeddings_file)
+    chunks_all = np.load(chunks_file, allow_pickle=True).tolist()
+
+    emb_2d = np.load(emb_2d_file)
+    labels = np.load(labels_file)
+    with open(vis_chunks_file, "rb") as handle:
+        chunks_vis = pickle.load(handle)
 
     # mapping chunk -> index
     chunk_to_idx = {c: i for i, c in enumerate(chunks_all)}

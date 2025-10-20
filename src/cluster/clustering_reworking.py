@@ -24,15 +24,21 @@ from tqdm import tqdm
 from collections import Counter, defaultdict
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+
 # --- Chemins ---
-base_dir = Path(__file__).parent
-output_folder = base_dir.parent / "data/processed/clustering/topic/optimize_dbscan"
+base_dir = Path(__file__).parent.parent
+# output_folder = base_dir.parent / "data" / "Projects" / ACTIVE_PROJECT / "clustering" / "topic" / "optimize_dbscan"
+output_folder = base_dir.parent / "data" / "Projects" / ACTIVE_PROJECT / "semantic_search"/ "topic" / "optimize_dbscan"
 embeddings_path = output_folder.parent / "topics_embeddings.npy"
 chunks_path = output_folder.parent / "topics_chunks.npy"
 dbscan_results_file = output_folder / "topics_dbscan_results.pkl"
 
 # --- Chargement ---
-print("[INFO] Chargement des données...")
+print("[INFO] Chargement des données...", embeddings_path)
 embeddings = np.load(embeddings_path)
 chunks = np.load(chunks_path, allow_pickle=True).tolist()
 with open(dbscan_results_file, "rb") as f:

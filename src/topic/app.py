@@ -2,10 +2,10 @@ import numpy as np
 import dash
 from dash import dcc, html, Input, Output, State
 from collections import Counter
-from config import STOPWORDS, SEMANTIC_RESULTS_DIR
-from data_loader import load_data
-from semantic_search import semantic_search
-from semantic_utils import (
+from src.topic.config import STOPWORDS
+from src.topic.data_loader import load_data
+from src.topic.semantic_search import semantic_search
+from src.topic.semantic_utils import (
     perform_semantic_search,
     save_results_to_json,
     highlight_query_terms,

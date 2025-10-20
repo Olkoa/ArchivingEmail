@@ -909,6 +909,117 @@ else:
             st.info("No attachments found in the current dataset")
 
 
+    elif page == "Recherche Sémantique":
+        from src.topic.config import STOPWORDS
+        from src.topic.data_loader import load_data
+        from src.topic.semantic_search import semantic_search
+        from src.topic.semantic_utils import (
+            perform_semantic_search,
+            save_results_to_json,
+            highlight_query_terms,
+            compute_bow,
+        )
+
+        try:
+            load_dotenv()
+            ACTIVE_PROJECT = resolve_active_project()
+            os.environ["ACTIVE_PROJECT"] = ACTIVE_PROJECT
+            embeddings_vis, df_vis = load_data(project=ACTIVE_PROJECT)
+        except Exception as semantics_load_error:
+            st.error(f"Impossible de charger les données sémantiques : {semantics_load_error}")
+        else:
+            cluster_bow = {}
+            for cluster_id in df_vis["cluster"].unique():
+                cluster_chunks = df_vis[df_vis["cluster"] == cluster_id]["chunk"].tolist()
+                bow_counter = Counter()
+                for chunk in cluster_chunks:
+                    for word in chunk.lower().split():
+                        if word not in STOPWORDS:
+                            bow_counter[word] += 1
+                top_words = [word for word, _ in bow_counter.most_common(10)]
+                cluster_bow[cluster_id] = ", ".join(top_words)
+
+            df_vis = df_vis.copy()
+            df_vis["hover"] = df_vis["cluster"].apply(
+                lambda c: f"Cluster {c}<br>Top words: {cluster_bow.get(c, '')}"
+            )
+
+            if "semantic_filtered_df" not in st.session_state:
+                st.session_state.semantic_filtered_df = df_vis
+            if "semantic_display_text" not in st.session_state:
+                st.session_state.semantic_display_text = ""
+
+            st.markdown("### 🧠 t-SNE Clusters + Recherche Sémantique")
+
+            query = st.text_input("🔍 Rechercher des documents...", "", key="semantic_query_input")
+
+            if st.button("Rechercher", key="semantic_search_button"):
+                if query.strip() == "":
+                    st.info("Pas de recherche effectuée.")
+                    st.session_state.semantic_filtered_df = df_vis
+                    st.session_state.semantic_display_text = ""
+                else:
+                    try:
+                        filtered_df, raw_results = perform_semantic_search(
+                            query, embeddings_vis, df_vis, semantic_search
+                        )
+                        st.session_state.semantic_filtered_df = filtered_df
+
+                        highlighted_chunks = []
+                        for result in raw_results:
+                            highlighted = highlight_query_terms(result["text"], query)
+                            highlighted_chunks.append(
+                                f"{result['rank']}. ({result['score']:.3f}) {highlighted}"
+                            )
+                        st.session_state.semantic_display_text = "\n\n".join(highlighted_chunks)
+                        save_results_to_json(query, raw_results, project=ACTIVE_PROJECT)
+                    except Exception as semantics_error:
+                        st.error(f"La recherche sémantique a échoué : {semantics_error}")
+
+            st.subheader("🎨 Visualisation t-SNE")
+            available_clusters = sorted(df_vis["cluster"].unique())
+            selected_clusters = st.multiselect(
+                "Sélectionne des clusters à afficher :",
+                available_clusters,
+                default=available_clusters,
+                key="semantic_cluster_selection"
+            )
+
+            filtered_plot = st.session_state.semantic_filtered_df[
+                st.session_state.semantic_filtered_df["cluster"].isin(selected_clusters)
+            ]
+
+            if not filtered_plot.empty:
+                fig = px.scatter(
+                    filtered_plot,
+                    x="x",
+                    y="y",
+                    color="cluster",
+                    hover_data=["hover"],
+                    title=f"t-SNE projection ({len(filtered_plot)} points affichés)"
+                )
+                st.plotly_chart(fig, use_container_width=True)
+            else:
+                st.info("Aucun point à afficher pour la sélection actuelle.")
+
+            if st.session_state.semantic_display_text:
+                st.subheader("📄 Top résultats de la recherche")
+                st.markdown(
+                    st.session_state.semantic_display_text,
+                    unsafe_allow_html=True,
+                )
+
+            st.subheader("🧩 Bag-of-Words du cluster sélectionné")
+            if selected_clusters:
+                all_chunks = filtered_plot["chunk"].tolist()
+                bow = compute_bow(all_chunks)
+                if bow:
+                    st.text("\n".join([f"{word}: {count}" for word, count in bow]))
+                else:
+                    st.text("Aucun mot significatif trouvé.")
+            else:
+                st.text("Sélectionne un cluster pour afficher son Bag-of-Words.")
+
     elif page == "Graph":
         st.markdown("### 📊 Email Network Graph")
 

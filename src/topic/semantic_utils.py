@@ -1,8 +1,7 @@
 import json
 from datetime import datetime
-from pathlib import Path
 from collections import Counter
-from config import STOPWORDS, SEMANTIC_RESULTS_DIR
+from src.topic.config import STOPWORDS, results_dir
 import plotly.express as px
 
 
@@ -30,12 +29,14 @@ def perform_semantic_search(query, embeddings_vis, df_vis, semantic_search_func,
     return filtered, raw_results
 
 
-def save_results_to_json(query, results, output_dir=SEMANTIC_RESULTS_DIR, prefix="search_results"):
-    """
-    Sauvegarde les résultats de recherche dans un fichier JSON
-    dans le dossier défini dans config.py (SEMANTIC_RESULTS_DIR).
-    """
-    output_dir = Path(output_dir) if output_dir else SEMANTIC_RESULTS_DIR
+def save_results_to_json(
+    query,
+    results,
+    project: str | None = None,
+    prefix: str = "search_results",
+):
+    """Persist raw semantic-search results to a JSON file for the given project."""
+    output_dir = results_dir(project)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

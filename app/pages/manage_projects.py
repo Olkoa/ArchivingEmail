@@ -22,6 +22,7 @@ import zipfile
 from datetime import datetime
 
 from components.logins import make_hashed_password, verify_password, add_user, initialize_users_db
+from src.features.pipeline_data_cleaning import prepare_semantic_search
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -831,7 +832,17 @@ else:
                     "Aucun email converti (.eml) n'a été trouvé pour les boîtes mail suivantes : " +
                     ", ".join(missing_processed)
                 )
+            
 
+            st.info("🚀 Initialisation de la recherche sémantique")
+            try:
+                with st.spinner("Construction de la recherche sémantique ..."):
+                    prepare_semantic_search()
+                st.success("Système RAG initialisé")
+            except Exception as rag_error:
+                raise PipelineError(f"La construction du système RAG a échoué: {rag_error}")
+            
+            
             st.info("🚀 Initialisation du système RAG (ColBERT)...")
             try:
                 with st.spinner("Construction du système RAG - cela peut prendre quelques minutes..."):
@@ -1849,3 +1860,4 @@ else:
                         # 1. Mark the project as deactivated
                         # 2. Optionally move it to an archive folder
                         # 3. Update UI to reflect the change
+

@@ -1,0 +1,26 @@
+{
+  "idiro": {
+    "mailboxs": {
+      "idiro": {
+        "Positions": {
+          "idiro": {
+            "start_date": "2020-01-01",
+            "end_date": "2025-01-01",
+            "description": "idiro"
+          }
+        },
+        "Entity": {
+          "name": "idiro",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "idiro@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "idiro",
+          "description": "idiro"
+        }
+      }
+    }
+  }
+}

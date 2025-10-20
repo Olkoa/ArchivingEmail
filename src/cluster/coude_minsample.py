@@ -5,10 +5,15 @@ from sklearn.decomposition import PCA
 from sklearn.neighbors import NearestNeighbors
 from sklearn.preprocessing import normalize
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+
 
 
 base_dir = Path(__file__).parent
-embeddings_path = base_dir.parent / "data" / "processed" / "clustering" / "topic" / "topics_embeddings.npy"
+embeddings_path = base_dir.parent / "data" / "Projects" / ACTIVE_PROJECT / "clustering" / "topic" / "topics_embeddings.npy"
 
 min_samples_values = [5, 10, 20, 50]   
 n_components = 50                      

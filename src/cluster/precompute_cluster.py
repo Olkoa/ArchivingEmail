@@ -9,13 +9,18 @@ from collections import Counter
 
 from clustering_reworking import merge_clusters
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+
 # --- Chemins ---
-base_dir = Path(__file__).parent
-output_folder = base_dir.parent / "data/processed/clustering/topic/optimize_dbscan"
+base_dir = Path(__file__).parent.parent
+output_folder = base_dir.parent / "data" / "Projects" / ACTIVE_PROJECT / "semantic_search" / "topic" / "optimize_dbscan"
 embeddings_path = output_folder.parent / "topics_embeddings.npy"
 chunks_path = output_folder.parent / "topics_chunks.npy"
 dbscan_results_file = output_folder / "topics_dbscan_results.pkl"
-results_file = base_dir / "grid_search_results.csv"
+results_file = output_folder.parent.parent / "grid_search_results.csv"
 
 # --- Chargement embeddings / chunks / CSV ---
 embeddings = np.load(embeddings_path)
