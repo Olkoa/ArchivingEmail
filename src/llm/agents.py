@@ -78,9 +78,11 @@ Be decisive and confident in your analysis."""
 Question: "{user_question}"
 
 Consider:
-- Does it ask about specific people, emails, events, or content that would be in email archives?
-- Is it asking about general knowledge that doesn't require email search?
+- Does it ask about specific people, emails, events, or content that could be in email archives? Themes can be very wides in archives.
 - Is it asking about specific dates, meetings, projects, or communications?
+- Questions likes 'Les mails font-ils mention de...' or '... parlent-ils de la guerre d'algérie' clearly need RAG.
+- You must accept most questions but rarely reject those that clearly won't appear in email archives, such as how-to questions.
+- Always allow follow up questions to pass through like "Et pour Marjorie ?", "Et pour le projet X ?", "A t-il envoyé des mails à X ?" ...
 
 Respond with valid JSON only."""
 
@@ -165,21 +167,27 @@ class KValueAgent:
 Your task is to analyze user questions and determine how many emails should be retrieved:
 
 K VALUE GUIDELINES:
-- k=5-12: Simple, specific questions about one topic/person/event
-  - "Les mails font-ils mention de recrutements ?"
+- k=10-30: Simple, specific questions about one topic/person/event
+  - "Les mails font-ils mention de la mairie de Marseille ?"
   - "Y a-t-il des échanges concernant un incident technique précis ?"
+  - "Patrick a-t-il envoyé des mails sur le budget ?"
 
-- k=13-20: Moderate complexity questions that might need multiple perspectives
+- k=31-50: Moderate complexity questions that might need multiple perspectives
   - "Des mails concernent-ils des discussions autour du télétravail ?"
   - "Quels sujets sont évoqués dans les échanges liés à la direction financière ?"
+  - "Est-ce que des mails parlent de Jean Moulin ?"
 
-- k=21-30: Complex questions requiring comprehensive information
-  - "Résume les conversations entre Claire et Thomas sur le dernier trimestre."
+- k=51-100: Complex questions requiring comprehensive information
+  - "Résume les conversations entre Claire et Thomas"
   - "Quels sont les points évoqués dans les discussions autour de la stratégie 2025 ?"
+  - "Y a-t-il des divergences d’opinion sur le projet X ?"
 
-- k=50-100: Very complex questions needing extensive context or analysis
+- k=101-500: Very complex questions needing extensive context or analysis
   - "Peux-tu faire un résumé de l’activité de cette boîte mail sur les 12 derniers mois ?"
   - "Quels grands thèmes émergent dans l’ensemble des échanges depuis janvier 2023 ?"
+  - "Fais un résumé complet des thèmes abordés dans cette boîte mail."
+  - "Rassemble tous les mails liés au projet X"
+  - "Rassemble tous les mails parlant de Y"
 
 QUESTION TYPE EXAMPLES:
 - "What did John say about X?" → k=3-5 (specific person/topic)
