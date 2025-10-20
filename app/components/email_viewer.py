@@ -571,6 +571,8 @@ def _create_modal_email_table(
     grid_options = gb.build()
 
     # Display the AgGrid with paginated data
+    grid_key = f"{key_prefix}_aggrid_{current_data_hash}_page_{current_page}"
+
     grid_response = AgGrid(
         paginated_display_df[['date', 'from', 'recipient_email', 'subject']],
         gridOptions=grid_options,
@@ -578,8 +580,9 @@ def _create_modal_email_table(
         update_mode=GridUpdateMode.SELECTION_CHANGED,
         fit_columns_on_grid_load=True,
         allow_unsafe_jscode=True,
-        key=f"{key_prefix}_aggrid_page_{current_page}",  # Include page in key to avoid conflicts
-        reload_data=False  # Prevent unnecessary reloads
+        key=grid_key,  # Include data hash + page to avoid stale renders
+        reload_data=False,  # Prevent unnecessary reloads
+        height=420
     )
 
     # Store the previous selection state to detect actual changes

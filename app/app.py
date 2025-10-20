@@ -336,7 +336,7 @@ else:
             'end_date': end_date.date()
         }
 
-        return filtered_df
+        return filtered_df.reset_index(drop=True)
 
     def parse_search_query(search_term: str):
         """Parse search query to extract from:, to:, and general text search."""
@@ -417,6 +417,8 @@ else:
         # Display filtered emails with interactive viewer
         # st.write(f"Showing {len(filtered_df)} emails")
         create_email_table_with_viewer(filtered_df, key_prefix=key_prefix)
+
+        return filtered_df
 
         if filter_status:
             # Show comprehensive filter status
@@ -621,37 +623,7 @@ else:
         else:
             emails_df = apply_date_filter(emails_df, date_range)
 
-        # Display key metrics
-        col1, col2, col3, col4 = st.columns(4)
-
-        with col1:
-            st.metric("Total Emails", len(emails_df))
-
-        with col2:
-            sent_count = len(emails_df[emails_df["direction"] == "sent"])
-            st.metric("Sent Emails", sent_count)
-
-        with col3:
-            received_count = len(emails_df[emails_df["direction"] == "received"])
-            st.metric("Received Emails", received_count)
-
-        with col4:
-            # Handle aggregated recipient emails for unique contacts calculation
-            unique_senders = set(emails_df["from"].dropna())
-            unique_recipients = set()
-
-            # Split aggregated recipient emails and add to set
-            for recipients in emails_df["recipient_email"].dropna():
-                if isinstance(recipients, str) and recipients.strip():
-                    for recipient in recipients.split(','):
-                        recipient = recipient.strip()
-                        if recipient:
-                            unique_recipients.add(recipient)
-
-            # Calculate unique contacts (avoiding double counting)
-            all_contacts = unique_senders.union(unique_recipients)
-            unique_contacts = len(all_contacts)
-            st.metric("Unique Contacts", unique_contacts)
+        metrics_container = st.container()
 
         # Check if a contact filter is active
         contact_filter_key = "dashboard_contact_filter"
@@ -659,14 +631,16 @@ else:
             st.session_state[contact_filter_key] = None
 
         # Apply contact filter if one is active (from enhanced filters or legacy)
-        filtered_emails_df = emails_df
+        filtered_emails_df = emails_df.reset_index(drop=True)
         active_contact_filter = enhanced_filters.get('contact_filter') or st.session_state[contact_filter_key]
 
+        contact_filtered_count = None
         if active_contact_filter:
-            filtered_emails_df = apply_contact_filter(emails_df, active_contact_filter)
+            filtered_emails_df = apply_contact_filter(emails_df, active_contact_filter).reset_index(drop=True)
+            contact_filtered_count = len(filtered_emails_df)
 
             # Display active contact filter info
-            st.info(f"📧 Filtrage actif pour le contact: `{active_contact_filter}` | {len(filtered_emails_df)} emails trouvés")
+            st.info(f"📧 Filtrage actif pour le contact: `{active_contact_filter}` | {contact_filtered_count} emails trouvés")
 
             # Add button to clear contact filter
             col1, col2, col3 = st.columns([1, 2, 1])
@@ -679,7 +653,37 @@ else:
                     clear_email_selection("dashboard")  # Clear any selected email
                     st.rerun()
 
-        show_df_table(filtered_emails_df, key_prefix="dashboard", filter_status=True)
+        filtered_emails_df = show_df_table(filtered_emails_df, key_prefix="dashboard", filter_status=True)
+
+        with metrics_container:
+            col1, col2, col3, col4 = st.columns(4)
+
+            total_emails = len(filtered_emails_df)
+            sent_count = len(filtered_emails_df[filtered_emails_df["direction"] == "sent"])
+            received_count = len(filtered_emails_df[filtered_emails_df["direction"] == "received"])
+
+            with col1:
+                st.metric("Total Emails", total_emails)
+
+            with col2:
+                st.metric("Sent Emails", sent_count)
+
+            with col3:
+                st.metric("Received Emails", received_count)
+
+            with col4:
+                unique_senders = set(filtered_emails_df["from"].dropna())
+                unique_recipients = set()
+
+                for recipients in filtered_emails_df["recipient_email"].dropna():
+                    if isinstance(recipients, str) and recipients.strip():
+                        for recipient in recipients.split(','):
+                            recipient = recipient.strip()
+                            if recipient:
+                                unique_recipients.add(recipient)
+
+                unique_contacts = len(unique_senders.union(unique_recipients))
+                st.metric("Unique Contacts", unique_contacts)
 
         # Create two columns for the charts
         timeline_col1, contacts_col2 = st.columns(2)
@@ -687,16 +691,16 @@ else:
         with timeline_col1:
             # Timeline chart
             # st.subheader("Email Activity Over Time")
-            st.plotly_chart(create_timeline(emails_df), use_container_width=True)
+            st.plotly_chart(create_timeline(filtered_emails_df), use_container_width=True)
 
-        if not emails_df.empty:
+        if not filtered_emails_df.empty:
             with contacts_col2:
                 st.subheader("Top Contacts")
                 # Collect all contacts with their details
                 all_contacts = []
 
                 # Process senders (from column)
-                for idx, row in emails_df.iterrows():
+                for idx, row in filtered_emails_df.iterrows():
                     if pd.notna(row['from']) and row['from'].strip():
                         contact_email = row['from'].strip()
                         is_mailing_list = pd.notna(row.get('mailing_list_email')) and row.get('mailing_list_email') != ''
@@ -710,7 +714,7 @@ else:
                         })
 
                 # Process recipients (recipient_email column - aggregated)
-                for idx, row in emails_df.iterrows():
+                for idx, row in filtered_emails_df.iterrows():
                     if pd.notna(row['recipient_email']) and row['recipient_email'].strip():
                         # Split aggregated recipients
                         recipients = [r.strip() for r in row['recipient_email'].split(',') if r.strip()]
