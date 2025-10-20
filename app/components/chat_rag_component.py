@@ -26,7 +26,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')
 
 # Import required modules from the project
 from src.rag.colbert_rag import search_with_colbert, format_result_preview
-from src.llm.openrouter import openrouter_llm_api_call
+from src.llm.openrouter import openrouter_llm_api_call, openrouter_llm_api_call_with_historic
 from src.llm.agents import RAGOrchestrator, get_rag_parameters
 import constants
 
@@ -163,6 +163,7 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
 
     # Set up paths for the indexes
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+    user = os.getenv("USER") or getattr(constants, "USER", "default_user")
     active_project = os.getenv("ACTIVE_PROJECT") or getattr(constants, "ACTIVE_PROJECT", "Projet Demo")
 
     path_to_metadata = os.path.join(project_root, 'data', 'Projects', active_project, 'colbert_indexes')
@@ -194,7 +195,7 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
         max_emails = st.sidebar.slider(
             "Nombre maximum d'emails récupérés",
             min_value=5,
-            max_value=100,
+            max_value=500,
             value=100,
             step=1,
             help="Limite maximale pour les agents"
@@ -334,7 +335,9 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                         print("🤖 Agent > LLM: Direct LLM response (no RAG needed)")
 
                         llm_start_time = time.time()
-                        llm_response = openrouter_llm_api_call(
+                        llm_response = openrouter_llm_api_call_with_historic(
+                            user_key=user,
+                            project_name=active_project,
                             system_prompt="Vous êtes un assistant IA utile et informatif. Répondez de manière claire et précise.",
                             user_prompt=user_question,
                             model=selected_model
@@ -424,7 +427,9 @@ def render_chat_rag_component(emails_df: pd.DataFrame):
                 
                 # Call LLM
                 llm_start_time = time.time()
-                llm_response = openrouter_llm_api_call(
+                llm_response = openrouter_llm_api_call_with_historic(
+                    user_key=user,
+                    project_name=active_project,
                     system_prompt=system_prompt,
                     user_prompt=user_prompt,
                     model=selected_model

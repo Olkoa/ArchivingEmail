@@ -214,7 +214,11 @@ else:
 
     mailboxs_names = list(json_data[ACTIVE_PROJECT]["mailboxs"].keys())
     mailbox_options = ["All Mailboxes"] + mailboxs_names
-    selected_mailbox = st.sidebar.selectbox("Select Mailbox:", mailbox_options)
+
+
+    # Defaulting mailbox selection for now
+    # selected_mailbox = st.sidebar.selectbox("Select Mailbox:", mailbox_options)
+    selected_mailbox = "All Mailboxes"
 
     # Store selected mailbox in session state for other pages to access
     st.session_state.selected_mailbox = selected_mailbox
