@@ -49,15 +49,23 @@ def create_timeline(df: pd.DataFrame, time_unit: str = "M") -> go.Figure:
         )
         return fig
 
-    # Resample by time unit
+    min_date = df_clean['date'].min()
+    max_date = df_clean['date'].max()
+    effective_unit = time_unit
+    if time_unit == "M" and min_date.to_period('M') == max_date.to_period('M'):
+        effective_unit = "D"
+    elif time_unit == "M" and (max_date - min_date).days <= 31:
+        effective_unit = "D"
+
+    # Resample by effective time unit
     sent_series = (df_clean[df_clean['direction'] == 'sent']
                  .set_index('date')
-                 .resample(time_unit)
+                 .resample(effective_unit)
                  .size())
 
     received_series = (df_clean[df_clean['direction'] == 'received']
                      .set_index('date')
-                     .resample(time_unit)
+                     .resample(effective_unit)
                      .size())
 
     # Create common date range to ensure same length
@@ -97,7 +105,7 @@ def create_timeline(df: pd.DataFrame, time_unit: str = "M") -> go.Figure:
         'D': 'Daily',
         'W': 'Weekly',
         'M': 'Monthly'
-    }.get(time_unit, time_unit)
+    }.get(effective_unit, effective_unit)
 
     fig.update_layout(
         title=f'{time_unit_label} Email Activity',
