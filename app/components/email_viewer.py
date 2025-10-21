@@ -832,8 +832,6 @@ def _create_modal_email_table(
                     if msg.get('content', '').strip().lower() not in {'</div>', '<div>', ''}
                 ]
 
-                print("thread_messages:", thread_messages)
-                
                 if len(thread_messages) > 1:
                     # Display as threaded conversation
                     st.markdown("### 💬 Conversation Thread")
@@ -857,13 +855,23 @@ def _create_modal_email_table(
                                 panel_metadata = escape(metadata_str) if metadata_str else ""
                                 reply_subject = escape(message.get("subject") or "")
 
-                                header_text = "📧 **Message précédent**"
-                                if panel_metadata:
-                                    header_text += f" ({panel_metadata})"
-
-                                st.markdown(header_text)
+                                panel_parts = [
+                                    "<div style='border-left: 3px solid #007bff; margin: 15px 0; "
+                                    "padding: 10px 15px; background-color: #f8f9fa; border-radius: 0 8px 8px 0;'>",
+                                    "<div style='font-size: 0.85rem; color: #6c757d; margin-bottom: 8px;'>"
+                                    "📧 <strong>Message précédent</strong>"
+                                    f"{f' ({panel_metadata})' if panel_metadata else ''}"
+                                    "</div>"
+                                ]
                                 if reply_subject:
-                                    st.caption(f"Objet : {reply_subject}")
+                                    panel_parts.append(
+                                        "<div style='font-size: 0.8rem; color: #495057; margin-bottom: 5px;'>"
+                                        f"<strong>Objet:</strong> {reply_subject}</div>"
+                                    )
+                                panel_parts.append("</div>")
+                                panel_html = "".join(panel_parts)
+
+                                st.markdown(panel_html, unsafe_allow_html=True)
 
                                 reply_content = _clean_html_artifacts(message['content'])
                                 # print("reply_content:", reply_content)
