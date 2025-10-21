@@ -21,7 +21,7 @@ class WorkingDropdownFilters:
         configs = {
             "Dashboard": {
                 "show_filters": True,
-                "filters": ["date_range", "mailbox", "direction", "has_attachments", "contact_filter"]
+                "filters": ["date_range", "mailbox", "direction", "folder", "has_attachments", "contact_filter"]
             },
             "Email Explorer": {
                 "show_filters": True,
@@ -77,13 +77,13 @@ class WorkingDropdownFilters:
         active_count = self._count_active_filters()
         
         # Create the floating button and manage dropdown state
-        self._render_floating_button_and_dropdown(active_count, emails_df, mailbox_options)
+        self._render_floating_button_and_dropdown(active_count, emails_df, mailbox_options, email_filters)
         
         # Return current filter state
         applied_filters = self._get_current_filters()
         return applied_filters, False
     
-    def _render_floating_button_and_dropdown(self, active_count: int, emails_df: Optional[pd.DataFrame], mailbox_options: List[str]):
+    def _render_floating_button_and_dropdown(self, active_count: int, emails_df: Optional[pd.DataFrame], mailbox_options: List[str], email_filters=None):
         """Render the floating button and dropdown using Streamlit session state"""
         
         # Initialize dropdown state
@@ -107,7 +107,7 @@ class WorkingDropdownFilters:
         
         # Show dropdown content if open
         if st.session_state[dropdown_key]:
-            self._render_dropdown_content(emails_df, mailbox_options)
+            self._render_dropdown_content(emails_df, mailbox_options, email_filters)
     
     def _inject_working_css(self):
         """Inject CSS for the working dropdown"""
@@ -190,7 +190,7 @@ class WorkingDropdownFilters:
         """
         st.markdown(css, unsafe_allow_html=True)
     
-    def _render_dropdown_content(self, emails_df: Optional[pd.DataFrame], mailbox_options: List[str]):
+    def _render_dropdown_content(self, emails_df: Optional[pd.DataFrame], mailbox_options: List[str], email_filters=None):
         """Render the dropdown content using Streamlit components"""
         
         # Create a container with custom CSS class
@@ -220,9 +220,10 @@ class WorkingDropdownFilters:
                     index=mailbox_options.index(current_mailbox) if current_mailbox in mailbox_options else 0,
                     key=f"dropdown_mailbox_{self.page_name}"
                 )
-                
+
                 if new_mailbox != current_mailbox:
                     st.session_state[f"filter_mailbox_{self.page_name}"] = new_mailbox
+                    st.session_state[f"filter_folder_{self.page_name}"] = "Tous"
                     filters_changed = True
             
             # Date range filter
@@ -248,7 +249,7 @@ class WorkingDropdownFilters:
                     filters_changed = True
         
         # Content filters section
-        if any(f in enabled_filters for f in ["direction", "sender", "recipient"]):
+        if any(f in enabled_filters for f in ["direction", "folder", "sender", "recipient"]):
             st.markdown('<div class="filter-section-title">📧 Contenu des emails</div>', unsafe_allow_html=True)
             
             # Direction filter
@@ -261,11 +262,29 @@ class WorkingDropdownFilters:
                     index=direction_options.index(current_direction) if current_direction in direction_options else 0,
                     key=f"dropdown_direction_{self.page_name}"
                 )
-                
+
                 if new_direction != current_direction:
                     st.session_state[f"filter_direction_{self.page_name}"] = new_direction
                     filters_changed = True
-            
+
+            if "folder" in enabled_filters:
+                folder_options = ["Tous"]
+                current_mailbox = st.session_state.get(f"filter_mailbox_{self.page_name}", "All Mailboxes")
+                if email_filters is not None:
+                    folder_options.extend(email_filters.get_folders(current_mailbox))
+
+                current_folder = st.session_state.get(f"filter_folder_{self.page_name}", "Tous")
+                new_folder = st.selectbox(
+                    "Dossier de la boîte mail",
+                    options=folder_options,
+                    index=folder_options.index(current_folder) if current_folder in folder_options else 0,
+                    key=f"dropdown_folder_{self.page_name}"
+                )
+
+                if new_folder != current_folder:
+                    st.session_state[f"filter_folder_{self.page_name}"] = new_folder
+                    filters_changed = True
+
             # Sender filter
             if "sender" in enabled_filters:
                 sender_options = ["Tous"]
@@ -367,16 +386,18 @@ class WorkingDropdownFilters:
         # Auto-close if filters changed (optional)
         if filters_changed:
             st.rerun()
-    
+
     def _count_active_filters(self) -> int:
         """Count the number of currently active filters"""
         count = 0
-        
+
         if st.session_state.get(f"filter_date_range_{self.page_name}"):
             count += 1
         if st.session_state.get(f"filter_mailbox_{self.page_name}", "All Mailboxes") != "All Mailboxes":
             count += 1
         if st.session_state.get(f"filter_direction_{self.page_name}", "Tous") != "Tous":
+            count += 1
+        if st.session_state.get(f"filter_folder_{self.page_name}", "Tous") not in ("Tous", "All"):
             count += 1
         if st.session_state.get(f"filter_sender_{self.page_name}", "Tous") != "Tous":
             count += 1
@@ -395,6 +416,7 @@ class WorkingDropdownFilters:
             'date_range': st.session_state.get(f"filter_date_range_{self.page_name}"),
             'mailbox': st.session_state.get(f"filter_mailbox_{self.page_name}", "All Mailboxes"),
             'direction': st.session_state.get(f"filter_direction_{self.page_name}", "Tous"),
+            'folder': st.session_state.get(f"filter_folder_{self.page_name}", "Tous"),
             'sender': st.session_state.get(f"filter_sender_{self.page_name}", "Tous"),
             'recipient': st.session_state.get(f"filter_recipient_{self.page_name}", "Tous"),
             'has_attachments': st.session_state.get(f"filter_has_attachments_{self.page_name}", False),
@@ -407,6 +429,7 @@ class WorkingDropdownFilters:
             f"filter_date_range_{self.page_name}",
             f"filter_mailbox_{self.page_name}",
             f"filter_direction_{self.page_name}",
+            f"filter_folder_{self.page_name}",
             f"filter_sender_{self.page_name}",
             f"filter_recipient_{self.page_name}",
             f"filter_has_attachments_{self.page_name}",
@@ -416,7 +439,6 @@ class WorkingDropdownFilters:
         for key in filter_keys:
             if key in st.session_state:
                 del st.session_state[key]
-
 
 def create_working_dropdown_filters(page_name: str, 
                                    emails_df: Optional[pd.DataFrame] = None,

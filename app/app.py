@@ -450,7 +450,7 @@ else:
                 # Return empty DataFrame with expected columns
                 return pd.DataFrame(columns=[
                     "message_id", "date", "from", "recipient_email", "cc", "subject",
-                    "body", "attachments", "has_attachments", "direction", "mailbox"
+                    "body", "attachments", "has_attachments", "direction", "mailbox", "folder"
                 ])
 
             return df
@@ -459,7 +459,7 @@ else:
             # Return empty DataFrame with expected columns
             return pd.DataFrame(columns=[
                 "message_id", "date", "from", "recipient_email", "cc", "subject",
-                "body", "attachments", "has_attachments", "direction", "mailbox"
+                "body", "attachments", "has_attachments", "direction", "mailbox", "folder"
             ])
 
     def show_filter_status():
@@ -608,6 +608,9 @@ else:
         filter_dict = {}
         if enhanced_filters.get('direction'):
             filter_dict['direction'] = enhanced_filters['direction']
+        folder_value = enhanced_filters.get('folder')
+        if folder_value and folder_value not in ('Tous', 'All'):
+            filter_dict['folder'] = folder_value
         if enhanced_filters.get('sender'):
             filter_dict['sender'] = enhanced_filters['sender']
         if enhanced_filters.get('recipient'):
@@ -1213,6 +1216,9 @@ else:
         filter_dict = {}
         if enhanced_filters.get('direction'):
             filter_dict['direction'] = enhanced_filters['direction']
+        folder_value = enhanced_filters.get('folder')
+        if folder_value and folder_value not in ('Tous', 'All'):
+            filter_dict['folder'] = folder_value
         if enhanced_filters.get('sender'):
             filter_dict['sender'] = enhanced_filters['sender']
         if enhanced_filters.get('recipient'):
@@ -1334,6 +1340,9 @@ else:
         if enhanced_filters.get('direction'):
             direction_map = {"Envoyés": "sent", "Reçus": "received"}
             filter_dict['direction'] = direction_map.get(enhanced_filters['direction'], enhanced_filters['direction'])
+        folder_value = enhanced_filters.get('folder')
+        if folder_value and folder_value not in ('Tous', 'All'):
+            filter_dict['folder'] = folder_value
         if enhanced_filters.get('sender'):
             filter_dict['sender'] = enhanced_filters['sender']
         if enhanced_filters.get('recipient'):
@@ -1464,6 +1473,9 @@ else:
         if enhanced_filters.get('direction'):
             direction_map = {"Envoyés": "sent", "Reçus": "received"}
             filter_dict['direction'] = direction_map.get(enhanced_filters['direction'], enhanced_filters['direction'])
+        folder_value = enhanced_filters.get('folder')
+        if folder_value and folder_value not in ('Tous', 'All'):
+            filter_dict['folder'] = folder_value
         if enhanced_filters.get('sender'):
             filter_dict['sender'] = enhanced_filters['sender']
         if enhanced_filters.get('recipient'):

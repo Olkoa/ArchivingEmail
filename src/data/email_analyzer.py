@@ -863,6 +863,7 @@ class EmailAnalyzer:
             re.direction,
             COALESCE(re.mailbox_name, re.folder) AS mailbox,
             re.mailbox_name,
+            re.folder AS folder,
             ml.email_address AS mailing_list_email
         FROM
             receiver_emails re
@@ -907,8 +908,15 @@ class EmailAnalyzer:
 
             # Folder filter (additional to mailbox)
             folder_value = filters.get('folder')
-            if folder_value and folder_value != 'All':
-                filter_conditions.append(f"COALESCE(re.mailbox_name, re.folder) = '{folder_value}'")
+            if folder_value and folder_value not in ('All', 'Tous'):
+                folder_part = folder_value
+                if isinstance(folder_value, str) and '→' in folder_value:
+                    mailbox_part, folder_part = [part.strip() for part in folder_value.split('→', 1)]
+                    filter_conditions.append(f"COALESCE(re.mailbox_name, re.folder) = '{mailbox_part}'")
+                if folder_part == 'Racine':
+                    filter_conditions.append("(re.folder IS NULL OR re.folder = '' OR lower(re.folder) = 'root')")
+                else:
+                    filter_conditions.append(f"re.folder = '{folder_part}'")
 
         # Add filter conditions to query
         if filter_conditions:

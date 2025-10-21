@@ -862,6 +862,11 @@ def process_eml_to_duckdb(directory: Union[str, Path],
         if folder_parts and folder_parts[0].lower() in {"processed", "raw"}:
             folder_parts = folder_parts[1:]
 
+        if folder_parts:
+            last_part = Path(folder_parts[-1])
+            if last_part.suffix:
+                folder_parts = folder_parts[:-1]
+
         folder_name = str(Path(*folder_parts)) if folder_parts else 'root'
 
         try:

@@ -1825,12 +1825,12 @@ else:
                         st.rerun()
 
         # Button to add a new mailbox (max 5)
-        if len(form['mailboxes']) < 5:
-            if st.button("Add Mailbox", type="primary"):
-                add_mailbox()
-                st.rerun()
-        else:
-            st.info("Maximum of 5 mailboxes reached.")
+        # if len(form['mailboxes']) < 5:
+        #     if st.button("Add Mailbox", type="primary"):
+        #         add_mailbox()
+        #         st.rerun()
+        # else:
+        #     st.info("Maximum of 5 mailboxes reached.")
 
         # Save button and cancelation
         col1, col2, col3 = st.columns([1, 1, 2])

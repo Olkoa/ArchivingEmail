@@ -57,34 +57,72 @@ class EmailFilters:
             print(f"Error getting mailing lists: {e}")
             return []
     
-    @st.cache_data  
+    @st.cache_data
     def get_folders(_self, mailbox_selection=None):
         """Get available folders from the database
-        
+
         Args:
             mailbox_selection: Optional mailbox filter
-            
+
         Returns:
             List of folder names
         """
         try:
             conn = _self.analyzer.connect()
             
-            query = """
-            SELECT DISTINCT folder
-            FROM receiver_emails
-            WHERE folder IS NOT NULL
-            """
-            
-            # Add mailbox filter if specified
+            def _expand_paths(paths):
+                expanded = []
+                for path in paths:
+                    if path == 'Racine':
+                        if 'Racine' not in expanded:
+                            expanded.append('Racine')
+                        continue
+                    parts = [p for p in path.split('/') if p]
+                    for depth in range(1, len(parts) + 1):
+                        prefix = '/'.join(parts[:depth])
+                        if prefix not in expanded:
+                            expanded.append(prefix)
+                return expanded
+
             if mailbox_selection and mailbox_selection != "All Mailboxes":
-                query += f" AND folder = '{mailbox_selection}'"
-                
-            query += " ORDER BY folder"
-            
-            result = conn.execute(query).fetchall()
-            folders = [row[0] for row in result if row[0]]
-            
+                result = conn.execute(
+                    """
+                    SELECT DISTINCT
+                        CASE
+                            WHEN folder IS NULL OR folder = '' OR lower(folder) = 'root' THEN 'Racine'
+                            ELSE folder
+                        END AS folder_display
+                    FROM receiver_emails
+                    WHERE COALESCE(mailbox_name, folder) = ?
+                    ORDER BY folder_display
+                    """,
+                    [mailbox_selection]
+                ).fetchall()
+                raw_folders = [row[0] for row in result if row[0]]
+                folders = _expand_paths(raw_folders)
+            else:
+                result = conn.execute(
+                    """
+                    SELECT DISTINCT
+                        COALESCE(mailbox_name, folder) AS mailbox_name,
+                        CASE
+                            WHEN folder IS NULL OR folder = '' OR lower(folder) = 'root' THEN 'Racine'
+                            ELSE folder
+                        END AS folder_display
+                    FROM receiver_emails
+                    ORDER BY mailbox_name, folder_display
+                    """
+                ).fetchall()
+                folders = []
+                for mailbox_name, folder_display in result:
+                    if not mailbox_name or not folder_display:
+                        continue
+                    expanded = _expand_paths([folder_display])
+                    for path in expanded:
+                        entry = f"{mailbox_name} → {path}"
+                        if entry not in folders:
+                            folders.append(entry)
+
             return folders
             
         except Exception as e:
@@ -123,11 +161,29 @@ class EmailFilters:
             filtered_df = filtered_df[filtered_df['direction'] == direction_value]
         
         # Apply folder filter
-        if filters.get('folder') and filters['folder'] != 'All':
-            if 'folder' in filtered_df.columns:
-                filtered_df = filtered_df[filtered_df['folder'] == filters['folder']]
-            elif 'mailbox' in filtered_df.columns:
-                filtered_df = filtered_df[filtered_df['mailbox'] == filters['folder']]
+        folder_filter = filters.get('folder')
+        if folder_filter and folder_filter != 'All':
+            if isinstance(folder_filter, str) and '→' in folder_filter:
+                mailbox_part, folder_part = [part.strip() for part in folder_filter.split('→', 1)]
+                if 'mailbox' in filtered_df.columns:
+                    filtered_df = filtered_df[filtered_df['mailbox'] == mailbox_part]
+                if folder_part == 'Racine':
+                    if 'folder' in filtered_df.columns:
+                        folder_series = filtered_df['folder'].fillna('').astype(str)
+                        mask = folder_series.eq('') | folder_series.str.lower().eq('root')
+                        filtered_df = filtered_df[mask]
+                else:
+                    if 'folder' in filtered_df.columns:
+                        filtered_df = filtered_df[filtered_df['folder'] == folder_part]
+            else:
+                if folder_filter == 'Racine':
+                    if 'folder' in filtered_df.columns:
+                        folder_series = filtered_df['folder'].fillna('').astype(str)
+                        mask = folder_series.eq('') | folder_series.str.lower().eq('root')
+                        filtered_df = filtered_df[mask]
+                else:
+                    if 'folder' in filtered_df.columns:
+                        filtered_df = filtered_df[filtered_df['folder'] == folder_filter]
         
         return filtered_df
     
@@ -170,7 +226,8 @@ class EmailFilters:
             direction_emoji = "📤" if filters['direction'] == 'Envoyé' else "📥"
             active_filters.append(f"{direction_emoji} Direction: {filters['direction']}")
         
-        if filters.get('folder') and filters['folder'] != 'All':
+        folder_value = filters.get('folder')
+        if folder_value and folder_value not in ('All', 'Tous'):
             active_filters.append(f"📁 Folder: {filters['folder']}")
         
         if active_filters:
