@@ -1045,6 +1045,13 @@ else:
                 index_data = {"graphs": []}
 
             graphs = index_data.get('graphs', [])
+            graphs.sort(
+                key=lambda entry: (
+                    0 if entry.get('is_full_mailbox') else 1,
+                    entry.get('mailbox', ''),
+                    entry.get('relative_display') or ''
+                )
+            )
 
             if selected_mailbox != "All Mailboxes":
                 graphs = [g for g in graphs if g.get('mailbox') == selected_mailbox]
@@ -1053,6 +1060,9 @@ else:
                 st.warning("Aucun graphe disponible pour la sélection actuelle.")
             else:
                 def format_graph_option(entry: dict) -> str:
+                    if entry.get('is_full_mailbox'):
+                        return "Boîte Mail Complète"
+
                     relative_display = entry.get('relative_display') or ''
                     mailbox_name = entry.get('mailbox', '')
                     if selected_mailbox == "All Mailboxes":
@@ -1068,9 +1078,15 @@ else:
                 )
 
                 selected_graph = graphs[selected_graph_idx]
+                display_folder = (
+                    "Boîte Mail Complète"
+                    if selected_graph.get('is_full_mailbox')
+                    else selected_graph.get('relative_display') or 'Racine'
+                )
+
                 st.caption(
                     f"📁 Mailbox : {selected_graph.get('mailbox', 'N/A')}"
-                    f" | 📄 Dossier : {selected_graph.get('relative_display') or 'Racine'}"
+                    f" | 📄 Dossier : {display_folder}"
                     f" | ✉️ Emails : {selected_graph.get('eml_count', 'N/A')}"
                 )
 

@@ -174,6 +174,8 @@ def generate_graphs_for_project(project_name: str, project_path: Path, mailbox_n
     graphs_root.mkdir(parents=True, exist_ok=True)
 
     index_entries: List[Dict[str, object]] = []
+    all_emails: List[Dict[str, str]] = []
+    total_emails = 0
 
     for idx, folder in enumerate(processed_folders, start=1):
         emails = _extract_emails_from_folder(folder["path"])
@@ -197,6 +199,31 @@ def generate_graphs_for_project(project_name: str, project_path: Path, mailbox_n
                 "relative_display": folder["relative_display"],
                 "eml_count": folder["eml_count"],
                 "graph_json": str(Path(graph_dir_name) / "graph.json"),
+            }
+        )
+
+        all_emails.extend(emails)
+        total_emails += folder["eml_count"]
+
+    if all_emails:
+        graph_data_full = _build_graph(all_emails)
+        graph_dir_name = f"graph_{len(index_entries) + 1:03d}"
+        graph_dir = graphs_root / graph_dir_name
+        graph_dir.mkdir(parents=True, exist_ok=True)
+
+        json_path = graph_dir / "graph.json"
+        with json_path.open("w", encoding="utf-8") as handle:
+            json.dump(graph_data_full, handle, ensure_ascii=False)
+
+        index_entries.append(
+            {
+                "id": graph_dir_name,
+                "mailbox": "Boîte Mail Complète",
+                "relative_parent": "FULL_MAILBOX",
+                "relative_display": "",
+                "eml_count": total_emails,
+                "graph_json": str(Path(graph_dir_name) / "graph.json"),
+                "is_full_mailbox": True,
             }
         )
 
