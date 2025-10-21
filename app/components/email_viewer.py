@@ -16,6 +16,7 @@ import quopri
 import base64
 import re
 import email.header
+from html import escape
 
 # Add the project root to the path so we can import constants
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -229,6 +230,15 @@ def clear_email_selection(key_prefix: str) -> None:
     if selected_email_key in st.session_state:
         st.session_state[selected_email_key] = None
 
+def _clean_html_artifacts(text: str) -> str:
+    """Remove leading/trailing HTML remnants such as stray </div> tags."""
+    if not text or not isinstance(text, str):
+        return text
+    text = re.sub(r'^(</?(div|p|span)[^>]*>\s*)+', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'(</?(div|p|span)[^>]*>\s*)+$', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'(?mi)^\s*</?(div|p|span)[^>]*>\s*$\n?', '', text)
+    return text.strip()
+
 def parse_email_thread(email_body: str) -> list:
     """Parse an email thread to separate individual messages.
     
@@ -248,12 +258,12 @@ def parse_email_thread(email_body: str) -> list:
         # French Outlook format patterns
         r'De\s*:\s*.+?(?=Envoyé\s*:|\n\n|$)',  # "De: ... Envoyé:" or end
         r'From\s*:\s*.+?(?=Sent\s*:|\n\n|$)',     # "From: ... Sent:" or end
-        
+
         # Standard reply patterns
-        r'Le .+ à .+, .+ a écrit\s*:',  # French: "Le [date] à [time], [sender] a écrit :"
+        r'Le[ \t]+[\S\s]{0,120}?a écrit\s*:',  # Robust French pattern tolerating line breaks before "a écrit:"
         r'On .+ at .+, .+ wrote\s*:',    # English: "On [date] at [time], [sender] wrote:"
         r'Le .+ <.+> a écrit\s*:',      # "Le [date] <email> a écrit :"
-        
+
         # Forward delimiters
         r'‐‐‐‐‐‐‐ Original Message ‐‐‐‐‐‐‐',
         r'-----Original Message-----',
@@ -303,14 +313,36 @@ def parse_email_thread(email_body: str) -> list:
         else:
             next_pos = len(email_body)
         
-        # Extract the content after this delimiter
-        reply_content = email_body[pos:next_pos].strip()
+        # Extract the full segment including delimiter for metadata
+        reply_segment = email_body[pos:next_pos]
+        reply_content = reply_segment.strip()
+
+        if reply_content.strip().lower() == "</div>":
+            last_pos = next_pos
+            continue
+
         if reply_content:
-            # Extract metadata from the reply content
+            # Extract metadata from the reply content (including delimiter/header)
             metadata = extract_email_metadata(reply_content)
-            
+
+            # Remove the delimiter text from the content shown to the user
+            content_start = pos + len(delimiter_text)
+            message_body = email_body[content_start:next_pos].strip()
+
+            # Clean leading/trailing HTML artifacts that may remain from the split
+            message_body = _clean_html_artifacts(message_body)
+            if not message_body:
+                message_body = _clean_html_artifacts(reply_content)
+
+            has_metadata = any(metadata.get(key) for key in ('sender', 'recipient', 'date', 'subject'))
+            if not message_body and not has_metadata:
+                last_pos = next_pos
+                continue
+
+            # print(message_body)
+
             messages.append({
-                'content': reply_content,
+                'content': message_body,
                 'is_reply': True,
                 'sender': metadata.get('sender'),
                 'recipient': metadata.get('recipient'),
@@ -792,9 +824,15 @@ def _create_modal_email_table(
                 
                 # Decode the email body for proper display
                 decoded_body = decode_email_text(selected_email['body'])
-                
+
                 # Parse the email thread
                 thread_messages = parse_email_thread(decoded_body)
+                thread_messages = [
+                    msg for msg in thread_messages
+                    if msg.get('content', '').strip().lower() not in {'</div>', '<div>', ''}
+                ]
+
+                print("thread_messages:", thread_messages)
                 
                 if len(thread_messages) > 1:
                     # Display as threaded conversation
@@ -816,31 +854,26 @@ def _create_modal_email_table(
                                 metadata_str = ' • '.join(metadata_parts) if metadata_parts else ''
                                 
                                 # Create a visual separator for replies
-                                st.markdown(
-                                    f"""
-                                    <div style="
-                                        border-left: 3px solid #007bff;
-                                        margin: 15px 0;
-                                        padding: 10px 15px;
-                                        background-color: #f8f9fa;
-                                        border-radius: 0 8px 8px 0;
-                                    ">
-                                        <div style="font-size: 0.85rem; color: #6c757d; margin-bottom: 8px;">
-                                            📧 <strong>Message précédent</strong>
-                                            {f' ({metadata_str})' if metadata_str else ''}
-                                        </div>
-                                        {f'<div style="font-size: 0.8rem; color: #495057; margin-bottom: 5px;"><strong>Objet:</strong> {message["subject"]}</div>' if message.get('subject') else ''}
-                                    </div>
-                                    """,
-                                    unsafe_allow_html=True
-                                )
-                                
+                                panel_metadata = escape(metadata_str) if metadata_str else ""
+                                reply_subject = escape(message.get("subject") or "")
+
+                                header_text = "📧 **Message précédent**"
+                                if panel_metadata:
+                                    header_text += f" ({panel_metadata})"
+
+                                st.markdown(header_text)
+                                if reply_subject:
+                                    st.caption(f"Objet : {reply_subject}")
+
+                                reply_content = _clean_html_artifacts(message['content'])
+                                # print("reply_content:", reply_content)
+
                                 # Calculate height for this message
-                                message_height = max(min(len(message['content'].splitlines()) * 16, 250), 100)
-                                
+                                message_height = max(min(len(reply_content.splitlines()) * 16, 250), 100)
+
                                 st.text_area(
                                     "Message",
-                                    value=message['content'],
+                                    value=reply_content,
                                     height=message_height,
                                     disabled=True,
                                     key=f"thread_message_{selected_idx}_{i}",
@@ -850,13 +883,15 @@ def _create_modal_email_table(
                             # Display as main message
                             if i == 0:
                                 st.markdown("**📝 Message principal:**")
-                            
+
+                            main_content = _clean_html_artifacts(message['content'])
+
                             # Calculate height for main message
-                            main_height = max(min(len(message['content'].splitlines()) * 20, 300), 150)
-                            
+                            main_height = max(min(len(main_content.splitlines()) * 20, 300), 150)
+
                             st.text_area(
                                 "Message principal",
-                                value=message['content'],
+                                value=main_content,
                                 height=main_height,
                                 disabled=True,
                                 key=f"main_message_{selected_idx}_{i}",
@@ -864,11 +899,12 @@ def _create_modal_email_table(
                             )
                 else:
                     # Single message - display normally
-                    content_height = max(min(len(decoded_body.splitlines()) * 20, 500), 200)
+                    cleaned_body = _clean_html_artifacts(decoded_body)
+                    content_height = max(min(len(cleaned_body.splitlines()) * 20, 500), 200)
                     
                     st.text_area(
                         "Contenu de l'email",
-                        value=decoded_body,
+                        value=cleaned_body,
                         height=content_height,
                         disabled=True,
                         key=f"dialog_textarea_{selected_idx}",
