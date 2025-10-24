@@ -22,7 +22,7 @@ import zipfile
 from datetime import datetime
 
 from components.logins import make_hashed_password, verify_password, add_user, initialize_users_db
-from src.features.pipeline_data_cleaning import prepare_semantic_search
+from components.topic_modeling.Topic_modeling import topic_build
 
 # Add the necessary paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -33,6 +33,7 @@ DEFAULT_PROJECT_NAME = "Projet Demo"
 
 from dotenv import load_dotenv
 
+from src.features.pipeline_data_cleaning import prepare_semantic_search
 import constants
 from src.data.s3_utils import S3Handler
 from src.data.mbox_to_eml import convert_folder_mbox_to_eml, mbox_to_eml
@@ -40,6 +41,12 @@ from src.rag.colbert_initialization import initialize_colbert_rag_system
 from src.data.eml_transformation import generate_duck_db
 from src.data.graph_generation import generate_graphs_for_project
 
+
+
+
+from dotenv import load_dotenv
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+topic_build()
 
 # Page configuration
 # st.set_page_config(
@@ -110,7 +117,7 @@ def show_login_form():
 # Page configuration is already set at the top of the file
 
 # Check if authenticated
-if not st.session_state.authenticated:
+if not st.session_state.authenticated: 
     show_login_form()
 else:
     # Custom CSS

@@ -1,0 +1,366 @@
+// Cluster Tree
+digraph {
+	rankdir=LR
+	node [shape=box]
+	144 [label="Merge
+1.89"]
+	142 [label="Merge
+1.75"]
+	137 [label="Merge
+1.41"]
+	126 [label="Merge
+1.19"]
+	103 [label="Merge
+0.91"]
+	34 [label="Publication et débats autour des archives de la guerre d'Algérie, de leur communicabilité et des questions de déclassification/accès (rôle de la Gazette et actions de l'AAF)."]
+	77 [label="Merge
+0.79"]
+	16 [label="Publication et débats autour des archives de la guerre d'Algérie, de leur communicabilité et des questions de déclassification/accès (rôle de la Gazette et actions de l'AAF)."]
+	66 [label="Publication et débats autour des archives de la guerre d'Algérie, de leur communicabilité et des questions de déclassification/accès (rôle de la Gazette et actions de l'AAF)."]
+	77 -> 16
+	77 -> 66
+	103 -> 34
+	103 -> 77
+	117 [label="Merge
+1.03"]
+	7 [label="Mobilisation pour aider Mme Nazari, ancienne directrice des archives nationales afghanes, à obtenir un visa/une protection et mobilisation de soutiens et lettres officielles."]
+	63 [label="Solidarité et actions de soutien aux archivistes ukrainiens (recensement, aides matérielles et prises de position internationales de l'AAF/ICA)."]
+	117 -> 7
+	117 -> 63
+	126 -> 103
+	126 -> 117
+	134 [label="Merge
+1.29"]
+	124 [label="Merge
+1.10"]
+	74 [label="Merge
+0.78"]
+	59 [label="Informations et inscriptions liées aux événements scientifiques et culturels (ANR, Rencontres Recherche et Création, Festival d'Avignon et webinaires associés)."]
+	60 [label="Informations et inscriptions liées aux événements scientifiques et culturels (ANR, Rencontres Recherche et Création, Festival d'Avignon et webinaires associés)."]
+	74 -> 59
+	74 -> 60
+	94 [label="Merge
+0.85"]
+	33 [label="Négociations et organisation du partenariat AAF–Wikimédia (conventions, formations Wikidata, projets WikiArchives et valorisation des actions GLAM)."]
+	43 [label="Négociations et organisation du partenariat AAF–Wikimédia (conventions, formations Wikidata, projets WikiArchives et valorisation des actions GLAM)."]
+	94 -> 33
+	94 -> 43
+	124 -> 74
+	124 -> 94
+	129 [label="Merge
+1.20"]
+	114 [label="Merge
+1.00"]
+	85 [label="Merge
+0.82"]
+	12 [label="Courriers et échanges internes de gouvernance de l'AAF : préparation de conseils, réunions, budgets, gestion associative et sujets opérationnels divers."]
+	30 [label="Courriers et échanges internes de gouvernance de l'AAF : préparation de conseils, réunions, budgets, gestion associative et sujets opérationnels divers."]
+	85 -> 12
+	85 -> 30
+	107 [label="Merge
+0.96"]
+	80 [label="Merge
+0.81"]
+	48 [label="Courriers et échanges internes de gouvernance de l'AAF : préparation de conseils, réunions, budgets, gestion associative et sujets opérationnels divers."]
+	56 [label="Courriers et échanges internes de gouvernance de l'AAF : préparation de conseils, réunions, budgets, gestion associative et sujets opérationnels divers."]
+	80 -> 48
+	80 -> 56
+	95 [label="Merge
+0.88"]
+	14 [label="Courriers et échanges internes de gouvernance de l'AAF : préparation de conseils, réunions, budgets, gestion associative et sujets opérationnels divers."]
+	73 [label="Merge
+0.76"]
+	52 [label="Courriers et échanges internes de gouvernance de l'AAF : préparation de conseils, réunions, budgets, gestion associative et sujets opérationnels divers."]
+	70 [label="Courriers et échanges internes de gouvernance de l'AAF : préparation de conseils, réunions, budgets, gestion associative et sujets opérationnels divers."]
+	73 -> 52
+	73 -> 70
+	95 -> 14
+	95 -> 73
+	107 -> 80
+	107 -> 95
+	114 -> 85
+	114 -> 107
+	120 [label="Merge
+1.04"]
+	102 [label="Merge
+0.91"]
+	9 [label="Gestion des publications de l'AAF : tirages, rééditions, coûts d'impression, logistique de stockage et mise en vente en ligne des ouvrages."]
+	38 [label="Gestion des publications de l'AAF : tirages, rééditions, coûts d'impression, logistique de stockage et mise en vente en ligne des ouvrages."]
+	102 -> 9
+	102 -> 38
+	112 [label="Merge
+0.99"]
+	11 [label="Questions techniques et contractuelles sur l'hébergement et la maintenance de référentiels (référentiel producteurs ISAF/AAF, Numadoc) et conventions de publication (Gazette Francophonie)."]
+	91 [label="Merge
+0.85"]
+	13 [label="Questions techniques et contractuelles sur l'hébergement et la maintenance de référentiels (référentiel producteurs ISAF/AAF, Numadoc) et conventions de publication (Gazette Francophonie)."]
+	22 [label="Questions techniques et contractuelles sur l'hébergement et la maintenance de référentiels (référentiel producteurs ISAF/AAF, Numadoc) et conventions de publication (Gazette Francophonie)."]
+	91 -> 13
+	91 -> 22
+	112 -> 11
+	112 -> 91
+	120 -> 102
+	120 -> 112
+	129 -> 114
+	129 -> 120
+	134 -> 124
+	134 -> 129
+	137 -> 126
+	137 -> 134
+	138 [label="Merge
+1.44"]
+	132 [label="Merge
+1.23"]
+	121 [label="Merge
+1.04"]
+	28 [label="Migration et sauvegarde des listes Yahoo Groups vers la plateforme Sympa : conservation des archives, modalités d'inscription et solution de remplacement."]
+	106 [label="Merge
+0.96"]
+	21 [label="Actions d'expertise et de plaidoyer sur des projets de loi et textes (déclaration de naissance, IGI, accès aux archives), préparation de communiqués et auditions parlementaires."]
+	84 [label="Merge
+0.82"]
+	2 [label="Actions d'expertise et de plaidoyer sur des projets de loi et textes (déclaration de naissance, IGI, accès aux archives), préparation de communiqués et auditions parlementaires."]
+	6 [label="Actions d'expertise et de plaidoyer sur des projets de loi et textes (déclaration de naissance, IGI, accès aux archives), préparation de communiqués et auditions parlementaires."]
+	84 -> 2
+	84 -> 6
+	106 -> 21
+	106 -> 84
+	121 -> 28
+	121 -> 106
+	125 [label="Merge
+1.12"]
+	96 [label="Merge
+0.88"]
+	67 [label="Diffusion et promotion sur les réseaux sociaux et gestion des replays/vidéos (YouTube, Twitter, replay d'Archi'Visio et autres webinaires)."]
+	81 [label="Merge
+0.81"]
+	19 [label="Diffusion et promotion sur les réseaux sociaux et gestion des replays/vidéos (YouTube, Twitter, replay d'Archi'Visio et autres webinaires)."]
+	32 [label="Diffusion et promotion sur les réseaux sociaux et gestion des replays/vidéos (YouTube, Twitter, replay d'Archi'Visio et autres webinaires)."]
+	81 -> 19
+	81 -> 32
+	96 -> 67
+	96 -> 81
+	104 [label="Merge
+0.92"]
+	88 [label="Merge
+0.83"]
+	18 [label="Rédaction et relecture de communiqués de presse et résolutions publiques de l'AAF portant sur la protection des archives et la continuité démocratique (municipales, cas de Menton…)."]
+	49 [label="Rédaction et relecture de communiqués de presse et résolutions publiques de l'AAF portant sur la protection des archives et la continuité démocratique (municipales, cas de Menton…)."]
+	88 -> 18
+	88 -> 49
+	89 [label="Merge
+0.84"]
+	10 [label="Rédaction et relecture de communiqués de presse et résolutions publiques de l'AAF portant sur la protection des archives et la continuité démocratique (municipales, cas de Menton…)."]
+	26 [label="Rédaction et relecture de communiqués de presse et résolutions publiques de l'AAF portant sur la protection des archives et la continuité démocratique (municipales, cas de Menton…)."]
+	89 -> 10
+	89 -> 26
+	104 -> 88
+	104 -> 89
+	125 -> 96
+	125 -> 104
+	132 -> 121
+	132 -> 125
+	136 [label="Merge
+1.36"]
+	97 [label="Merge
+0.88"]
+	15 [label="Organisation logistique des réunions et rendez‑vous (convocations, liens de visioconférence, informations pratiques pour intervenants et invités)."]
+	57 [label="Organisation logistique des réunions et rendez‑vous (convocations, liens de visioconférence, informations pratiques pour intervenants et invités)."]
+	97 -> 15
+	97 -> 57
+	128 [label="Merge
+1.20"]
+	109 [label="Merge
+0.98"]
+	101 [label="Merge
+0.89"]
+	46 [label="Coordination des projets éditoriaux numériques et imprimés (BAT, ENSSIB, relectures) et suivi opérationnel des publications et séminaires de l'AAF."]
+	75 [label="Merge
+0.79"]
+	44 [label="Coordination des projets éditoriaux numériques et imprimés (BAT, ENSSIB, relectures) et suivi opérationnel des publications et séminaires de l'AAF."]
+	55 [label="Coordination des projets éditoriaux numériques et imprimés (BAT, ENSSIB, relectures) et suivi opérationnel des publications et séminaires de l'AAF."]
+	75 -> 44
+	75 -> 55
+	101 -> 46
+	101 -> 75
+	105 [label="Merge
+0.95"]
+	87 [label="Merge
+0.83"]
+	42 [label="Coordination des projets éditoriaux numériques et imprimés (BAT, ENSSIB, relectures) et suivi opérationnel des publications et séminaires de l'AAF."]
+	54 [label="Coordination des projets éditoriaux numériques et imprimés (BAT, ENSSIB, relectures) et suivi opérationnel des publications et séminaires de l'AAF."]
+	87 -> 42
+	87 -> 54
+	92 [label="Merge
+0.85"]
+	31 [label="Coordination des projets éditoriaux numériques et imprimés (BAT, ENSSIB, relectures) et suivi opérationnel des publications et séminaires de l'AAF."]
+	41 [label="Coordination des projets éditoriaux numériques et imprimés (BAT, ENSSIB, relectures) et suivi opérationnel des publications et séminaires de l'AAF."]
+	92 -> 31
+	92 -> 41
+	105 -> 87
+	105 -> 92
+	109 -> 101
+	109 -> 105
+	115 [label="Merge
+1.00"]
+	37 [label="Organisation de la journée des 20 ans du groupe PIN (logistique, invitations VIP, choix de lieu, programme et appels à contributions)."]
+	111 [label="Merge
+0.98"]
+	86 [label="Merge
+0.82"]
+	36 [label="Préparation administrative et logistique de l'Assemblée générale (convocations, procurations, présentations) et communications institutionnelles (communiqués)."]
+	69 [label="Préparation administrative et logistique de l'Assemblée générale (convocations, procurations, présentations) et communications institutionnelles (communiqués)."]
+	86 -> 36
+	86 -> 69
+	100 [label="Merge
+0.89"]
+	29 [label="Préparation administrative et logistique de l'Assemblée générale (convocations, procurations, présentations) et communications institutionnelles (communiqués)."]
+	40 [label="Préparation administrative et logistique de l'Assemblée générale (convocations, procurations, présentations) et communications institutionnelles (communiqués)."]
+	100 -> 29
+	100 -> 40
+	111 -> 86
+	111 -> 100
+	115 -> 37
+	115 -> 111
+	128 -> 109
+	128 -> 115
+	136 -> 97
+	136 -> 128
+	138 -> 132
+	138 -> 136
+	142 -> 137
+	142 -> 138
+	143 [label="Merge
+1.76"]
+	140 [label="Merge
+1.51"]
+	127 [label="Merge
+1.20"]
+	20 [label="Informations et analyses sur le marché de la formation professionnelle (études Plimsoll) et enjeux financiers/RH liés à l'activité de formation (activité partielle, AG EURL)."]
+	99 [label="Merge
+0.89"]
+	51 [label="Élaboration d'un standard ouvert pour la publication en open data des registres d'entrées (webinaire, appel à commentaires) et dossier de subvention SIAF associé."]
+	78 [label="Merge
+0.80"]
+	45 [label="Élaboration d'un standard ouvert pour la publication en open data des registres d'entrées (webinaire, appel à commentaires) et dossier de subvention SIAF associé."]
+	62 [label="Élaboration d'un standard ouvert pour la publication en open data des registres d'entrées (webinaire, appel à commentaires) et dossier de subvention SIAF associé."]
+	78 -> 45
+	78 -> 62
+	99 -> 51
+	99 -> 78
+	127 -> 20
+	127 -> 99
+	139 [label="Merge
+1.46"]
+	133 [label="Merge
+1.27"]
+	119 [label="Merge
+1.04"]
+	90 [label="Merge
+0.84"]
+	24 [label="Coordination des participations et convocations aux réunions, CA, forums et événements (confirmations de présence et échanges pratiques)."]
+	47 [label="Coordination des participations et convocations aux réunions, CA, forums et événements (confirmations de présence et échanges pratiques)."]
+	90 -> 24
+	90 -> 47
+	113 [label="Merge
+1.00"]
+	65 [label="Organisation de projets éditoriaux et d'événements scientifiques (ENSSIB, webinaires) et suivi des enjeux professionnels internationaux (ICA, congrès)."]
+	79 [label="Merge
+0.81"]
+	23 [label="Organisation de projets éditoriaux et d'événements scientifiques (ENSSIB, webinaires) et suivi des enjeux professionnels internationaux (ICA, congrès)."]
+	68 [label="Organisation de projets éditoriaux et d'événements scientifiques (ENSSIB, webinaires) et suivi des enjeux professionnels internationaux (ICA, congrès)."]
+	79 -> 23
+	79 -> 68
+	113 -> 65
+	113 -> 79
+	119 -> 90
+	119 -> 113
+	123 [label="Merge
+1.08"]
+	98 [label="Merge
+0.88"]
+	58 [label="Compte rendu et bilan du webinaire RiC‑O Converter (outil de conversion RDF) organisé avec les Archives nationales et l'ICA, et mise en ligne de l'enregistrement."]
+	76 [label="Merge
+0.79"]
+	35 [label="Compte rendu et bilan du webinaire RiC‑O Converter (outil de conversion RDF) organisé avec les Archives nationales et l'ICA, et mise en ligne de l'enregistrement."]
+	72 [label="Compte rendu et bilan du webinaire RiC‑O Converter (outil de conversion RDF) organisé avec les Archives nationales et l'ICA, et mise en ligne de l'enregistrement."]
+	76 -> 35
+	76 -> 72
+	98 -> 58
+	98 -> 76
+	122 [label="Merge
+1.06"]
+	1 [label="Rédaction du rapport moral, corrections éditoriales et mise en place/communication sur la commission de résolution des conflits de l'AAF."]
+	93 [label="Merge
+0.85"]
+	53 [label="Rédaction et relecture du procès‑verbal de l'AG et coordination des sujets liés à la crise sanitaire (maintien des activités et formations)."]
+	64 [label="Rédaction et relecture du procès‑verbal de l'AG et coordination des sujets liés à la crise sanitaire (maintien des activités et formations)."]
+	93 -> 53
+	93 -> 64
+	122 -> 1
+	122 -> 93
+	123 -> 98
+	123 -> 122
+	133 -> 119
+	133 -> 123
+	135 [label="Merge
+1.29"]
+	82 [label="Merge
+0.81"]
+	17 [label="Élaboration et diffusion du catalogue des formations du Centre de formation AAF, programmation des sessions et adaptations liées au contexte sanitaire."]
+	39 [label="Élaboration et diffusion du catalogue des formations du Centre de formation AAF, programmation des sessions et adaptations liées au contexte sanitaire."]
+	82 -> 17
+	82 -> 39
+	108 [label="Merge
+0.98"]
+	27 [label="Questions RH et organisation du Centre de formation : recrutement, alternance, formation à distance et planification des ressources humaines."]
+	83 [label="Merge
+0.82"]
+	8 [label="Questions RH et organisation du Centre de formation : recrutement, alternance, formation à distance et planification des ressources humaines."]
+	50 [label="Questions RH et organisation du Centre de formation : recrutement, alternance, formation à distance et planification des ressources humaines."]
+	83 -> 8
+	83 -> 50
+	108 -> 27
+	108 -> 83
+	135 -> 82
+	135 -> 108
+	139 -> 133
+	139 -> 135
+	140 -> 127
+	140 -> 139
+	141 [label="Merge
+1.57"]
+	130 [label="Merge
+1.21"]
+	110 [label="Merge
+0.98"]
+	25 [label="Suivi détaillé de l'organisation logistique et du programme de la journée d'études pour les 20 ans du groupe PIN (invitations, réunions préparatoires)."]
+	71 [label="Suivi détaillé de l'organisation logistique et du programme de la journée d'études pour les 20 ans du groupe PIN (invitations, réunions préparatoires)."]
+	110 -> 25
+	110 -> 71
+	116 [label="Merge
+1.01"]
+	4 [label="Échanges administratifs et techniques relatifs à des dossiers réglementaires et de subvention (règlement européen, dossier SIAF, rapports internes)."]
+	61 [label="Problèmes techniques de messagerie : échecs d'envoi, messages non remis et gestion des retours d'erreur (bounces)."]
+	116 -> 4
+	116 -> 61
+	130 -> 110
+	130 -> 116
+	131 [label="Merge
+1.23"]
+	0 [label="Préparation et notes pour le COPIL (comité de pilotage) : topo et éléments à présenter lors des réunions du comité."]
+	118 [label="Merge
+1.04"]
+	3 [label="Veille et partage de publications/ressources professionnelles sur LinkedIn et Twitter (diffusion de contenus et partages sociaux)."]
+	5 [label="Diffusion et réactions en direct sur des publications et tweets liés aux activités de l'AAF (partages informels et anecdotes)."]
+	118 -> 3
+	118 -> 5
+	131 -> 0
+	131 -> 118
+	141 -> 130
+	141 -> 131
+	143 -> 140
+	143 -> 141
+	144 -> 142
+	144 -> 143
+}

@@ -1,0 +1,1655 @@
+{
+  "name": "1",
+  "summary": "Merge 1.99",
+  "children": [
+    {
+      "name": "1",
+      "summary": "Merge 1.8",
+      "children": [
+        {
+          "name": "1",
+          "summary": "Merge 1.6",
+          "children": [
+            {
+              "name": "1",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "1",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "1",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "1",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "1",
+                              "summary": "Plaidoyer pour l'ouverture, l'accès et la restitution des archives coloniales (notamment algériennes) face aux entraves et au secret‑défense.",
+                              "children": [
+                                {
+                                  "name": "1",
+                                  "summary": "Publication et débats autour des archives de la guerre d'Algérie, de leur communicabilité et des questions de déclassification/accès (rôle de la Gazette et actions de l'AAF).",
+                                  "children": [
+                                    {
+                                      "name": "1",
+                                      "summary": "Nouveautés et débats autour de l’histoire coloniale et postcoloniale, avec un fort accent sur l’accès aux archives (notamment la guerre d’Algérie) et les enjeux mémoriels.",
+                                      "children": [
+                                        {
+                                          "name": "1",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "1",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            },
+                                            {
+                                              "name": "2",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "2",
+                                      "summary": "Ouverture et accès aux archives relatives au Rwanda (décisions du Conseil d’État, commission Duclert, archives présidentielles et militaires) et conséquences pour la recherche.",
+                                      "children": [
+                                        {
+                                          "name": "2",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "3",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "2",
+                              "summary": "Soutien et démarches pour des archivistes et archives en danger (Afghanistan, Ukraine, Russie) et coordination internationale des actions de secours et plaidoyer.",
+                              "children": [
+                                {
+                                  "name": "2",
+                                  "summary": "Mobilisation pour aider Mme Nazari, ancienne directrice des archives nationales afghanes, à obtenir un visa/une protection et mobilisation de soutiens et lettres officielles.",
+                                  "children": [
+                                    {
+                                      "name": "3",
+                                      "summary": "Mobilisation pour aider l’ancienne directrice des archives nationales afghanes et soutenir les archivistes afghans en difficulté (visas, relocalisation, formations).",
+                                      "children": [
+                                        {
+                                          "name": "3",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "4",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "3",
+                                  "summary": "Solidarité et actions de soutien aux archivistes ukrainiens (recensement, aides matérielles et prises de position internationales de l'AAF/ICA).",
+                                  "children": [
+                                    {
+                                      "name": "4",
+                                      "summary": "Solidarité et actions envers les archivistes ukrainiens (collectes, soutien institutionnel) et discussions sur la suspension des relations avec certaines institutions russes/biélorusses à l’ICA.",
+                                      "children": [
+                                        {
+                                          "name": "4",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "5",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "2",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "2",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "2",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "3",
+                              "summary": "Annonces et inscriptions aux Rencontres Recherche et Création, forums et webinaires de l'ANR (Festival d'Avignon, Rendez‑vous ANR).",
+                              "children": [
+                                {
+                                  "name": "4",
+                                  "summary": "Informations et inscriptions liées aux événements scientifiques et culturels (ANR, Rencontres Recherche et Création, Festival d'Avignon et webinaires associés).",
+                                  "children": [
+                                    {
+                                      "name": "5",
+                                      "summary": "Informations pratiques et annonces d’événements scientifiques et culturels (ANR Tour, Festival d’Avignon, webinaires et replays) destinés aux chercheurs et professionnels.",
+                                      "children": [
+                                        {
+                                          "name": "5",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "6",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            },
+                                            {
+                                              "name": "7",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "4",
+                              "summary": "Mise en œuvre et valorisation du partenariat AAF–Wikimédia : webinaires, formations, conventions et actions GLAM autour des archives.",
+                              "children": [
+                                {
+                                  "name": "5",
+                                  "summary": "Négociations et organisation du partenariat AAF–Wikimédia (conventions, formations Wikidata, projets WikiArchives et valorisation des actions GLAM).",
+                                  "children": [
+                                    {
+                                      "name": "6",
+                                      "summary": "Partenariat AAF–Wikimédia France : convention, formations communes, valorisation de l’open content et lancement du Label Culture Libre / Observatoire open content.",
+                                      "children": [
+                                        {
+                                          "name": "6",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "8",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "7",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "9",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "3",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "5",
+                              "summary": "Questions administratives et de gouvernance de l'AAF : gestion des comptes, conventions, réunions et organisation de la permanence.",
+                              "children": [
+                                {
+                                  "name": "6",
+                                  "summary": "Courriers et échanges internes de gouvernance de l'AAF : préparation de conseils, réunions, budgets, gestion associative et sujets opérationnels divers.",
+                                  "children": [
+                                    {
+                                      "name": "7",
+                                      "summary": "Échanges et accompagnement autour du projet de centre d’archives LGBTQI, soutien au collectif, gestion des publications et réflexions sur archives minoritaires.",
+                                      "children": [
+                                        {
+                                          "name": "8",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "10",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "9",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "11",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "8",
+                                      "summary": "Coordination avec le ministère de la Culture sur l’impact du COVID‑19, enquêtes sectorielles et propositions de ressources pédagogiques/formatives pour les réseaux d’archives.",
+                                      "children": [
+                                        {
+                                          "name": "10",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "12",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "11",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "13",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "9",
+                                      "summary": "Organisation interne (assemblées générales, convocations, PV, questions financières) et gestion administrative de l’Association.",
+                                      "children": [
+                                        {
+                                          "name": "12",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "14",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            },
+                                            {
+                                              "name": "15",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "13",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "16",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "4",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "6",
+                              "summary": "Gestion des publications de l'AAF (Gazette, Abrégé) : tirage, impression, conventions de subvention, logistique et ventes.",
+                              "children": [
+                                {
+                                  "name": "7",
+                                  "summary": "Gestion des publications de l'AAF : tirages, rééditions, coûts d'impression, logistique de stockage et mise en vente en ligne des ouvrages.",
+                                  "children": [
+                                    {
+                                      "name": "10",
+                                      "summary": "Gestion éditoriale et logistique des publications de l’AAF : tirages, stocks, prix de vente, réimpressions et conventions/financements (SAAF).",
+                                      "children": [
+                                        {
+                                          "name": "14",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "17",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "11",
+                                      "summary": "Projet de vente en ligne des publications via Weezevent, questions comptables et fiscales et validation par le cabinet CERA.",
+                                      "children": [
+                                        {
+                                          "name": "15",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "18",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "8",
+                                  "summary": "Questions techniques et contractuelles sur l'hébergement et la maintenance de référentiels (référentiel producteurs ISAF/AAF, Numadoc) et conventions de publication (Gazette Francophonie).",
+                                  "children": [
+                                    {
+                                      "name": "12",
+                                      "summary": "Convention et partenariat avec la Société des Amis des Archives de France (SAAF) pour soutenir la Gazette et développer des actions communes (conférences, envois).",
+                                      "children": [
+                                        {
+                                          "name": "16",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "19",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "17",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "20",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "13",
+                                      "summary": "Conséquences de l’incendie OVH sur les services hébergés (Référentiel des producteurs ISAF/AAF), indisponibilités, sauvegardes et plan de reprise d’activité.",
+                                      "children": [
+                                        {
+                                          "name": "18",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "21",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "2",
+          "summary": "Merge 1.6",
+          "children": [
+            {
+              "name": "2",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "3",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "3",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "5",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "7",
+                              "summary": "Échanges sur la nouvelle IGI (classification/déclassification), la gestion des listes de diffusion (Yahoo/Sympa) et l'organisation de réunions professionnelles.",
+                              "children": [
+                                {
+                                  "name": "9",
+                                  "summary": "Actions d'expertise et de plaidoyer sur des projets de loi et textes (déclaration de naissance, IGI, accès aux archives), préparation de communiqués et auditions parlementaires.",
+                                  "children": [
+                                    {
+                                      "name": "14",
+                                      "summary": "Travail sur le cadre stratégique de modernisation des archives et suivis de l’évolution de l’IGI (Instruction générale interministérielle) et réunions associées.",
+                                      "children": [
+                                        {
+                                          "name": "19",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "22",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "20",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "23",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "15",
+                                      "summary": "Réactions et préparation d’auditions sur la proposition de loi relative à la déclaration de naissance et ses impacts potentiels pour l’état civil et les archives.",
+                                      "children": [
+                                        {
+                                          "name": "21",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "24",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "10",
+                                  "summary": "Migration et sauvegarde des listes Yahoo Groups vers la plateforme Sympa : conservation des archives, modalités d'inscription et solution de remplacement.",
+                                  "children": [
+                                    {
+                                      "name": "16",
+                                      "summary": "Fermeture/évolution de Yahoo Groups et migration des listes (archives‑fr) vers une solution Sympa, sauvegarde des historiques et gestion technique.",
+                                      "children": [
+                                        {
+                                          "name": "22",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "25",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "6",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "8",
+                              "summary": "Veille et partage sur Twitter d'actualités et d'informations professionnelles concernant les archives et leurs acteurs.",
+                              "children": [
+                                {
+                                  "name": "11",
+                                  "summary": "Diffusion et promotion sur les réseaux sociaux et gestion des replays/vidéos (YouTube, Twitter, replay d'Archi'Visio et autres webinaires).",
+                                  "children": [
+                                    {
+                                      "name": "17",
+                                      "summary": "Veille et relais médiatiques : tweets, vidéos, chaînes YouTube/Twitch et diffusion d’actualités liées aux archives et à la profession.",
+                                      "children": [
+                                        {
+                                          "name": "23",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "26",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "24",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "27",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "25",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "28",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "9",
+                              "summary": "Rédaction et coordination de communiqués, résolutions et campagnes de communication de l'AAF sur des affaires publiques (destructions, municipales…).",
+                              "children": [
+                                {
+                                  "name": "12",
+                                  "summary": "Rédaction et relecture de communiqués de presse et résolutions publiques de l'AAF portant sur la protection des archives et la continuité démocratique (municipales, cas de Menton…).",
+                                  "children": [
+                                    {
+                                      "name": "18",
+                                      "summary": "Campagne de communication ciblée pour sensibiliser les élus locaux à l’importance des archives (affiches, cartes postales, messages pour les municipales).",
+                                      "children": [
+                                        {
+                                          "name": "26",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "29",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "27",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "30",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "19",
+                                      "summary": "Rédaction et validation d’un communiqué de presse suite à la destruction d’archives à Menton et coordination des prises de parole du CA.",
+                                      "children": [
+                                        {
+                                          "name": "28",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "31",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "29",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "32",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "4",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "4",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "7",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "10",
+                              "summary": "Organisation logistique de réunions, comités de rédaction, visioconférences et planification des publications (Gazette, comités).",
+                              "children": [
+                                {
+                                  "name": "13",
+                                  "summary": "Organisation logistique des réunions et rendez‑vous (convocations, liens de visioconférence, informations pratiques pour intervenants et invités).",
+                                  "children": [
+                                    {
+                                      "name": "20",
+                                      "summary": "Organisation pratique des réunions et visioconférences (GoToMeeting/Zoom) pour le bureau, la permanence et divers groupes de travail.",
+                                      "children": [
+                                        {
+                                          "name": "30",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "33",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "31",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "34",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "5",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "8",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "11",
+                              "summary": "Questions RH et formation : recrutements, accompagnement professionnel, coaching et gestion du centre de formation.",
+                              "children": [
+                                {
+                                  "name": "14",
+                                  "summary": "Coordination des projets éditoriaux numériques et imprimés (BAT, ENSSIB, relectures) et suivi opérationnel des publications et séminaires de l'AAF.",
+                                  "children": [
+                                    {
+                                      "name": "21",
+                                      "summary": "Coordination de réunions préparatoires (colloques, auditions sénatoriales) et planification d’actions / vademecum pour parlementaires sur les archives.",
+                                      "children": [
+                                        {
+                                          "name": "32",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "35",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            },
+                                            {
+                                              "name": "36",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "33",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "37",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "22",
+                                      "summary": "Questions RH et gestion de la permanence : épuisement d’une salariée, mise sous pli massifs, chômage partiel et répartition des tâches.",
+                                      "children": [
+                                        {
+                                          "name": "34",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "38",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "35",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "39",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "23",
+                                      "summary": "Accompagnement en management et coaching (prestations, factures, ateliers de codéveloppement) pour l’équipe et le CA.",
+                                      "children": [
+                                        {
+                                          "name": "36",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "40",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "37",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "41",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "9",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "12",
+                              "summary": "Organisation et participation à journées d'études et colloques sur la pérennisation numérique et les archives de la recherche (groupe PIN, Aurore, BNF).",
+                              "children": [
+                                {
+                                  "name": "15",
+                                  "summary": "Préparation administrative et logistique de l'Assemblée générale (convocations, procurations, présentations) et communications institutionnelles (communiqués).",
+                                  "children": [
+                                    {
+                                      "name": "24",
+                                      "summary": "Convocation et logistique de l’Assemblée générale 2022 (inscriptions, visites après‑midi, procurations) et promotion d’événements (RASAD).",
+                                      "children": [
+                                        {
+                                          "name": "38",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "42",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "39",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "43",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "25",
+                                      "summary": "Communiqué et débats internes autour du décret sur l’intégrité scientifique et discussion sur l’opportunité de réagir à des prises de position individuelles.",
+                                      "children": [
+                                        {
+                                          "name": "40",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "44",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "41",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "45",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "16",
+                                  "summary": "Organisation de la journée des 20 ans du groupe PIN (logistique, invitations VIP, choix de lieu, programme et appels à contributions).",
+                                  "children": [
+                                    {
+                                      "name": "26",
+                                      "summary": "Organisation des 20 ans du groupe PIN (préservation numérique) : appel à communications, logistique et recherche d’intervenants innovants.",
+                                      "children": [
+                                        {
+                                          "name": "42",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "46",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2",
+      "summary": "Merge 1.8",
+      "children": [
+        {
+          "name": "3",
+          "summary": "Merge 1.6",
+          "children": [
+            {
+              "name": "3",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "5",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "6",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "10",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "13",
+                              "summary": "Projets open data et découvrabilité des données : ateliers Etalab, Open Data Canvas et mise en open‑data des indicateurs AAF/AFF.",
+                              "children": [
+                                {
+                                  "name": "17",
+                                  "summary": "Élaboration d'un standard ouvert pour la publication en open data des registres d'entrées (webinaire, appel à commentaires) et dossier de subvention SIAF associé.",
+                                  "children": [
+                                    {
+                                      "name": "27",
+                                      "summary": "Montage du dossier de demande de subvention au SIAF : préparation du CERFA, budget et projet (notamment registre des entrées/Datactivist).",
+                                      "children": [
+                                        {
+                                          "name": "43",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "47",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "44",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "48",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "45",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "49",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "14",
+                              "summary": "Veille d'articles d'opinion et informations externes (réflexions sur la reprise post‑crise, analyses sectorielles et actualités).",
+                              "children": [
+                                {
+                                  "name": "18",
+                                  "summary": "Informations et analyses sur le marché de la formation professionnelle (études Plimsoll) et enjeux financiers/RH liés à l'activité de formation (activité partielle, AG EURL).",
+                                  "children": [
+                                    {
+                                      "name": "28",
+                                      "summary": "Courriels commerciaux et études de marché (Plimsoll) ciblant l’EURL ARCHIVISTES FRANCAIS FORMATION sur l’analyse du secteur de la formation.",
+                                      "children": [
+                                        {
+                                          "name": "46",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "50",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "4",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "6",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "7",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "11",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "15",
+                              "summary": "Participation à des consultations normatives et partenariats professionnels (norme prestations de tiers archivage, enquêtes publiques, ENSSIB).",
+                              "children": [
+                                {
+                                  "name": "19",
+                                  "summary": "Coordination des participations et convocations aux réunions, CA, forums et événements (confirmations de présence et échanges pratiques).",
+                                  "children": [
+                                    {
+                                      "name": "29",
+                                      "summary": "Coordination et participation aux réunions de sections et groupes régionaux (AES, SIAF) : convocations, comptes‑rendus et relais locaux.",
+                                      "children": [
+                                        {
+                                          "name": "47",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "51",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "48",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "52",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "20",
+                                  "summary": "Organisation de projets éditoriaux et d'événements scientifiques (ENSSIB, webinaires) et suivi des enjeux professionnels internationaux (ICA, congrès).",
+                                  "children": [
+                                    {
+                                      "name": "30",
+                                      "summary": "Collaboration ENSSIB – éditions numériques : présentations de projets éditoriaux, baromètres d’usages et ressources pour la préservation numérique.",
+                                      "children": [
+                                        {
+                                          "name": "49",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "53",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "50",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "54",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "31",
+                                      "summary": "Suivi éditorial des Gazettes : BAT, impression, livraisons (situation COVID), relectures et corrections avant mise en presse.",
+                                      "children": [
+                                        {
+                                          "name": "51",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "55",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "12",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "16",
+                              "summary": "Mobilisation médiatique et juridique sur les archives classifiées et le secret‑défense : tribunes, conférences de presse et recours.",
+                              "children": [
+                                {
+                                  "name": "21",
+                                  "summary": "Compte rendu et bilan du webinaire RiC‑O Converter (outil de conversion RDF) organisé avec les Archives nationales et l'ICA, et mise en ligne de l'enregistrement.",
+                                  "children": [
+                                    {
+                                      "name": "32",
+                                      "summary": "Organisation de conférences de presse et webinaires (Zoom) pour valoriser actions, outils (RiC‑O) et coopérations internationales (ICA, AN).",
+                                      "children": [
+                                        {
+                                          "name": "52",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "56",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            },
+                                            {
+                                              "name": "57",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "53",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "58",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "22",
+                                  "summary": "Rédaction et relecture du procès‑verbal de l'AG et coordination des sujets liés à la crise sanitaire (maintien des activités et formations).",
+                                  "children": [
+                                    {
+                                      "name": "33",
+                                      "summary": "Veille presse et ressources (Archimag, VRS, Persée) avec mise en avant d’articles et débats sur l’accès aux archives et l’actualité professionnelle.",
+                                      "children": [
+                                        {
+                                          "name": "54",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "59",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "55",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "60",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "23",
+                                  "summary": "Rédaction du rapport moral, corrections éditoriales et mise en place/communication sur la commission de résolution des conflits de l'AAF.",
+                                  "children": [
+                                    {
+                                      "name": "34",
+                                      "summary": "Constitution et communication autour de la Commission de résolution des conflits : élections, information des membres et messages de remerciement.",
+                                      "children": [
+                                        {
+                                          "name": "56",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "61",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "7",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "8",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "13",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "17",
+                              "summary": "Propositions et gestion des formations : fiches de stage, calendrier et intégration au catalogue du centre de formation.",
+                              "children": [
+                                {
+                                  "name": "24",
+                                  "summary": "Élaboration et diffusion du catalogue des formations du Centre de formation AAF, programmation des sessions et adaptations liées au contexte sanitaire.",
+                                  "children": [
+                                    {
+                                      "name": "35",
+                                      "summary": "Adaptation du centre de formation pendant la crise sanitaire : déploiement de la FOAD, reprogrammation des stages et webinaires d’information.",
+                                      "children": [
+                                        {
+                                          "name": "57",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "62",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "58",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "63",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "14",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "18",
+                              "summary": "Vie de la permanence : organisation du télétravail, activité partielle (chômage partiel), continuité des services et gestion du personnel en contexte COVID.",
+                              "children": [
+                                {
+                                  "name": "25",
+                                  "summary": "Questions RH et organisation du Centre de formation : recrutement, alternance, formation à distance et planification des ressources humaines.",
+                                  "children": [
+                                    {
+                                      "name": "36",
+                                      "summary": "Réflexions RH et formation : télétravail, avenants, recrutements, alternance et anticipation du catalogue/formations 2021–2022.",
+                                      "children": [
+                                        {
+                                          "name": "59",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "64",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "60",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "65",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "37",
+                                      "summary": "Diffusion régulière d’offres d’emploi et de stages sur le site et les listes de l’AAF pour les adhérents et partenaires.",
+                                      "children": [
+                                        {
+                                          "name": "61",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "66",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "4",
+          "summary": "Merge 1.6",
+          "children": [
+            {
+              "name": "5",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "8",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "9",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "15",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "19",
+                              "summary": "Présentation et promotion du RiC‑O Converter (conversion EAD/EAC → RDF) et organisation de sessions de démonstration/formation pour les archivistes.",
+                              "children": [
+                                {
+                                  "name": "26",
+                                  "summary": "Suivi détaillé de l'organisation logistique et du programme de la journée d'études pour les 20 ans du groupe PIN (invitations, réunions préparatoires).",
+                                  "children": [
+                                    {
+                                      "name": "38",
+                                      "summary": "Promotion et formation autour du RiC‑O Converter et du web sémantique (propositions de webinaires/Twitch et ateliers pratiques).",
+                                      "children": [
+                                        {
+                                          "name": "62",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "67",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "39",
+                                      "summary": "Recensement et partage de sources historiques sur le régime des archives classifiées (IGI 1300 et textes/directives antérieurs).",
+                                      "children": [
+                                        {
+                                          "name": "63",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "68",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "16",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "20",
+                              "summary": "Problèmes techniques d'envoi/réception d'emails, retours d'erreur et circulation de documents administratifs (mention du rapport Lallet).",
+                              "children": [
+                                {
+                                  "name": "27",
+                                  "summary": "Échanges administratifs et techniques relatifs à des dossiers réglementaires et de subvention (règlement européen, dossier SIAF, rapports internes).",
+                                  "children": [
+                                    {
+                                      "name": "40",
+                                      "summary": "Échanges administratifs et traces de communication (comptabilité, convocations, suivis de messages) relatifs au fonctionnement de l’AAF.",
+                                      "children": [
+                                        {
+                                          "name": "64",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "69",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "28",
+                                  "summary": "Problèmes techniques de messagerie : échecs d'envoi, messages non remis et gestion des retours d'erreur (bounces).",
+                                  "children": [
+                                    {
+                                      "name": "41",
+                                      "summary": "Problèmes de délivrabilité et retours d’e‑mails : diagnostics d’erreurs, messages non remis et gestion des rebonds.",
+                                      "children": [
+                                        {
+                                          "name": "65",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "70",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "6",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "9",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "10",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "17",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "21",
+                              "summary": "Partage de liens, tweets et ressources pour la veille numérique et le comité de rédaction (actualité, médias et réseaux sociaux).",
+                              "children": [
+                                {
+                                  "name": "29",
+                                  "summary": "Veille et partage de publications/ressources professionnelles sur LinkedIn et Twitter (diffusion de contenus et partages sociaux).",
+                                  "children": [
+                                    {
+                                      "name": "42",
+                                      "summary": "Partages et veille via LinkedIn : diffusion de publications, articles et posts professionnels en lien avec les archives.",
+                                      "children": [
+                                        {
+                                          "name": "66",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "71",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "30",
+                                  "summary": "Diffusion et réactions en direct sur des publications et tweets liés aux activités de l'AAF (partages informels et anecdotes).",
+                                  "children": [
+                                    {
+                                      "name": "43",
+                                      "summary": "Collecte de liens et partages divers (tweets, articles, anecdotes) pour veille thématique et inspiration éditoriale.",
+                                      "children": [
+                                        {
+                                          "name": "67",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "72",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "18",
+                          "summary": "Merge 1.2",
+                          "children": [
+                            {
+                              "name": "22",
+                              "summary": "Documents et préparation pour le COPIL (comité de pilotage) : notes et supports de réunion.",
+                              "children": [
+                                {
+                                  "name": "31",
+                                  "summary": "Préparation et notes pour le COPIL (comité de pilotage) : topo et éléments à présenter lors des réunions du comité.",
+                                  "children": [
+                                    {
+                                      "name": "44",
+                                      "summary": "Dossier non structuré ou contenu absent / divers non catégorisé.",
+                                      "children": [
+                                        {
+                                          "name": "68",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "73",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

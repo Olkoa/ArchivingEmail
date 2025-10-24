@@ -1,21 +1,28 @@
 import json
-from collections import defaultdict
+from pathlib import Path
+import os
+
 from openai import OpenAI
+from dotenv import load_dotenv
 
-# Initialize OpenRouter client
-client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key="sk-or-v1-"
-,  # Replace with your actual API key
-)
+load_dotenv()
 
-# Load sampled documents
-def load_sampled_docs(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
+MODULE_DIR = Path(__file__).resolve().parent
+
+
+def _initialize_client() -> OpenAI:
+    api_key = Path(os.getenv("OPENAI_API_KEY")) if False else os.getenv("OPENAI_API_KEY")
+    base_url = os.getenv("OPENAI_BASE_URL", "https://openrouter.ai/api/v1")
+    return OpenAI(base_url=base_url, api_key=os.getenv("OPENAI_API_KEY"))
+
+
+def _load_sampled_docs(filepath: Path | str):
+    path = Path(filepath)
+    with path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
-# Build the full summarization prompt
-def build_prompt(docs):
+
+def _build_prompt(docs):
     prompt_parts = [
         "You are given emails grouped by topic ID.",
         "Each topic has several sample emails.",
@@ -26,29 +33,28 @@ def build_prompt(docs):
         "Topics and emails:"
     ]
 
-    # Iterate through topics and add emails to the prompt
     for topic_id, emails in docs.items():
         prompt_parts.append(f"[Topic {topic_id}]")
-        for email in emails[:10]:  # limit to 10 per topic
-            prompt_parts.append(f"- {email[:1500]}")  # clip long emails
-        prompt_parts.append("")  # spacing between topics
+        for email in emails[:10]:
+            prompt_parts.append(f"- {email[:1500]}")
+        prompt_parts.append("")
 
     return "\n".join(prompt_parts)
 
-# Ask the model to summarize topics
-def summarize_all_topics(sampled_json_path, output_path):
-    docs = load_sampled_docs(sampled_json_path)
-    
-    # Build the prompt
-    prompt = build_prompt(docs)
-    
+
+def summarize_all_topics(sampled_json_path: Path, output_path: Path, client: OpenAI | None = None):
+    docs = _load_sampled_docs(sampled_json_path)
+    prompt = _build_prompt(docs)
+
     print(f"Prompt length: {len(prompt.split())} words")
+
+    client = client or _initialize_client()
 
     try:
         completion = client.chat.completions.create(
             model="openai/gpt-5-mini",
             messages=[{"role": "user", "content": prompt}],
-            temperature=0.3
+            temperature=0.3,
         )
     except Exception as e:
         print("❌ API call failed:", e)
@@ -66,10 +72,18 @@ def summarize_all_topics(sampled_json_path, output_path):
         print("⚠️ Model did not return valid JSON. Saving raw output.")
         summaries = {"raw_response": response}
 
-    with open(output_path, "w", encoding="utf-8") as f:
+    with output_path.open("w", encoding="utf-8") as f:
         json.dump(summaries, f, ensure_ascii=False, indent=2)
 
     print(f"✅ Topic summaries saved to {output_path}")
 
-summarize_all_topics("split_1.json","topic_summaries.json")
-summarize_all_topics("split_2.json","topic_summaries2.json")
+
+def summarize_topics():
+    split_1 = MODULE_DIR / "split_1.json"
+    split_2 = MODULE_DIR / "split_2.json"
+    summaries_1 = MODULE_DIR / "topic_summaries.json"
+    summaries_2 = MODULE_DIR / "topic_summaries2.json"
+
+    client = _initialize_client()
+    summarize_all_topics(split_1, summaries_1, client)
+    summarize_all_topics(split_2, summaries_2, client)

@@ -1,11 +1,19 @@
 import json
 from collections import defaultdict
 from openai import OpenAI
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
+ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://openrouter.ai/api/v1")
 
 # Initialize OpenRouter client
 client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key="sk-or-v1-",  # Replace with your actual API key
+    base_url=OPENAI_BASE_URL,
+    api_key=OPENAI_API_KEY,
 )
 
 # Load sampled documents

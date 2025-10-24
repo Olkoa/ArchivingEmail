@@ -1,0 +1,1655 @@
+{
+  "name": "1",
+  "summary": "Merge 1.99",
+  "children": [
+    {
+      "name": "1",
+      "summary": "Merge 1.8",
+      "children": [
+        {
+          "name": "1",
+          "summary": "Merge 1.6",
+          "children": [
+            {
+              "name": "1",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "1",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "1",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "1",
+                          "summary": "Débats et actions autour de l'accès, de la médiatisation et de la défense des archives (notamment de la guerre d'Algérie) et initiatives de solidarité pour les archives (ex. Ukraine).",
+                          "children": [
+                            {
+                              "name": "1",
+                              "summary": "Débats et révélations sur l’accès aux archives coloniales et militaires (guerre d’Algérie, Rwanda) et la mémoire postcoloniale en France.",
+                              "children": [
+                                {
+                                  "name": "1",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "1",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "1",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "1",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            },
+                                            {
+                                              "name": "2",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "2",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "2",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "3",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "2",
+                              "summary": "Mobilisation de l'AAF pour aider des archivistes étrangers (Afghanistan, Ukraine) : visas, asile, soutien et solidarité professionnelle.",
+                              "children": [
+                                {
+                                  "name": "2",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "3",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "3",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "4",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "3",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "4",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "4",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "5",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "2",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "2",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "2",
+                          "summary": "Mise en place et valorisation du partenariat AAF–Wikimédia France (formations, webinaires, projets GLAM) et organisation d'événements associés.",
+                          "children": [
+                            {
+                              "name": "3",
+                              "summary": "Informations et invitations liées aux activités de l’ANR : webinaires, ANR Tour, Rencontres Recherche et Création et appels à projets.",
+                              "children": [
+                                {
+                                  "name": "4",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "5",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "5",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "6",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            },
+                                            {
+                                              "name": "7",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "4",
+                              "summary": "Partenariat AAF–Wikimédia France et initiatives open content : label Culture Libre, formations Wikidata et projets GLAM/Wikimedia.",
+                              "children": [
+                                {
+                                  "name": "5",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "6",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "6",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "8",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "7",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "9",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "3",
+                          "summary": "Échanges internes de l'AAF concernant la gouvernance associative : réunions, courriers, tribunes, budget et démarches juridiques.",
+                          "children": [
+                            {
+                              "name": "5",
+                              "summary": "Questions internes de gouvernance de l’AAF : budgets, réunions du CA/bureau, projets associatifs et gestion administrative.",
+                              "children": [
+                                {
+                                  "name": "6",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "7",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "8",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "10",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "9",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "11",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "8",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "10",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "12",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "11",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "13",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "9",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "12",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "14",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            },
+                                            {
+                                              "name": "15",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "13",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "16",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "4",
+                          "summary": "Questions liées aux publications de l'AAF : conventions de sponsoring, réédition, gestion des stocks, vente en ligne et aspects logistiques/contractuels.",
+                          "children": [
+                            {
+                              "name": "6",
+                              "summary": "Partenariats et publications (Gazette, éditions) : logistique d’impression, ventes, collaborations avec Ascodocpsy et prestataires techniques.",
+                              "children": [
+                                {
+                                  "name": "7",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "10",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "14",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "17",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "11",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "15",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "18",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "8",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "12",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "16",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "19",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "17",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "20",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "13",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "18",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "21",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "2",
+          "summary": "Merge 1.6",
+          "children": [
+            {
+              "name": "2",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "3",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "3",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "5",
+                          "summary": "Préoccupations et actions concernant la nouvelle IGI et l'accès aux archives classifiées, avec échanges juridiques et recours.",
+                          "children": [
+                            {
+                              "name": "7",
+                              "summary": "Migration des listes de diffusion (fermeture de Yahoo Groups) vers SYMPA et choix/gestion des outils de communication de l’AAF.",
+                              "children": [
+                                {
+                                  "name": "9",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "14",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "19",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "22",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "20",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "23",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "15",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "21",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "24",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "10",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "16",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "22",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "25",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "6",
+                          "summary": "Activités de communication numérique : tweets, diffusion de vidéos, relations presse et choix de prestataires graphiques.",
+                          "children": [
+                            {
+                              "name": "8",
+                              "summary": "Diffusion d'actualités et communications sur les réseaux sociaux (tweets, vidéos) concernant la culture, les archives et événements.",
+                              "children": [
+                                {
+                                  "name": "11",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "17",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "23",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "26",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "24",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "27",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "25",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "28",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "9",
+                              "summary": "Préparation et validation de communiqués, résolutions et campagnes de communication de l’AAF (municipales, affaires locales, CP).",
+                              "children": [
+                                {
+                                  "name": "12",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "18",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "26",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "29",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "27",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "30",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "19",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "28",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "31",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "29",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "32",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "4",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "4",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "7",
+                          "summary": "Organisation et coordination de réunions et webinaires (liens de connexion, plannings) pour divers groupes et comités.",
+                          "children": [
+                            {
+                              "name": "10",
+                              "summary": "Organisation logistique de réunions et webinaires (atelier Plaidoyer, comités, séminaires) et convocations de l’AAF.",
+                              "children": [
+                                {
+                                  "name": "13",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "20",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "30",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "33",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "31",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "34",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "5",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "8",
+                          "summary": "Questions RH et organisation de la permanence : congés, répartition des tâches, suivi individuel et accompagnement.",
+                          "children": [
+                            {
+                              "name": "11",
+                              "summary": "Coordination pratique d’événements, assemblées générales, séminaires et gestion des inscriptions/remboursements et PV.",
+                              "children": [
+                                {
+                                  "name": "14",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "21",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "32",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "35",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            },
+                                            {
+                                              "name": "36",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "33",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "37",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "22",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "34",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "38",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "35",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "39",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "23",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "36",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "40",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "37",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "41",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "9",
+                          "summary": "Organisation d'événements professionnels et de sections (PIN 20 ans, RASAD, AG) et communication associée.",
+                          "children": [
+                            {
+                              "name": "12",
+                              "summary": "Gestion des publications de l’AAF (Archivistes!), projets éditoriaux et organisation de journées d’études et partenariats ENSSIB/PIN.",
+                              "children": [
+                                {
+                                  "name": "15",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "24",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "38",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "42",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "39",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "43",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "25",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "40",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "44",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "41",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "45",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "16",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "26",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "42",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "46",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2",
+      "summary": "Merge 1.8",
+      "children": [
+        {
+          "name": "3",
+          "summary": "Merge 1.6",
+          "children": [
+            {
+              "name": "3",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "5",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "6",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "10",
+                          "summary": "Dossiers de subvention (SIAF), questions financières et projets liés aux données de recherche et à la documentation (data.gouv).",
+                          "children": [
+                            {
+                              "name": "13",
+                              "summary": "Initiatives open data et qualité/interopérabilité des données (Open Data Canvas, Etalab, data.gouv.fr) et registre des entrées.",
+                              "children": [
+                                {
+                                  "name": "17",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "27",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "43",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "47",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "44",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "48",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "45",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "49",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "14",
+                              "summary": "Messages commerciaux/Spam (études Plimsoll) estimant la valeur des entreprises du secteur de la formation, adressés à AFF.",
+                              "children": [
+                                {
+                                  "name": "18",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "28",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "46",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "50",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "4",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "6",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "7",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "11",
+                          "summary": "Travail éditorial et projets numériques : maquettes, collaborations (ENSSIB), forum et préparation de la Gazette des archives.",
+                          "children": [
+                            {
+                              "name": "15",
+                              "summary": "Annonces RH et participations institutionnelles : arrivée de personnel, interventions et contributions aux tables rondes.",
+                              "children": [
+                                {
+                                  "name": "19",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "29",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "47",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "51",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "48",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "52",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "20",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "30",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "49",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "53",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "50",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "54",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "31",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "51",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "55",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "12",
+                          "summary": "Organisation de webinaires et relations presse autour d'outils (RiC‑O Converter) et coordination des communications.",
+                          "children": [
+                            {
+                              "name": "16",
+                              "summary": "Préparation et relecture des PV d’AG, contacts presse pour actions juridiques/recours et questions administratives post‑AG.",
+                              "children": [
+                                {
+                                  "name": "21",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "32",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "52",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "56",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            },
+                                            {
+                                              "name": "57",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "53",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "58",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "22",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "33",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "54",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "59",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "55",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "60",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "23",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "34",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "56",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "61",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "7",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "8",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "13",
+                          "summary": "Gestion du centre de formation de l'AAF en contexte COVID : reprogrammation, formation à distance, reprise présentielle et chômage partiel.",
+                          "children": [
+                            {
+                              "name": "17",
+                              "summary": "Activité du centre de formation AAF : maintien des sessions, transition vers la FOAD, catalogue et organisation des formations.",
+                              "children": [
+                                {
+                                  "name": "24",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "35",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "57",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "62",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "58",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "63",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "14",
+                          "summary": "Offres d'emploi, recrutement et questions RH, avec gestion opérationnelle du centre de formation et du personnel.",
+                          "children": [
+                            {
+                              "name": "18",
+                              "summary": "Finalisation du catalogue de formations (identité AFF/AAF) et questions RH liées aux fiches de poste et recrutements.",
+                              "children": [
+                                {
+                                  "name": "25",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "36",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "59",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "64",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "60",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "65",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "37",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "61",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "66",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "4",
+          "summary": "Merge 1.6",
+          "children": [
+            {
+              "name": "5",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "8",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "9",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "15",
+                          "summary": "Discussions techniques et juridiques sur l'accès aux archives classifiées et sur les outils numériques (RiC‑O, formats RDF) pour l'archivage.",
+                          "children": [
+                            {
+                              "name": "19",
+                              "summary": "Outils et standards techniques pour les archives : RiC‑O Converter, schéma d’export des registres et intégration aux logiciels métiers.",
+                              "children": [
+                                {
+                                  "name": "26",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "38",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "62",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "67",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "39",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "63",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "68",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "16",
+                          "summary": "Messages administratifs et techniques (journée d'étude, finances, logs et problèmes de livraison d'e-mails) et suivi de dossiers divers.",
+                          "children": [
+                            {
+                              "name": "20",
+                              "summary": "Notifications et diagnostics d’erreurs de livraison d’e-mails (messages non remis, retours au sender).",
+                              "children": [
+                                {
+                                  "name": "27",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "40",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "64",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "69",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "28",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "41",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "65",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "70",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "6",
+              "summary": "Merge 1.5",
+              "children": [
+                {
+                  "name": "9",
+                  "summary": "Merge 1.4",
+                  "children": [
+                    {
+                      "name": "10",
+                      "summary": "Merge 1.3",
+                      "children": [
+                        {
+                          "name": "17",
+                          "summary": "Veille et partage sur les réseaux sociaux (LinkedIn/Twitter) autour de l'archivage, souveraineté numérique et actualités professionnelles.",
+                          "children": [
+                            {
+                              "name": "21",
+                              "summary": "Veille et partage de ressources/actualités sur les réseaux sociaux et LinkedIn/Twitter, idées de plaidoyer et liens utiles.",
+                              "children": [
+                                {
+                                  "name": "29",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "42",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "66",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "71",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "30",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "43",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "67",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "72",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "18",
+                          "summary": "Préparation et diffusion d'un topo pour le COPIL (comité de pilotage).",
+                          "children": [
+                            {
+                              "name": "22",
+                              "summary": "Notes brèves et rappels internes (COPIL) et documents de travail divers.",
+                              "children": [
+                                {
+                                  "name": "31",
+                                  "summary": "Merge 1.0",
+                                  "children": [
+                                    {
+                                      "name": "44",
+                                      "summary": "Merge 0.9",
+                                      "children": [
+                                        {
+                                          "name": "68",
+                                          "summary": "Merge 0.8",
+                                          "children": [
+                                            {
+                                              "name": "73",
+                                              "summary": "Merge 0.1",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

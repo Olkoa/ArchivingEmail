@@ -468,3 +468,9 @@ pyvis
 trafilatura
 mail-parser
 clean-text[gpl]
+pyclustering
+hf_xet
+ijson
+bertopic
+stop_words
+dot

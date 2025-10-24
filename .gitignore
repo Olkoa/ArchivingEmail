@@ -40,8 +40,15 @@ emails_with_embeddings_sample.pkl
 *.log
 # *.json
 
+bertopic_model_fr
+email_output.json
+
+app/components/topic_modeling/bertopic_model_fr      
+app/components/topic_modeling/email_output.json 
+
 scaleway_p_key
 scaleway_p_key.pub
+
 
 # Julien
 *pycache*

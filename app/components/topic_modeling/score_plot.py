@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+
 df3 = pd.read_pickle("scores_df.pkl")
 
 # Assuming your DataFrame is called df_scores and is already sorted by index
@@ -16,10 +17,6 @@ plt.xticks(ticks=range(0, len(df3), 10))
 
 plt.tight_layout()
 plt.show()
-
-
-import matplotlib.pyplot as plt
-import pandas as pd
 
 # Sort the DataFrame by score (descending if you want highest on the left)
 df_sorted = df3.sort_values(by='score', ascending=False).reset_index(drop=True)
