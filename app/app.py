@@ -179,13 +179,13 @@ else:
 
     # Organize pages into categories for better navigation
     navigation_categories = {
-        "Overview": ["Dashboard"],
-        "AI Assistants": ["Chat + RAG"], # "Colbert RAG"
-        "Topic": ["Topic"],
-        "Graph": ["Graph"],
+        "Dashboard": ["Dashboard"],
+        "Chatbot": ["Chat + RAG"], # "Colbert RAG"
+        "Topics de conversations": ["Topic"],
+        "Graph des interactions": ["Graph"],
         # "Graph_Br": ["Graph_Br"],
-        "Visualization": ["Structure de la boîte mail"],
-        "Search": ["Recherche Sémantique"]
+        "Structure de la boîte mail": ["Structure de la boîte mail"],
+        "Recherche Sémantique": ["Recherche Sémantique"]
         # "Exploration": ["Email Explorer"],
     }
 
@@ -1115,26 +1115,51 @@ else:
                             except Exception as graph_error:
                                 st.error(f"Impossible d'afficher le graphe : {graph_error}")
     elif page == "Topic":
+        st.title("Topic Tree Visualization")
+
         folder_path = os.path.dirname(__file__)
-
-        # Read JSON data
-        json_path = os.path.join(folder_path, "components/tree3.json")
-
-        with open(json_path, "r", encoding="utf-8") as f:
-            data_json = json.load(f)
-
-        # Read HTML and inject the JSON
         html_path = os.path.join(folder_path, "components/topic_tree.html")
+
+        # Prefer project-specific topic graph if available
+        project_topic_path = (
+            Path(project_root)
+            / "data"
+            / "Projects"
+            / ACTIVE_PROJECT
+            / "Topics_GRAPHS_PATHS.json"
+        )
+
+        if project_topic_path.exists():
+            try:
+                with project_topic_path.open("r", encoding="utf-8") as f:
+                    data_json = json.load(f)
+            except json.JSONDecodeError as json_error:
+                st.warning(
+                    f"Impossible de lire le fichier de graphes généré "
+                    f"({project_topic_path.name}) : {json_error}. "
+                    "Utilisation du graph par défaut."
+                )
+                project_topic_path = None
+        else:
+            project_topic_path = None
+
+        if project_topic_path is None:
+            fallback_json_path = Path(folder_path) / "components" / "tree3.json"
+            try:
+                with fallback_json_path.open("r", encoding="utf-8") as f:
+                    data_json = json.load(f)
+            except json.JSONDecodeError as fallback_error:
+                st.error(
+                    "Impossible de charger les données de topics "
+                    f"(erreur JSON : {fallback_error})."
+                )
+                st.stop()
+
         with open(html_path, "r", encoding="utf-8") as f:
             html_template = f.read()
 
-        # Replace the placeholder with actual JSON data (as JS object)
         json_js = json.dumps(data_json)
         html_content = html_template.replace("__GRAPH_DATA__", json_js)
-
-        # Display in Streamlit
-
-        st.title("Topic Tree Visualization")
 
         components.html(html_content, height=800, width=2200)
     # elif page == "Graph_Br":

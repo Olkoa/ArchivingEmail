@@ -4,9 +4,6 @@ from pathlib import Path
 import importlib
 import sys
 from dotenv import load_dotenv
-load_dotenv()
-
-ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
 
 from .eml_json import run_email_extraction
 from .bertopicgpu import bertopic_modeling
@@ -26,15 +23,19 @@ from .cluster_tree import build_cluster_tree
 # Resolve repository root (…/olkoa)
 REPO_ROOT = Path(__file__).resolve().parents[3]
 
-TOPICS_GRAPHS_PATH = REPO_ROOT / "data" / "Projects" / (ACTIVE_PROJECT or "") / "Topics_GRAPHS_PATHS.json"
-
 def topic_build(topics_graphs_path: Path | None = None):
     """Extract EML content for the active project to support topic modeling."""
     nltk.download("stopwords")
 
+    load_dotenv()
+
+    ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
+
     if not ACTIVE_PROJECT:
         print("🔁 ACTIVE_PROJECT environment variable is not set; skipping topic_build.")
         return
+    
+    TOPICS_GRAPHS_PATH = REPO_ROOT / "data" / "Projects" / (ACTIVE_PROJECT or "") / "Topics_GRAPHS_PATHS.json"
 
     eml_folder = REPO_ROOT / "data" / "Projects" / ACTIVE_PROJECT
     if not eml_folder.exists():
@@ -82,4 +83,5 @@ def topic_build(topics_graphs_path: Path | None = None):
     build_cluster_tree(TOPICS_GRAPHS_PATH) # cluster_tree
 
 if __name__ == "__main__":
-    topic_build(TOPICS_GRAPHS_PATH)
+    pass
+    # topic_build(TOPICS_GRAPHS_PATH)

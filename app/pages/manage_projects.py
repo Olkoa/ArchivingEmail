@@ -20,6 +20,7 @@ import tempfile
 import uuid
 import zipfile
 from datetime import datetime
+import time
 
 from components.logins import make_hashed_password, verify_password, add_user, initialize_users_db
 from components.topic_modeling.Topic_modeling import topic_build
@@ -41,12 +42,6 @@ from src.rag.colbert_initialization import initialize_colbert_rag_system
 from src.data.eml_transformation import generate_duck_db
 from src.data.graph_generation import generate_graphs_for_project
 
-
-
-
-from dotenv import load_dotenv
-ACTIVE_PROJECT = os.getenv("ACTIVE_PROJECT")
-topic_build()
 
 # Page configuration
 # st.set_page_config(
@@ -136,6 +131,26 @@ else:
         Create, edit, and manage your email archive projects. Each project can contain multiple mailboxes
         with metadata about the people and organizations involved.
     """)
+
+    def _format_duration(elapsed_seconds: float) -> str:
+        total_seconds = int(round(elapsed_seconds))
+        hours, remainder = divmod(total_seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        if hours:
+            return f"{hours}h{minutes:02d}mn{seconds:02d}s"
+        if minutes:
+            return f"{minutes}mn{seconds:02d}s"
+        return f"{seconds}s"
+
+    def timed_step(info_text: str, spinner_text: str, success_text: str, func, *args, **kwargs):
+        st.info(info_text)
+        start = time.perf_counter()
+        result = None
+        with st.spinner(spinner_text):
+            result = func(*args, **kwargs)
+        duration = _format_duration(time.perf_counter() - start)
+        st.success(f"{success_text} en {duration}")
+        return result
 
     # Function to find all project config files
     def find_projects():
@@ -698,66 +713,108 @@ else:
 
             # For uploaded files: upload to S3 then download back to verify
             if upload_mailboxes:
-                st.info("📤 Téléversement des fichiers fournis vers S3...")
-                upload_success = upload_project_raw_data_to_s3(project_name, project_path, upload_mailboxes)
+                upload_success = timed_step(
+                    "📤 Téléversement des fichiers fournis vers S3...",
+                    "Téléversement des fichiers bruts vers S3...",
+                    "Téléversement vers S3 terminé",
+                    upload_project_raw_data_to_s3,
+                    project_name,
+                    project_path,
+                    upload_mailboxes,
+                )
                 if not upload_success:
                     raise PipelineError("Échec du téléversement des données brutes vers S3 pour au moins une boîte mail.")
-                st.success("✅ Téléversement vers S3 terminé")
 
-                st.info("🔄 Vérification de la synchronisation S3 (téléchargement de contrôle)...")
-                download_success = download_project_raw_data_from_s3(project_name, project_path, upload_mailboxes)
+                download_success = timed_step(
+                    "🔄 Vérification de la synchronisation S3 (téléchargement de contrôle)...",
+                    "Téléchargement de contrôle depuis S3...",
+                    "Synchronisation S3 confirmée",
+                    download_project_raw_data_from_s3,
+                    project_name,
+                    project_path,
+                    upload_mailboxes,
+                )
                 if not download_success:
                     raise PipelineError("La vérification de la synchronisation S3 a échoué pour les boîtes mail téléversées.")
-                st.success("✅ Synchronisation S3 confirmée")
 
             # For S3 sources: just download from selected projects
             if s3_mailboxes:
-                st.info("📥 Téléchargement des données depuis les projets S3 sélectionnés...")
-                for mailbox in s3_mailboxes:
-                    download_success = download_project_raw_data_from_s3(
-                        project_name=mailbox['s3_project_name'],
-                        project_path=project_path,
-                        mailbox_names=[mailbox['name']]
-                    )
-                    if not download_success:
-                        raise PipelineError(
-                            f"Échec du téléchargement des données S3 pour la boîte mail '{mailbox['name']}'."
+                def _download_selected_mailboxes():
+                    for mailbox in s3_mailboxes:
+                        download_success = download_project_raw_data_from_s3(
+                            project_name=mailbox['s3_project_name'],
+                            project_path=project_path,
+                            mailbox_names=[mailbox['name']]
                         )
-                st.success("✅ Téléchargement des données S3 terminé")
+                        if not download_success:
+                            raise PipelineError(
+                                f"Échec du téléchargement des données S3 pour la boîte mail '{mailbox['name']}'."
+                            )
+                    return True
 
-            st.info("🔍 Vérification de la présence des données brutes...")
-            missing_raw = mailboxes_missing_files(project_path, mailbox_names, 'raw')
+                timed_step(
+                    "📥 Téléchargement des données depuis les projets S3 sélectionnés...",
+                    "Téléchargement des données S3 sélectionnées...",
+                    "Téléchargement des données S3 terminé",
+                    _download_selected_mailboxes,
+                )
+
+            missing_raw = timed_step(
+                "🔍 Vérification de la présence des données brutes...",
+                "Analyse des dossiers raw...",
+                "Données brutes vérifiées",
+                mailboxes_missing_files,
+                project_path,
+                mailbox_names,
+                'raw'
+            )
             if missing_raw:
                 raise PipelineError(
                     "Aucune donnée brute n'a été trouvée pour les boîtes mail suivantes : " +
                     ", ".join(missing_raw)
                 )
-            st.success("✅ Données brutes présentes pour toutes les boîtes mail")
 
             # Convert PST/MBOX (included if they are in a zip) files to EML
             # Unzip if needed
-            st.info("🗜️ Extraction des archives ZIP...")
-            unzip_success = extract_project_zip_files(project_name, project_path, mailbox_names)
+            unzip_success = timed_step(
+                "🗜️ Extraction des archives ZIP...",
+                "Extraction des archives ZIP...",
+                "Extraction des archives terminée",
+                extract_project_zip_files,
+                project_name,
+                project_path,
+                mailbox_names,
+            )
             if not unzip_success:
                 raise PipelineError("L'extraction des archives ZIP a échoué.")
-            st.success("✅ Extraction des archives terminée")
 
-            st.info("🧹 Nettoyage des artefacts macOS...")
-            cleanup_stats = cleanup_mailbox_raw_artifacts(project_path, mailbox_names)
+            cleanup_stats = timed_step(
+                "🧹 Nettoyage des artefacts macOS...",
+                "Suppression des artefacts macOS...",
+                "Nettoyage terminé",
+                cleanup_mailbox_raw_artifacts,
+                project_path,
+                mailbox_names,
+            )
             if cleanup_stats["removed_directories"] or cleanup_stats["removed_files"]:
                 st.info(
                     "Nettoyage des artefacts macOS : suppression de "
                     f"{len(cleanup_stats['removed_directories'])} dossiers et "
                     f"{len(cleanup_stats['removed_files'])} fichiers."
                 )
-            st.success("✅ Nettoyage terminé")
 
             # process files into .eml (s)
-            st.info("Conversion des emails en EML...")
-            conversion_success = convert_project_emails_to_eml(project_name, project_path, mailbox_names)
+            conversion_success = timed_step(
+                "Conversion des emails en EML...",
+                "Conversion des emails en EML...",
+                "Conversion des emails terminée",
+                convert_project_emails_to_eml,
+                project_name,
+                project_path,
+                mailbox_names,
+            )
             if not conversion_success:
                 raise PipelineError("La conversion des emails en EML a échoué.")
-            st.success("Conversion des emails terminée")
 
             def count_processed_eml(mailbox: str) -> int:
                 processed_dir = os.path.join(project_path, mailbox, 'processed')
@@ -773,62 +830,76 @@ else:
                 st.info(f"{mailbox} : {count:,} fichiers .eml dans processed/")
             st.success(f"Total : {total_eml:,} fichiers .eml générés dans processed/")
 
-            st.info("📈 Préparation des graphes de réseau...")
             try:
-                graph_index = generate_graphs_for_project(
-                    project_name=project_name,
-                    project_path=Path(project_path),
-                    mailbox_names=mailbox_names,
+                graph_index = timed_step(
+                    "📈 Préparation des graphes de réseau...",
+                    "Génération des graphes de réseau...",
+                    "Graphes générés",
+                    generate_graphs_for_project,
+                    project_name,
+                    Path(project_path),
+                    mailbox_names,
                 )
-                st.success(
-                    "Graphes générés : "
+                st.caption(
                     f"{len(graph_index.get('graphs', []))} graphes disponibles dans Graphs/."
                 )
             except Exception as graph_error:
                 raise PipelineError(f"La génération des graphes a échoué : {graph_error}")
             
             # Process EML files into DuckDB
-            st.info("🗃️ Génération de la base DuckDB...")
-            db_path = generate_duck_db()
+            db_path = timed_step(
+                "🗃️ Génération de la base DuckDB...",
+                "Génération de la base DuckDB...",
+                "Base DuckDB générée",
+                generate_duck_db,
+            )
             if not db_path or not os.path.exists(db_path):
                 raise PipelineError(
                     "La base de données DuckDB attendue n'a pas été générée "
                     f"(fichier manquant : {project_name}.duckdb)."
                 )
-            st.success("Base DuckDB générée")
-
-            st.info("🔎 Vérification de la base DuckDB...")
-            try:
+            def _verify_duckdb():
                 db_conn = duckdb.connect(db_path, read_only=True)
-                existing_tables = {
-                    row[0]
-                    for row in db_conn.execute(
-                        "SELECT table_name FROM information_schema.tables WHERE table_schema = 'main'"
-                    ).fetchall()
-                }
+                try:
+                    existing_tables = {
+                        row[0]
+                        for row in db_conn.execute(
+                            "SELECT table_name FROM information_schema.tables WHERE table_schema = 'main'"
+                        ).fetchall()
+                    }
 
-                if "receiver_emails" not in existing_tables:
-                    raise PipelineError(
-                        "La base de données DuckDB est incomplète : la table 'receiver_emails' est absente."
-                    )
+                    if "receiver_emails" not in existing_tables:
+                        raise PipelineError(
+                            "La base de données DuckDB est incomplète : la table 'receiver_emails' est absente."
+                        )
 
-                email_count = db_conn.execute("SELECT COUNT(*) FROM receiver_emails").fetchone()[0]
-                if email_count == 0:
-                    raise PipelineError(
-                        "La base de données DuckDB a été créée mais ne contient aucun email."
-                    )
+                    email_count_local = db_conn.execute("SELECT COUNT(*) FROM receiver_emails").fetchone()[0]
+                    if email_count_local == 0:
+                        raise PipelineError(
+                            "La base de données DuckDB a été créée mais ne contient aucun email."
+                        )
+                    return email_count_local
+                finally:
+                    db_conn.close()
+
+            try:
+                email_count = timed_step(
+                    "🔎 Vérification de la base DuckDB...",
+                    "Analyse de la base DuckDB...",
+                    "Base DuckDB vérifiée",
+                    _verify_duckdb,
+                )
             except PipelineError:
                 raise
             except Exception as db_error:
                 raise PipelineError(f"La vérification de la base DuckDB a échoué : {db_error}")
-            finally:
-                try:
-                    db_conn.close()
-                except Exception:
-                    pass
-            st.success(f"Base DuckDB vérifiée ({email_count:,} enregistrements)")
+            st.caption(f"Base DuckDB vérifiée ({email_count:,} enregistrements)")
 
-            missing_processed = mailboxes_missing_files(
+            missing_processed = timed_step(
+                "🔎 Vérification des emails convertis...",
+                "Analyse des dossiers processed/...",
+                "Emails convertis vérifiés",
+                mailboxes_missing_files,
                 project_path,
                 mailbox_names,
                 'processed',
@@ -841,32 +912,50 @@ else:
                 )
             
 
-            st.info("🚀 Initialisation de la recherche sémantique")
             try:
-                with st.spinner("Construction de la recherche sémantique ..."):
-                    prepare_semantic_search()
-                st.success("Système RAG initialisé")
+                timed_step(
+                    "🚀 Initialisation de la recherche sémantique",
+                    "Construction de la recherche sémantique ...",
+                    "Recherche sémantique initialisée",
+                    prepare_semantic_search,
+                )
             except Exception as rag_error:
-                raise PipelineError(f"La construction du système RAG a échoué: {rag_error}")
+                raise PipelineError(f"La construction de la recherche sémantique a échoué: {rag_error}")
             
             
-            st.info("🚀 Initialisation du système RAG (ColBERT)...")
             try:
-                with st.spinner("Construction du système RAG - cela peut prendre quelques minutes..."):
-                    index_dir = initialize_colbert_rag_system(
-                        project_root=project_root,
-                        force_rebuild=True,
-                        test_mode=False,
-                        rag_mode="light",
-                        project_name=project_name
-                    )
-                st.success("Système RAG initialisé")
+                index_dir = timed_step(
+                    "🚀 Initialisation du système RAG (ColBERT)...",
+                    "Construction du système RAG - cela peut prendre quelques minutes...",
+                    "Système RAG initialisé",
+                    initialize_colbert_rag_system,
+                    project_root=project_root,
+                    force_rebuild=True,
+                    test_mode=False,
+                    rag_mode="light",
+                    project_name=project_name,
+                )
                 print(f"Colbert RAG system initialized with index at {index_dir}")
             except Exception as rag_error:
                 raise PipelineError(f"La construction du système RAG a échoué: {rag_error}")
 
             st.success(f"Pipeline de préparation terminé pour le projet '{project_name}'")
             print("Data preparation pipeline completed successfully")
+
+
+            # Building topic models
+            try:
+                timed_step(
+                    "🧠 Construction des topics",
+                    "Construction des Topics - cela peut prendre quelques heures ...",
+                    "Topics générés",
+                    topic_build,
+                )
+            except Exception as rag_error:
+                raise PipelineError(f"La construction des topics a échoué: {rag_error}")
+            
+
+
             return True, None
 
         except PipelineError as pipeline_error:
@@ -1867,4 +1956,3 @@ else:
                         # 1. Mark the project as deactivated
                         # 2. Optionally move it to an archive folder
                         # 3. Update UI to reflect the change
-
