@@ -147,13 +147,22 @@ def build_cluster_tree(topic_graphs_path: Path | str | None = None):
         summary_file = output_dir / f"topic_summaries_{h}.json"
         if summary_file.exists():
             with summary_file.open("r", encoding="utf-8") as sf:
-                summaries_by_height[h] = json.load(sf)
+                raw = json.load(sf)
         else:
-            summaries_by_height[h] = {}
+            raw = {}
+
+        normalized = {}
+        for key, value in raw.items():
+            key_str = str(key)
+            if not key_str.startswith("topic_"):
+                key_str = f"topic_{key_str}"
+            normalized[key_str] = value
+        summaries_by_height[h] = normalized
 
     # Function to get summary or fallback to Merge <height>
     def get_summary_or_merge(cluster_id, height):
-        summary = summaries_by_height.get(height, {}).get(f"topic_{cluster_id}", "")
+        lookup_key = f"topic_{cluster_id}"
+        summary = summaries_by_height.get(height, {}).get(lookup_key, "")
         if summary and summary.strip():
             return summary
         else:

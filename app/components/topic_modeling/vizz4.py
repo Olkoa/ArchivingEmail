@@ -80,9 +80,9 @@ def treatement2(to_cluster_df, df5, linked, cluster_col, text_json_path, summary
         for cluster, texts in cluster_data.items():
             if texts:
                 excerpt = _sanitize_text(texts[0])[:280]
-                fallback[cluster] = excerpt if excerpt else "Résumé indisponible"
+                fallback[f"topic_{cluster}"] = excerpt if excerpt else "Résumé indisponible"
             else:
-                fallback[cluster] = "Résumé indisponible"
+                fallback[f"topic_{cluster}"] = "Résumé indisponible"
 
         with summary_json_path.open('w', encoding='utf-8') as f:
             json.dump(fallback, f, indent=4, ensure_ascii=False)
@@ -92,8 +92,18 @@ def treatement2(to_cluster_df, df5, linked, cluster_col, text_json_path, summary
     with summary_json_path.open('r', encoding='utf-8') as f:
         topic_summaries = json.load(f)
 
+    # Normalize summary keys to the expected format
+    normalized_summaries = {}
+    for key, value in topic_summaries.items():
+        key_str = str(key)
+        if not key_str.startswith("topic_"):
+            key_str = f"topic_{key_str}"
+        normalized_summaries[key_str] = value
+
     finaldf = to_cluster_df.copy()
-    finaldf['topic_summary'] = finaldf[cluster_col].apply(lambda x: topic_summaries.get(f"topic_{x}", "Résumé non disponible"))
+    finaldf['topic_summary'] = finaldf[cluster_col].apply(
+        lambda x: normalized_summaries.get(f"topic_{x}", "Résumé non disponible")
+    )
 
     # Create cluster tree
     tree, nodes = to_tree(linked, rd=True)
