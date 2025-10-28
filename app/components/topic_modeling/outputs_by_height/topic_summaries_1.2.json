@@ -1,15 +1,13 @@
 {
-  "1": "Échanges internes de l'AAF portant sur le rapport Lallet, la déclassification et diverses communications/retours techniques.",
-  "2": "Partage de liens Twitter et d'idées de plaidoyer ainsi que documents liés au COPIL pour la communication associative.",
-  "3": "Organisation et convocations de réunions, bureaux et ateliers (plaidoyer, formation, colloques) de l'AAF en visioconférence.",
-  "4": "Gestion interne et opérationnelle de l'AAF : communication, RH, continuité d'activité, partenariats et publications.",
-  "5": "Questions financières et administratives de l'AAF/AFF : bilans EURL, budgets, déclarations légales et suivi des publications.",
-  "6": "Débats, actions et communications autour de l'accès aux archives classifiées (notamment la guerre d'Algérie) et organisation de conférences/communiqués.",
-  "7": "Messages commerciaux et études sectorielles (Plimsoll) sur le marché de la formation, avec informations RH et chômage partiel.",
-  "8": "Invitations et inscriptions à webinaires et événements sur l'open content, le Label Culture Libre et les partenariats Wikimedia/ANR.",
-  "9": "Convocations, comptes rendus et reports de réunions et congrès professionnels (Conseil supérieur des archives, RASAD, AG, etc.).",
-  "10": "Organisation logistique et technique d'un webinaire collaboratif (Archives nationales, AAF, CIA) sur l'outil RiC-O Converter et modalités de diffusion/enregistrement.",
-  "11": "Communications aux adhérents : offres d'emploi, annonces internes, questions RH et gestion d'incidents techniques affectant des référentiels.",
-  "12": "Projet tutoré ENSSIB sur les éditions numériques de l'AAF : enquêtes, comités de pilotage et cadrage du projet éditorial.",
-  "13": "Bulletins et nouveautés du site 'Histoire coloniale et postcoloniale' : annonces d'articles, appels et informations éditoriales."
+  "0": "Débats et informations sur l'histoire coloniale et postcoloniale, notamment la guerre d'Algérie, la médiatisation du rapport Stora et les enjeux d'accès et de déclassification des archives.",
+  "1": "Gestion interne de l'Association des archivistes français : projets associatifs, actions législatives, normalisation et organisation de la formation.",
+  "2": "Organisation et communication de l'AAF : bilans annuels, réunions, événements, présence en ligne et coordination de la permanence et des formations.",
+  "3": "Problèmes techniques de messagerie (courriels non remis) et échanges sur des outils numériques/initiatives (RiC-O Converter, actions Wikimedia) et documents partagés.",
+  "4": "Partage de liens et publications issus des réseaux sociaux (Twitter, LinkedIn) et d'autres ressources en ligne.",
+  "5": "Préparation d'un comité de pilotage (COPIL) et gestion/actualisation du tableau des adhérents.",
+  "6": "Transition numérique : newsletter, participation à événements, et organisation de webinaires et communications autour d'outils digitaux (notamment RiC-O Converter).",
+  "7": "Migration et archivage des listes Yahoo Groups de l'AAF vers des solutions alternatives (Sympa, groups.io) et coordination technique et administrative de ce transfert.",
+  "8": "Annonces d'offres d'emploi, informations sur le marché de la formation (analyses Plimsoll) et communications internes concernant la permanence et le bien‑être du personnel.",
+  "9": "Coordination entre l'AAF et les acteurs de la santé pour les archives hospitalières, la conservation numérique et le dialogue avec le SIAF et Ascodocpsy.",
+  "10": "Organisation conjointe et communication internationale (AAF, AN, ICA) autour de webinaires et d'événements professionnels, notamment la présentation du logiciel RiC-O Converter et l'appel à communications ICA Abu Dhabi 2020."
 }

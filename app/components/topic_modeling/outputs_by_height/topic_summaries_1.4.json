@@ -1,9 +1,8 @@
 {
-  "0": "Partage de liens sur Twitter/LinkedIn et gestion de notifications d'échecs de livraison d'e-mails.",
-  "1": "Convocations et organisation de réunions, comités et ateliers de l'Association des archivistes français.",
-  "2": "Débats et actions sur l'accès aux archives (secret‑défense), plaidoyer et gestion de dossiers/subventions de l'AAF.",
-  "3": "Débats et communications sur la mémoire de la guerre d'Algérie, la déclassification des archives et leur couverture médiatique.",
-  "4": "Annonces d'événements, formations et réunions institutionnelles (RASAD, Conseil supérieur des archives) et appels à communications.",
-  "5": "Organisation et logistique de webinaires, communications associatives, offres d'emploi et projets numériques liés à l'AAF.",
-  "6": "Publication et coordination d'un schéma de données pour l'export des registres d'entrées, et ateliers sur la qualité et l'ouverture des données."
+  "0": "Organisation de communication (conférence/communiqué) et discussions sur l’accès aux archives (Algérie, Rwanda) ainsi que soutien à des archivistes en difficulté (Afghanistan).",
+  "1": "Questions administratives et opérationnelles de l’AAF : organisation d’événements, recrutement, formation et gestion interne.",
+  "2": "Coordination d’activités et de communication de l’AAF : préparation d’événements, communiqués, webinaires et actions d’archivage (notamment numérique/COVID).",
+  "3": "Messages techniques relatifs à des erreurs de courrier électronique et partages de liens et actualités sur les réseaux sociaux.",
+  "4": "Gestion des publications et éditions de l’AAF (Gazette, impressions, subventions) et projets numériques/étudiants liés aux éditions.",
+  "5": "Annonces d’emploi et échanges professionnels sur normes techniques, conservation numérique et protection des données dans le secteur des archives."
 }

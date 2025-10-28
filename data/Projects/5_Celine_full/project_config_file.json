@@ -1,0 +1,26 @@
+{
+  "5_Celine_full": {
+    "mailboxs": {
+      "Celine_full": {
+        "Positions": {
+          "Celine_full": {
+            "start_date": "",
+            "end_date": "",
+            "description": "Celine_full"
+          }
+        },
+        "Entity": {
+          "name": "Celine_full",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "Celinefull@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "Celine_full",
+          "description": "Celine_fullCeline_fullCeline_fullCeline_full"
+        }
+      }
+    }
+  }
+}

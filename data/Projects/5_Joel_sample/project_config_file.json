@@ -1,0 +1,26 @@
+{
+  "5_Joel_sample": {
+    "mailboxs": {
+      "5_Joel_sample": {
+        "Positions": {
+          "Joel_samp": {
+            "start_date": "2020-01-01",
+            "end_date": "2025-01-01",
+            "description": "@Joel_samp"
+          }
+        },
+        "Entity": {
+          "name": "5_Joel_sample",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "Joel_samp@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "5_Joel_sample",
+          "description": "5_Joel_sample"
+        }
+      }
+    }
+  }
+}
