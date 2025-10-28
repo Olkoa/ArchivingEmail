@@ -1,8 +1,9 @@
 {
-  "0": "Organisation de communication (conférence/communiqué) et discussions sur l’accès aux archives (Algérie, Rwanda) ainsi que soutien à des archivistes en difficulté (Afghanistan).",
-  "1": "Questions administratives et opérationnelles de l’AAF : organisation d’événements, recrutement, formation et gestion interne.",
-  "2": "Coordination d’activités et de communication de l’AAF : préparation d’événements, communiqués, webinaires et actions d’archivage (notamment numérique/COVID).",
-  "3": "Messages techniques relatifs à des erreurs de courrier électronique et partages de liens et actualités sur les réseaux sociaux.",
-  "4": "Gestion des publications et éditions de l’AAF (Gazette, impressions, subventions) et projets numériques/étudiants liés aux éditions.",
-  "5": "Annonces d’emploi et échanges professionnels sur normes techniques, conservation numérique et protection des données dans le secteur des archives."
+  "0": "Organisation d'une session/webinaire (Twitch/GoToMeeting) et coordination autour du logiciel RiC‑O Converter pour convertir des fichiers XML/EAD/EAC‑CPF en RDF conforme à RiC‑O.",
+  "1": "Partage de liens sur LinkedIn/Twitter concernant la souveraineté numérique, l'archivage contemporain, la désinformation et la valorisation des données.",
+  "2": "Coordination de projets et publications (livrables ENSSIB), politique éditoriale de l'AAF, gestion de listes de discussion et enjeux de transition numérique.",
+  "3": "Organisation logistique d'un webinaire (inscriptions, capacité, outils de diffusion) et échanges administratifs et communicationnels au sein de l'AAF.",
+  "4": "Échanges administratifs et de communication de l'AAF : courriers aux députés, catalogue des formations, gestion RH (fiches de poste, départs) et communiqués de presse.",
+  "5": "Communications et invitations liées aux événements et réseaux sociaux professionnels : dîners, conférences, offres d'emploi et tweets dans le secteur archivistique.",
+  "6": "Gestion des archives matérielles de l'AAF et organisation de rendez‑vous professionnels (RASAD, transport des fonds, réunions et événements comme Wikimédia et rencontres audiovisuelles)."
 }
