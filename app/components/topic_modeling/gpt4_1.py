@@ -11,9 +11,9 @@ MODULE_DIR = Path(__file__).resolve().parent
 
 
 def _initialize_client() -> OpenAI:
-    api_key = Path(os.getenv("OPENAI_API_KEY")) if False else os.getenv("OPENAI_API_KEY")
     base_url = os.getenv("OPENAI_BASE_URL", "https://openrouter.ai/api/v1")
-    return OpenAI(base_url=base_url, api_key=os.getenv("OPENAI_API_KEY"))
+    api_key = os.getenv("OPENAI_API_KEY")
+    return OpenAI(base_url=base_url, api_key=api_key)
 
 
 def _load_sampled_docs(filepath: Path | str):

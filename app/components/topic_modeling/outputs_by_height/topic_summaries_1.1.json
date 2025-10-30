@@ -1,17 +1,9 @@
 {
-  "0": "Organisation et promotion d'un webinaire/atelier sur RiC‑O Converter (logiciel de conversion XML/EAD/EAC‑CPF en RDF) en collaboration avec l'AAF et les Archives nationales.",
-  "1": "Problèmes techniques et retours de courriels non remis, diagnostics de messagerie et questions liées aux listes et validations d'adhésions.",
-  "2": "Veille et partage de ressources sur les réseaux sociaux (Twitter, LinkedIn) autour de l'archivage, du numérique et d'idées de plaidoyer.",
-  "3": "Tableau et gestion des adhérents — listing et suivi des membres.",
-  "4": "Annonces et organisation d'événements, webinaires et publications sur la transition numérique (métavers, édition numérique, préservation).",
-  "5": "Migration et gestion des listes de discussion Yahoo Groups : sauvegarde des archives et choix d'alternatives (Sympa, groups.io) avec conseils techniques.",
-  "6": "Diffusion d'offres d'emploi via l'AAF et échanges administratifs/techniques liés à l'hébergement et aux référentiels (incendie OVH, impact services).",
-  "7": "Discussions sur le développement et la valorisation d'ARCHIVISTES FRANCAIS FORMATION : ressources pédagogiques, modèle économique et études de marché.",
-  "8": "Compte-rendu et suivi du webinaire RiC‑O Converter et coordination AAF/AN/ICA pour la communication et la mise en ligne du replay, ainsi que gestion de réunions internes (AG, PV).",
-  "9": "Questions administratives et financières de l'AAF : TVA, bilans, organisation du conseil d'administration, conventions, demandes budgétaires et gestion RH.",
-  "10": "Courriels internes de coordination du bureau de l'AAF concernant rencontres, tribunes, entretiens annuels et suivi de dossiers opérationnels.",
-  "11": "Accès aux archives du passé colonial et de la guerre d'Algérie : conférences, débats publics, communiqués et enjeux liés à la nouvelle IGI 1300.",
-  "12": "Soutien aux archivistes en situation de crise (Ukraine, Afghanistan) : collecte d'aide, hébergement sécurisé d'archives et démarches d'accompagnement/asile.",
-  "13": "Aspects opérationnels et ressources humaines de l'AAF : gestion d'équipe, arrêts/absences, tensions internes et organisation d'événements/communication.",
-  "14": "Annonces d'événements et newsletters liés à la recherche et à l'open content (ANR, Wikimédia, rencontres et festivals)."
+  "topic_1": "Promotions Lenovo sur les ThinkPad/ThinkCentre et échanges internes sur l'achat et la configuration d'un portable (T470p) incluant options RAM et livraison.",
+  "topic_2": "E-mails de Booking.com concernant offres de voyage, réservations, QR codes pour attractions, demandes d'avis et services pour entreprises.",
+  "topic_3": "Promotions de Sticker Mule pour produits d'impression personnalisés et échantillons (autocollants, étiquettes, magnets, rubans, mailers, boutons).",
+  "topic_4": "Annonces et offres de formation Zoho CRM (webinaires, formations ZSphere) ainsi que nouveautés produit 2018 (Zia, Blueprint, Canvas, etc.).",
+  "topic_5": "Communications de la communauté Datactivist/TeamOpenData : invitations, événements, newsletters et échanges autour de l'open data et partenariats.",
+  "topic_6": "Notifications automatisées de rapports de domaine (Google) pour les domaines datactivi.st et teamopendata.org.",
+  "topic_7": "Rappels répétés de Zoho Expense pour soumettre des dépenses enregistrées mais non déclarées pour Datactivist."
 }

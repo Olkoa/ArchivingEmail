@@ -56,6 +56,24 @@ class EmailFilters:
         except Exception as e:
             print(f"Error getting mailing lists: {e}")
             return []
+
+    def get_topic_clusters(self, level=None):
+        try:
+            if level is None:
+                level = self.analyzer.get_selected_topic_level()
+            return self.analyzer.get_topic_clusters(level)
+        except Exception as e:
+            print(f"Error getting topic clusters: {e}")
+            return []
+
+    def get_topic_cluster_summary(self, cluster_id, level=None):
+        if level is None:
+            level = self.analyzer.get_selected_topic_level()
+        clusters = self.get_topic_clusters(level)
+        for cluster in clusters:
+            if cluster.get('cluster_id') == cluster_id:
+                return cluster.get('summary', f"Cluster {cluster_id}")
+        return f"Cluster {cluster_id}"
     
     @st.cache_data
     def get_folders(_self, mailbox_selection=None):
@@ -184,7 +202,15 @@ class EmailFilters:
                 else:
                     if 'folder' in filtered_df.columns:
                         filtered_df = filtered_df[filtered_df['folder'] == folder_filter]
-        
+
+        topic_cluster_value = filters.get('topic_cluster')
+        if topic_cluster_value and topic_cluster_value != 'Tous' and 'topic_cluster_id' in filtered_df.columns:
+            try:
+                cluster_id = int(topic_cluster_value)
+                filtered_df = filtered_df[filtered_df['topic_cluster_id'] == cluster_id]
+            except (ValueError, TypeError):
+                pass
+
         return filtered_df
     
     def _filter_by_mailing_list(self, df, mailing_list_email):
@@ -225,10 +251,19 @@ class EmailFilters:
         if filters.get('direction') and filters['direction'] != 'All':
             direction_emoji = "📤" if filters['direction'] == 'Envoyé' else "📥"
             active_filters.append(f"{direction_emoji} Direction: {filters['direction']}")
-        
+
         folder_value = filters.get('folder')
         if folder_value and folder_value not in ('All', 'Tous'):
             active_filters.append(f"📁 Folder: {filters['folder']}")
+
+        topic_cluster_value = filters.get('topic_cluster')
+        if topic_cluster_value and topic_cluster_value not in ('Tous', 'All'):
+            try:
+                cluster_id = int(topic_cluster_value)
+                summary = self.get_topic_cluster_summary(cluster_id)
+                active_filters.append(f"🧠 Topic: {summary}")
+            except (ValueError, TypeError):
+                pass
         
         if active_filters:
             return " • ".join(active_filters)

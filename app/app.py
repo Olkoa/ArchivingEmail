@@ -223,6 +223,36 @@ else:
     # Store selected mailbox in session state for other pages to access
     st.session_state.selected_mailbox = selected_mailbox
 
+    @st.cache_data
+    def get_selected_topic_level(project_name):
+        try:
+            db_path = os.path.join(project_root, 'data', 'Projects', project_name, f"{project_name}.duckdb")
+            if not os.path.exists(db_path):
+                return None
+            analyzer = EmailAnalyzer(db_path=db_path)
+            try:
+                return analyzer.get_selected_topic_level()
+            finally:
+                analyzer.close()
+        except Exception as topic_error:
+            print(f"[topics] Unable to retrieve selected topic level: {topic_error}")
+            return None
+
+    @st.cache_data
+    def get_topic_levels(project_name):
+        try:
+            db_path = os.path.join(project_root, 'data', 'Projects', project_name, f"{project_name}.duckdb")
+            if not os.path.exists(db_path):
+                return []
+            analyzer = EmailAnalyzer(db_path=db_path)
+            try:
+                return analyzer.get_topic_levels()
+            finally:
+                analyzer.close()
+        except Exception as topic_error:
+            print(f"[topics] Unable to retrieve topic levels: {topic_error}")
+            return []
+
     # Function to get date range from data
     @st.cache_data
     def get_date_range_from_data(project_name, mailbox_selection):
@@ -263,6 +293,16 @@ else:
     # Initialize EmailFilters
     db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
     email_filters = EmailFilters(db_path)
+
+    topic_levels_info = get_topic_levels(ACTIVE_PROJECT)
+    selected_topic_level = get_selected_topic_level(ACTIVE_PROJECT)
+    if topic_levels_info:
+        available_levels = sorted({entry['level'] for entry in topic_levels_info})
+        if selected_topic_level not in available_levels:
+            # Default to the highest configured level
+            selected_topic_level = available_levels[-1]
+
+    st.session_state['selected_topic_level'] = selected_topic_level
 
     # Legacy filters for pages not yet converted - moved out of sidebar
     # Only keep essential ones in a collapsible section
@@ -426,7 +466,7 @@ else:
 
     # Load data based on selection from DuckDB with enhanced filtering
     @st.cache_data
-    def load_data_with_filters(project_name, mailbox_selection, additional_filters, use_agg_recipients=False):
+    def load_data_with_filters(project_name, mailbox_selection, additional_filters, use_agg_recipients=False, topic_level=None):
         """Load and cache the selected mailbox data from DuckDB with additional filters applied at database level
 
         Args:
@@ -438,19 +478,27 @@ else:
         try:
             db_path = os.path.join(project_root, 'data', 'Projects', project_name, f"{project_name}.duckdb")
             analyzer = EmailAnalyzer(db_path=db_path)
+            try:
+                current_topic_level = topic_level
+                if current_topic_level is None:
+                    current_topic_level = analyzer.get_selected_topic_level()
 
-            # Use the enhanced method that supports filters
-            df = analyzer.get_app_dataframe_with_filters(
-                mailbox=mailbox_selection,
-                filters=additional_filters
-            )
+                # Use the enhanced method that supports filters
+                df = analyzer.get_app_dataframe_with_filters(
+                    mailbox=mailbox_selection,
+                    filters=additional_filters,
+                    topic_level=current_topic_level
+                )
+            finally:
+                analyzer.close()
 
             if len(df) == 0:
                 st.sidebar.warning("No emails found with the selected filters.")
                 # Return empty DataFrame with expected columns
                 return pd.DataFrame(columns=[
                     "message_id", "date", "from", "recipient_email", "cc", "subject",
-                    "body", "attachments", "has_attachments", "direction", "mailbox", "folder"
+                    "body", "attachments", "has_attachments", "direction", "mailbox", "folder",
+                    "topic_cluster_id", "topic_cluster_label"
                 ])
 
             return df
@@ -459,7 +507,8 @@ else:
             # Return empty DataFrame with expected columns
             return pd.DataFrame(columns=[
                 "message_id", "date", "from", "recipient_email", "cc", "subject",
-                "body", "attachments", "has_attachments", "direction", "mailbox", "folder"
+                "body", "attachments", "has_attachments", "direction", "mailbox", "folder",
+                "topic_cluster_id", "topic_cluster_label"
             ])
 
     def show_filter_status():
@@ -529,7 +578,8 @@ else:
                 # Return empty DataFrame with expected columns
                 return pd.DataFrame(columns=[
                     "message_id", "date", "from", "recipient_email", "cc", "subject",
-                    "body", "attachments", "has_attachments", "direction", "mailbox"
+                    "body", "attachments", "has_attachments", "direction", "mailbox",
+                    "topic_cluster_id", "topic_cluster_label"
                 ])
 
             return df
@@ -543,7 +593,7 @@ else:
 
     # Load data based on selection from DuckDB
     @st.cache_data
-    def load_data(project_name, mailbox_selection, use_agg_recipients=False):
+    def load_data(project_name, mailbox_selection, use_agg_recipients=False, topic_level=None):
         """Load and cache the selected mailbox data from DuckDB
 
         Args:
@@ -557,13 +607,19 @@ else:
 
             # Get data from DuckDB using EmailAnalyzer
             analyzer = EmailAnalyzer(db_path=db_path)
+            try:
+                current_topic_level = topic_level
+                if current_topic_level is None:
+                    current_topic_level = analyzer.get_selected_topic_level()
 
-            if use_agg_recipients:
-                df = analyzer.get_app_dataframe_agg_recipients()
-                print("Using aggregated recipients method:", df.columns)
-            else:
-                df = analyzer.get_app_DataFrame()
-                print("Using standard method:", df.columns)
+                if use_agg_recipients:
+                    df = analyzer.get_app_dataframe_agg_recipients(topic_level=current_topic_level)
+                    print("Using aggregated recipients method:", df.columns)
+                else:
+                    df = analyzer.get_app_DataFrame(topic_level=current_topic_level)
+                    print("Using standard method:", df.columns)
+            finally:
+                analyzer.close()
 
             # Filter based on mailbox selection
             if mailbox_selection != "All Mailboxes":
@@ -578,7 +634,8 @@ else:
                 # Return empty DataFrame with expected columns
                 return pd.DataFrame(columns=[
                     "message_id", "date", "from", "recipient_email", "cc", "subject",
-                    "body", "attachments", "has_attachments", "direction", "mailbox"
+                    "body", "attachments", "has_attachments", "direction", "mailbox",
+                    "topic_cluster_id", "topic_cluster_label", "topic_cluster_level", "topic_cluster_height"
                 ])
 
             return df
@@ -587,7 +644,8 @@ else:
             # Return empty DataFrame with expected columns
             return pd.DataFrame(columns=[
                 "message_id", "date", "from", "recipient_email", "cc", "subject",
-                "body", "attachments", "has_attachments", "direction", "mailbox"
+                "body", "attachments", "has_attachments", "direction", "mailbox",
+                "topic_cluster_id", "topic_cluster_label", "topic_cluster_level", "topic_cluster_height"
             ])
 
 
@@ -598,7 +656,8 @@ else:
             page_name="Dashboard",
             emails_df=None,  # Will be loaded after filters
             mailbox_options=mailbox_options,
-            email_filters=email_filters
+            email_filters=email_filters,
+            topic_level=selected_topic_level
         )
 
         # Get filter values for data loading
@@ -617,8 +676,16 @@ else:
             filter_dict['recipient'] = enhanced_filters['recipient']
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
+        if enhanced_filters.get('topic_cluster') and enhanced_filters['topic_cluster'] not in ('Tous', 'All'):
+            filter_dict['topic_cluster'] = enhanced_filters['topic_cluster']
 
-        emails_df = load_data_with_filters(ACTIVE_PROJECT, selected_mailbox_filter, filter_dict, use_agg_recipients=True)
+        emails_df = load_data_with_filters(
+            ACTIVE_PROJECT,
+            selected_mailbox_filter,
+            filter_dict,
+            use_agg_recipients=True,
+            topic_level=selected_topic_level
+        )
 
         # Apply date range filter if specified in enhanced filters
         if enhanced_filters.get('date_range'):
@@ -1117,10 +1184,84 @@ else:
     elif page == "Topic":
         st.title("Topic Tree Visualization")
 
+        db_path = os.path.join(project_root, 'data', 'Projects', ACTIVE_PROJECT, f"{ACTIVE_PROJECT}.duckdb")
+        topic_levels = get_topic_levels(ACTIVE_PROJECT)
+
+        topic_levels_sorted = sorted(
+            topic_levels,
+            key=lambda entry: entry.get('height') if entry.get('height') is not None else float('-inf'),
+            reverse=True,
+        )
+        level_options = [entry['level'] for entry in topic_levels_sorted]
+        height_map = {entry['level']: entry['height'] for entry in topic_levels_sorted}
+        level_position = {entry['level']: idx for idx, entry in enumerate(topic_levels_sorted)}
+
+        if level_options:
+            if selected_topic_level is None or selected_topic_level not in level_position:
+                selected_topic_level = level_options[0]
+
+            def _format_level(option_level: int) -> str:
+                position = level_position.get(option_level, 0)
+                height_value = height_map.get(option_level)
+                if height_value is not None:
+                    return f"Hauteur {position} · Niveau {option_level} · {height_value:.2f}"
+                return f"Hauteur {position} · Niveau {option_level}"
+
+            selected_level_option = st.selectbox(
+                "Hauteur des topics",
+                options=level_options,
+                index=level_position.get(selected_topic_level, 0),
+                format_func=_format_level,
+                key="topic_height_selector"
+            )
+            selected_topic_level = selected_level_option
+            st.session_state['selected_topic_level'] = selected_level_option
+
+            if st.button("Sauvegarder", key="save_topic_height"):
+                analyzer = None
+                try:
+                    analyzer = EmailAnalyzer(db_path=db_path)
+                    analyzer.set_selected_topic_level(selected_level_option)
+                except Exception as save_error:
+                    st.error(f"Impossible d'enregistrer la hauteur sélectionnée : {save_error}")
+                finally:
+                    if analyzer is not None:
+                        try:
+                            analyzer.close()
+                        except Exception:
+                            pass
+
+                st.session_state['selected_topic_level'] = selected_level_option
+                st.cache_data.clear()
+                st.success(f"Hauteur des topics mise à jour (niveau {selected_level_option}).")
+                st.rerun()
+
+            with st.expander("Clusters pour la hauteur sélectionnée", expanded=False):
+                analyzer = None
+                try:
+                    analyzer = EmailAnalyzer(db_path=db_path)
+                    clusters = analyzer.get_topic_clusters(selected_level_option)
+                except Exception as display_error:
+                    st.warning(f"Impossible d'afficher les clusters : {display_error}")
+                    clusters = []
+                finally:
+                    if analyzer is not None:
+                        try:
+                            analyzer.close()
+                        except Exception:
+                            pass
+
+                if clusters:
+                    for cluster in clusters:
+                        st.markdown(f"**Cluster {cluster['cluster_id']}** : {cluster['summary']}")
+                else:
+                    st.info("Aucun cluster disponible pour cette hauteur.")
+        else:
+            st.info("Aucune donnée de topics disponible pour ce projet.")
+
         folder_path = os.path.dirname(__file__)
         html_path = os.path.join(folder_path, "components/topic_tree.html")
 
-        # Prefer project-specific topic graph if available
         project_topic_path = (
             Path(project_root)
             / "data"
@@ -1129,6 +1270,7 @@ else:
             / "Topics_GRAPHS_PATHS.json"
         )
 
+        data_json = None
         if project_topic_path.exists():
             try:
                 with project_topic_path.open("r", encoding="utf-8") as f:
@@ -1139,11 +1281,8 @@ else:
                     f"({project_topic_path.name}) : {json_error}. "
                     "Utilisation du graph par défaut."
                 )
-                project_topic_path = None
-        else:
-            project_topic_path = None
 
-        if project_topic_path is None:
+        if not data_json:
             fallback_json_path = Path(folder_path) / "components" / "tree3.json"
             try:
                 with fallback_json_path.open("r", encoding="utf-8") as f:
@@ -1231,7 +1370,8 @@ else:
             page_name="Email Explorer",
             emails_df=None,  # Will be loaded after filters
             mailbox_options=mailbox_options,
-            email_filters=email_filters
+            email_filters=email_filters,
+            topic_level=selected_topic_level
         )
 
         # Get filter values for data loading
@@ -1251,7 +1391,12 @@ else:
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
 
-        emails_df = load_data_with_filters(ACTIVE_PROJECT, selected_mailbox_filter, filter_dict)
+        emails_df = load_data_with_filters(
+            ACTIVE_PROJECT,
+            selected_mailbox_filter,
+            filter_dict,
+            topic_level=selected_topic_level
+        )
 
         # Apply date range filter if specified in enhanced filters
         if enhanced_filters.get('date_range'):
@@ -1280,7 +1425,12 @@ else:
         create_email_table_with_viewer(filtered_df, key_prefix="explorer")
 
     elif page == "Network Analysis":
-        emails_df = load_data_with_filters(ACTIVE_PROJECT, selected_mailbox, additional_filters)
+        emails_df = load_data_with_filters(
+            ACTIVE_PROJECT,
+            selected_mailbox,
+            additional_filters,
+            topic_level=selected_topic_level
+        )
 
         # Apply date range filter
         emails_df = apply_date_filter(emails_df, date_range)
@@ -1305,7 +1455,13 @@ else:
 
     # Debugging timeline temporary page
     elif page == "Timeline":
-        emails_df = load_data_with_filters(ACTIVE_PROJECT, selected_mailbox, additional_filters, use_agg_recipients=True)
+        emails_df = load_data_with_filters(
+            ACTIVE_PROJECT,
+            selected_mailbox,
+            additional_filters,
+            use_agg_recipients=True,
+            topic_level=selected_topic_level
+        )
 
         # Apply date range filter
         emails_df = apply_date_filter(emails_df, date_range)
@@ -1352,7 +1508,8 @@ else:
             page_name="Recherche Sémantique",
             emails_df=None,
             mailbox_options=mailbox_options,
-            email_filters=email_filters
+            email_filters=email_filters,
+            topic_level=selected_topic_level
         )
 
         st.subheader("Recherche avancée")
@@ -1375,7 +1532,11 @@ else:
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
 
-        emails_df = load_data(ACTIVE_PROJECT, selected_mailbox_filter)
+        emails_df = load_data(
+            ACTIVE_PROJECT,
+            selected_mailbox_filter,
+            topic_level=selected_topic_level
+        )
 
         # Apply date range filter if specified
         if enhanced_filters.get('date_range'):
@@ -1487,7 +1648,8 @@ else:
             page_name="Recherche ElasticSearch",
             emails_df=None,
             mailbox_options=mailbox_options,
-            email_filters=email_filters
+            email_filters=email_filters,
+            topic_level=selected_topic_level
         )
 
         # Load emails data with filters
@@ -1508,7 +1670,11 @@ else:
         if enhanced_filters.get('has_attachments'):
             filter_dict['has_attachments'] = True
 
-        emails_df = load_data(ACTIVE_PROJECT, selected_mailbox_filter)
+        emails_df = load_data(
+            ACTIVE_PROJECT,
+            selected_mailbox_filter,
+            topic_level=selected_topic_level
+        )
 
         # Apply date range filter if specified
         if enhanced_filters.get('date_range'):
@@ -1840,7 +2006,11 @@ else:
         """)
 
         # First, ensure we have emails loaded
-        emails_df = load_data(ACTIVE_PROJECT, selected_mailbox)
+        emails_df = load_data(
+            ACTIVE_PROJECT,
+            selected_mailbox,
+            topic_level=selected_topic_level
+        )
 
         # Apply date range filter
         emails_df = apply_date_filter(emails_df, date_range)
@@ -1943,7 +2113,11 @@ else:
             from components.colbert_rag_component import render_colbert_rag_component
 
             # Render the component with the loaded email data
-            emails_df = load_data(ACTIVE_PROJECT, selected_mailbox)
+            emails_df = load_data(
+                ACTIVE_PROJECT,
+                selected_mailbox,
+                topic_level=selected_topic_level
+            )
 
             # Apply date range filter
             emails_df = apply_date_filter(emails_df, date_range)
@@ -2017,7 +2191,11 @@ else:
 
     elif page == "Chat + RAG":
         # No filters for chat - load data directly
-        emails_df = load_data(ACTIVE_PROJECT, selected_mailbox)
+        emails_df = load_data(
+            ACTIVE_PROJECT,
+            selected_mailbox,
+            topic_level=selected_topic_level
+        )
 
         # Apply date range filter
         emails_df = apply_date_filter(emails_df, date_range)

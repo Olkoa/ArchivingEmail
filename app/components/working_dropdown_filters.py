@@ -21,7 +21,7 @@ class WorkingDropdownFilters:
         configs = {
             "Dashboard": {
                 "show_filters": True,
-                "filters": ["date_range", "mailbox", "direction", "folder", "has_attachments", "contact_filter"]
+                "filters": ["date_range", "mailbox", "direction", "folder", "topic_cluster", "has_attachments", "contact_filter"]
             },
             "Email Explorer": {
                 "show_filters": True,
@@ -59,10 +59,13 @@ class WorkingDropdownFilters:
         """Check if filters should be shown for this page"""
         return self.filter_configs.get("show_filters", False)
     
-    def render_dropdown_menu(self, 
-                            emails_df: Optional[pd.DataFrame] = None, 
-                            mailbox_options: List[str] = None,
-                            email_filters = None) -> Tuple[Dict[str, Any], bool]:
+    def render_dropdown_menu(
+        self,
+        emails_df: Optional[pd.DataFrame] = None,
+        mailbox_options: List[str] = None,
+        email_filters=None,
+        topic_level: Optional[int] = None,
+    ) -> Tuple[Dict[str, Any], bool]:
         """
         Render the working dropdown filter menu
         
@@ -77,13 +80,27 @@ class WorkingDropdownFilters:
         active_count = self._count_active_filters()
         
         # Create the floating button and manage dropdown state
-        self._render_floating_button_and_dropdown(active_count, emails_df, mailbox_options, email_filters)
+        self._render_floating_button_and_dropdown(
+            active_count,
+            emails_df,
+            mailbox_options,
+            email_filters,
+            topic_level=topic_level,
+        )
         
         # Return current filter state
         applied_filters = self._get_current_filters()
         return applied_filters, False
     
-    def _render_floating_button_and_dropdown(self, active_count: int, emails_df: Optional[pd.DataFrame], mailbox_options: List[str], email_filters=None):
+    def _render_floating_button_and_dropdown(
+        self,
+        active_count: int,
+        emails_df: Optional[pd.DataFrame],
+        mailbox_options: List[str],
+        email_filters=None,
+        *,
+        topic_level: Optional[int] = None,
+    ):
         """Render the floating button and dropdown using Streamlit session state"""
         
         # Initialize dropdown state
@@ -107,7 +124,12 @@ class WorkingDropdownFilters:
         
         # Show dropdown content if open
         if st.session_state[dropdown_key]:
-            self._render_dropdown_content(emails_df, mailbox_options, email_filters)
+            self._render_dropdown_content(
+                emails_df,
+                mailbox_options,
+                email_filters,
+                topic_level,
+            )
     
     def _inject_working_css(self):
         """Inject CSS for the working dropdown"""
@@ -190,7 +212,7 @@ class WorkingDropdownFilters:
         """
         st.markdown(css, unsafe_allow_html=True)
     
-    def _render_dropdown_content(self, emails_df: Optional[pd.DataFrame], mailbox_options: List[str], email_filters=None):
+    def _render_dropdown_content(self, emails_df: Optional[pd.DataFrame], mailbox_options: List[str], email_filters=None, topic_level: Optional[int] = None):
         """Render the dropdown content using Streamlit components"""
         
         # Create a container with custom CSS class
@@ -345,6 +367,36 @@ class WorkingDropdownFilters:
                 if new_attachments != current_attachments:
                     st.session_state[f"filter_has_attachments_{self.page_name}"] = new_attachments
                     filters_changed = True
+
+            if "topic_cluster" in enabled_filters:
+                cluster_options = ["Tous"]
+                cluster_map = {}
+                if email_filters is not None:
+                    for cluster in email_filters.get_topic_clusters(topic_level):
+                        key = str(cluster.get('cluster_id'))
+                        cluster_options.append(key)
+                        cluster_map[key] = cluster.get('summary', f"Cluster {key}")
+
+                current_topic = st.session_state.get(f"filter_topic_cluster_{self.page_name}", "Tous")
+                if current_topic not in cluster_options:
+                    current_topic = "Tous"
+
+                def _format_topic_option(value):
+                    if value == "Tous":
+                        return "Tous"
+                    return cluster_map.get(value, f"Cluster {value}")
+
+                new_topic = st.selectbox(
+                    "Topic",
+                    options=cluster_options,
+                    index=cluster_options.index(current_topic) if current_topic in cluster_options else 0,
+                    format_func=_format_topic_option,
+                    key=f"dropdown_topic_cluster_{self.page_name}"
+                )
+
+                if new_topic != current_topic:
+                    st.session_state[f"filter_topic_cluster_{self.page_name}"] = new_topic
+                    filters_changed = True
             
             # Contact filter
             if "contact_filter" in enabled_filters:
@@ -407,7 +459,9 @@ class WorkingDropdownFilters:
             count += 1
         if st.session_state.get(f"filter_contact_{self.page_name}"):
             count += 1
-        
+        if st.session_state.get(f"filter_topic_cluster_{self.page_name}", "Tous") not in ("Tous", "All"):
+            count += 1
+
         return count
     
     def _get_current_filters(self) -> Dict[str, Any]:
@@ -420,7 +474,8 @@ class WorkingDropdownFilters:
             'sender': st.session_state.get(f"filter_sender_{self.page_name}", "Tous"),
             'recipient': st.session_state.get(f"filter_recipient_{self.page_name}", "Tous"),
             'has_attachments': st.session_state.get(f"filter_has_attachments_{self.page_name}", False),
-            'contact_filter': st.session_state.get(f"filter_contact_{self.page_name}", "")
+            'contact_filter': st.session_state.get(f"filter_contact_{self.page_name}", ""),
+            'topic_cluster': st.session_state.get(f"filter_topic_cluster_{self.page_name}", "Tous")
         }
     
     def _clear_all_filters(self):
@@ -433,17 +488,19 @@ class WorkingDropdownFilters:
             f"filter_sender_{self.page_name}",
             f"filter_recipient_{self.page_name}",
             f"filter_has_attachments_{self.page_name}",
-            f"filter_contact_{self.page_name}"
+            f"filter_contact_{self.page_name}",
+            f"filter_topic_cluster_{self.page_name}"
         ]
         
         for key in filter_keys:
             if key in st.session_state:
                 del st.session_state[key]
 
-def create_working_dropdown_filters(page_name: str, 
+def create_working_dropdown_filters(page_name: str,
                                    emails_df: Optional[pd.DataFrame] = None,
                                    mailbox_options: List[str] = None,
-                                   email_filters = None) -> Tuple[Dict[str, Any], bool]:
+                                   email_filters = None,
+                                   topic_level: Optional[int] = None) -> Tuple[Dict[str, Any], bool]:
     """
     Create working dropdown filters that actually function
     
@@ -464,5 +521,6 @@ def create_working_dropdown_filters(page_name: str,
     return filter_menu.render_dropdown_menu(
         emails_df=emails_df,
         mailbox_options=mailbox_options,
-        email_filters=email_filters
+        email_filters=email_filters,
+        topic_level=topic_level
     )

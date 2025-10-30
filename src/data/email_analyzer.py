@@ -1,6 +1,7 @@
 import duckdb
 import pandas as pd
 import re
+from pathlib import Path
 
 class EmailAnalyzer:
     """Class for analyzing the email database using DuckDB"""
@@ -8,6 +9,7 @@ class EmailAnalyzer:
     def __init__(self, db_path):
         self.db_path = db_path
         self.conn = None
+        self.project_name = Path(db_path).stem
 
     def connect(self):
         """Connect to the database"""
@@ -20,6 +22,112 @@ class EmailAnalyzer:
         if self.conn:
             self.conn.close()
             self.conn = None
+
+    def get_topic_levels(self):
+        conn = self.connect()
+        try:
+            rows = conn.execute(
+                "SELECT DISTINCT level, height FROM topic_clusters WHERE project_name = ? ORDER BY level",
+                [self.project_name]
+            ).fetchall()
+            return [{'level': int(row[0]), 'height': float(row[1])} for row in rows]
+        except Exception as e:
+            print(f"[topics] Unable to fetch topic levels: {e}")
+            return []
+
+    def get_selected_topic_level(self):
+        conn = self.connect()
+        try:
+            row = conn.execute(
+                "SELECT selected_level FROM topic_settings WHERE project_name = ?",
+                [self.project_name]
+            ).fetchone()
+            if row and row[0] is not None:
+                return int(row[0])
+        except Exception as e:
+            print(f"[topics] Unable to fetch selected topic level: {e}")
+        return None
+
+    def set_selected_topic_level(self, level: int):
+        conn = self.connect()
+        try:
+            level = int(level)
+            level_row = conn.execute(
+                "SELECT height FROM topic_clusters WHERE project_name = ? AND level = ? LIMIT 1",
+                [self.project_name, level]
+            ).fetchone()
+            height = float(level_row[0]) if level_row and level_row[0] is not None else None
+
+            conn.execute(
+                "INSERT INTO topic_settings (project_name, selected_level, selected_height) VALUES (?, ?, ?) "
+                "ON CONFLICT(project_name) DO UPDATE SET selected_level = excluded.selected_level, selected_height = excluded.selected_height",
+                [self.project_name, level, height]
+            )
+        except Exception as e:
+            print(f"[topics] Unable to set selected topic level: {e}")
+
+    # Backward-compatible helpers
+    def get_selected_topic_height(self):
+        level = self.get_selected_topic_level()
+        if level is None:
+            return None
+        conn = self.connect()
+        try:
+            row = conn.execute(
+                "SELECT height FROM topic_clusters WHERE project_name = ? AND level = ? LIMIT 1",
+                [self.project_name, level]
+            ).fetchone()
+            return float(row[0]) if row and row[0] is not None else None
+        except Exception as e:
+            print(f"[topics] Unable to fetch selected topic height: {e}")
+            return None
+
+    def set_selected_topic_height(self, height: float):
+        if height is None:
+            return
+        conn = self.connect()
+        try:
+            row = conn.execute(
+                "SELECT level FROM topic_clusters WHERE project_name = ? ORDER BY ABS(height - ?) LIMIT 1",
+                [self.project_name, float(height)]
+            ).fetchone()
+            if row:
+                self.set_selected_topic_level(int(row[0]))
+        except Exception as e:
+            print(f"[topics] Unable to map height to level: {e}")
+
+    def get_topic_heights(self):
+        return self.get_topic_levels()
+
+    def get_topic_clusters(self, level: int | None = None):
+        if level is None:
+            level = self.get_selected_topic_level()
+        if level is None:
+            return []
+
+        conn = self.connect()
+        try:
+            rows = conn.execute(
+                """
+                SELECT cluster_id, summary, height
+                FROM topic_clusters
+                WHERE project_name = ? AND level = ?
+                ORDER BY cluster_id
+                """,
+                [self.project_name, int(level)]
+            ).fetchall()
+            return [
+                {
+                    'cluster_id': int(row[0]),
+                    'summary': row[1],
+                    'height': float(row[2]) if row[2] is not None else None,
+                    'level': int(level)
+                }
+                for row in rows
+            ]
+        except Exception as e:
+            print(f"[topics] Unable to fetch topic clusters: {e}")
+            return []
 
     def get_email_summary(self):
         """Get a summary of emails in the database"""
@@ -539,7 +647,7 @@ class EmailAnalyzer:
 
         return merged_df
 
-    def get_app_DataFrame(self, mailbox=None, limit=None):
+    def get_app_DataFrame(self, mailbox=None, limit=None, topic_level=None):
         """
         Get a dataframe with specific columns needed for the application,
         creating one row per recipient rather than one per email.
@@ -547,6 +655,7 @@ class EmailAnalyzer:
         Args:
             mailbox: Optional filter for specific mailbox
             limit: Optional limit on the number of rows returned
+            topic_level: Optional topic clustering level to join against
 
         Returns:
             pandas DataFrame with columns: message_id, date, from, recipient_email,
@@ -708,11 +817,41 @@ class EmailAnalyzer:
                 lambda x: x.split('|') if isinstance(x, str) and x else []
             )
 
-        print(merged_df.columns)
+        # Attach topic cluster information if available
+        if topic_level is None:
+            topic_level = self.get_selected_topic_level()
+
+        if topic_level is not None:
+            try:
+                topic_df = conn.execute(
+                    """
+                    SELECT message_id,
+                           cluster_id AS topic_cluster_id,
+                           summary AS topic_cluster_label,
+                           level AS topic_cluster_level,
+                           height AS topic_cluster_height
+                    FROM email_topic_clusters
+                    WHERE project_name = ? AND level = ?
+                    """,
+                    [self.project_name, int(topic_level)]
+                ).df()
+                merged_df = merged_df.merge(topic_df, on='message_id', how='left')
+            except Exception as topic_error:
+                print(f"[topics] Unable to join topic clusters: {topic_error}")
+                merged_df['topic_cluster_id'] = pd.NA
+                merged_df['topic_cluster_label'] = pd.NA
+                merged_df['topic_cluster_level'] = pd.NA
+                merged_df['topic_cluster_height'] = pd.NA
+        else:
+            merged_df['topic_cluster_id'] = pd.NA
+            merged_df['topic_cluster_label'] = pd.NA
+            merged_df['topic_cluster_level'] = pd.NA
+            merged_df['topic_cluster_height'] = pd.NA
+
         return merged_df
 
 
-    def get_app_dataframe_agg_recipients(self, mailbox=None, limit=50000):
+    def get_app_dataframe_agg_recipients(self, mailbox=None, limit=50000, topic_level=None):
         """
         Get a dataframe with specific columns needed for the application,
         creating one row per email with aggregated recipient information.
@@ -723,6 +862,7 @@ class EmailAnalyzer:
         Args:
             mailbox: Optional filter for specific mailbox
             limit: Optional limit on the number of rows returned
+            topic_level: Optional topic clustering level to join against
 
         Returns:
             pandas DataFrame with columns compatible with app expectations:
@@ -806,9 +946,39 @@ class EmailAnalyzer:
                 lambda x: x.strip(', ') if isinstance(x, str) else x
             )
 
+        if topic_level is None:
+            topic_level = self.get_selected_topic_level()
+
+        if topic_level is not None:
+            try:
+                topic_df = conn.execute(
+                    """
+                    SELECT message_id,
+                           cluster_id AS topic_cluster_id,
+                           summary AS topic_cluster_label,
+                           level AS topic_cluster_level,
+                           height AS topic_cluster_height
+                    FROM email_topic_clusters
+                    WHERE project_name = ? AND level = ?
+                    """,
+                    [self.project_name, int(topic_level)]
+                ).df()
+                df = df.merge(topic_df, on='message_id', how='left')
+            except Exception as topic_error:
+                print(f"[topics] Unable to join topic clusters (agg): {topic_error}")
+                df['topic_cluster_id'] = pd.NA
+                df['topic_cluster_label'] = pd.NA
+                df['topic_cluster_level'] = pd.NA
+                df['topic_cluster_height'] = pd.NA
+        else:
+            df['topic_cluster_id'] = pd.NA
+            df['topic_cluster_label'] = pd.NA
+            df['topic_cluster_level'] = pd.NA
+            df['topic_cluster_height'] = pd.NA
+
         return df
 
-    def get_app_dataframe_with_filters(self, mailbox=None, filters=None, limit=50000):
+    def get_app_dataframe_with_filters(self, mailbox=None, filters=None, limit=50000, topic_level=None):
         """
         Get a dataframe with specific columns needed for the application,
         with support for additional filters including mailing lists.
@@ -817,6 +987,7 @@ class EmailAnalyzer:
             mailbox: Optional filter for specific mailbox
             filters: Dictionary containing filter criteria
             limit: Optional limit on the number of rows returned
+            topic_level: Optional topic clustering level to join against
 
         Returns:
             pandas DataFrame with columns compatible with app expectations
@@ -947,6 +1118,48 @@ class EmailAnalyzer:
             df['recipient_email'] = df['recipient_email'].apply(
                 lambda x: x.strip(', ') if isinstance(x, str) else x
             )
+
+        if topic_level is None:
+            topic_level = self.get_selected_topic_level()
+
+        if topic_level is not None:
+            try:
+                topic_df = conn.execute(
+                    """
+                    SELECT message_id,
+                           cluster_id AS topic_cluster_id,
+                           summary AS topic_cluster_label,
+                           level AS topic_cluster_level,
+                           height AS topic_cluster_height
+                    FROM email_topic_clusters
+                    WHERE project_name = ? AND level = ?
+                    """,
+                    [self.project_name, int(topic_level)]
+                ).df()
+                df = df.merge(topic_df, on='message_id', how='left')
+            except Exception as topic_error:
+                print(f"[topics] Unable to join topic clusters (filters): {topic_error}")
+                df['topic_cluster_id'] = pd.NA
+                df['topic_cluster_label'] = pd.NA
+                df['topic_cluster_level'] = pd.NA
+                df['topic_cluster_height'] = pd.NA
+        else:
+            df['topic_cluster_id'] = pd.NA
+            df['topic_cluster_label'] = pd.NA
+            df['topic_cluster_level'] = pd.NA
+            df['topic_cluster_height'] = pd.NA
+
+        if filters and 'topic_cluster_id' in df.columns:
+            topic_cluster_value = filters.get('topic_cluster')
+            if topic_cluster_value:
+                if isinstance(topic_cluster_value, str) and topic_cluster_value.strip().casefold() in {'tous', 'all'}:
+                    pass
+                else:
+                    try:
+                        desired_cluster = int(topic_cluster_value)
+                        df = df[df['topic_cluster_id'] == desired_cluster]
+                    except (ValueError, TypeError):
+                        pass
 
         return df
 

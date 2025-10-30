@@ -1,0 +1,345 @@
+{
+  "name": "1",
+  "summary": "Merge 1.75",
+  "children": [
+    {
+      "name": "1",
+      "summary": "Communications professionnelles liées à la coordination de projets open data : réunions, formations, contrats, facturation et appels d'offres.",
+      "children": [
+        {
+          "name": "1",
+          "summary": "Échanges professionnels autour de l'open data : coordination, candidatures/incubation, support technique et formations.",
+          "children": [
+            {
+              "name": "1",
+              "summary": "Courriels professionnels relatifs à factures, comptabilité, gestion de projets et coordination autour de l'open data / civic tech.",
+              "children": [
+                {
+                  "name": "1",
+                  "summary": "Offres et informations de voyage pour Paris via Booking.com (promotions, guides, réservations et avis).",
+                  "children": [
+                    {
+                      "name": "1",
+                      "summary": "Annonces et promotions liées aux services cloud (DigitalOcean) et aux ordinateurs portables Lenovo, ainsi que discussions d'achat de matériel.",
+                      "children": [
+                        {
+                          "name": "1",
+                          "summary": "Annonces et alertes de DigitalOcean concernant régions, nouvelles offres (Block Storage, Spaces), nouveaux plans de Droplets et maintenances de sécurité.",
+                          "children": [
+                            {
+                              "name": "1",
+                              "summary": "Annonces et maintenances DigitalOcean : nouvelles offres de Droplets, migrations de régions, disponibilités et correctifs de sécurité.",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "2",
+                          "summary": "Offres et promotions de Booking.com pour hôtels, deals de dernière minute et guides locaux (notamment Paris).",
+                          "children": [
+                            {
+                              "name": "2",
+                              "summary": "Newsletters et sollicitations de Booking.com (demandes d'avis, guides locaux et promotions de voyage).",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "2",
+                  "summary": "Notifications système (inscriptions, erreurs de livraison) et annonces de nouvelles fonctionnalités pour plateformes collaboratives (OSF, ZEIT, Zotero, Zoho).",
+                  "children": [
+                    {
+                      "name": "2",
+                      "summary": "Offres, rappels et programmes de parrainage de Booking.com (réservations, réductions, codes QR) accompagnés de newsletters et contenus liés au voyage et à Medium.",
+                      "children": [
+                        {
+                          "name": "3",
+                          "summary": "Notifications et alertes de services en ligne : ajouts à des groupes Zoho Mail, factures, erreurs de livraison et annonces d'outils (OSF, Zotero, vérifications).",
+                          "children": [
+                            {
+                              "name": "3",
+                              "summary": "Notifications de non‑remise de courriels (bounces) indiquant adresses invalides ou boîtes pleines.",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2",
+      "summary": "Merge 1.5",
+      "children": [
+        {
+          "name": "2",
+          "summary": "Rappels automatisés de Zoho Expense invitant à déclarer des dépenses encore non soumises.",
+          "children": [
+            {
+              "name": "2",
+              "summary": "Newsletters et nombreuses promotions de vols low-cost (Volotea) ainsi que contenus médias/tech (Tank Media, Jupyter).",
+              "children": [
+                {
+                  "name": "3",
+                  "summary": "Courriels professionnels variés : mentions LinkedIn, rapports de dépenses, réunions, formations et sujets liés à l'open data.",
+                  "children": [
+                    {
+                      "name": "3",
+                      "summary": "Notifications techniques et administratives : nouveautés OSF Quick Files et nombreux messages d'erreur/retours d'e-mails et gestion de domaine/Groupes (Zoho).",
+                      "children": [
+                        {
+                          "name": "4",
+                          "summary": "Échanges et coordination interne autour de formations, réunions d'incubation, paie, diagnostics et communications commerciales.",
+                          "children": [
+                            {
+                              "name": "4",
+                              "summary": "Courriels administratifs et produits : factures Zoho, vérifications d'inscription ZEIT et annonces/mises à jour de l'OSF.",
+                              "children": []
+                            },
+                            {
+                              "name": "5",
+                              "summary": "Échanges professionnels internes autour de formations, devis, candidatures et coordination de projets open data.",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "4",
+                  "summary": "Promotions et offres pour produits personnalisés (stickers, magnets, étiquettes, emballages) de Sticker Mule.",
+                  "children": [
+                    {
+                      "name": "4",
+                      "summary": "Informations et invitations autour de l'open data, civic tech, appels d'offres et activités organisationnelles de Datactivist (événements, réunions, newsletters).",
+                      "children": [
+                        {
+                          "name": "5",
+                          "summary": "Newsletters et communications des Scop avec annonces de formations et ressources pour sociétés coopératives.",
+                          "children": [
+                            {
+                              "name": "6",
+                              "summary": "Infolettres et communications sur les Sociétés coopératives (Les Scop) et partage de notes/ressources de formation.",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "6",
+                          "summary": "Notifications Typeform pour DODOdata listant des demandes de jeux de données et les coordonnées des demandeurs.",
+                          "children": [
+                            {
+                              "name": "7",
+                              "summary": "Notifications Typeform pour DODOdata : demandes de jeux de données et coordonnées de demandeurs.",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "7",
+                          "summary": "Promotions Sticker Mule pour échantillons et produits d'emballage/packaging personnalisés (stickers, rubans, mailers, boutons).",
+                          "children": [
+                            {
+                              "name": "8",
+                              "summary": "Promotions Sticker Mule pour autocollants, étiquettes et solutions d'emballage personnalisées.",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "5",
+                  "summary": "Formations et actualités Zoho / ZSphere : webinars, sessions de formation et nouveautés Zoho CRM (Zia, Blueprint, etc.).",
+                  "children": [
+                    {
+                      "name": "5",
+                      "summary": "Promotions et offres commerciales de Sticker Mule pour autocollants, étiquettes, magnets, boutons et emballages personnalisés.",
+                      "children": [
+                        {
+                          "name": "8",
+                          "summary": "Annonces et formations Zoho (ZSphere) : planning de formations, nouveautés Zoho CRM et newsletters.",
+                          "children": [
+                            {
+                              "name": "9",
+                              "summary": "Newsletters et promotions ZSphere/Zoho sur formations, webinars et nouveautés CRM/marketing.",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "6",
+                  "summary": "Promotions de vols à bas prix (Volotea) et infolettres/activités liées aux médias (Tank Media).",
+                  "children": [
+                    {
+                      "name": "6",
+                      "summary": "Newsletters et communications sur Zoho CRM et ZSphere : nouvelles fonctionnalités, formations, webinaires et communauté Zoho en France.",
+                      "children": [
+                        {
+                          "name": "9",
+                          "summary": "Promotions Volotea pour vols à bas prix, ventes flash et offres spéciales (enfants gratuits, packages vol+hôtel).",
+                          "children": [
+                            {
+                              "name": "10",
+                              "summary": "Offres commerciales Volotea : promotions et ventes flash de vols à bas prix.",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "3",
+          "summary": "Merge 1.4",
+          "children": [
+            {
+              "name": "3",
+              "summary": "Notifications automatiques de rapports de domaine Google concernant datactivi.st et teamopendata.org.",
+              "children": [
+                {
+                  "name": "7",
+                  "summary": "Rapports automatisés de Google concernant des domaines (datactivi.st, teamopendata.org) et rappels d'événements/inscriptions.",
+                  "children": [
+                    {
+                      "name": "7",
+                      "summary": "Campagnes promotionnelles de Volotea proposant billets à bas prix, offres spéciales et abonnement Megavolotea.",
+                      "children": [
+                        {
+                          "name": "10",
+                          "summary": "Infolettres et appels à candidatures du Tank Media concernant l'incubation et l'actualité des médias émergents.",
+                          "children": [
+                            {
+                              "name": "11",
+                              "summary": "Infolettres du Tank Media sur incubation de médias, événements, candidatures et veille éditoriale.",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "8",
+                      "summary": "Infolettres du Tank Media sur l'incubation de médias, appels à candidatures, événements, veille et ressources pour entrepreneurs de presse.",
+                      "children": [
+                        {
+                          "name": "11",
+                          "summary": "Rapports automatisés (Google) concernant des domaines spécifiques (teamopendata.org, datactivi.st) avec identifiants de signalement.",
+                          "children": [
+                            {
+                              "name": "12",
+                              "summary": "Rapports automatisés (Google) concernant les domaines datactivi.st et teamopendata.org (alertes de soumission).",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "4",
+              "summary": "Rappels Zoho Expense signalant des dépenses enregistrées mais encore non déclarées.",
+              "children": [
+                {
+                  "name": "8",
+                  "summary": "Rappels répétés de dépenses non déclarées via Zoho Expense.",
+                  "children": [
+                    {
+                      "name": "9",
+                      "summary": "Notifications automatiques de rapports émis par Google concernant les domaines datactivi.st et teamopendata.org.",
+                      "children": [
+                        {
+                          "name": "12",
+                          "summary": "Invitations et badges visiteurs pour le salon AP Connect, sollicitations pour représenter l'organisation à l'événement.",
+                          "children": [
+                            {
+                              "name": "13",
+                              "summary": "Communications et rappels pour le salon AP Connect : téléchargement de badges visiteur et organisation de présence.",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "10",
+                      "summary": "Invitations, rappels et logistique pour le salon AP Connect (badges visiteurs, appels à exposer et suivi des inscriptions).",
+                      "children": [
+                        {
+                          "name": "13",
+                          "summary": "Rappels Zoho Expense répétés concernant des dépenses enregistrées mais non déclarées.",
+                          "children": [
+                            {
+                              "name": "14",
+                              "summary": "Rappels Zoho Expense concernant des dépenses saisies mais non encore déclarées.",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "5",
+              "summary": "Merge 1.3",
+              "children": [
+                {
+                  "name": "9",
+                  "summary": "Merge 1.2",
+                  "children": [
+                    {
+                      "name": "11",
+                      "summary": "Rappels automatiques de Zoho Expense demandant de déclarer des dépenses enregistrées mais non soumises.",
+                      "children": [
+                        {
+                          "name": "14",
+                          "summary": "Merge 1.0",
+                          "children": [
+                            {
+                              "name": "15",
+                              "summary": "Merge 0.1",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

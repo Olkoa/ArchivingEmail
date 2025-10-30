@@ -18,14 +18,23 @@ from stop_words import get_stop_words
 
 def bertopic_modeling():
     texts = []
+    message_ids = []
+    email_sources = []
     module_dir = Path(__file__).resolve().parent
     email_output_path = module_dir / "email_output.json"
 
     with email_output_path.open("r", encoding="utf-8") as f:
-        for item in tqdm(ijson.items(f, "item"), desc="Extracting mails"):
+        for idx, item in enumerate(tqdm(ijson.items(f, "item"), desc="Extracting mails")):
             subject = item.get("subject", "")
             body = item.get("body", "")
             texts.append(f"{subject}\n\n{body}")
+
+            message_id = item.get("message_id") or item.get("file") or item.get("file_name")
+            if not message_id:
+                message_id = f"generated_{idx}"
+            message_ids.append(str(message_id))
+
+            email_sources.append(item.get("file_name"))
 
     final_stopwords_list = get_stop_words('english') + get_stop_words('french')+list(fr_stop)+ list(en_stop)+stopwords.words('english') + stopwords.words('french')+['Bonjour', 'bonjour', 'Salut', 'Hello', 'hello', 'bonsoir', 'Bonsoir']
     unique_list = list(set(final_stopwords_list))
@@ -81,6 +90,8 @@ def bertopic_modeling():
 
     # Now it's 1D — safe to save
     df = pd.DataFrame({
+        "message_id": message_ids,
+        "source_file": email_sources,
         "text": texts,
         "topic": topics,
         "probability": main_probs

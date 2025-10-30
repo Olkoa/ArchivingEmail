@@ -1,0 +1,26 @@
+{
+  "enronus": {
+    "mailboxs": {
+      "enronus": {
+        "Positions": {
+          "enronus": {
+            "start_date": "",
+            "end_date": "",
+            "description": "enronus"
+          }
+        },
+        "Entity": {
+          "name": "enronus",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "enronus@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "enronus",
+          "description": "enronus"
+        }
+      }
+    }
+  }
+}

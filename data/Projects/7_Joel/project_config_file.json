@@ -1,0 +1,20 @@
+{
+  "7_Joel": {
+    "mailboxs": {
+      "7_Joel": {
+        "Positions": {},
+        "Entity": {
+          "name": "7_Joel",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "7Joel@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "7_Joel",
+          "description": "7_Joel7_Joel7_Joel7_Joel7_Joel"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "1",
+  "summary": "Merge 1.31",
+  "children": [
+    {
+      "name": "1",
+      "summary": "Messages personnels et informels : invitations et informations d'événements (golf, conférences, mariages), liens utiles, blagues et nouvelles non vérifiées.",
+      "children": []
+    },
+    {
+      "name": "2",
+      "summary": "Merge 0.1",
+      "children": []
+    }
+  ]
+}
