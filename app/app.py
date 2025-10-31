@@ -998,6 +998,37 @@ else:
             compute_bow,
         )
 
+        MAX_EMAIL_RESULTS = 50
+
+        enhanced_filters, filters_changed = create_working_dropdown_filters(
+            page_name="Recherche Sémantique",
+            emails_df=None,
+            mailbox_options=mailbox_options,
+            email_filters=email_filters,
+            topic_level=selected_topic_level
+        )
+
+        selected_mailbox_filter = enhanced_filters.get('mailbox', selected_mailbox)
+
+        direction_map = {"Envoyés": "sent", "Reçus": "received"}
+        filter_dict = {}
+        if enhanced_filters.get('direction'):
+            filter_dict['direction'] = direction_map.get(
+                enhanced_filters['direction'],
+                enhanced_filters['direction']
+            )
+        folder_value = enhanced_filters.get('folder')
+        if folder_value and folder_value not in ('Tous', 'All'):
+            filter_dict['folder'] = folder_value
+        if enhanced_filters.get('sender'):
+            filter_dict['sender'] = enhanced_filters['sender']
+        if enhanced_filters.get('recipient'):
+            filter_dict['recipient'] = enhanced_filters['recipient']
+        if enhanced_filters.get('has_attachments'):
+            filter_dict['has_attachments'] = True
+        if enhanced_filters.get('topic_cluster') and enhanced_filters['topic_cluster'] not in ('Tous', 'All'):
+            filter_dict['topic_cluster'] = enhanced_filters['topic_cluster']
+
         try:
             load_dotenv()
             ACTIVE_PROJECT = resolve_active_project()
@@ -1006,6 +1037,36 @@ else:
         except Exception as semantics_load_error:
             st.error(f"Impossible de charger les données sémantiques : {semantics_load_error}")
         else:
+            try:
+                emails_df = load_data_with_filters(
+                    ACTIVE_PROJECT,
+                    selected_mailbox_filter,
+                    filter_dict,
+                    topic_level=selected_topic_level
+                )
+            except Exception as email_load_error:
+                st.error(f"Erreur lors du chargement des emails associés : {email_load_error}")
+                emails_df = pd.DataFrame()
+            else:
+                if enhanced_filters.get('date_range'):
+                    emails_df = apply_date_filter(emails_df, enhanced_filters['date_range'])
+                else:
+                    emails_df = apply_date_filter(emails_df, date_range)
+
+            emails_df = emails_df.copy()
+            if "message_id" in emails_df.columns:
+                emails_df["message_id"] = emails_df["message_id"].astype(str).str.strip()
+                emails_df.loc[
+                    emails_df["message_id"].str.lower().isin(["", "nan", "none"]),
+                    "message_id"
+                ] = ""
+
+            available_message_ids: set[str] = set()
+            if "message_id" in emails_df.columns and not emails_df.empty:
+                available_message_ids = {
+                    mid for mid in emails_df["message_id"].tolist() if mid
+                }
+
             cluster_bow = {}
             for cluster_id in df_vis["cluster"].unique():
                 cluster_chunks = df_vis[df_vis["cluster"] == cluster_id]["chunk"].tolist()
@@ -1022,10 +1083,25 @@ else:
                 lambda c: f"Cluster {c}<br>Top words: {cluster_bow.get(c, '')}"
             )
 
+            metadata_available = "message_id" in df_vis.columns and df_vis["message_id"].notna().any()
+            if not metadata_available:
+                st.warning(
+                    "Les métadonnées reliant les chunks aux emails ne sont pas disponibles. "
+                    "Relancez la préparation de la recherche sémantique pour utiliser la table d'emails."
+                )
+
             if "semantic_filtered_df" not in st.session_state:
                 st.session_state.semantic_filtered_df = df_vis
             if "semantic_display_text" not in st.session_state:
                 st.session_state.semantic_display_text = ""
+            if "semantic_raw_results" not in st.session_state:
+                st.session_state.semantic_raw_results = []
+            if "semantic_query" not in st.session_state:
+                st.session_state.semantic_query = ""
+            if "semantic_email_results_df" not in st.session_state:
+                st.session_state.semantic_email_results_df = pd.DataFrame()
+            if "semantic_unmatched_count" not in st.session_state:
+                st.session_state.semantic_unmatched_count = 0
 
             st.markdown("### 🧠 t-SNE Clusters + Recherche Sémantique")
 
@@ -1036,12 +1112,18 @@ else:
                     st.info("Pas de recherche effectuée.")
                     st.session_state.semantic_filtered_df = df_vis
                     st.session_state.semantic_display_text = ""
+                    st.session_state.semantic_raw_results = []
+                    st.session_state.semantic_query = ""
+                    st.session_state.semantic_email_results_df = pd.DataFrame()
+                    st.session_state.semantic_unmatched_count = 0
                 else:
                     try:
                         filtered_df, raw_results = perform_semantic_search(
                             query, embeddings_vis, df_vis, semantic_search
                         )
                         st.session_state.semantic_filtered_df = filtered_df
+                        st.session_state.semantic_raw_results = raw_results
+                        st.session_state.semantic_query = query.strip()
 
                         highlighted_chunks = []
                         for result in raw_results:
@@ -1066,6 +1148,10 @@ else:
             filtered_plot = st.session_state.semantic_filtered_df[
                 st.session_state.semantic_filtered_df["cluster"].isin(selected_clusters)
             ]
+            if available_message_ids and "message_id" in filtered_plot.columns:
+                filtered_plot = filtered_plot[
+                    filtered_plot["message_id"].astype(str).str.strip().isin(available_message_ids)
+                ]
 
             if not filtered_plot.empty:
                 fig = px.scatter(
@@ -1079,6 +1165,62 @@ else:
                 st.plotly_chart(fig, use_container_width=True)
             else:
                 st.info("Aucun point à afficher pour la sélection actuelle.")
+
+            semantic_results_df = pd.DataFrame()
+            unmatched_candidates = 0
+            semantic_query_value = st.session_state.get("semantic_query", "").strip()
+            if semantic_query_value:
+                candidate_chunks = st.session_state.semantic_filtered_df.copy()
+                if "message_id" in candidate_chunks.columns:
+                    candidate_chunks["message_id"] = candidate_chunks["message_id"].astype(str).str.strip()
+                else:
+                    candidate_chunks["message_id"] = ""
+
+                candidate_chunks = candidate_chunks[candidate_chunks["message_id"] != ""]
+                total_candidates = len(candidate_chunks.drop_duplicates(subset=["message_id"], keep="first"))
+
+                if available_message_ids:
+                    candidate_chunks = candidate_chunks[
+                        candidate_chunks["message_id"].isin(available_message_ids)
+                    ]
+
+                ordered_chunks = candidate_chunks.drop_duplicates(subset=["message_id"], keep="first")
+                message_ids_ordered = ordered_chunks["message_id"].tolist()
+                unmatched_candidates = max(total_candidates - len(message_ids_ordered), 0)
+
+                if MAX_EMAIL_RESULTS:
+                    message_ids_ordered = message_ids_ordered[:MAX_EMAIL_RESULTS]
+
+                if message_ids_ordered and not emails_df.empty and "message_id" in emails_df.columns:
+                    rank_map = {mid: idx for idx, mid in enumerate(message_ids_ordered)}
+                    matching_emails = emails_df[
+                        emails_df["message_id"].isin(message_ids_ordered)
+                    ].copy()
+                    matching_emails["__semantic_rank"] = matching_emails["message_id"].map(rank_map)
+                    matching_emails = matching_emails.sort_values("__semantic_rank", kind="stable")
+                    semantic_results_df = matching_emails.drop_duplicates(subset=["message_id"], keep="first")
+                    semantic_results_df = semantic_results_df.sort_values("__semantic_rank", kind="stable")
+
+            st.session_state.semantic_email_results_df = semantic_results_df
+            st.session_state.semantic_unmatched_count = unmatched_candidates
+
+            st.subheader("📬 Emails correspondants")
+            if not semantic_query_value:
+                st.info("Lance une recherche pour afficher les emails correspondants.")
+            elif semantic_results_df.empty:
+                info_message = "Aucun email ne correspond aux résultats et filtres actuels."
+                if unmatched_candidates:
+                    info_message += f" ({unmatched_candidates} résultat(s) de chunk ont été ignorés car l'email complet est filtré ou indisponible.)"
+                st.info(info_message)
+            else:
+                caption_parts = [f"{len(semantic_results_df)} email(s) affiché(s)"]
+                if len(semantic_results_df) == MAX_EMAIL_RESULTS:
+                    caption_parts.append(f"limités aux {MAX_EMAIL_RESULTS} meilleurs résultats")
+                if unmatched_candidates:
+                    caption_parts.append(f"{unmatched_candidates} résultat(s) de chunk ignoré(s)")
+                st.caption(" • ".join(caption_parts))
+                display_email_df = semantic_results_df.drop(columns="__semantic_rank", errors="ignore")
+                create_email_table_with_viewer(display_email_df, key_prefix="semantic_results")
 
             if st.session_state.semantic_display_text:
                 st.subheader("📄 Top résultats de la recherche")

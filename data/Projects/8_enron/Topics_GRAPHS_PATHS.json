@@ -1,0 +1,16 @@
+{
+  "name": "1",
+  "summary": "Merge 1.31",
+  "children": [
+    {
+      "name": "1",
+      "summary": "Courriels informels et messages transférés : invitations et infos locales, photos, promotions, conseils santé et sujets de loisirs.",
+      "children": []
+    },
+    {
+      "name": "2",
+      "summary": "Merge 0.1",
+      "children": []
+    }
+  ]
+}

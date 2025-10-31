@@ -17,8 +17,8 @@ ENABLE_RAG = True  # Set to False to disable RAG features
 ALLOW_LLM_UNRELATED_REQUESTS = False
 
 ###
-ACTIVE_PROJECT = "7_Joel"
+ACTIVE_PROJECT = "8_celine"
 
 # Project order - Most recently accessed projects will appear first
 # Format: List of project names in display order
-PROJECT_ORDER = ["7_Joel", "6_enron", "6_joel", "enronus", "5_Joel_Gombin", "5_enron", "5_Celine_G", "5_Joel_G", "5_Celine_full", "5_Celine", "5_Joel_sample", "CelineWithSemSearch", "4_Joel_Sample", "3_joel_sample", "enrontodelete", "3_Celine", "psttodelete", "idiro", "3_Dino", "joel_sample_v1", "3_3pst", "pst_test_graph", "Dino test", "celinev3", "dino_v2_proj", "pst_proj", "single_eml_proj", "dinodelanight", "joel_zip_full_proj", "Projet Demo", "eldino_proj", "dodo", "doni", "celinev2", "ledinovivra_proj", "newdino_proj", "dinofiable_proj", "diplodocus_proj", "din_proj", "dinosur_proj", "dinosisi", "ccccccc"]
+PROJECT_ORDER = ["8_celine", "8_enron", "7_Joel", "6_enron", "6_joel", "enronus", "5_Joel_Gombin", "5_enron", "5_Celine_G", "5_Joel_G", "5_Celine_full", "5_Celine", "5_Joel_sample", "CelineWithSemSearch", "4_Joel_Sample", "3_joel_sample", "enrontodelete", "3_Celine", "psttodelete", "idiro", "3_Dino", "joel_sample_v1", "3_3pst", "pst_test_graph", "Dino test", "celinev3", "dino_v2_proj", "pst_proj", "single_eml_proj", "dinodelanight", "joel_zip_full_proj", "Projet Demo", "eldino_proj", "dodo", "doni", "celinev2", "ledinovivra_proj", "newdino_proj", "dinofiable_proj", "diplodocus_proj", "din_proj", "dinosur_proj", "dinosisi", "ccccccc"]

@@ -1,8 +1,17 @@
 {
-  "0": "Annonces produit et promotions de sociétés tech (DigitalOcean : stockage cloud ; Lenovo : offres et ordinateurs portables).",
-  "1": "Promotions, confirmations et communications de Booking.com concernant réservations, offres et services de voyage.",
-  "2": "Offres et promotions de Sticker Mule pour autocollants, étiquettes, magnets, boutons et rubans d'emballage personnalisés.",
-  "3": "Actualités et invitations Zoho CRM : nouveautés 2018, webinaires, formations et meetups (ZSphere).",
-  "4": "Échanges professionnels et administratifs : réunions de projet, suivis de livraison, candidatures et communications liées à l'open data.",
-  "5": "Rappels automatiques de Zoho Expense signalant des dépenses enregistrées mais non déclarées."
+  "1": "Coordination des actions de communication, prises de position et démarches parlementaires de l'AAF (campagnes, communiqués, amendements et tables rondes).",
+  "2": "Organisation logistique et convocations aux réunions et webconférences de l'AAF (liens Zoom/GoToMeeting, AG, COPIL, bureaux).",
+  "3": "Questions internes de gestion du personnel, reprise d'activité et fonctionnement de la permanence de l'AAF (absences, recrutements, missions).",
+  "4": "Partenariats et projets numériques (Wikimédia, label Culture Libre, conservation numérique) et coordination des conventions et séminaires associés.",
+  "5": "Suivi de la gouvernance associative, finances, publications et partenariats institutionnels de l'AAF.",
+  "6": "Notifications d'erreurs de messagerie et retours de courriels non distribués, accompagnés de documents techniques et échanges d'extractions.",
+  "7": "Veille et collecte de liens et publications sur les réseaux sociaux et plateformes pour la rédaction, la communication et le plaidoyer.",
+  "8": "Préparations de réunions COPIL et points pour la stratégie de plaidoyer (notes et topos prévus).",
+  "9": "Projets de publications numériques et coordination avec l'ENSSIB, organisation d'événements et travaux sur le registre des entrées et la transition numérique.",
+  "10": "Enjeux et débats autour des données de santé et du dossier médical partagé (confidentialité, risques, réunions avec acteurs institutionnels).",
+  "11": "Rédaction et diffusion de prises de position et contenus sur l'accès aux archives classifiées et information historique/coloniale.",
+  "12": "Gestion des adhésions et actions de solidarité/politiques liées aux archives (rapports Rwanda, situation Afghanistan, soutien Ukraine).",
+  "13": "Organisation d'événements et webinaires (notamment RiC-O Converter), convocations et comptes rendus de réunions professionnelles et congrès.",
+  "14": "Gestion des offres d'emploi et recrutements, questions pratiques de l'AAF (vente en ligne de publications, migration de listes, RH).",
+  "15": "Questions éditoriales et logistiques autour de la Gazette et des publications (tirage, prix, subventions et diffusion)."
 }

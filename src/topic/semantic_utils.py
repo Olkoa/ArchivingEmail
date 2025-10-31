@@ -1,8 +1,25 @@
 import json
 from datetime import datetime
 from collections import Counter
+from typing import Any
+import numpy as np
 from src.topic.config import STOPWORDS, results_dir
 import plotly.express as px
+
+
+def _json_default(value: Any):
+    """Convert numpy/pandas types to JSON-friendly primitives."""
+    if isinstance(value, (np.generic,)):
+        return value.item()
+    if isinstance(value, (np.ndarray,)):
+        return value.tolist()
+    try:
+        iso = value.isoformat()  # pandas.Timestamp, datetime etc.
+    except AttributeError:
+        pass
+    else:
+        return iso
+    return str(value)
 
 
 
@@ -12,18 +29,27 @@ def perform_semantic_search(query, embeddings_vis, df_vis, semantic_search_func,
     (indices, scores, texte brut et embeddings associés).
     """
     top_idx, scores = semantic_search_func(query, embeddings_vis, top_k=top_k)
-    filtered = df_vis.iloc[top_idx]
+    filtered = df_vis.iloc[top_idx].copy()
+    filtered["similarity_score"] = scores
 
     raw_results = []
     for i, (idx, score) in enumerate(zip(top_idx[:10], scores[:10]), 1):
-        chunk = df_vis.iloc[idx]["chunk"]
+        row = df_vis.iloc[idx]
+        chunk = row.get("chunk")
         embedding = embeddings_vis[idx].tolist()  # Convertit le vecteur NumPy en liste JSON-serializable
 
         raw_results.append({
             "rank": i,
             "score": float(score),
             "text": chunk,
-            "embedding": embedding
+            "embedding": embedding,
+            "message_id": row.get("message_id"),
+            "email_lookup_key": row.get("email_lookup_key"),
+            "chunk_id": row.get("chunk_id"),
+            "cluster": row.get("cluster"),
+            "cluster_id": row.get("cluster_id"),
+            "subject": row.get("subject"),
+            "folder": row.get("folder"),
         })
 
     return filtered, raw_results
@@ -50,7 +76,7 @@ def save_results_to_json(
     }
 
     with open(filepath, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+        json.dump(data, f, ensure_ascii=False, indent=2, default=_json_default)
 
     print(f"✅ Résultats sauvegardés dans : {filepath}")
     return filepath

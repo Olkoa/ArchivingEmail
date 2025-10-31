@@ -55,6 +55,10 @@ def results_dir(project: str | None = None) -> Path:
     return semantic_base_dir(project) / "results"
 
 
+def chunk_metadata_path(project: str | None = None) -> Path:
+    return topic_dir(project) / "chunk_metadata.pkl"
+
+
 # Stopwords pour le Bag-of-Words
 STOPWORDS = [
     "alors",

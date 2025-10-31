@@ -61,6 +61,16 @@ def automate_cleaning(input_folder, output_file, force=True, limit_mails=None):
             if not cleaned_text:
                 continue
 
+            message_id = getattr(mail, "message_id", None)
+            if isinstance(message_id, (list, tuple)):
+                message_id = message_id[0] if message_id else None
+            if not message_id:
+                # Fallback to raw header if available
+                headers = getattr(mail, "headers", {}) or {}
+                message_id = headers.get("message-id") or headers.get("Message-ID")
+            if message_id:
+                message_id = str(message_id).strip()
+
             mail_data = {
                 "file": eml_file.name,
                 "folder": str(eml_file.parent.relative_to(input_path)),
@@ -69,6 +79,7 @@ def automate_cleaning(input_folder, output_file, force=True, limit_mails=None):
                 "subject": mail.subject or "",
                 "date": mail.date.isoformat() if mail.date else None,
                 "body": cleaned_text,
+                "message_id": message_id or "",
             }
             all_mails.append(mail_data)
         except Exception as e:
@@ -106,11 +117,13 @@ def chunk_mails(json_path, output_dir, chunk_size=200, overlap=20, force=True):
         if not body.strip():
             continue
         chunks = chunk_text(body, chunk_size, overlap)
+        message_id = mail.get("message_id") or ""
         for i, chunk in enumerate(chunks):
             rows.append({
                 "subject": mail.get("subject", ""),
                 "chunk": chunk,
                 "chunk_id": i,
+                "message_id": message_id,
                 "sender": ";".join([addr[1] for addr in mail.get("from", [])]) if isinstance(mail.get("from"), list) else str(mail.get("from")),
                 "recipient": ";".join([addr[1] for addr in mail.get("to", [])]) if isinstance(mail.get("to"), list) else str(mail.get("to")),
                 "date": mail.get("date"),
@@ -136,6 +149,14 @@ def compute_embeddings(chunk_csv_path, embeddings_dir, force=True):
     if "body" not in df_chunks.columns and "chunk" in df_chunks.columns:
         df_chunks = df_chunks.rename(columns={"chunk": "body"})
     print(f"[INFO] Calcul des embeddings pour {len(df_chunks)} chunks...")
+    if "chunk_text" not in df_chunks.columns and "body" in df_chunks.columns:
+        df_chunks["chunk_text"] = df_chunks["body"]
+    if "message_id" not in df_chunks.columns:
+        # Fallback to filename when message_id is missing (legacy runs)
+        df_chunks["message_id"] = df_chunks.get("file", pd.Series([None] * len(df_chunks)))
+
+    df_chunks = df_chunks.reset_index(drop=True)
+    df_chunks["original_index"] = df_chunks.index
 
     temp_csv_path = embeddings_dir / "temp_chunks.csv"
     df_chunks.to_csv(temp_csv_path, index=False)
@@ -189,6 +210,40 @@ def compute_embeddings(chunk_csv_path, embeddings_dir, force=True):
     unique_labels = np.unique(labels_final)
     label_map = {old: new for new, old in enumerate(unique_labels)}
     labels_final_mapped = np.array([label_map[l] for l in labels_final])
+
+    # Persist chunk metadata aligned with filtered embeddings
+    valid_indices = np.where(mask_valid)[0]
+    chunk_metadata = df_chunks.iloc[valid_indices].copy().reset_index(drop=True)
+    metadata_columns = [
+        "message_id",
+        "subject",
+        "chunk_id",
+        "chunk_text",
+        "sender",
+        "recipient",
+        "date",
+        "file",
+        "folder",
+        "original_index",
+    ]
+    available_columns = [col for col in metadata_columns if col in chunk_metadata.columns]
+    chunk_metadata = chunk_metadata[available_columns]
+    if "message_id" in chunk_metadata.columns:
+        chunk_metadata["message_id"] = chunk_metadata["message_id"].astype(str).replace({"nan": ""})
+    email_lookup_base = (
+        chunk_metadata["message_id"]
+        if "message_id" in chunk_metadata.columns
+        else pd.Series([""] * len(chunk_metadata), index=chunk_metadata.index)
+    )
+    chunk_metadata["email_lookup_key"] = email_lookup_base.fillna("")
+    if "file" in chunk_metadata.columns:
+        fallback_ids = chunk_metadata["file"].fillna("")
+        mask_empty = chunk_metadata["email_lookup_key"] == ""
+        chunk_metadata.loc[mask_empty, "email_lookup_key"] = fallback_ids[mask_empty]
+    chunk_metadata["cluster"] = labels_final_mapped
+    metadata_path = embeddings_dir / "chunk_metadata.pkl"
+    chunk_metadata.to_pickle(metadata_path)
+    print(f"[INFO] Chunk metadata sauvegardé : {metadata_path}")
 
     # --------------------------
     # Réduction dimensionnelle pour visualisation
