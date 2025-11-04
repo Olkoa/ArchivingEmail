@@ -811,7 +811,7 @@ if __name__ == "__main__":
         print(f"Error: {e}")
 
 
-def upload_raw_data_to_s3(local_raw_data_dir, mailbox_name):
+def upload_raw_data_to_s3(local_raw_data_dir, project_bucket, mailbox_name):
     import os
     from src.data.s3_utils import S3Handler
 
@@ -823,7 +823,7 @@ def upload_raw_data_to_s3(local_raw_data_dir, mailbox_name):
     print("Existing buckets:", buckets)
 
     # Define your project bucket name
-    project_bucket = "olkoa-projects"
+    project_bucket = project_bucket
 
     # Create the bucket if it doesn't exist
     if project_bucket not in buckets:
