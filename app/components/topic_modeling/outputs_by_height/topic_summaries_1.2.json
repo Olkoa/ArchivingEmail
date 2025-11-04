@@ -1,10 +1,14 @@
 {
-  "0": "Promotions et mises à jour de services informatiques (Lenovo, DigitalOcean, OSF) et discussion d'achat d'un portable.",
-  "1": "Offres, rappels et confirmations de voyage de Booking.com (hébergements et attractions à Paris et ailleurs).",
-  "2": "Coordination d'événements, rencontres et formations autour de la civictech/govtech et de l'open data (Datactivist).",
-  "3": "Promotions de produits d'impression personnalisée (stickers, étiquettes, ruban, magnets) par Sticker Mule.",
-  "4": "Infolettres, appels à candidatures et actualités du Tank Media pour l'incubation et l'entrepreneuriat dans les médias.",
-  "5": "Rapports DMARC automatisés pour les domaines (datactivi.st, teamopendata.org) indiquant l'état des envois.",
-  "6": "Actualités, webinars et formations Zoho CRM (communauté française ZSphere et offres de formation).",
-  "7": "Rappels Zoho Expense concernant des dépenses enregistrées mais non déclarées."
+  "topic_1": "Organisation de sessions (Twitch, webinaire, formations) et échanges pour présenter et former les archivistes à RiC‑O Converter et aux ontologies / web de données.",
+  "topic_2": "Questions RH et vie associative de l'AAF (recrutement du délégué général, migration de Yahoo Groups, partenariats et organisation interne).",
+  "topic_3": "Coordination des travaux et actions de l'AAF : groupes de travail, publications (La Gazette), événements et relations internationales.",
+  "topic_4": "Collecte de liens et publications en ligne (Twitter, LinkedIn, articles) pour veille et plaidoyer.",
+  "topic_5": "Notes succinctes et éléments de test / brouillon pour une réunion COPIL.",
+  "topic_6": "Organisation et convocation des réunions de l'AAF (comité de rédaction, bureau) avec informations de visioconférence.",
+  "topic_7": "Communications et gestion courante de l'AAF : ventes de publications, communication sur les réseaux sociaux et suivi administratif.",
+  "topic_8": "Promotion de l'open content et organisation d'événements par Wikimédia France (Label Culture Libre, webinaires, Journée Wikimedia Culture et numérique).",
+  "topic_9": "Programmation et gestion des formations de l'AAF (catalogue, ateliers, inscriptions) et organisation d'événements professionnels.",
+  "topic_10": "Projet ENSSIB sur les éditions numériques de l'AAF : enquêtes étudiantes, livrables, réflexion sur le modèle économique et l'offre de formation.",
+  "topic_11": "Suivi administratif de l'AAF : facturations, comptes‑rendus, consultations normatives et organisation de webinaires.",
+  "topic_12": "Mobilisation pour aider Mme Masuma Nazari, ancienne directrice des archives afghanes, à obtenir soutien, visa ou protection en France."
 }

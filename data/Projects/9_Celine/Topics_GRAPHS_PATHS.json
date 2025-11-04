@@ -1,0 +1,1705 @@
+{
+  "name": "1",
+  "summary": "Notes internes et points divers liés à l’organisation de comités (COPIL, IGI) et éléments logistiques divers / Partage de publications LinkedIn et veille professionnelle via des liens vers des posts et articles / Informations et invitations liées aux initiatives Wikimedia (Label Culture Libre, observatoire open content, webinaires GLAM)",
+  "children": [
+    {
+      "name": "1",
+      "summary": "Organisation et communication d'activités et projets de l'AAF (séminaires, webinaires, partenariats, enquêtes ministérielles, dossiers ANR) et suivi logistique.",
+      "children": [
+        {
+          "name": "1",
+          "summary": "Communications et diffusion : gestion des médias sociaux, publications vidéos, liens, annonces et relations avec la presse.",
+          "children": [
+            {
+              "name": "1",
+              "summary": "Organisation et logistique de webinaires et événements (notamment le webinaire RiC‑O Converter) ainsi que coordination interne entre AN, AAF et partenaires.",
+              "children": [
+                {
+                  "name": "1",
+                  "summary": "Gestion interne de l’AAF : recrutement, ventes et publications, migration des listes de diffusion et organisation des formations/événements.",
+                  "children": [
+                    {
+                      "name": "1",
+                      "summary": "Organisation de webinaires et collaborations entre l'AAF et ses partenaires (SIAF, CIA), et gestion du référentiel des producteurs.",
+                      "children": [
+                        {
+                          "name": "1",
+                          "summary": "Organisation de sessions (Twitch, webinaire, formations) et échanges pour présenter et former les archivistes à RiC‑O Converter et aux ontologies / web de données.",
+                          "children": [
+                            {
+                              "name": "1",
+                              "summary": "Organisation et soutien (webinaire/Twitch/formation) autour du logiciel RiC‑O Converter, conversion de données archivistiques et coordination entre l'AAF, les Archives nationales et partenaires.",
+                              "children": [
+                                {
+                                  "name": "1",
+                                  "summary": "Organisation de la vie associative de l'AAF : réunions, questions financières, demandes de subvention et gestion des adhésions.",
+                                  "children": [
+                                    {
+                                      "name": "1",
+                                      "summary": "Organisation et promotion du logiciel RiC‑O Converter (webinaire, session Twitch, workshop) et coopération entre l’AAF, les Archives nationales et la communauté archivistique.",
+                                      "children": [
+                                        {
+                                          "name": "1",
+                                          "summary": "Communications administratives et gestion associative de l’AAF (recrutement, RH, publications, réunions, dossiers financiers et subventions).",
+                                          "children": [
+                                            {
+                                              "name": "1",
+                                              "summary": "Organisation d’un webinaire et d’actions de formation sur RiC‑O Converter et la conversion de fichiers archivistiques (coordination AN/AAF/ICA, diffusion en replay).",
+                                              "children": [
+                                                {
+                                                  "name": "1",
+                                                  "summary": "Logs et diagnostics d’erreurs de messagerie concernant des courriers non remis envoyés depuis l’adresse celine.guyon@archivistes.org.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "name": "2",
+                                              "summary": "Problèmes techniques de messagerie : nombreux retours d’e‑mails non remis, erreurs d’hébergement, pièces trop lourdes et diagnostics SMTP.",
+                                              "children": [
+                                                {
+                                                  "name": "2",
+                                                  "summary": "Échanges administratifs et communications sur publications, concours, rapports et collaborations institutionnelles de l’AAF.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "2",
+                                  "summary": "Migration des listes Yahoo vers Sympa et réflexions sur la communication, le site Internet et le positionnement associatif.",
+                                  "children": [
+                                    {
+                                      "name": "2",
+                                      "summary": "Questions éditoriales et logistiques liées aux publications de l’AAF (éditions, licences, ventes et distribution).",
+                                      "children": [
+                                        {
+                                          "name": "2",
+                                          "summary": "Migration et bascule des listes de diffusion après la fermeture de Yahoo Groups, choix entre SYMPA, groups.io et import/export des archives.",
+                                          "children": [
+                                            {
+                                              "name": "3",
+                                              "summary": "Échanges administratifs et associatifs divers : rapports, comptes‑rendus, demandes de subvention et questions de rémunération.",
+                                              "children": [
+                                                {
+                                                  "name": "3",
+                                                  "summary": "Gestion de la fin de Yahoo Groups : sauvegarde des archives, migration vers Sympa/groups.io et organisation de la transition.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "2",
+              "summary": "Planification de réunions et coordination interne du bureau/sections (visioconférences, convocations, ordres du jour et communications).",
+              "children": [
+                {
+                  "name": "2",
+                  "summary": "Partage de liens et ressources provenant des réseaux sociaux (Twitter, LinkedIn) et veille numérique.",
+                  "children": [
+                    {
+                      "name": "2",
+                      "summary": "Partage et veille de contenus sur les réseaux sociaux (LinkedIn, Twitter) ainsi que documents et notes de pilotage (COPIL, IGI).",
+                      "children": [
+                        {
+                          "name": "2",
+                          "summary": "Questions RH et vie associative de l'AAF (recrutement du délégué général, migration de Yahoo Groups, partenariats et organisation interne).",
+                          "children": [
+                            {
+                              "name": "2",
+                              "summary": "Communication et marketing de l'AAF : refonte du site, synthèses d'un Master sur la communication et migration/gestion des listes de diffusion (fermeture Yahoo Groups → SYMPA).",
+                              "children": [
+                                {
+                                  "name": "3",
+                                  "summary": "Recrutement et gestion RH pour l'AAF : sélection des candidatures, organisation des entretiens et coordination des plannings.",
+                                  "children": [
+                                    {
+                                      "name": "3",
+                                      "summary": "Migration et sauvegarde des archives de la liste Yahoo Groups vers des solutions alternatives (Sympa, groups.io) et conservation de l’historique.",
+                                      "children": [
+                                        {
+                                          "name": "3",
+                                          "summary": "Travail sur la communication, le marketing et la refonte/toilettage du site Internet de l’AAF (résultats d’un master et propositions).",
+                                          "children": [
+                                            {
+                                              "name": "4",
+                                              "summary": "Migration et gestion des listes de diffusion suite aux changements de Yahoo Groups (étude de SYMPA, groups.io, archivage des messages).",
+                                              "children": [
+                                                {
+                                                  "name": "4",
+                                                  "summary": "Retour et exploitation d’une étude de Master sur la communication associative et proposition de refonte/toilettage du site web de l’AAF.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "4",
+                                      "summary": "Étude et propositions pour la refonte de la communication et du site internet de l’AAF dans le cadre d’un projet de management/marketing.",
+                                      "children": [
+                                        {
+                                          "name": "4",
+                                          "summary": "Processus de recrutement (entretiens, évaluations, choix) pour le poste de délégué général et autres sujets RH associés.",
+                                          "children": [
+                                            {
+                                              "name": "5",
+                                              "summary": "Travail sur la communication et le marketing de l’AAF : refonte/»toilettage» du site internet et stratégies de diffusion vers le grand public.",
+                                              "children": [
+                                                {
+                                                  "name": "5",
+                                                  "summary": "Processus de recrutement pour le poste de délégué général : entretiens, organisation et décisions RH au sein de l’AAF.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "3",
+                              "summary": "Recrutement et ressources humaines à l'AAF : organisation des entretiens, sélection des candidats et partenariats (Ascodocpsy) pour les postes et l'animation RH.",
+                              "children": [
+                                {
+                                  "name": "4",
+                                  "summary": "Organisation et suivi d'événements et webinaires (notamment RiC‑O Converter) ainsi que questions institutionnelles et éditoriales de l'AAF.",
+                                  "children": [
+                                    {
+                                      "name": "5",
+                                      "summary": "Processus de recrutement pour le poste de délégué·e général·e (présélection, entretiens et organisation RH).",
+                                      "children": [
+                                        {
+                                          "name": "5",
+                                          "summary": "Propositions de partenariat et collaboration entre l’AAF et Ascodocpsy (Numadoc, échanges de ressources, conventions, réunions).",
+                                          "children": [
+                                            {
+                                              "name": "6",
+                                              "summary": "Processus de recrutement à l’AAF : sélection de candidats, organisation des entretiens et décisions d’embauche.",
+                                              "children": [
+                                                {
+                                                  "name": "6",
+                                                  "summary": "Proposition de partenariat entre l’AAF et Ascodocpsy : pistes de collaboration (glossaire Numadoc, journées d’études, conventions).",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "6",
+                                      "summary": "Négociations de partenariat entre l’AAF et Ascodocpsy autour du glossaire Numadoc, échanges et actions de coopération.",
+                                      "children": [
+                                        {
+                                          "name": "6",
+                                          "summary": "Informations et actions liées au congrès ICA Abu Dhabi (appel à communications, bourses, aides au déplacement, coordination).",
+                                          "children": [
+                                            {
+                                              "name": "7",
+                                              "summary": "Partenariat avec Ascodocpsy : présentation du glossaire Numadoc, pistes de collaboration (journées d’études, échanges de ressources, cotisations spéciales).",
+                                              "children": [
+                                                {
+                                                  "name": "7",
+                                                  "summary": "Soutien et organisation de la participation française au congrès ICA Abu Dhabi : appel à communications et prise en charge des déplacements.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "3",
+                          "summary": "Coordination des travaux et actions de l'AAF : groupes de travail, publications (La Gazette), événements et relations internationales.",
+                          "children": [
+                            {
+                              "name": "4",
+                              "summary": "Coordination d'événements et représentations internationales (webinaires RiC‑O, ICA/Abu Dhabi) ainsi que participation aux travaux de normalisation et commissions (AFNOR/CN/CE).",
+                              "children": [
+                                {
+                                  "name": "5",
+                                  "summary": "Mesures et communications liées au COVID‑19 : annulations d'événements, télétravail, continuité de la permanence et impacts sur les formations.",
+                                  "children": [
+                                    {
+                                      "name": "7",
+                                      "summary": "Organisation et suivi d’un webinaire sur RiC‑O Converter, et communication liée aux événements internationaux (ICA Abu Dhabi).",
+                                      "children": [
+                                        {
+                                          "name": "7",
+                                          "summary": "Organisation détaillée d’un webinaire sur RiC‑O Converter (planning, inscriptions, enregistrements, diffusion sur YouTube avec AN/AAF/ICA).",
+                                          "children": [
+                                            {
+                                              "name": "8",
+                                              "summary": "Relais et organisation autour du Congrès ICA Abu Dhabi : appel à communications, soutien financier de la délégation française et logistique de participation.",
+                                              "children": [
+                                                {
+                                                  "name": "8",
+                                                  "summary": "Suivi post‑webinaire RiC‑O Converter : mise en ligne des enregistrements et planification de sessions ultérieures avec AN/AAF/ICA.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "8",
+                                          "summary": "Mise en place et communications relatives à la commission de résolution des conflits de l’AAF (élections, messages aux membres, fonctionnement).",
+                                          "children": [
+                                            {
+                                              "name": "9",
+                                              "summary": "Bilan et diffusion du webinaire RiC‑O Converter (succès, enregistrement, proposition de mise en ligne YouTube/ICA/AN/AAF).",
+                                              "children": [
+                                                {
+                                                  "name": "9",
+                                                  "summary": "Mise en place et demandes de participation à la Commission de résolution des conflits de l’AAF : élections et rôle des membres.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "8",
+                                      "summary": "Sollicitations et mise en place de la Commission de résolution des conflits de l’AAF et communications aux membres élus.",
+                                      "children": [
+                                        {
+                                          "name": "9",
+                                          "summary": "Production et validation de livrables des groupes de travail (notes de cadrage, fiches pratiques), modalités de diffusion et choix de licences (CC).",
+                                          "children": [
+                                            {
+                                              "name": "10",
+                                              "summary": "Mise en place de la Commission de résolution des conflits : sollicitations et constitution des membres élus par le CA.",
+                                              "children": [
+                                                {
+                                                  "name": "10",
+                                                  "summary": "Travail sur le standard de publication des registres d’entrées (AAF‑SIAF‑Datactivist) : webinaire, appel à commentaires et démarches auprès des éditeurs.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "5",
+                              "summary": "Construction d'un standard ouvert pour la publication des registres d'entrées : groupe de travail, webinaires, prototype, demandes de subvention et communication aux adhérents.",
+                              "children": [
+                                {
+                                  "name": "6",
+                                  "summary": "Diffusion d'offres d'emploi pour archivistes et enquêtes sur le marché du travail, avec projets liés aux registres des entrées.",
+                                  "children": [
+                                    {
+                                      "name": "9",
+                                      "summary": "Validation et diffusion de procès‑verbaux, approbation de livrables (GAE) et gestion des formalités administratives du CA.",
+                                      "children": [
+                                        {
+                                          "name": "10",
+                                          "summary": "Rédaction, relecture et finalisation des procès‑verbaux de l’assemblée générale et des comptes‑rendus internes de l’AAF.",
+                                          "children": [
+                                            {
+                                              "name": "11",
+                                              "summary": "Validation et modalités de diffusion des livrables des groupes de travail (GAE) : forme des documents, licences (CC BY‑NC‑SA) et rôle du CA dans la relecture.",
+                                              "children": [
+                                                {
+                                                  "name": "11",
+                                                  "summary": "Rédaction, relectures et validation des procès‑verbaux de l’Assemblée générale et des comptes‑rendus associés.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "11",
+                                          "summary": "Mesures liées au COVID‑19 : annulation/reprise des formations, chômage partiel, information aux stagiaires et préparation d’AG à distance.",
+                                          "children": [
+                                            {
+                                              "name": "12",
+                                              "summary": "Préparation, relecture et finalisation des procès‑verbaux de l’Assemblée générale et autres comptes‑rendus internes.",
+                                              "children": [
+                                                {
+                                                  "name": "12",
+                                                  "summary": "Impact de l’épidémie de COVID‑19 sur l’activité de l’AAF : annulation/repport d’événements, adaptation des formations et mesures sanitaires.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "10",
+                                      "summary": "Mesures, organisation et impacts liés au coronavirus pour l’AAF/AFF (formations à distance, AG, aides et continuité d’activité).",
+                                      "children": [
+                                        {
+                                          "name": "12",
+                                          "summary": "Diffusion régulière d’offres d’emploi, gestion de la liste 'Emploi' et enquêtes sur le marché du travail pour les archivistes.",
+                                          "children": [
+                                            {
+                                              "name": "13",
+                                              "summary": "Gestion de crise COVID‑19 pour l’AAF : annulation d’événements, chômage partiel, mesures financières et adaptation des activités/formations.",
+                                              "children": [
+                                                {
+                                                  "name": "13",
+                                                  "summary": "Diffusion d’offres d’emploi et gestion de la rubrique 'Emploi' du site de l’AAF, plus enquêtes sur le marché du travail des archivistes.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "7",
+                                  "summary": "Négociations et gestion des publications (Gazette, guides) : tirages, prix de vente, conventions et partenariats pour l'impression et la diffusion.",
+                                  "children": [
+                                    {
+                                      "name": "11",
+                                      "summary": "Diffusion régulière d’offres d’emploi et gestion de la rubrique Emploi sur le site de l’AAF.",
+                                      "children": [
+                                        {
+                                          "name": "13",
+                                          "summary": "Travail sur un standard ouvert pour la publication des données des registres d’entrées (GT, SIAF, Datactivist, webinaires et intégration éditeurs).",
+                                          "children": [
+                                            {
+                                              "name": "14",
+                                              "summary": "Publication et diffusion régulière d’offres d’emploi sur le site de l’AAF et via la liste 'Emploi'.",
+                                              "children": [
+                                                {
+                                                  "name": "14",
+                                                  "summary": "Travail sur le registre des entrées : construction d’un modèle de données, webinaire public, coordination SIAF/éditeurs et intégration sans plan de relance.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "12",
+                                      "summary": "Groupe de travail sur la normalisation et la publication en open data des registres des entrées des services d’archives (modèle de données, pilotage SIAF).",
+                                      "children": [
+                                        {
+                                          "name": "14",
+                                          "summary": "Organisation éditoriale et logistique de la Gazette (numéro Francophonie) : impression, devis, partenariats (SAAF/SIAF) et distribution d’exemplaires.",
+                                          "children": [
+                                            {
+                                              "name": "15",
+                                              "summary": "Travail sur le modèle de données et le standard d’open data pour les registres des entrées des services d’archives (webinaire, consultation, intégration par éditeurs).",
+                                              "children": [
+                                                {
+                                                  "name": "15",
+                                                  "summary": "Organisation éditoriale et réunions du comité de rédaction de La Gazette des archives, planification des numéros et calendriers.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "6",
+                              "summary": "Gestion des publications de l'AAF : tirages, prix de vente, réédition, stockage, conventions de subvention (Gazette Francophonie) et suivi des ventes.",
+                              "children": [
+                                {
+                                  "name": "8",
+                                  "summary": "Questions autour du référentiel des producteurs et incidents d'hébergement (incendie OVH) affectant les notices d'autorité et la coopération AAF/SIAF.",
+                                  "children": [
+                                    {
+                                      "name": "13",
+                                      "summary": "Questions éditoriales et financières liées à l’impression et la diffusion de la Gazette (numéro Francophonie), réimpression et subventions partenaires.",
+                                      "children": [
+                                        {
+                                          "name": "15",
+                                          "summary": "Négociation et finalisation d’un partenariat / convention entre l’AAF et la Société des Amis des Archives de France pour la Gazette.",
+                                          "children": [
+                                            {
+                                              "name": "16",
+                                              "summary": "Questions éditoriales et logistiques : rééditions, gestion des stocks, tarification, correcteurs freelance et subventions pour la Gazette et l’Abrégé.",
+                                              "children": [
+                                                {
+                                                  "name": "16",
+                                                  "summary": "Négociations et convention entre l’AAF et la SAAF pour le soutien financier et la commande d’exemplaires du numéro de la Gazette sur la Francophonie.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "16",
+                                          "summary": "Impact de l’incendie OVH sur l’hébergement du référentiel ICA‑ATOM (producteurs) : indisponibilité, PRA, sauvegardes et relances auprès du prestataire.",
+                                          "children": [
+                                            {
+                                              "name": "17",
+                                              "summary": "Convention et soutien de la SAAF pour le numéro « Francophonie » de la Gazette : financement, logo et exemplaires à diffuser.",
+                                              "children": [
+                                                {
+                                                  "name": "17",
+                                                  "summary": "Conséquences de l’incendie OVH sur l’hébergement (Artefactual) du Référentiel des producteurs AAF/SIAF et actions de relance/pré‑restauration.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "9",
+                                  "summary": "Veille et partage de liens et publications sur les réseaux professionnels (LinkedIn, Twitter) et autres ressources web.",
+                                  "children": [
+                                    {
+                                      "name": "14",
+                                      "summary": "Impact de l’incendie du data center OVH sur l’hébergement du Référentiel des producteurs (Artefactual/ICAtom) et activation d’un PRA.",
+                                      "children": [
+                                        {
+                                          "name": "17",
+                                          "summary": "Annonce d’une future facturation par Artefactual pour l’hébergement d’ICA‑ATOM et discussion sur la répartition des coûts AAF/SIAF et contrat historique.",
+                                          "children": [
+                                            {
+                                              "name": "18",
+                                              "summary": "Impact de l’incendie du datacenter OVH sur l’hébergement (ICA‑Atom / référentiel producteurs) et coordination avec Artefactual/SIAF pour reprise du service.",
+                                              "children": [
+                                                {
+                                                  "name": "18",
+                                                  "summary": "Organisation interne : convocations et planning des réunions du Conseil d’administration, du Bureau et des instances (incl. relations internationales ICA).",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "18",
+                                          "summary": "Veille et partage de liens personnels/professionnels (Twitter/LinkedIn) sur l’actualité archivistique et documentaire.",
+                                          "children": [
+                                            {
+                                              "name": "19",
+                                              "summary": "Questions de gouvernance et représentation : nominations, commissions statutaires, participation aux instances de normalisation et discussions législatives.",
+                                              "children": [
+                                                {
+                                                  "name": "19",
+                                                  "summary": "Curation de publications professionnelles et partages LinkedIn utiles pour la veille sectorielle.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2",
+      "summary": "Notes internes et points divers liés à l’organisation de comités (COPIL, IGI) et éléments logistiques divers / Partage de publications LinkedIn et veille professionnelle via des liens vers des posts et articles / Partage de liens et ressources en ligne (principalement tweets et signets) dans le cadre d’une veille professionnelle",
+      "children": [
+        {
+          "name": "2",
+          "summary": "Gouvernance et fonctionnement : réunions du bureau et du conseil d'administration, décisions éditoriales et questions liées à l'accès et à la classification des archives.",
+          "children": [
+            {
+              "name": "3",
+              "summary": "Thématiques numériques et d'ouverture des contenus : préservation numérique, Observatoire de l'open content, Label Culture Libre, webinaires et formations.",
+              "children": [
+                {
+                  "name": "3",
+                  "summary": "Questions relatives à l’activité partielle, télétravail, bulletins de paie et préparation de réunions et résolutions de l’association.",
+                  "children": [
+                    {
+                      "name": "3",
+                      "summary": "Planification et convocations de réunions et visioconférences pour l'AAF et ses groupes (bureau, pôles, collectifs).",
+                      "children": [
+                        {
+                          "name": "4",
+                          "summary": "Collecte de liens et publications en ligne (Twitter, LinkedIn, articles) pour veille et plaidoyer.",
+                          "children": [
+                            {
+                              "name": "7",
+                              "summary": "Curation de liens et ressources en ligne (tweets, articles, posts LinkedIn) à partager pour plaidoyer et veille documentaire.",
+                              "children": [
+                                {
+                                  "name": "10",
+                                  "summary": "Notes et rappels brefs pour COPIL et autres réunions (éléments de réunion et listes de points à traiter).",
+                                  "children": [
+                                    {
+                                      "name": "15",
+                                      "summary": "Veille et partage de liens LinkedIn professionnels liés aux archives, bibliothèques et publications sectorielles.",
+                                      "children": [
+                                        {
+                                          "name": "19",
+                                          "summary": "Collecte d’idées et de ressources (liens, tweets, articles) pour des actions de plaidoyer et de communication en archivistique.",
+                                          "children": [
+                                            {
+                                              "name": "20",
+                                              "summary": "Veille professionnelle via LinkedIn : partage d’articles et de publications sur numérique, souveraineté, formation et normes.",
+                                              "children": [
+                                                {
+                                                  "name": "20",
+                                                  "summary": "Collecte de tweets et messages Twitter d’intérêt professionnel pour la veille et la communication.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "11",
+                                  "summary": "Suivi financier et reporting : préparation de réunions, états trimestriels, budgets et coordination des COPIL via visioconférences.",
+                                  "children": [
+                                    {
+                                      "name": "16",
+                                      "summary": "Curation et archivage de tweets et éléments de veille Twitter pertinents pour la communauté archivistique.",
+                                      "children": [
+                                        {
+                                          "name": "20",
+                                          "summary": "Notes internes courtes et rappels divers pour le suivi de projets (COPIL, IGI, tests et to‑do rapides).",
+                                          "children": [
+                                            {
+                                              "name": "21",
+                                              "summary": "Curation de contenus et veille sur les réseaux sociaux : tweets, reçus/justificatifs et idées de plaidoyer/orientation communication.",
+                                              "children": [
+                                                {
+                                                  "name": "21",
+                                                  "summary": "Préparations et notes pour réunions (COPIL, IGI) et éléments de présentation diffusés en interne.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "5",
+                          "summary": "Notes succinctes et éléments de test / brouillon pour une réunion COPIL.",
+                          "children": [
+                            {
+                              "name": "8",
+                              "summary": "Notes et brouillons internes pour réunions de pilotage (COPIL), tests et points relatifs à l'IGI — documents de travail non finalisés.",
+                              "children": [
+                                {
+                                  "name": "12",
+                                  "summary": "Partage et stratégie d'usage des réseaux sociaux pour promouvoir les archives (hashtags, tweets et mobilisation en ligne).",
+                                  "children": [
+                                    {
+                                      "name": "17",
+                                      "summary": "Notes préparatoires et documents de travail pour réunions et présentations (COPIL, IGI, tests et topo).",
+                                      "children": [
+                                        {
+                                          "name": "21",
+                                          "summary": "Organisation des publications et réunions éditoriales de la Gazette (comité de rédaction, GoToMeeting, préparation d’AG).",
+                                          "children": [
+                                            {
+                                              "name": "22",
+                                              "summary": "Courriels courts ou pièces manquantes : échanges avec peu ou pas de contenu transmis (pièces non jointes, mentions IGI).",
+                                              "children": [
+                                                {
+                                                  "name": "22",
+                                                  "summary": "Planification des réunions du comité de rédaction de La Gazette et coordination des réunions financières et de bureau (liens GoToMeeting).",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "4",
+                  "summary": "Communications et invitations à des webinaires, événements et formations (Label Culture Libre, ANR Tour, PIN, RASAD, etc.).",
+                  "children": [
+                    {
+                      "name": "4",
+                      "summary": "Coordination de la communication et des publications de l'AAF (Gazette, tweets, hashtags) et échanges internes du bureau.",
+                      "children": [
+                        {
+                          "name": "6",
+                          "summary": "Organisation et convocation des réunions de l'AAF (comité de rédaction, bureau) avec informations de visioconférence.",
+                          "children": [
+                            {
+                              "name": "9",
+                              "summary": "Organisation et convocations de réunions (COPIL registre des entrées, comités, bureaux et séances préparatoires) avec agendas et liens de visioconférence.",
+                              "children": [
+                                {
+                                  "name": "13",
+                                  "summary": "Questions RH et gestion de la permanence : remboursements d'activité partielle, congés, organisation du travail et départs de personnel.",
+                                  "children": [
+                                    {
+                                      "name": "18",
+                                      "summary": "Organisation pratique des réunions du CA et autres rendez‑vous, plus quelques échanges sur demandes d’aides financières ponctuelles.",
+                                      "children": [
+                                        {
+                                          "name": "22",
+                                          "summary": "Planification et invitations à des réunions Zoom pour divers groupes et comités (calendrier et liens de connexion).",
+                                          "children": [
+                                            {
+                                              "name": "23",
+                                              "summary": "Organisation logistique des réunions en ligne (GoToMeeting) pour AG, CA, bureaux et autres instances de l’AAF.",
+                                              "children": [
+                                                {
+                                                  "name": "23",
+                                                  "summary": "Organisation et envoi d’invitations Zoom pour divers comités, réunions et points de coordination de projets.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "23",
+                                          "summary": "Rédaction et adoption d’une résolution AAF encadrant le partage et l’utilisation des travaux (conflits d’intérêt, sponsoring, confidentialité).",
+                                          "children": [
+                                            {
+                                              "name": "24",
+                                              "summary": "Tests et utilisation d’outils de visioconférence (Zoom) pour réunions, formations et points de coordination.",
+                                              "children": [
+                                                {
+                                                  "name": "24",
+                                                  "summary": "Rédaction d’une résolution pour l’AG sur les règles de partage et d’utilisation de l’information afin de prévenir conflits d’intérêt.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "5",
+                      "summary": "Organisation d'événements et webinaires, invitations et partenariats institutionnels (ENSSIB, Wikimédia, PIN, Label Culture Libre).",
+                      "children": [
+                        {
+                          "name": "7",
+                          "summary": "Communications et gestion courante de l'AAF : ventes de publications, communication sur les réseaux sociaux et suivi administratif.",
+                          "children": [
+                            {
+                              "name": "10",
+                              "summary": "Collecte et partage de publications et tweets pour la communication (veille sur archives, COVID, tribunes et médias sociaux).",
+                              "children": [
+                                {
+                                  "name": "14",
+                                  "summary": "Production et diffusion de vidéos d'événements (captation, replays YouTube) et sollicitations commerciales de prestataires audiovisuels.",
+                                  "children": [
+                                    {
+                                      "name": "19",
+                                      "summary": "Actions de plaidoyer et d’actualité sur l’accès aux archives (guerre d’Algérie), tribunes et sollicitations d’audiences politiques.",
+                                      "children": [
+                                        {
+                                          "name": "24",
+                                          "summary": "Mobilisation et actions de plaidoyer publiques sur l’accès aux archives (tribunes, rencontres, relais médias et campagnes).",
+                                          "children": [
+                                            {
+                                              "name": "25",
+                                              "summary": "Rédaction et dépôt d’une résolution sur les règles de partage et d’utilisation des travaux de l’AAF pour prévenir les conflits d’intérêts.",
+                                              "children": [
+                                                {
+                                                  "name": "25",
+                                                  "summary": "Débats et actions autour de l’IGI‑1300, des déclarations présidentielles et de l’accès aux archives liées à la guerre d’Algérie.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "25",
+                                          "summary": "Annonce du décès de Benoît Van Reeth et coordination de l’hommage officiel de l’AAF et du bureau éditorial de la Gazette.",
+                                          "children": [
+                                            {
+                                              "name": "26",
+                                              "summary": "Échanges informels entre administrateurs : vie associative, événements culturels et communications personnelles.",
+                                              "children": [
+                                                {
+                                                  "name": "26",
+                                                  "summary": "Annonce du décès de Benoît Van Reeth et préparation d’un hommage et d’un message officiel du bureau de l’AAF.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "20",
+                                      "summary": "Collecte et partage de tweets relatifs aux archives, bibliothèques et veille documentaire.",
+                                      "children": [
+                                        {
+                                          "name": "26",
+                                          "summary": "Veille Twitter ciblée sur événements, publications et discussions professionnelles en archivistique et histoire.",
+                                          "children": [
+                                            {
+                                              "name": "27",
+                                              "summary": "Annonce du décès de Benoît Van Reeth et préparation d’un hommage officiel par l’AAF (message aux adhérents, rédaction collective).",
+                                              "children": [
+                                                {
+                                                  "name": "27",
+                                                  "summary": "Veille et partage de tweets liés à la Gazette, à la médiation et aux sujets d’actualité archivistique pour promotion et plaidoyer.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "27",
+                                          "summary": "Organisation logistique du colloque AAF (Valenciennes) : inscriptions, dîner de gala, remboursements, sponsors et communications.",
+                                          "children": [
+                                            {
+                                              "name": "28",
+                                              "summary": "Veille Twitter et agrégation de tweets pertinents pour la communication et le plaidoyer (sélection d’actualités et de réflexions).",
+                                              "children": [
+                                                {
+                                                  "name": "28",
+                                                  "summary": "Réflexions et mobilisation suite à la fusion/suppression annoncée du Bureau des missions du SIAF et conséquences pour les sections AAF.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "11",
+                              "summary": "Logistique interne et ressources humaines : gestion d'événements sociaux, absences et arrêts maladie, procédures RH (rupture conventionnelle), et préparation éditoriale/AG.",
+                              "children": [
+                                {
+                                  "name": "15",
+                                  "summary": "Annonces et inscriptions pour événements scientifiques (Rencontres Recherche & Création, Rendez‑vous ANR) et actions autour de l'open content.",
+                                  "children": [
+                                    {
+                                      "name": "21",
+                                      "summary": "Réflexions et réunions sur la disparition/fusion du Bureau des missions du SIAF et conséquences pour les acteurs concernés.",
+                                      "children": [
+                                        {
+                                          "name": "28",
+                                          "summary": "Suivi des présences du personnel, recrutements en cours (déléguée générale, office‑manager), PCA et organisation de la permanence.",
+                                          "children": [
+                                            {
+                                              "name": "29",
+                                              "summary": "Réflexion collective sur la disparition/fusion du Bureau des missions du SIAF : impacts pour la coordination nationale et mobilisation d’adhérents.",
+                                              "children": [
+                                                {
+                                                  "name": "29",
+                                                  "summary": "Organisation logistique d’événements (dîner inter‑CA, visites, inscriptions) et listes VIP pour colloques/rassemblements.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "name": "30",
+                                              "summary": "Logistique d’événements professionnels : inscriptions, annulations, remboursements, dîners de gala et visites de colloque.",
+                                              "children": [
+                                                {
+                                                  "name": "30",
+                                                  "summary": "Questions RH à la permanence : activité partielle, impact sur les salaires, gestion d’absences, rupture conventionnelle et recrutement.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "22",
+                                      "summary": "Gestion interne du bureau (comptes‑rendus, RH, absences, logistique et suivi opérationnel de la permanence).",
+                                      "children": [
+                                        {
+                                          "name": "29",
+                                          "summary": "Correspondance interne du conseil d’administration : convocations, réunions exceptionnelles, messages de soutien et suivi de dossiers.",
+                                          "children": [
+                                            {
+                                              "name": "31",
+                                              "summary": "Problèmes de management et RH à la permanence : bien‑être du personnel, surcharge de travail, arrêt maladie et départs (rupture conventionnelle).",
+                                              "children": [
+                                                {
+                                                  "name": "31",
+                                                  "summary": "Rédaction et relecture des procès‑verbaux d’AG et discussions sur l’accès aux archives classifiées (secret‑défense).",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "30",
+                                          "summary": "Vœux, communications institutionnelles et préparation d’événements ou activités partenaires (DEAR, publications, séminaires).",
+                                          "children": [
+                                            {
+                                              "name": "32",
+                                              "summary": "Coordination interne autour d’arrêts maladie, préparation de séminaires, PV et communications administratives entre administrateurs.",
+                                              "children": [
+                                                {
+                                                  "name": "32",
+                                                  "summary": "Échanges de vœux, newsletters et communications institutionnelles en début d’année, et diffusion d’informations associatives.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "23",
+                                      "summary": "Communications associatives et vœux, circulation d’informations auprès des adhérents (AAF, eFutura, newsletters).",
+                                      "children": [
+                                        {
+                                          "name": "31",
+                                          "summary": "Coordination de la captation vidéo et de la diffusion (YouTube/ScienceConf) des événements, offres de production motion design.",
+                                          "children": [
+                                            {
+                                              "name": "33",
+                                              "summary": "Planification d’une journée d’étude (dates, programme, intervenants) et organisation des réunions de coordination pour l’événement.",
+                                              "children": [
+                                                {
+                                                  "name": "33",
+                                                  "summary": "Gestion, montage et publication des vidéos d’événements (YouTube/Dailymotion) : captation, montage et diffusion des enregistrements.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "16",
+                                  "summary": "Organisation des RASAD et de l'Assemblée générale : logistique, inscriptions, captation vidéo et coordination locale des rencontres départementales.",
+                                  "children": [
+                                    {
+                                      "name": "24",
+                                      "summary": "Mise en ligne, accès et politiques de diffusion des enregistrements vidéo des journées d’étude (Archi’Visio, YouTube, replays restreints).",
+                                      "children": [
+                                        {
+                                          "name": "32",
+                                          "summary": "Informations et inscriptions aux webinaires/événements ANR (AAP, Plan d’action, Rencontres Recherche et Création, ANR Tour).",
+                                          "children": [
+                                            {
+                                              "name": "34",
+                                              "summary": "Partage de ressources multimédias (photos, vidéos, réalisateurs) pour couvrir et promouvoir événements et publications.",
+                                              "children": [
+                                                {
+                                                  "name": "34",
+                                                  "summary": "Annonces et programme des Rencontres Recherche & Création (ANR/Festival d’Avignon) : inscriptions et diffusion du préprogramme.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "3",
+          "summary": "Diffusion d’offres d’emploi et gestion de la rubrique Emploi du site de l’AAF pour le secteur archivistique / Sujets financiers et partenariats (bilan, conventions AAF‑SIAF), ainsi que questions techniques et normatives (incidents OVH, référentiels) / Discussion et diffusion autour du décret sur l’intégrité scientifique et des archives de la recherche, y compris réactions et consultation CNIL",
+          "children": [
+            {
+              "name": "4",
+              "summary": "Débats et actions sur l'accès, la communicabilité et la classification des archives, accompagnés de ressources, tribunes et communications de l'association.",
+              "children": [
+                {
+                  "name": "5",
+                  "summary": "Messages de la présidence et de l’administration sur la gouvernance de l’AAF, collaborations (SIAF), projets associatifs et questions législatives.",
+                  "children": [
+                    {
+                      "name": "6",
+                      "summary": "Thématiques liées à la transition numérique (métavers, transformation numérique, éditions numériques) et conférences spécialisées.",
+                      "children": [
+                        {
+                          "name": "8",
+                          "summary": "Promotion de l'open content et organisation d'événements par Wikimédia France (Label Culture Libre, webinaires, Journée Wikimedia Culture et numérique).",
+                          "children": [
+                            {
+                              "name": "12",
+                              "summary": "Annonces et inscriptions à manifestations et webinaires (Rencontres Recherche & Création, Wikimédia, Label Culture Libre, rendez‑vous ANR, Avignon).",
+                              "children": [
+                                {
+                                  "name": "17",
+                                  "summary": "Élaboration et diffusion du catalogue de formations 2024 de l'AAF et organisation d'événements liés au groupe PIN et formations décentralisées.",
+                                  "children": [
+                                    {
+                                      "name": "25",
+                                      "summary": "Annonces et inscriptions aux webinaires et rendez‑vous de l’ANR (ANR Tour / Les Rendez‑vous de l’ANR).",
+                                      "children": [
+                                        {
+                                          "name": "33",
+                                          "summary": "Initiatives Wikimédia France pour l’open content : Label Culture Libre, observatoire de l’open content et journées 'Culture et numérique'.",
+                                          "children": [
+                                            {
+                                              "name": "35",
+                                              "summary": "Promotion des Rencontres Recherche et Création (ANR/Festival d’Avignon) : programme, inscriptions et retransmissions en ligne.",
+                                              "children": [
+                                                {
+                                                  "name": "35",
+                                                  "summary": "Calendrier des webinaires ANR (ANR Tour / Les Rendez‑vous de l’ANR) pour présenter appels à projets et plan d’action aux chercheurs.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "name": "36",
+                                              "summary": "Informations et replays des webinaires ANR Tour / Rendez‑vous de l’ANR sur les appels à projets, financements et science ouverte.",
+                                              "children": [
+                                                {
+                                                  "name": "36",
+                                                  "summary": "Partenariat AAF–Wikimédia : information sur le Label Culture Libre, webinaires et la Journée Wikimedia Culture et Numérique.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "26",
+                                      "summary": "Partenariat AAF–Wikimédia (Label Culture Libre), webinaires GLAM, initiatives d’open content et actions de valorisation des collections.",
+                                      "children": [
+                                        {
+                                          "name": "34",
+                                          "summary": "Convocations et ordres du jour pour les séances du Conseil supérieur des archives et modalités pratiques de participation.",
+                                          "children": [
+                                            {
+                                              "name": "37",
+                                              "summary": "Label 'Culture Libre' et partenariat Wikimédia : webinaires d’information, labellisation GLAM et accompagnement à l’open content.",
+                                              "children": [
+                                                {
+                                                  "name": "37",
+                                                  "summary": "Convocations et organisation (en présentiel ou hybride) : comité de rédaction, Bureau et réunions du Conseil supérieur des archives.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "9",
+                          "summary": "Programmation et gestion des formations de l'AAF (catalogue, ateliers, inscriptions) et organisation d'événements professionnels.",
+                          "children": [
+                            {
+                              "name": "13",
+                              "summary": "Calendriers et organisation de formations et rencontres professionnelles (PIN 20 ans, RASAD, ENSSIB) et enquête/projet sur les publications numériques de l'AAF.",
+                              "children": [
+                                {
+                                  "name": "18",
+                                  "summary": "Communications et rappels autour d'événements de la transition numérique (Journée de la Transition Numérique eFutura) et projets éditoriaux numériques.",
+                                  "children": [
+                                    {
+                                      "name": "27",
+                                      "summary": "Convocations, ordres du jour et comptes rendus relatifs aux séances du Conseil supérieur des archives.",
+                                      "children": [
+                                        {
+                                          "name": "35",
+                                          "summary": "Organisation des RASAD (rencontres archivistes départementaux) : appel à communications, logistique, captation et supports en ligne.",
+                                          "children": [
+                                            {
+                                              "name": "38",
+                                              "summary": "Demande d’organisation (présentiel ou webinaire) pour la journée d’étude du groupe des bibliothécaires d’archives, et logistique associée.",
+                                              "children": [
+                                                {
+                                                  "name": "38",
+                                                  "summary": "Convocation et logistique de l’Assemblée générale au Centre culturel irlandais : inscriptions limitées, procurations et déroulé pratique.",
+                                                  "children": []
+                                                },
+                                                {
+                                                  "name": "39",
+                                                  "summary": "Organisation des RASAD (Rencontres annuelles des archivistes départementaux) : appels à communication, captation vidéo et supports en ligne.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "36",
+                                          "summary": "Élaboration et publication du catalogue des formations AAF (précommandes, inscriptions, sessions décentralisées 2022–2024).",
+                                          "children": [
+                                            {
+                                              "name": "39",
+                                              "summary": "Organisation des RASAD (rencontres des archivistes départementaux) : appel à communications, programme, captation vidéo et supports mis en ligne.",
+                                              "children": [
+                                                {
+                                                  "name": "40",
+                                                  "summary": "Élaboration et diffusion du catalogue des formations AAF (préparation 2021‑2024), inscriptions et ateliers de co‑conception.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "19",
+                                  "summary": "Courriels commerciaux et études de marché (Plimsoll) sur la valeur et la santé financière du secteur de la formation, et questions liées à l'EURL/AG.",
+                                  "children": [
+                                    {
+                                      "name": "28",
+                                      "summary": "Préparation, production et précommandes du catalogue des formations de l’AAF et organisation d’ateliers/formateurs.",
+                                      "children": [
+                                        {
+                                          "name": "37",
+                                          "summary": "Préparatifs pour les 20 ans du groupe PIN : comité d’organisation, liste VIP, captation vidéo et calendrier des réunions préparatoires.",
+                                          "children": [
+                                            {
+                                              "name": "40",
+                                              "summary": "Conception et diffusion du catalogue des formations AAF (précommandes, calendrier 2022‑2024, coordination COFEM et inscriptions).",
+                                              "children": [
+                                                {
+                                                  "name": "41",
+                                                  "summary": "Préparatifs et coordination des 20 ans du groupe PIN : réunions d’organisation, budget, livrables et événements commémoratifs.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "38",
+                                          "summary": "Planification des réunions, bureaux et assemblées (GoToMeeting) et préparation de points financiers et budgétaires internes.",
+                                          "children": [
+                                            {
+                                              "name": "41",
+                                              "summary": "Préparatifs des 20 ans du groupe PIN : réunions d’organisation, liste d’invités, vidéos et logistique de l’événement en partenariat Aristote/AAF.",
+                                              "children": [
+                                                {
+                                                  "name": "42",
+                                                  "summary": "Participation à une table ronde AAQ sur l’évolution des législations sur les archives à l’heure de la transformation numérique.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "5",
+              "summary": "Diffusion d’offres d’emploi et gestion de la rubrique Emploi du site de l’AAF pour le secteur archivistique / Sujets financiers et partenariats (bilan, conventions AAF‑SIAF), ainsi que questions techniques et normatives (incidents OVH, référentiels) / Discussion et diffusion autour du décret sur l’intégrité scientifique et des archives de la recherche, y compris réactions et consultation CNIL",
+              "children": [
+                {
+                  "name": "6",
+                  "summary": "Diffusion d’offres d’emploi et gestion de la rubrique Emploi du site de l’AAF pour le secteur archivistique / Sujets financiers et partenariats (bilan, conventions AAF‑SIAF), ainsi que questions techniques et normatives (incidents OVH, référentiels) / Discussion et diffusion autour du décret sur l’intégrité scientifique et des archives de la recherche, y compris réactions et consultation CNIL",
+                  "children": [
+                    {
+                      "name": "7",
+                      "summary": "Communications officielles et coordination interne de l'AAF (vœux, conventions, partenariats, rapport moral et communiqués).",
+                      "children": [
+                        {
+                          "name": "10",
+                          "summary": "Projet ENSSIB sur les éditions numériques de l'AAF : enquêtes étudiantes, livrables, réflexion sur le modèle économique et l'offre de formation.",
+                          "children": [
+                            {
+                              "name": "14",
+                              "summary": "Projets d'éditions numériques et coopération ENSSIB, actualités et événements de la Transition Numérique (eFutura) et suivi des comités de pilotage.",
+                              "children": [
+                                {
+                                  "name": "20",
+                                  "summary": "Actualités et débats sur l'accès aux archives (déclassification, guerre d'Algérie) et actions de l'AAF pour valoriser la mémoire et la transparence.",
+                                  "children": [
+                                    {
+                                      "name": "29",
+                                      "summary": "Organisation et promotion des Journées de la Transition Numérique (JTN eFutura) et tables rondes sur le métavers et la transformation numérique.",
+                                      "children": [
+                                        {
+                                          "name": "39",
+                                          "summary": "Projet ENSSIB sur les publications numériques : briefs étudiants, comités de pilotage, évaluation et livrables attendus.",
+                                          "children": [
+                                            {
+                                              "name": "42",
+                                              "summary": "Communication et rappels pour la Journée de la Transition Numérique (JTN) d’eFutura : live YouTube, programme et notifications aux inscrits.",
+                                              "children": [
+                                                {
+                                                  "name": "43",
+                                                  "summary": "Proposition et coordination d’un séminaire co‑organisé (PIN/Aristote/AAF) sur la conservation numérique et les enjeux associés.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "30",
+                                      "summary": "Collaboration avec l’ENSSIB pour une étude de faisabilité sur les publications numériques de l’AAF (projets étudiants, livrables, enquêtes).",
+                                      "children": [
+                                        {
+                                          "name": "40",
+                                          "summary": "Messages commerciaux/analytiques (Plimsoll) évaluant le marché de la formation et proposant services d’intelligence économique.",
+                                          "children": [
+                                            {
+                                              "name": "43",
+                                              "summary": "Projet ENSSIB sur les éditions numériques pour l’AAF : copil, livrables étudiants, étude de faisabilité et calendrier de soutenances.",
+                                              "children": [
+                                                {
+                                                  "name": "44",
+                                                  "summary": "Enquête du Ministère de la Culture sur l’impact du COVID‑19 destinée aux têtes de réseau et coordination des réponses de l’AAF.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "15",
+                              "summary": "Études de marché et analyses sectorielles sur la prestation de services de formation (rapports Plimsoll) et questions financières/organisationnelles liées à l'activité formation.",
+                              "children": [
+                                {
+                                  "name": "21",
+                                  "summary": "Débat sur une proposition de loi sur la déclaration de naissance et ses conséquences pour l'état civil et les archives, avec auditions et réactions.",
+                                  "children": [
+                                    {
+                                      "name": "31",
+                                      "summary": "Réception d’études commerciales/analyses sectorielles (Plimsoll) relatives au marché de la formation, messages de prospection.",
+                                      "children": [
+                                        {
+                                          "name": "41",
+                                          "summary": "Gestion éditoriale d’Archivistes! : production du numéro, relectures, envois, impressions et communication aux abonnés.",
+                                          "children": [
+                                            {
+                                              "name": "44",
+                                              "summary": "Messages commerciaux/analyses de marché (Plimsoll) sur le secteur de la formation ; communications publicitaires sur la valeur des sociétés.",
+                                              "children": [
+                                                {
+                                                  "name": "45",
+                                                  "summary": "Questions sur l’archivage des données de santé : référentiels, force probante, SAE et enjeux pratiques pour les établissements de santé.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "8",
+                      "summary": "Diffusion d’offres d’emploi et gestion de la rubrique Emploi du site de l’AAF pour le secteur archivistique / Sujets financiers et partenariats (bilan, conventions AAF‑SIAF), ainsi que questions techniques et normatives (incidents OVH, référentiels) / Suivi de la proposition de loi sur la déclaration de naissance (impacts pour les registres d’état civil) et sollicitations/auditions au Sénat impliquant archives et généalogistes",
+                      "children": [
+                        {
+                          "name": "11",
+                          "summary": "Suivi administratif de l'AAF : facturations, comptes‑rendus, consultations normatives et organisation de webinaires.",
+                          "children": [
+                            {
+                              "name": "16",
+                              "summary": "Enjeux institutionnels et juridiques : accès aux archives classifiées, motions et communications, commissions internes et préparation de réunions et textes.",
+                              "children": [
+                                {
+                                  "name": "22",
+                                  "summary": "Initiatives autour des archives LGBTQI+ : réunions, ressources, projets de centres/documentation et organisation de formations dédiées.",
+                                  "children": [
+                                    {
+                                      "name": "32",
+                                      "summary": "Mobilisation et propositions de soutien autour de l’accès aux archives, liberté d’information et actions collectives (collectif « Informer n’est pas un délit »).",
+                                      "children": [
+                                        {
+                                          "name": "42",
+                                          "summary": "Positionnement et actions de soutien à l’Ukraine : communications ICA, aides matérielles, dons d’ordinateurs et coordination humanitaire.",
+                                          "children": [
+                                            {
+                                              "name": "45",
+                                              "summary": "Demandes de cahiers des charges GED/SAE (secteur pharmaceutique) et échanges sur archivage électronique et gouvernance des données de santé.",
+                                              "children": [
+                                                {
+                                                  "name": "46",
+                                                  "summary": "Réaction de l’AAF et rédaction d’un communiqué suite à la découverte de destructions d’archives municipales à Menton (actions juridiques/CP).",
+                                                  "children": []
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "name": "46",
+                                              "summary": "Relevé des décisions du bureau et échanges de gouvernance associative (activité de la permanence, budgets, événements).",
+                                              "children": [
+                                                {
+                                                  "name": "47",
+                                                  "summary": "Suivi de recours juridiques relatifs à l’accès aux archives (IGI et droit à communication) et coordination des actions collectives.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "43",
+                                          "summary": "Suivi des discussions et mobilisations autour des archives liées aux guerres coloniales (Duclert, accès aux archives, actions militantes).",
+                                          "children": [
+                                            {
+                                              "name": "47",
+                                              "summary": "Initiatives et veille pour le soutien aux archivistes ukrainiens : collectes, hébergements, observatoire et coordination associative.",
+                                              "children": [
+                                                {
+                                                  "name": "48",
+                                                  "summary": "Soutien et démarches en faveur de l’ancienne directrice des Archives nationales afghanes : demande de visa/asile et mobilisation de contacts.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "33",
+                                      "summary": "Débats, actions et communications sur l’accès aux archives classifiées (guerre d’Algérie, IGI 1300) et initiatives de plaidoyer.",
+                                      "children": [
+                                        {
+                                          "name": "44",
+                                          "summary": "Plaidoyer pour l’ouverture des archives relatives aux essais nucléaires et débats sur déclassification et mémoire franco‑algérienne.",
+                                          "children": [
+                                            {
+                                              "name": "48",
+                                              "summary": "Veille et diffusion de ressources sur histoire coloniale et postcoloniale : articles, débats et actualités du site HistoireColoniale.net.",
+                                              "children": [
+                                                {
+                                                  "name": "49",
+                                                  "summary": "Débats publics et médias sur l’accès aux archives sensibles et coloniales (essais nucléaires, rapport Duclert sur le Rwanda, déclassification).",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "45",
+                                          "summary": "Questions de protection des données (CNIL) et référentiels pour les archives de santé, coordination DPO et échanges techniques.",
+                                          "children": [
+                                            {
+                                              "name": "49",
+                                              "summary": "Organisation et programmation d’un séminaire sur les disparus de la guerre d’Algérie : accès aux archives et préparation scientifique.",
+                                              "children": [
+                                                {
+                                                  "name": "50",
+                                                  "summary": "Soutien et coordination autour des archives LGBTQI : rencontres avec collectifs, élaboration d’un guide des sources et actions de valorisation.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "34",
+                                      "summary": "Travail sur les données de santé : concertation ASIP, référentiel de force probante, réunions et impact pour les archives hospitalières.",
+                                      "children": [
+                                        {
+                                          "name": "46",
+                                          "summary": "Rédaction et validation d’un communiqué sur la destruction d’archives à Menton et démarches auprès des autorités compétentes.",
+                                          "children": [
+                                            {
+                                              "name": "50",
+                                              "summary": "Échanges sur soutien institutionnel, création de groupes (AESP, AAF) et coordination pour l’accès aux archives, notamment en santé.",
+                                              "children": [
+                                                {
+                                                  "name": "51",
+                                                  "summary": "Discussions sur la conservation numérique, référentiels et durées de conservation (sujet logement social) et coordination d’avis techniques.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "23",
+                                  "summary": "Rédaction et diffusion de communiqués de presse de l'AAF (destruction d'archives à Menton, intégrité scientifique, etc.) et relectures collaboratives.",
+                                  "children": [
+                                    {
+                                      "name": "35",
+                                      "summary": "Suivi de la proposition de loi sur la déclaration de naissance (registre miroir) et ses conséquences potentielles pour l’état civil et les archives.",
+                                      "children": [
+                                        {
+                                          "name": "47",
+                                          "summary": "Accompagnement et échanges avec le collectif et porteurs du projet de centre d’archives LGBTQI (formations, convention, aide logistique).",
+                                          "children": [
+                                            {
+                                              "name": "51",
+                                              "summary": "Demande d’aide pour l’ex‑directrice des Archives nationales afghanes (situation à Téhéran) : recherche de soutiens diplomatiques pour visa/asile.",
+                                              "children": [
+                                                {
+                                                  "name": "52",
+                                                  "summary": "Proposition de co‑organisation (suite) d’un séminaire sur la conservation numérique et formalisation du partenariat entre associations.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "17",
+                              "summary": "Décret sur l'intégrité scientifique et réactions : communiqué de l'AAF, débats sur archives de la recherche et concertation interprofessionnelle.",
+                              "children": [
+                                {
+                                  "name": "24",
+                                  "summary": "Veille éditoriale et diffusion de la lettre d'information du site « Histoire coloniale et postcoloniale » sur actualités et publications historiques.",
+                                  "children": [
+                                    {
+                                      "name": "36",
+                                      "summary": "Initiatives et rencontres autour des archives LGBTQI (formation, collecte, partenariats et ressources pour archives minoritaires).",
+                                      "children": [
+                                        {
+                                          "name": "48",
+                                          "summary": "Recherche d’appui diplomatique et aide pour l’ancienne directrice des Archives nationales afghanes cherchant visa/assistance en France.",
+                                          "children": [
+                                            {
+                                              "name": "52",
+                                              "summary": "Rédaction et finalisation d’un communiqué sur la destruction d’archives municipales à Menton et transmission aux autorités compétentes.",
+                                              "children": [
+                                                {
+                                                  "name": "53",
+                                                  "summary": "Communication et actions liées à la consultation ministérielle sur l’impact du COVID pour les réseaux culturels (coordination des réponses).",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "49",
+                                          "summary": "Relais et participation à l’enquête du ministère de la Culture sur l’impact économique du COVID‑19 pour les têtes de réseau culturelles.",
+                                          "children": [
+                                            {
+                                              "name": "53",
+                                              "summary": "Co‑organisation d’un séminaire sur la conservation numérique (PIN/Aristote/AAF) : élaboration du programme et coordination logistique.",
+                                              "children": [
+                                                {
+                                                  "name": "54",
+                                                  "summary": "Publication d’un décret sur l’intégrité scientifique et élaboration d’un communiqué de l’AAF appelant à coopération inter‑métiers autour des archives de recherche.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "50",
+                                          "summary": "Communiqué et échanges sur le décret relatif à l’intégrité scientifique et le rôle des archives dans la conservation des données de recherche.",
+                                          "children": [
+                                            {
+                                              "name": "54",
+                                              "summary": "Participation à l’enquête du ministère de la Culture sur l’impact du COVID‑19 : remplissage du questionnaire pour têtes de réseau.",
+                                              "children": [
+                                                {
+                                                  "name": "55",
+                                                  "summary": "Rédaction et diffusion d’un communiqué de presse sur la destruction d’archives à Menton et démarches vers le Procureur et médias.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "25",
+                                  "summary": "Mobilisation et soutien aux archivistes afghans en difficulté (demandes d'aide, demandes de visa, lettres de soutien et relais institutionnels).",
+                                  "children": [
+                                    {
+                                      "name": "37",
+                                      "summary": "Communiqué et échanges sur le décret relatif à l’intégrité scientifique et le rôle des archivistes dans la conservation des données de recherche.",
+                                      "children": [
+                                        {
+                                          "name": "51",
+                                          "summary": "Finalisation et diffusion d’un communiqué de presse sur la destruction d’archives à Menton : relectures, validation et envoi aux autorités.",
+                                          "children": [
+                                            {
+                                              "name": "55",
+                                              "summary": "Parution d’un décret sur l’intégrité scientifique : communication AAF sur archivage des données de recherche et réactions variées au communiqué.",
+                                              "children": [
+                                                {
+                                                  "name": "56",
+                                                  "summary": "Suivi d’un nouveau recours juridique concernant l’accès et la communication des archives et discussion des arguments juridiques (IGI 1300).",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "38",
+                                      "summary": "Rédaction et diffusion d’un communiqué de presse alertant sur la destruction d’archives municipales à Menton et actions juridiques envisagées.",
+                                      "children": [
+                                        {
+                                          "name": "52",
+                                          "summary": "Veille et diffusion d’articles et ressources sur l’histoire coloniale et postcoloniale, débats et accès aux archives (histoirecoloniale.net).",
+                                          "children": [
+                                            {
+                                              "name": "56",
+                                              "summary": "Validation finale et diffusion du communiqué de presse relatif à la destruction illégale d’archives à Menton (coordination des relectures).",
+                                              "children": [
+                                                {
+                                                  "name": "57",
+                                                  "summary": "Coordination d’actions et de lettres de soutien pour des archivistes afghans en difficulté et démarches diplomatiques pour hébergement/visa.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "18",
+                              "summary": "Informations et événements autour de l'histoire coloniale et postcoloniale, accès aux archives coloniales et calendrier de séminaires/rencontres associatives.",
+                              "children": [
+                                {
+                                  "name": "26",
+                                  "summary": "Veille et informations du site « Histoire coloniale et postcoloniale » ainsi que débats sur l’accès aux archives du passé colonial",
+                                  "children": [
+                                    {
+                                      "name": "39",
+                                      "summary": "Veille et diffusion de la lettre d’information du site Histoire coloniale et postcoloniale (nouveautés et articles).",
+                                      "children": [
+                                        {
+                                          "name": "53",
+                                          "summary": "Veille et informations du site « Histoire coloniale et postcoloniale » ainsi que débats sur l’accès aux archives du passé colonial",
+                                          "children": [
+                                            {
+                                              "name": "57",
+                                              "summary": "Coordination pour organiser (co‑piloter) un séminaire sur la préservation numérique et questions pratiques liées aux référentiels sectoriels.",
+                                              "children": [
+                                                {
+                                                  "name": "58",
+                                                  "summary": "Veille et échanges sur l’accès aux archives coloniales, débats médiatiques (Rwanda, essais nucléaires) et mobilisation pour transparence et déclassification.",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "12",
+                          "summary": "Mobilisation pour aider Mme Masuma Nazari, ancienne directrice des archives afghanes, à obtenir soutien, visa ou protection en France.",
+                          "children": [
+                            {
+                              "name": "19",
+                              "summary": "Mobilisation et aides pour l'ancienne directrice des archives afghanes et archivistes afghans : démarches de soutien, contacts diplomatiques et options de relogement/asile.",
+                              "children": [
+                                {
+                                  "name": "27",
+                                  "summary": "Diffusion d’offres d’emploi et gestion de la rubrique Emploi du site de l’AAF pour le secteur archivistique",
+                                  "children": [
+                                    {
+                                      "name": "40",
+                                      "summary": "Soutien et démarches pour l’obtention d’un visa/assistance à Mme Masuma Nazari, ancienne directrice des Archives nationales afghanes.",
+                                      "children": [
+                                        {
+                                          "name": "54",
+                                          "summary": "Diffusion d’offres d’emploi et gestion de la rubrique Emploi du site de l’AAF pour le secteur archivistique",
+                                          "children": [
+                                            {
+                                              "name": "58",
+                                              "summary": "Diffusion d’offres d’emploi et gestion de la rubrique Emploi du site de l’AAF pour le secteur archivistique",
+                                              "children": [
+                                                {
+                                                  "name": "59",
+                                                  "summary": "Diffusion d’offres d’emploi et gestion de la rubrique Emploi du site de l’AAF pour le secteur archivistique",
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

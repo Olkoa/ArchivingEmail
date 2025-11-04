@@ -1,0 +1,20 @@
+{
+  "9_Celine": {
+    "mailboxs": {
+      "9Celine": {
+        "Positions": {},
+        "Entity": {
+          "name": "9_Celine",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "9Celine@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "9_Celine",
+          "description": "9Celine9Celine9Celine9Celine"
+        }
+      }
+    }
+  }
+}
