@@ -477,6 +477,9 @@ def create_email_table_with_viewer(
         st.info("Aucun email à afficher.")
         return
 
+    # Reset index to ensure positional lookups stay aligned with display ordering
+    emails_df = emails_df.reset_index(drop=True)
+
     print(emails_df.columns)
     # Create a copy with limited columns for display
     display_df = emails_df[['date', 'from', 'recipient_email', 'subject']].copy() # to = recipient_email
