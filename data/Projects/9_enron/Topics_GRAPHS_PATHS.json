@@ -1,0 +1,16 @@
+{
+  "name": "1",
+  "summary": "Annonces internes diverses couvrant l’informatique et les politiques d’e‑mail, des offres de services et des informations de voyage",
+  "children": [
+    {
+      "name": "1",
+      "summary": "Annonces internes et communications administratives variées (politique de conservation des courriels, rapports et mises à jour Transwestern, présentations et infos sur outils comme Envision/ClickAtHome).",
+      "children": []
+    },
+    {
+      "name": "2",
+      "summary": "Échanges personnels et informations pratiques (photos de voyage, invitations/événements locaux, promotions de voyage et conseils d'itinéraire).",
+      "children": []
+    }
+  ]
+}

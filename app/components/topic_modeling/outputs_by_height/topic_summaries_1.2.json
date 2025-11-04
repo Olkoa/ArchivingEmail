@@ -1,17 +1,10 @@
 {
-  "1": "Coordination des actions de communication, prises de position et démarches parlementaires de l'AAF (campagnes, communiqués, amendements et tables rondes).",
-  "2": "Organisation logistique et convocations aux réunions et webconférences de l'AAF (liens Zoom/GoToMeeting, AG, COPIL, bureaux).",
-  "3": "Questions internes de gestion du personnel, reprise d'activité et fonctionnement de la permanence de l'AAF (absences, recrutements, missions).",
-  "4": "Partenariats et projets numériques (Wikimédia, label Culture Libre, conservation numérique) et coordination des conventions et séminaires associés.",
-  "5": "Suivi de la gouvernance associative, finances, publications et partenariats institutionnels de l'AAF.",
-  "6": "Notifications d'erreurs de messagerie et retours de courriels non distribués, accompagnés de documents techniques et échanges d'extractions.",
-  "7": "Veille et collecte de liens et publications sur les réseaux sociaux et plateformes pour la rédaction, la communication et le plaidoyer.",
-  "8": "Préparations de réunions COPIL et points pour la stratégie de plaidoyer (notes et topos prévus).",
-  "9": "Projets de publications numériques et coordination avec l'ENSSIB, organisation d'événements et travaux sur le registre des entrées et la transition numérique.",
-  "10": "Enjeux et débats autour des données de santé et du dossier médical partagé (confidentialité, risques, réunions avec acteurs institutionnels).",
-  "11": "Rédaction et diffusion de prises de position et contenus sur l'accès aux archives classifiées et information historique/coloniale.",
-  "12": "Gestion des adhésions et actions de solidarité/politiques liées aux archives (rapports Rwanda, situation Afghanistan, soutien Ukraine).",
-  "13": "Organisation d'événements et webinaires (notamment RiC-O Converter), convocations et comptes rendus de réunions professionnelles et congrès.",
-  "14": "Gestion des offres d'emploi et recrutements, questions pratiques de l'AAF (vente en ligne de publications, migration de listes, RH).",
-  "15": "Questions éditoriales et logistiques autour de la Gazette et des publications (tirage, prix, subventions et diffusion)."
+  "0": "Promotions et mises à jour de services informatiques (Lenovo, DigitalOcean, OSF) et discussion d'achat d'un portable.",
+  "1": "Offres, rappels et confirmations de voyage de Booking.com (hébergements et attractions à Paris et ailleurs).",
+  "2": "Coordination d'événements, rencontres et formations autour de la civictech/govtech et de l'open data (Datactivist).",
+  "3": "Promotions de produits d'impression personnalisée (stickers, étiquettes, ruban, magnets) par Sticker Mule.",
+  "4": "Infolettres, appels à candidatures et actualités du Tank Media pour l'incubation et l'entrepreneuriat dans les médias.",
+  "5": "Rapports DMARC automatisés pour les domaines (datactivi.st, teamopendata.org) indiquant l'état des envois.",
+  "6": "Actualités, webinars et formations Zoho CRM (communauté française ZSphere et offres de formation).",
+  "7": "Rappels Zoho Expense concernant des dépenses enregistrées mais non déclarées."
 }

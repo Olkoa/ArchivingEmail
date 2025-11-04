@@ -9,6 +9,25 @@ import pandas as pd
 import duckdb
 from dotenv import load_dotenv
 
+# Compatibility patch: newer sentence-transformers versions removed StaticEmbedding
+try:
+    from sentence_transformers.models import StaticEmbedding  # noqa: F401
+except ImportError:
+    try:
+        import sentence_transformers.models as st_models
+    except Exception as st_import_error:  # pragma: no cover - diagnostic
+        print(f"[topics] Unable to patch sentence_transformers models: {st_import_error}")
+    else:
+        class StaticEmbedding:  # Minimal fallback for BERTopic's model2vec support
+            @classmethod
+            def from_model2vec(cls, *_args, **_kwargs):
+                raise ImportError(
+                    "StaticEmbedding is not available in this version of sentence-transformers. "
+                    "Please install sentence-transformers<3.0 or avoid model2vec backends."
+                )
+
+        st_models.StaticEmbedding = StaticEmbedding
+
 from .eml_json import run_email_extraction
 from .bertopicgpu import bertopic_modeling
 from .transform_bert import transform_bert

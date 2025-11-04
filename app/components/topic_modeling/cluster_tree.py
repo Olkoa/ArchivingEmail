@@ -159,21 +159,60 @@ def build_cluster_tree(topic_graphs_path: Path | str | None = None):
             normalized[key_str] = value
         summaries_by_height[h] = normalized
 
-    # Function to get summary or fallback to Merge <height>
-    def get_summary_or_merge(cluster_id, height):
+    # Load base topic summaries for fallback
+    topic_summary_map = {}
+    merged_path = MODULE_DIR / "merged.json"
+    if merged_path.exists():
+        try:
+            with merged_path.open("r", encoding="utf-8") as merged_handle:
+                topic_summary_map = json.load(merged_handle)
+        except Exception as merged_error:
+            print(f"[topics] Unable to load merged summaries fallback: {merged_error}")
+            topic_summary_map = {}
+
+    def _normalize_sentence(text: str) -> str:
+        """Extract the first meaningful segment from a summary."""
+        if not text:
+            return ""
+        first_segment = text.split(".")[0]
+        first_segment = first_segment.strip(" -:;")
+        return first_segment or text.strip()
+
+    def _lookup_topic_summary(topic_id):
+        key = str(topic_id)
+        if key in topic_summary_map:
+            return topic_summary_map[key]
+        prefixed = f"topic_{key}"
+        return topic_summary_map.get(prefixed, "")
+
+    # Function to get summary or build one from child topics
+    def get_summary_or_merge(cluster_id, height, topics):
         lookup_key = f"topic_{cluster_id}"
         summary = summaries_by_height.get(height, {}).get(lookup_key, "")
         if summary and summary.strip():
-            return summary
-        else:
-            return f"Merge {height}"
+            return summary.strip()
+
+        collected = []
+        for topic in topics or []:
+            topic_summary = _lookup_topic_summary(topic)
+            if topic_summary:
+                normalized = _normalize_sentence(topic_summary)
+                if normalized and normalized not in collected:
+                    collected.append(normalized)
+            if len(collected) >= 3:
+                break
+
+        if collected:
+            return " / ".join(collected[:3])
+
+        return f"Cluster {cluster_id}"
 
 
     # Build a node with name, summary, children
     def build_tree_node(height, cluster_id, topics):
         return {
             "name": str(cluster_id),
-            "summary": get_summary_or_merge(cluster_id, height),
+            "summary": get_summary_or_merge(cluster_id, height, topics),
             "children": []
         }
 
@@ -211,9 +250,16 @@ def build_cluster_tree(topic_graphs_path: Path | str | None = None):
     if len(root_children) == 1:
         root_node = root_children[0]
     else:
+        child_summaries = [
+            child.get("summary", "") for child in root_children if child.get("summary")
+        ]
+        if child_summaries:
+            synthesized = " / ".join(child_summaries[:3])
+        else:
+            synthesized = f"Synthèse {top_height}"
         root_node = {
             "name": "root",
-            "summary": f"Merge {top_height}",
+            "summary": synthesized,
             "children": root_children
         }
 

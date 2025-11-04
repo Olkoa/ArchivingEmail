@@ -1,0 +1,250 @@
+{
+  "name": "1",
+  "summary": "Communications Booking / Annonces produit et maintenance de services cloud et plateformes (DigitalOcean : nouveaux plans Droplets, Spaces, Block Storage, reboots) et mises à jour OSF / Notifications automatiques de non‑remise d’emails (bounces) et erreurs de livraison",
+  "children": [
+    {
+      "name": "1",
+      "summary": "Échanges professionnels et organisationnels autour de projets Open Data, formations, rendez‑vous et devis entre collègues.",
+      "children": [
+        {
+          "name": "1",
+          "summary": "Échanges professionnels pour organiser projets et événements : réunions, planning, devis et formations.",
+          "children": [
+            {
+              "name": "1",
+              "summary": "Échanges professionnels et organisationnels autour d'événements, candidatures et projets open data/data science.",
+              "children": [
+                {
+                  "name": "1",
+                  "summary": "Offres, rappels et confirmations de voyage de Booking.com (hébergements et attractions à Paris et ailleurs).",
+                  "children": [
+                    {
+                      "name": "1",
+                      "summary": "Promotions et réductions Lenovo sur ordinateurs portables, stations de travail et accessoires.",
+                      "children": [
+                        {
+                          "name": "1",
+                          "summary": "Promotions et offres commerciales de Lenovo sur ordinateurs portables (ThinkPad, Ideapad, Legion) et accessoires.",
+                          "children": []
+                        },
+                        {
+                          "name": "2",
+                          "summary": "Communications liées au voyage (Booking.com) : confirmation de réservation, offres d'attractions et demandes d'avis.",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "2",
+                  "summary": "Coordination d'événements, rencontres et formations autour de la civictech/govtech et de l'open data (Datactivist).",
+                  "children": [
+                    {
+                      "name": "2",
+                      "summary": "Offres et promotions de Booking.com pour hébergements, bons plans (surtout Paris), parrainage et guides locaux.",
+                      "children": [
+                        {
+                          "name": "3",
+                          "summary": "Newsletters et échanges communautaires autour des médias, de l'open data, d'événements et d'opportunités (TeamOpenData, Tank Media, coordination interne).",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2",
+      "summary": "Notifications automatiques de non‑remise d’emails (bounces) et erreurs de livraison / Promotions et offres d’échantillons pour produits d’impression personnalisée (autocollants, magnets, rubans, mailers) par Sticker Mule / Alertes/rapports Google concernant les domaines teamopendata",
+      "children": [
+        {
+          "name": "2",
+          "summary": "Notifications et rapports automatiques administratifs et techniques : rapports de domaine, alertes Zoho Expense et communications CRM.",
+          "children": [
+            {
+              "name": "2",
+              "summary": "Campagnes promotionnelles de Volotea pour vols à bas prix et infolettres liées au secteur média (appel à projets).",
+              "children": [
+                {
+                  "name": "3",
+                  "summary": "Promotions de produits d'impression personnalisée (stickers, étiquettes, ruban, magnets) par Sticker Mule.",
+                  "children": [
+                    {
+                      "name": "3",
+                      "summary": "Communications internes et opérationnelles de Datactivist/TeamOpenData : congés, réunions, newsletters, projets et notifications administratives.",
+                      "children": [
+                        {
+                          "name": "4",
+                          "summary": "Bulletins d'information et communications pour les Scop (lettres d'information, formations et ressources coopératives).",
+                          "children": []
+                        },
+                        {
+                          "name": "5",
+                          "summary": "Notifications d'échecs de livraison d'e-mails (messages renvoyés au sender / bounces).",
+                          "children": []
+                        },
+                        {
+                          "name": "6",
+                          "summary": "Notifications de nouvelles réponses Typeform pour DODOdata concernant des demandes de jeux de données et services associés.",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "4",
+                      "summary": "Notifications Typeform pour DODOdata signalant des demandes de jeux de données (cartes scolaires, subventions, occupation du domaine public, etc.).",
+                      "children": [
+                        {
+                          "name": "7",
+                          "summary": "Promotions Sticker Mule pour produits d'impression personnalisée : rubans d'emballage, échantillons, étiquettes, aimants et boutons.",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "4",
+                  "summary": "Infolettres, appels à candidatures et actualités du Tank Media pour l'incubation et l'entrepreneuriat dans les médias.",
+                  "children": [
+                    {
+                      "name": "5",
+                      "summary": "Promotions de Sticker Mule pour échantillons et produits personnalisés (stickers, magnets, rubans, boutons).",
+                      "children": [
+                        {
+                          "name": "8",
+                          "summary": "Offres promotionnelles Volotea : ventes flash de billets à bas prix et campagnes marketing (Saint-Valentin, enfants gratuits, etc.).",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "3",
+          "summary": "Alertes/rapports Google concernant les domaines teamopendata / Formations et actualités Zoho (webinaires, formations Zoho CRM/marketing et nouveautés produit) / Promotions commerciales de la compagnie Volotea (billets à bas prix et offres saisonnières)",
+          "children": [
+            {
+              "name": "3",
+              "summary": "Notifications automatisées de rapports Google concernant les domaines datactivi.st et teamopendata.org.",
+              "children": [
+                {
+                  "name": "5",
+                  "summary": "Rapports DMARC automatisés pour les domaines (datactivi.st, teamopendata.org) indiquant l'état des envois.",
+                  "children": [
+                    {
+                      "name": "6",
+                      "summary": "Promotions Volotea pour vols à bas prix (offres 1–5€), abonnements et offres spéciales.",
+                      "children": [
+                        {
+                          "name": "9",
+                          "summary": "Veille et newsletters technologiques et médias (annonce JupyterLab, infolettres et actualités du Tank Media).",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "7",
+                      "summary": "Infolettre du Tank Media : actualités, veille, appels à candidatures et événements pour médias et incubation.",
+                      "children": [
+                        {
+                          "name": "10",
+                          "summary": "Rapports automatisés de Google concernant les domaines datactivi.st et teamopendata.org (signalements/rapports de domaine).",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "4",
+              "summary": "Rappels Zoho Expense demandant de soumettre des dépenses encore non déclarées.",
+              "children": [
+                {
+                  "name": "6",
+                  "summary": "Actualités, webinars et formations Zoho CRM (communauté française ZSphere et offres de formation).",
+                  "children": [
+                    {
+                      "name": "8",
+                      "summary": "Rapports/alertes Google signalant des problèmes ou signalements liés aux domaines datactivi.st et teamopendata.org.",
+                      "children": [
+                        {
+                          "name": "11",
+                          "summary": "Rappels et invitations pour le salon AP Connect : téléchargement de badges visiteurs et appels à exposer.",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "9",
+                      "summary": "E-mails d'inscription et rappels pour télécharger le badge visiteur et derniers appels à exposer pour un salon/événement.",
+                      "children": [
+                        {
+                          "name": "12",
+                          "summary": "Newsletters et annonces Zoho / ZSphere : nouveautés Zoho CRM, PageSense, formations, webinaires et événements locaux.",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "7",
+                  "summary": "Rappels Zoho Expense concernant des dépenses enregistrées mais non déclarées.",
+                  "children": [
+                    {
+                      "name": "10",
+                      "summary": "Annonces de formations et webinaires Zoho/ZSphere sur marketing digital, CRM et événements communautaires.",
+                      "children": [
+                        {
+                          "name": "13",
+                          "summary": "Rappels répétés de Zoho Expense demandant de déclarer des dépenses enregistrées mais non soumises.",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "5",
+              "summary": "Rappels de dépenses non déclarées envoyés par Zoho Expense",
+              "children": [
+                {
+                  "name": "8",
+                  "summary": "Rappels de dépenses non déclarées envoyés par Zoho Expense",
+                  "children": [
+                    {
+                      "name": "11",
+                      "summary": "Rappels automatiques Zoho Expense concernant des dépenses enregistrées mais non encore déclarées/soumises.",
+                      "children": [
+                        {
+                          "name": "14",
+                          "summary": "Rappels de dépenses non déclarées envoyés par Zoho Expense",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

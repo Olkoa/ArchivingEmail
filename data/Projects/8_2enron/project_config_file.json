@@ -1,0 +1,20 @@
+{
+  "8_2enron": {
+    "mailboxs": {
+      "82enron": {
+        "Positions": {},
+        "Entity": {
+          "name": "82enron",
+          "alias_names": [],
+          "is_physical_person": true,
+          "email_adress": "82enron@gmail.com",
+          "email_adress_aliases": []
+        },
+        "Organisation": {
+          "name": "82enron",
+          "description": "82enron82enron82enron82enron"
+        }
+      }
+    }
+  }
+}
