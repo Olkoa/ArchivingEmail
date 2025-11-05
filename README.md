@@ -104,6 +104,18 @@ See `README_V2.md` for additional deployment notes; it complements (rather than 
 
 Each stage is available through Manage Projects as timed steps, but you can invoke any component directly from the CLI if needed.
 
+
+## Models & Usage Overview (`models/`)
+
+| Component | Purpose & Backing Models |
+|------------|--------------------------|
+| **RAG – Retrieval** | Dense passage retrieval using **`jinaai/jina-colbert-v2`** or **`colbert-ir/colbertv2.0`** for late interaction embeddings. Integrated via `src/rag.initialization` and `src/rag.retrieval`. |
+| **RAG – Generation** | Answer synthesis powered by **LLM (GPT or Gemini)**, combining retrieved evidence with citations. Used in the **Chat + RAG** page. |
+| **Graphrag (mini graph)** | Node and relation summaries generated via **LLM (GPT)** and visualized using **PyVis**. Found in the **Graph** section of the app. |
+| **Graphs d’exploration de la boîte mail** | Interactive mailbox graph exploration rendered with **D3.js** (no ML model involved). |
+| **Recherche Sémantique** | Embedding-based semantic search using **`sentence-transformers/all-MiniLM-L6-v2`**. Handles chunk-level retrieval and deduplication back to message-level hits. |
+| **Embeddings pour Topics** | Multilingual topic clustering and hierarchical summaries built with **`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`** (embeddings) + **LLM (GPT)** for cluster titles and abstracts. |
+
 ---
 
 ## Streamlit Application Tour (`app/app.py`)
