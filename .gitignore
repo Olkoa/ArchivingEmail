@@ -56,3 +56,9 @@ ju.pub
 
 
 .ragatouille copy
+
+# Generated model indexes and temp data (removed from LFS)
+.ragatouille/
+**/temp_graph_data.csv
+**/Graphs/
+0.residuals.pt
