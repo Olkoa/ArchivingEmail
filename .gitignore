@@ -62,3 +62,10 @@ ju.pub
 **/temp_graph_data.csv
 **/Graphs/
 0.residuals.pt
+
+# Large generated data files
+app/components/topic_modeling/bertopic_output.csv
+**/semantic_search/topic/temp_chunks.csv
+**/emails_with_embeddings*.pkl
+**/emails_with_clusters.pkl
+**/emails_with_embeddings.pkl
